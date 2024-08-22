@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "Backend.Api": {
+    "TdmPrototypeBackend": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

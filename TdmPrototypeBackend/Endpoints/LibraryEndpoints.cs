@@ -1,9 +1,9 @@
-﻿using Backend.Api.Models;
-using Backend.Api.Services;
+﻿using TdmPrototypeBackend.Models;
+using TdmPrototypeBackend.Services;
 using FluentValidation;
 using FluentValidation.Results;
 
-namespace Backend.Api.Endpoints;
+namespace TdmPrototypeBackend.Endpoints;
 
 public static class LibraryEndpoints
 {

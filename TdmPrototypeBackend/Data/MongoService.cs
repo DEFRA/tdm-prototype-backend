@@ -1,6 +1,6 @@
 ﻿using MongoDB.Driver;
 
-namespace Backend.Api.Data;
+namespace TdmPrototypeBackend.Data;
 
 public abstract class MongoService<T>
 {

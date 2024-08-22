@@ -1,6 +1,6 @@
-﻿using Backend.Api.Models;
+﻿using TdmPrototypeBackend.Models;
 
-namespace Backend.Api.Services;
+namespace TdmPrototypeBackend.Services;
 
 public interface IBookService
 {

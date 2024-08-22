@@ -1,4 +1,4 @@
-namespace Backend.Api;
+namespace TdmPrototypeBackend;
 
 public interface IApiMarker
 {

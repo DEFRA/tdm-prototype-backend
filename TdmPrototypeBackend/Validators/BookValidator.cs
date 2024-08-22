@@ -1,7 +1,7 @@
-﻿using Backend.Api.Models;
+﻿using TdmPrototypeBackend.Models;
 using FluentValidation;
 
-namespace Backend.Api.Validators;
+namespace TdmPrototypeBackend.Validators;
 
 public class BookValidator : AbstractValidator<Book>
 {

@@ -1,4 +1,4 @@
-namespace Backend.Api.Config;
+namespace TdmPrototypeBackend.Config;
 
 public static class Swagger
 {
