@@ -27,10 +27,19 @@ logger.Information("Starting application");
 // Load certificates into Trust Store - Note must happen before Mongo and Http client connections 
 TrustStore.SetupTrustStore(logger);
 
+var mongoUri = builder.Configuration.GetValue<string>("Mongo:DatabaseUri")!;
+var mongoDatabaseName = builder.Configuration.GetValue<string>("Mongo:DatabaseName")!;
+    
+if (builder.IsDevMode())
+{
+    logger.Information("MongoDB Connection mongoUri={mongoUri}, mongoDatabaseName={mongoDatabaseName}",
+        mongoUri, mongoDatabaseName);
+}
+
 // Mongo
 builder.Services.AddSingleton<IMongoDbClientFactory>(_ =>
-    new MongoDbClientFactory(builder.Configuration.GetValue<string>("Mongo:DatabaseUri")!,
-        builder.Configuration.GetValue<string>("Mongo:DatabaseName")!));
+    new MongoDbClientFactory(mongoUri,
+        mongoDatabaseName));
 
 // our service
 builder.Services.AddSingleton<IBookService, BookService>();
