@@ -33,3 +33,5 @@ Run CDP-Deployments application:
 ```bash
 dotnet run --project TdmPrototypeBackend --launch-profile Development
 ```
+
+### Testing push
