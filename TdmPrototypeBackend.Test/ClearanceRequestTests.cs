@@ -1,0 +1,32 @@
+using System.Xml.Schema;
+// using JsonApiConsumer;
+using JsonApiConsumer;
+using MongoDB.Bson;
+using Serilog.Core;
+using TdmDataModel;
+
+namespace TdmPrototypeBackend.Test;
+
+using FluentValidation.TestHelper;
+
+public class ClearanceRequestTests
+{
+    
+    [Fact]
+    public void CreateRequest()
+    {
+        var r = new ClearanceRequest() { SourceSystem = "AAA" };
+
+        JsonApiConsumer.Response<ClearanceRequest> response = JsonApiConsumer.JsonApiConsumer.Create<ClearanceRequest, ClearanceRequest>(
+            model: r,
+            baseURI: "https://localhost:7094",
+            path: "clearancerequests"
+            // headers: new Dictionary<string, string>() { { "HEADER_API_KEY", "HEADER_API_KEY_VALUE" } }
+        );
+        
+        // Console.WriteLine("Response from API {code}", response.HttpStatusCode);
+        Console.WriteLine("Response from API {0}", response.ToJson());
+        Assert.Equal(200, (int)response.HttpStatusCode);
+    }
+    
+}
