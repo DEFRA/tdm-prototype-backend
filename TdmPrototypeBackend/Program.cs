@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Config;
 using TdmPrototypeBackend.Data;
@@ -86,8 +87,10 @@ builder.Services.AddSingleton<IMongoDatabase>(_ => factory.CreateClient().GetDat
 builder.Services.AddJsonApi(resources: resourceGraphBuilder =>
 {
     resourceGraphBuilder.Add<ClearanceRequest, string?>();
+    resourceGraphBuilder.Add<Item, string?>();
 });
 builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.AddCurrentAssembly());
+// builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.AddAssembly(Assembly.Load("TdmDataModel")));
 builder.Services.AddJsonApiMongoDb();
 
 builder.Services.AddScoped(typeof(IResourceReadRepository<,>), typeof(MongoRepository<,>));

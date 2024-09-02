@@ -15,14 +15,17 @@ public class ClearanceRequestItem
     public string TaricCommodityCode { get; set; } = default!;
 }
 
-[Resource]
+// [Resource]
 public class ClearanceRequest : HexStringMongoIdentifiable
 {
+    [Attr]
     public string SourceSystem { get; set; } = default!;
 
+    [Attr]
     public string DestinationSystem { get; set; } = default!;
     
-    public int CorrelationId { get; set; }
+    [Attr]
+    public int CorrelationId { get; set; } = default!;
 
     // public ClearanceRequestItem[] Items = [];
 

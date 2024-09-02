@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.WebUtilities;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using JsonApiDotNetCore.Configuration;
 
 namespace JsonApiConsumer
 {
@@ -174,7 +177,24 @@ namespace JsonApiConsumer
                     }
                 }
 
-                string stringData = JsonConvert.SerializeObject(model, settings);
+                string stringData = Newtonsoft.Json.JsonConvert.SerializeObject(model, settings);
+                // JsonApiOptions options = new JsonApiOptions
+                // {
+                //     Namespace = "api",
+                //     UseRelativeLinks = true,
+                //     IncludeTotalResourceCount = true,
+                //     IncludeExceptionStackTraceInErrors = true,
+                //     IncludeRequestBodyInErrors = true,
+                //     
+                //     SerializerOptions =
+                //     {
+                //         WriteIndented = true
+                //     }
+                // };
+                //
+                // options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                //
+                // string stringData = System.Text.Json.JsonSerializer.Serialize(model, ((IJsonApiOptions)options).SerializerWriteOptions);
 
                 var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, strContentType);
 
