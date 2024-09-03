@@ -17,7 +17,7 @@ public class ClearanceRequestTests
     [Fact]
     public void CreateRequest()
     {
-        var r = new ClearanceRequest() { SourceSystem = "AAA" };
+        var r = new ClearanceRequest() { SourceSystem = "AAA", DestinationSystem = "BBB"};
 
         JsonApiConsumer.Response<ClearanceRequest> response = JsonApiConsumer.JsonApiConsumer.Create<ClearanceRequest, ClearanceRequest>(
             model: r,
@@ -28,7 +28,7 @@ public class ClearanceRequestTests
         
         // Console.WriteLine("Response from API {code}", response.HttpStatusCode);
         Console.WriteLine("Response from API {0}", response.ToJson());
-        Assert.Equal(200, (int)response.HttpStatusCode);
+        Assert.Equal(201, (int)response.HttpStatusCode);
     }
     
 }

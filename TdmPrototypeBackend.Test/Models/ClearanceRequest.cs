@@ -18,6 +18,8 @@ public class ClearanceRequestItem
 [Resource]
 public class ClearanceRequest : HexStringMongoIdentifiable
 {
+    public string Type { get; set; } = "clearanceRequests";
+    
     [Attr]
     public string SourceSystem { get; set; } = default!;
 

@@ -29,13 +29,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\jsonapi-consumer\jsonapi-consumer.csproj" />
+    <ProjectReference Include="..\libs\jsonapi-consumer\jsonapi-consumer.csproj" />
     <ProjectReference Include="..\TdmPrototypeBackend\TdmPrototypeBackend.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="JsonApiSerializer" Version="1.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="JsonApiSerializer" Version="2.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="1.1.2" />
   </ItemGroup>
 </Project>
