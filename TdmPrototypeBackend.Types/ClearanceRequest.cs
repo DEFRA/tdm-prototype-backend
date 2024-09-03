@@ -1,12 +1,8 @@
-﻿using System.Text.Json.Serialization;
-using JsonApiDotNetCore.MongoDb.Resources;
-using JsonApiDotNetCore.Resources;
+﻿using JsonApiDotNetCore.MongoDb.Resources;
 using JsonApiDotNetCore.Resources.Annotations;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson.Serialization.IdGenerators;
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
+// namespace TdmPrototypeBackend.Models;
 
 public class ClearanceRequestItem
 {
@@ -15,9 +11,12 @@ public class ClearanceRequestItem
     public string TaricCommodityCode { get; set; } = default!;
 }
 
-// [Resource]
+[Resource]
 public class ClearanceRequest : HexStringMongoIdentifiable
 {
+    // This field is used by the jsonapi-consumer to 
+    public string Type { get; set; } = "clearanceRequests";
+    
     [Attr]
     public string SourceSystem { get; set; } = default!;
 

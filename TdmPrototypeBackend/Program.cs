@@ -11,7 +11,8 @@ using JsonApiDotNetCore.Repositories;
 using Microsoft.AspNetCore.HttpLogging;
 using MongoDB.Driver;
 using Serilog;
-using TdmDataModel;
+using TdmPrototypeBackend.Types;
+// using TdmPrototypeBackend.Models;
 
 //-------- Configure the WebApplication builder------------------//
 
@@ -87,10 +88,11 @@ builder.Services.AddSingleton<IMongoDatabase>(_ => factory.CreateClient().GetDat
 builder.Services.AddJsonApi(resources: resourceGraphBuilder =>
 {
     resourceGraphBuilder.Add<ClearanceRequest, string?>();
-    resourceGraphBuilder.Add<Item, string?>();
+    // resourceGraphBuilder.Add<Item, string?>();
 });
-builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.AddCurrentAssembly());
-// builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.AddAssembly(Assembly.Load("TdmDataModel")));
+// builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.AddCurrentAssembly());
+// builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.());
+builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.AddAssembly(Assembly.Load("TdmPrototypeBackend.Types")));
 builder.Services.AddJsonApiMongoDb();
 
 builder.Services.AddScoped(typeof(IResourceReadRepository<,>), typeof(MongoRepository<,>));

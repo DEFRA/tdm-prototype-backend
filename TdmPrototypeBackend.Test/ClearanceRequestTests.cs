@@ -3,9 +3,9 @@ using System.Xml.Schema;
 using JsonApiConsumer;
 using MongoDB.Bson;
 using Serilog.Core;
-using TdmPrototypeBackend.Test.Models;
+// using TdmPrototypeBackend.Test.Models;
 
-// using TdmDataModel;
+using TdmPrototypeBackend.Types;
 
 namespace TdmPrototypeBackend.Test;
 
@@ -22,7 +22,7 @@ public class ClearanceRequestTests
         JsonApiConsumer.Response<ClearanceRequest> response = JsonApiConsumer.JsonApiConsumer.Create<ClearanceRequest, ClearanceRequest>(
             model: r,
             baseURI: "https://localhost:7094",
-            path: "clearanceRequests"
+            path: "clearancerequests"
             // headers: new Dictionary<string, string>() { { "HEADER_API_KEY", "HEADER_API_KEY_VALUE" } }
         );
         
