@@ -88,6 +88,8 @@ builder.Services.AddSingleton<IMongoDatabase>(_ => factory.CreateClient().GetDat
 builder.Services.AddJsonApi(resources: resourceGraphBuilder =>
 {
     resourceGraphBuilder.Add<ClearanceRequest, string?>();
+    resourceGraphBuilder.Add<GvmsGmr, string?>();
+    resourceGraphBuilder.Add<IpaffsNotification, string?>();
     // resourceGraphBuilder.Add<Item, string?>();
 });
 // builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.AddCurrentAssembly());

@@ -24,7 +24,7 @@ public class ClearanceRequest : HexStringMongoIdentifiable
     public string DestinationSystem { get; set; } = default!;
     
     [Attr]
-    public int CorrelationId { get; set; } = default!;
+    public int CorrelationID { get; set; } = default!;
 
     // public ClearanceRequestItem[] Items = [];
 
