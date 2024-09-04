@@ -12,7 +12,7 @@ public enum GvmsGmrState
 [Resource]
 public class GvmsGmr : FreeStringMongoIdentifiable
 {
-    // This field is used by the jsonapi-consumer to 
+    // This field is used by the jsonapi-consumer to control the correct casing in the type field 
     public string Type { get; set; } = "gvmsGmrs";
     
     // [Attr]

@@ -178,6 +178,9 @@ namespace JsonApiConsumer
                     }
                 }
 
+                // var doc = new DocumentRoot<TRequest> { Data = model };
+                // string stringData = Newtonsoft.Json.JsonConvert.SerializeObject(doc, settings);
+
                 string stringData = Newtonsoft.Json.JsonConvert.SerializeObject(model, settings);
                 // JsonApiOptions options = new JsonApiOptions
                 // {

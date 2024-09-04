@@ -2,9 +2,13 @@
 using JsonApiDotNetCore.MongoDb.Resources;
 using JsonApiDotNetCore.Resources.Annotations;
 using MongoDB.Bson.Serialization.Attributes;
+// using JsonApiSerializer.JsonApi;
 
 namespace TdmPrototypeBackend.Types;
 // namespace TdmPrototypeBackend.Models;
+
+// Recreation of ClearanceRequest schema from
+// https://eaflood.atlassian.net/wiki/spaces/TRADE/pages/5104664583/PHA+Port+Health+Authority+Integration+Data+Schema
 
 public class ClearanceRequestItem
 {
@@ -14,7 +18,7 @@ public class ClearanceRequestItem
 }
 
 [Resource]
-public class ClearanceRequest : FreeStringMongoIdentifiable
+public class ClearanceRequest : CustomStringMongoIdentifiable
 {
     // This field is used by the jsonapi-consumer to control the correct casing in the type field
     public string Type { get; set; } = "clearanceRequests";
@@ -29,14 +33,23 @@ public class ClearanceRequest : FreeStringMongoIdentifiable
     public int CorrelationID { get; set; } = default!;
 
     // public ClearanceRequestItem[] Items = [];
+    // [BsonIgnore]
+    // [JsonIgnore]
+    // // [Attr]
+    // // [NoResourceAttribute]
+    // public new string? StringId2
+    // {
+    //     get => "AAA";
+    //     set => Id = value;
+    // }
     
     // // Trying to remove this from the serialised message
     // [BsonIgnore]
     // [JsonIgnore]
     // // [NoResourceAttribute]
-    // public string? StringId
+    // public new string? StringId
     // {
-    //     get => Id;
+    //     get => "AAA";
     //     set => Id = value;
     // }
 

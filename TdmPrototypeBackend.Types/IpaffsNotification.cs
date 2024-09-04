@@ -6,11 +6,8 @@ namespace TdmPrototypeBackend.Types;
 [Resource]
 public class IpaffsNotification : FreeStringMongoIdentifiable
 {
-    // This field is used by the jsonapi-consumer to 
+    // This field is used by the jsonapi-consumer to control the correct casing in the type field
     public string Type { get; set; } = "ipaffsNotifications";
-    
-    // [Attr]
-    // public int IpaffsID { get; set; } = default!;
     
     [Attr]
     public string ReferenceNumber { get; set; } = default!;

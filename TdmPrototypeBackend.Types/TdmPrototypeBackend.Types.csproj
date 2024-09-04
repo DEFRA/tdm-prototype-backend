@@ -9,6 +9,7 @@
   </PropertyGroup>
   
   <ItemGroup>
+<!--    <PackageReference Include="JsonApiSerializer" Version="2.0.1" />-->
     <PackageReference Include="JsonApiDotNetCore" Version="5.6.0" />
     <PackageReference Include="JsonApiDotNetCore.MongoDb" Version="5.6.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
