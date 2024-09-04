@@ -1,5 +1,7 @@
-﻿using JsonApiDotNetCore.MongoDb.Resources;
+﻿using Newtonsoft.Json;
+using JsonApiDotNetCore.MongoDb.Resources;
 using JsonApiDotNetCore.Resources.Annotations;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace TdmPrototypeBackend.Types;
 // namespace TdmPrototypeBackend.Models;
@@ -12,9 +14,9 @@ public class ClearanceRequestItem
 }
 
 [Resource]
-public class ClearanceRequest : HexStringMongoIdentifiable
+public class ClearanceRequest : FreeStringMongoIdentifiable
 {
-    // This field is used by the jsonapi-consumer to 
+    // This field is used by the jsonapi-consumer to control the correct casing in the type field
     public string Type { get; set; } = "clearanceRequests";
     
     [Attr]
@@ -27,5 +29,15 @@ public class ClearanceRequest : HexStringMongoIdentifiable
     public int CorrelationID { get; set; } = default!;
 
     // public ClearanceRequestItem[] Items = [];
+    
+    // // Trying to remove this from the serialised message
+    // [BsonIgnore]
+    // [JsonIgnore]
+    // // [NoResourceAttribute]
+    // public string? StringId
+    // {
+    //     get => Id;
+    //     set => Id = value;
+    // }
 
 }

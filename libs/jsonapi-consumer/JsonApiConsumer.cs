@@ -34,7 +34,8 @@ namespace JsonApiConsumer
         /// </summary>
 		static JsonApiSerializerSettings settings = new JsonApiSerializerSettings()
 		{
-			Error = HandleDeserializationError
+			Error = HandleDeserializationError,
+            
 		};
         #endregion
 

@@ -10,13 +10,13 @@ public enum GvmsGmrState
 }
 
 [Resource]
-public class GvmsGmr : HexStringMongoIdentifiable
+public class GvmsGmr : FreeStringMongoIdentifiable
 {
     // This field is used by the jsonapi-consumer to 
     public string Type { get; set; } = "gvmsGmrs";
     
-    [Attr]
-    public string GmrId { get; set; } = default!;
+    // [Attr]
+    // public string GmrId { get; set; } = default!;
 
     [Attr]
     public string HaulierEori { get; set; } = default!;

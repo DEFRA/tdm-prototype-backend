@@ -72,29 +72,33 @@ builder.Services.AddHttpProxyClient(logger);
 // JSON API
 
 static void ConfigureJsonApiOptions(JsonApiOptions options)
-{
+{ 
     options.Namespace = "api";
     options.UseRelativeLinks = true;
     options.IncludeTotalResourceCount = true;
     options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
-#if DEBUG
+    options.ClientIdGeneration = ClientIdGenerationMode.Allowed;
+    // options.AllowClientGeneratedIds = true;
+// #if DEBUG
     options.IncludeExceptionStackTraceInErrors = true;
     options.IncludeRequestBodyInErrors = true;
     options.SerializerOptions.WriteIndented = true;
-#endif
+// #endif
 }
 
 builder.Services.AddSingleton<IMongoDatabase>(_ => factory.CreateClient().GetDatabase(mongoDatabaseName));
-builder.Services.AddJsonApi(resources: resourceGraphBuilder =>
-{
-    resourceGraphBuilder.Add<ClearanceRequest, string?>();
-    resourceGraphBuilder.Add<GvmsGmr, string?>();
-    resourceGraphBuilder.Add<IpaffsNotification, string?>();
-    // resourceGraphBuilder.Add<Item, string?>();
-});
+// builder.Services.AddJsonApi(resources: resourceGraphBuilder =>
+// {
+//     resourceGraphBuilder.Add<ClearanceRequest, string?>();
+//     resourceGraphBuilder.Add<GvmsGmr, string?>();
+//     resourceGraphBuilder.Add<IpaffsNotification, string?>();
+//     // resourceGraphBuilder.Add<Item, string?>();
+// });
 // builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.AddCurrentAssembly());
-// builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.());
 builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.AddAssembly(Assembly.Load("TdmPrototypeBackend.Types")));
+// builder.Services.AddJsonApi(options: ConfigureJsonApiOptions);
+// builder.Services.AddJsonApi(discovery: discovery => discovery.AddAssembly(Assembly.Load("TdmPrototypeBackend.Types")));
+
 builder.Services.AddJsonApiMongoDb();
 
 builder.Services.AddScoped(typeof(IResourceReadRepository<,>), typeof(MongoRepository<,>));
