@@ -1,9 +1,5 @@
-using System.Xml.Schema;
-// using JsonApiConsumer;
-using JsonApiConsumer;
 using MongoDB.Bson;
-using Serilog.Core;
-// using TdmPrototypeBackend.Test.Models;
+using Xunit.Abstractions;
 
 using TdmPrototypeBackend.Types;
 
@@ -11,30 +7,41 @@ namespace TdmPrototypeBackend.Test;
 
 using FluentValidation.TestHelper;
 
-public class CreateResourceTests
+public class CreateResourceTests(ITestOutputHelper output)
 {
+    private readonly ITestOutputHelper output;
+    private string testId = Guid.NewGuid().ToString();
     
     [Fact]
     public void CreateClearanceRequest()
     {
-        var r = new ClearanceRequest() { Id = "ClearanceRequestID1", SourceSystem = "AAA", DestinationSystem = "BBB"};
-
         JsonApiConsumer.Response<ClearanceRequest> response = JsonApiConsumer.JsonApiConsumer.Create<ClearanceRequest, ClearanceRequest>(
-            model: r,
+            model: CreateChedAClearanceRequest(),
             baseURI: "https://localhost:7094",
             path: "api/clearancerequests"
-            // headers: new Dictionary<string, string>() { { "HEADER_API_KEY", "HEADER_API_KEY_VALUE" } }
         );
         
-        // Console.WriteLine("Response from API {code}", response.HttpStatusCode);
-        Console.WriteLine("Response from API {0}", response.ToJson());
+        Console.WriteLine("Response from ClearanceRequest API {0}", response.ToJson());
+        Assert.Equal(201, (int)response.HttpStatusCode);
+    }
+    
+    [Fact]
+    public void CreateMovement()
+    {
+        JsonApiConsumer.Response<Movement> response = JsonApiConsumer.JsonApiConsumer.Create<Movement, Movement>(
+            model: CreateChedAMovement(),
+            baseURI: "https://localhost:7094",
+            path: "api/movements"
+        );
+        
+        Console.WriteLine("Response from ClearanceRequest API {0}", response.ToJson());
         Assert.Equal(201, (int)response.HttpStatusCode);
     }
     
     [Fact]
     public void CreateGvmsGmr()
     {
-        var r = new GvmsGmr() { Id = "GMR1", HaulierEori = "EORI", State = GvmsGmrState.NotFinalisable };
+        var r = new GvmsGmr() { Id = "GMR" + testId, HaulierEori = "EORI", State = GvmsGmrState.NotFinalisable };
 
         JsonApiConsumer.Response<GvmsGmr> response = JsonApiConsumer.JsonApiConsumer.Create<GvmsGmr, GvmsGmr>(
             model: r,
@@ -42,24 +49,160 @@ public class CreateResourceTests
             path: "api/gvmsgmrs"
         );
         
-        // Console.WriteLine("Response from API {code}", response.HttpStatusCode);
-        Console.WriteLine("Response from API {0}", response.ToJson());
-        Assert.Equal(201, (int)response.HttpStatusCode);
+        Console.WriteLine("Response from GvmsGmr API {0}", response.ToJson());
+        Assert.Equal(204, (int)response.HttpStatusCode);
     }
     
     [Fact]
     public void CreateIpaffsNotification()
     {
-        var r = new IpaffsNotification() { Id  = "IPAFFS123", Version = 1 };
-
         JsonApiConsumer.Response<IpaffsNotification> response = JsonApiConsumer.JsonApiConsumer.Create<IpaffsNotification, IpaffsNotification>(
-            model: r,
+            model: CreateChedANotification(),
             baseURI: "https://localhost:7094",
             path: "api/ipaffsnotifications"
         );
         
         // Console.WriteLine("Response from API {code}", response.HttpStatusCode);
-        Console.WriteLine("Response from API {0}", response.ToJson());
+        Console.WriteLine("Response from IpaffsNotification API {0}", response.ToJson());
         Assert.Equal(201, (int)response.HttpStatusCode);
+    }
+
+    [Fact]
+    public void CreateGmrMatchedClearanceRequest()
+    {
+        var gmr = new GvmsGmr() { Id = "GMR" + testId, HaulierEori = "EORI", State = GvmsGmrState.NotFinalisable };
+
+        JsonApiConsumer.Response<GvmsGmr> gmrResponse = JsonApiConsumer.JsonApiConsumer.Create<GvmsGmr, GvmsGmr>(
+            model: gmr,
+            baseURI: "https://localhost:7094",
+            path: "api/gvmsgmrs"
+        );
+        
+        Console.WriteLine("Response from GvmsGmr API {0}", gmrResponse.ToJson());
+        
+        Assert.Equal(204, (int)gmrResponse.HttpStatusCode);
+
+        var cr = CreateChedAClearanceRequest();
+        cr.Items[0].Gmr = new MatchingStatus() { Matched = true, Reference = gmr.Id};
+
+        JsonApiConsumer.Response<ClearanceRequest> crResponse = JsonApiConsumer.JsonApiConsumer.Create<ClearanceRequest, ClearanceRequest>(
+            model: cr,
+            baseURI: "https://localhost:7094",
+            path: "api/clearancerequests"
+        );
+        
+        Console.WriteLine("Response from ClearanceRequest API {0}", crResponse.ToJson());
+        
+        Assert.Equal(201, (int)crResponse.HttpStatusCode);
+    }
+    
+    [Fact]
+    public void CreateMovementMatchedIpaffsNotification()
+    {
+        var notificationId = GenerateChedID(id: testId);
+        var declarationId = GenerateDeclarationID(id: testId);
+
+        var movement = CreateChedAMovement(declarationId);
+        
+        // var cr = CreateChedAClearanceRequest(declarationId);
+        movement.IpaffsNotification = new MatchingStatus() { Matched = true, Reference = notificationId, Item = 1 };
+        
+        JsonApiConsumer.Response<Movement> crResponse = JsonApiConsumer.JsonApiConsumer.Create<Movement, Movement>(
+            model: movement,
+            baseURI: "https://localhost:7094",
+            path: "api/movements"
+        );
+        
+        Console.WriteLine("Response from Movement API {0}", crResponse.ToJson());
+        
+        Assert.Equal(201, (int)crResponse.HttpStatusCode);
+        
+        var notification = CreateChedANotification(notificationId);
+        notification.Movement = new MatchingStatus() { Matched = true, Reference = declarationId, Item = 1 };
+
+        JsonApiConsumer.Response<IpaffsNotification> response = JsonApiConsumer.JsonApiConsumer.Create<IpaffsNotification, IpaffsNotification>(
+            model: notification,
+            baseURI: "https://localhost:7094",
+            path: "api/ipaffsnotifications"
+        );
+        
+        // Console.WriteLine("Response from API {code}", response.HttpStatusCode);
+        Console.WriteLine("Response from IpaffsNotification API {0}", response.ToJson());
+        Assert.Equal(201, (int)response.HttpStatusCode);
+
+    }
+    
+    private string GenerateChedID(string type = "A", string id = null)
+    {
+        id = id ?? testId;
+        return string.Format("CHED{0}.GB.2024.MOCK.{1}", type, id);
+    }
+    
+    private string GenerateDeclarationID(string id = null)
+    {
+        id = id ?? testId;
+        return string.Format("DEC_GB_2024_{0}", id);
+    }
+    private IpaffsNotification CreateChedANotification(String id = null)
+    {
+        id = id ?? GenerateChedID(id:testId);
+            
+        return new IpaffsNotification()
+        {
+            Id = id,
+            Version = 1,
+            PartOne = new IpaffsPartOne()
+            {
+                PersonResponsible = new IpaffsResponsiblePerson()
+                {
+                    Name = "Mr Tester",
+                    CompanyId = "123",
+                    CompanyName = "Test Co",
+                    Country = "GB"
+                    
+                },
+                Commodities = new[]
+                {
+                    new IpaffsNotificationCommodities()
+                    {
+                        CommodityComplement = new []{ new IpaffsNotificationCommodityComplement()
+                        {   
+                            CommodityID = "0101",
+                            CommodityDescription = "Live horses, asses, mules and hinnies"
+                        }},
+                        NumberOfAnimals = 1, CountryOfOrigin = "FRA"
+                    }
+                },
+                PointOfEntry = "GBEDI4",
+                ArrivalDate = DateTime.Today.AddDays(7).ToString("yyyy-MM-dd"),
+                ArrivalTime = "11:11:00"
+            }
+        };
+    }
+
+    private Movement CreateChedAMovement(String id = null, MovementItem[] items = null)
+    {
+        id = id ?? GenerateChedID(id:testId);
+        // var item = new MovementItem() { CustomsProcedureCode = "AAA" };
+        items = items ?? new[] { new MovementItem() { CustomsProcedureCode = "AAA" } };
+        return new Movement()
+        {
+            Items = items,
+            ClearanceRequests = new[] { CreateChedAClearanceRequest(id, items) }
+        };
+    }
+
+    private ClearanceRequest CreateChedAClearanceRequest(String id = null, MovementItem[] items = null)
+    {
+        id = id ?? GenerateChedID(id:testId);
+        items = items ?? new[] { new MovementItem() { CustomsProcedureCode = "AAA" } };
+        return new ClearanceRequest()
+        {
+            // Id = id,
+            ServiceHeader = new AlvsServiceHeader() { SourceSystem = "CDS", DestinationSystem = "ALVS" },
+            Header = new ClearanceRequestHeader() {},
+            Items = items
+            
+        };
     }
 }

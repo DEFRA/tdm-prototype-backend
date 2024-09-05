@@ -10,47 +10,64 @@ namespace TdmPrototypeBackend.Types;
 // Recreation of ClearanceRequest schema from
 // https://eaflood.atlassian.net/wiki/spaces/TRADE/pages/5104664583/PHA+Port+Health+Authority+Integration+Data+Schema
 
-public class ClearanceRequestItem
+public class ClearanceRequestHeader
 {
-    public string CustomsProcedureCode { get; set; } = default!;
+    [Attr]
+    public string EntryReference { get; set; } = default!;
     
-    public string TaricCommodityCode { get; set; } = default!;
+    [Attr]
+    public int EntryVersionNumber { get; set; } = default!;
+    
+    [Attr]
+    public int PreviousVersionNumber { get; set; } = default!;
+    
+    [Attr]
+    public string DeclarationUcr{ get; set; } = default!;
+    
+    [Attr]
+    public string DeclarationPartNumber { get; set; } = default!;
+    
+    [Attr]
+    public string DeclarationType { get; set; } = default!;
+    
+    [Attr]
+    public DateTime ArrivalDateTime { get; set; } = default!;
+    
+    [Attr]
+    public string SubmitterTurn { get; set; } = default!;
+    
+    [Attr]
+    public string DeclarantId { get; set; } = default!;
+    
+    [Attr]
+    public string DeclarantName { get; set; } = default!;
+    
+    [Attr]
+    public string DispatchCountryCode { get; set; } = default!;
+    
+    [Attr]
+    public string GoodsLocationCode { get; set; } = default!;
+    
+    [Attr]
+    public string MasterUcr { get; set; } = default!;
 }
 
-[Resource]
-public class ClearanceRequest : CustomStringMongoIdentifiable
+// [Resource]
+public class ClearanceRequest //: CustomStringMongoIdentifiable
 {
+
     // This field is used by the jsonapi-consumer to control the correct casing in the type field
-    public string Type { get; set; } = "clearanceRequests";
+    // public string Type { get; set; } = "clearanceRequests";
+    //
+    // [Attr]
+    // public MatchingStatus IpaffsNotification { get; set; } = new MatchingStatus() { Matched = false };
     
     [Attr]
-    public string SourceSystem { get; set; } = default!;
-
-    [Attr]
-    public string DestinationSystem { get; set; } = default!;
+    public AlvsServiceHeader ServiceHeader { get; set; } = default!;
     
     [Attr]
-    public int CorrelationID { get; set; } = default!;
+    public ClearanceRequestHeader Header { get; set; } = default!;
 
-    // public ClearanceRequestItem[] Items = [];
-    // [BsonIgnore]
-    // [JsonIgnore]
-    // // [Attr]
-    // // [NoResourceAttribute]
-    // public new string? StringId2
-    // {
-    //     get => "AAA";
-    //     set => Id = value;
-    // }
-    
-    // // Trying to remove this from the serialised message
-    // [BsonIgnore]
-    // [JsonIgnore]
-    // // [NoResourceAttribute]
-    // public new string? StringId
-    // {
-    //     get => "AAA";
-    //     set => Id = value;
-    // }
-
+    [Attr]
+    public MovementItem[] Items { get; set; } = default!;
 }

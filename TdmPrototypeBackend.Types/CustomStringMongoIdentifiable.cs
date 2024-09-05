@@ -1,10 +1,11 @@
 using System.ComponentModel.DataAnnotations.Schema;
-// using System.Text.Json.Serialization;
 using JsonApiDotNetCore.MongoDb.Resources;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
 using Newtonsoft.Json;
 
+// Custom implementation of FreeStringMongoIdentifiable from JsonApiDotNetCore.MongoDb
+// with an attribute on StringId to prevent it being serialised by the client we're using
 namespace TdmPrototypeBackend.Types;
 
 public class CustomStringMongoIdentifiable : IMongoIdentifiable

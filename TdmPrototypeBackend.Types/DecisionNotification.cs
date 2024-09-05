@@ -7,7 +7,7 @@ namespace TdmPrototypeBackend.Types;
 // https://eaflood.atlassian.net/wiki/spaces/TRADE/pages/5104664583/PHA+Port+Health+Authority+Integration+Data+Schema
 
 [Resource]
-public class DecisionNotification : FreeStringMongoIdentifiable
+public class DecisionNotification : CustomStringMongoIdentifiable
 {
     // This field is used by the jsonapi-consumer to control the correct casing in the type field
     public string Type { get; set; } = "decisionNotifications";
