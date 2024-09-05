@@ -25,7 +25,7 @@ RUN dotnet publish "TdmPrototypeBackend.csproj" -c Release -o /app/publish /p:Us
 LABEL test=true
 # below is an example we can use in the future if we choose to use XPlat Code Coverage
 #RUN dotnet test -c Release --collect:"XPlat Code Coverage" --results-directory /app/testresults "../Defra.Cdp.TdmPrototypeBackend.UnitTests/Defra.Cdp.TdmPrototypeBackend.UnitTests.csproj"
-RUN dotnet test ../TdmPrototypeBackend.Test
+RUN dotnet test ../TdmPrototypeBackend.Test --filter Category!=Integration
 
 ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
 

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.ComponentModel;
 using MongoDB.Bson;
 using Xunit.Abstractions;
@@ -13,6 +14,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
 {
     private readonly ITestOutputHelper output;
     private string testId = Guid.NewGuid().ToString();
+    private string apiHost = Environment.GetEnvironmentVariable("API_TARGET") ?? "https://localhost:7094";
     
     // [Fact]
     // public void CreateClearanceRequest()
@@ -30,9 +32,15 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
     [Fact]
     public void CreateMovement()
     {
+        
+        foreach(DictionaryEntry e in System.Environment.GetEnvironmentVariables())
+        {
+            Console.WriteLine(e.Key  + ":" + e.Value);
+        }
+        
         JsonApiConsumer.Response<Movement> response = JsonApiConsumer.JsonApiConsumer.Create<Movement, Movement>(
             model: CreateChedAMovement(),
-            baseURI: "https://localhost:7094",
+            baseURI: apiHost,
             path: "api/movements"
         );
         
@@ -47,7 +55,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
 
         JsonApiConsumer.Response<GvmsGmr> response = JsonApiConsumer.JsonApiConsumer.Create<GvmsGmr, GvmsGmr>(
             model: r,
-            baseURI: "https://localhost:7094",
+            baseURI: apiHost,
             path: "api/gvmsgmrs"
         );
         
@@ -60,7 +68,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
     {
         JsonApiConsumer.Response<IpaffsNotification> response = JsonApiConsumer.JsonApiConsumer.Create<IpaffsNotification, IpaffsNotification>(
             model: CreateChedANotification(),
-            baseURI: "https://localhost:7094",
+            baseURI: apiHost,
             path: "api/ipaffsnotifications"
         );
         
@@ -74,7 +82,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
     {
         JsonApiConsumer.Response<IpaffsNotification> response = JsonApiConsumer.JsonApiConsumer.Create<IpaffsNotification, IpaffsNotification>(
             model: CreateChedANotification(notificationType: NotificationType.Cvedp),
-            baseURI: "https://localhost:7094",
+            baseURI: apiHost,
             path: "api/ipaffsnotifications"
         );
         
@@ -90,7 +98,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
 
         JsonApiConsumer.Response<GvmsGmr> gmrResponse = JsonApiConsumer.JsonApiConsumer.Create<GvmsGmr, GvmsGmr>(
             model: gmr,
-            baseURI: "https://localhost:7094",
+            baseURI: apiHost,
             path: "api/gvmsgmrs"
         );
         
@@ -103,7 +111,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
 
         JsonApiConsumer.Response<Movement> crResponse = JsonApiConsumer.JsonApiConsumer.Create<Movement, Movement>(
             model: movement,
-            baseURI: "https://localhost:7094",
+            baseURI: apiHost,
             path: "api/movements"
         );
         
@@ -123,9 +131,10 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         // var cr = CreateChedAClearanceRequest(declarationId);
         movement.IpaffsNotification = new MatchingStatus() { Matched = true, Reference = notificationId, AdditionalInformation = new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("matchLevel", "1"),}};
         
+        // var crResponse = Send<Movement>(ref movement, "api/movements");
         JsonApiConsumer.Response<Movement> crResponse = JsonApiConsumer.JsonApiConsumer.Create<Movement, Movement>(
             model: movement,
-            baseURI: "https://localhost:7094",
+            baseURI: apiHost,
             path: "api/movements"
         );
         
@@ -140,17 +149,26 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
             AdditionalInformation = new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("matchLevel", "1")}
         };
 
+        // var response = Send<IpaffsNotification>(ref notification, "api/ipaffsnotifications");
         JsonApiConsumer.Response<IpaffsNotification> response = JsonApiConsumer.JsonApiConsumer.Create<IpaffsNotification, IpaffsNotification>(
             model: notification,
-            baseURI: "https://localhost:7094",
+            baseURI: apiHost,
             path: "api/ipaffsnotifications"
         );
-        
         // Console.WriteLine("Response from API {code}", response.HttpStatusCode);
         Console.WriteLine("Response from IpaffsNotification API {0}", response.ToJson());
         Assert.Equal(201, (int)response.HttpStatusCode);
 
     }
+
+    // private JsonApiConsumer.Response<T> Send<T>(ref T model, string path)
+    // {
+    //     return JsonApiConsumer.JsonApiConsumer.Create<T, T>(
+    //         model: model,
+    //         baseURI: apiHost,
+    //         path: path
+    //     );
+    // }
 
     private Dictionary<NotificationType, string> notificationTypes = new Dictionary<NotificationType, string>()
     {

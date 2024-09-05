@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <EnvironmentVariables>
+      <!-- List of environment variables we want to set-->
+      <API_TARGET>https://tdm-prototype-backend.prod.cdp-int.defra.cloud</API_TARGET>
+    </EnvironmentVariables>
+</RunSettings>
