@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using MongoDB.Bson;
 using Xunit.Abstractions;
 
@@ -7,23 +8,24 @@ namespace TdmPrototypeBackend.Test;
 
 using FluentValidation.TestHelper;
 
-public class CreateResourceTests(ITestOutputHelper output)
+[Trait("Category","Integration")]
+public class CreateResourceIntegrationTests(ITestOutputHelper output)
 {
     private readonly ITestOutputHelper output;
     private string testId = Guid.NewGuid().ToString();
     
-    [Fact]
-    public void CreateClearanceRequest()
-    {
-        JsonApiConsumer.Response<ClearanceRequest> response = JsonApiConsumer.JsonApiConsumer.Create<ClearanceRequest, ClearanceRequest>(
-            model: CreateChedAClearanceRequest(),
-            baseURI: "https://localhost:7094",
-            path: "api/clearancerequests"
-        );
-        
-        Console.WriteLine("Response from ClearanceRequest API {0}", response.ToJson());
-        Assert.Equal(201, (int)response.HttpStatusCode);
-    }
+    // [Fact]
+    // public void CreateClearanceRequest()
+    // {
+    //     JsonApiConsumer.Response<ClearanceRequest> response = JsonApiConsumer.JsonApiConsumer.Create<ClearanceRequest, ClearanceRequest>(
+    //         model: CreateChedAClearanceRequest(),
+    //         baseURI: "https://localhost:7094",
+    //         path: "api/clearancerequests"
+    //     );
+    //     
+    //     Console.WriteLine("Response from ClearanceRequest API {0}", response.ToJson());
+    //     Assert.Equal(201, (int)response.HttpStatusCode);
+    // }
     
     [Fact]
     public void CreateMovement()
@@ -34,7 +36,7 @@ public class CreateResourceTests(ITestOutputHelper output)
             path: "api/movements"
         );
         
-        Console.WriteLine("Response from ClearanceRequest API {0}", response.ToJson());
+        Console.WriteLine("Response from Movement API {0}", response.ToJson());
         Assert.Equal(201, (int)response.HttpStatusCode);
     }
     
@@ -66,9 +68,23 @@ public class CreateResourceTests(ITestOutputHelper output)
         Console.WriteLine("Response from IpaffsNotification API {0}", response.ToJson());
         Assert.Equal(201, (int)response.HttpStatusCode);
     }
+    
+    [Fact]
+    public void CreateChedPIpaffsNotification()
+    {
+        JsonApiConsumer.Response<IpaffsNotification> response = JsonApiConsumer.JsonApiConsumer.Create<IpaffsNotification, IpaffsNotification>(
+            model: CreateChedANotification(notificationType: NotificationType.Cvedp),
+            baseURI: "https://localhost:7094",
+            path: "api/ipaffsnotifications"
+        );
+        
+        // Console.WriteLine("Response from API {code}", response.HttpStatusCode);
+        Console.WriteLine("Response from IpaffsNotification API {0}", response.ToJson());
+        Assert.Equal(201, (int)response.HttpStatusCode);
+    }
 
     [Fact]
-    public void CreateGmrMatchedClearanceRequest()
+    public void CreateGmrMatchedMovement()
     {
         var gmr = new GvmsGmr() { Id = "GMR" + testId, HaulierEori = "EORI", State = GvmsGmrState.NotFinalisable };
 
@@ -81,17 +97,17 @@ public class CreateResourceTests(ITestOutputHelper output)
         Console.WriteLine("Response from GvmsGmr API {0}", gmrResponse.ToJson());
         
         Assert.Equal(204, (int)gmrResponse.HttpStatusCode);
+        var items = new[] { new MovementItem() { CustomsProcedureCode = "AAA", Gmr = new MatchingStatus() { Matched = true, Reference = gmr.Id} } };
+        var movement = CreateChedAMovement(items: items);
+        // movement.Items[0].Gmr = new MatchingStatus() { Matched = true, Reference = gmr.Id};
 
-        var cr = CreateChedAClearanceRequest();
-        cr.Items[0].Gmr = new MatchingStatus() { Matched = true, Reference = gmr.Id};
-
-        JsonApiConsumer.Response<ClearanceRequest> crResponse = JsonApiConsumer.JsonApiConsumer.Create<ClearanceRequest, ClearanceRequest>(
-            model: cr,
+        JsonApiConsumer.Response<Movement> crResponse = JsonApiConsumer.JsonApiConsumer.Create<Movement, Movement>(
+            model: movement,
             baseURI: "https://localhost:7094",
-            path: "api/clearancerequests"
+            path: "api/movements"
         );
         
-        Console.WriteLine("Response from ClearanceRequest API {0}", crResponse.ToJson());
+        Console.WriteLine("Response from Movement API {0}", crResponse.ToJson());
         
         Assert.Equal(201, (int)crResponse.HttpStatusCode);
     }
@@ -105,7 +121,7 @@ public class CreateResourceTests(ITestOutputHelper output)
         var movement = CreateChedAMovement(declarationId);
         
         // var cr = CreateChedAClearanceRequest(declarationId);
-        movement.IpaffsNotification = new MatchingStatus() { Matched = true, Reference = notificationId, Item = 1 };
+        movement.IpaffsNotification = new MatchingStatus() { Matched = true, Reference = notificationId, AdditionalInformation = new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("matchLevel", "1"),}};
         
         JsonApiConsumer.Response<Movement> crResponse = JsonApiConsumer.JsonApiConsumer.Create<Movement, Movement>(
             model: movement,
@@ -118,7 +134,11 @@ public class CreateResourceTests(ITestOutputHelper output)
         Assert.Equal(201, (int)crResponse.HttpStatusCode);
         
         var notification = CreateChedANotification(notificationId);
-        notification.Movement = new MatchingStatus() { Matched = true, Reference = declarationId, Item = 1 };
+        notification.Movement = new MatchingStatus()
+        {
+            Matched = true, Reference = declarationId, Item = 1,
+            AdditionalInformation = new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("matchLevel", "1")}
+        };
 
         JsonApiConsumer.Response<IpaffsNotification> response = JsonApiConsumer.JsonApiConsumer.Create<IpaffsNotification, IpaffsNotification>(
             model: notification,
@@ -131,11 +151,25 @@ public class CreateResourceTests(ITestOutputHelper output)
         Assert.Equal(201, (int)response.HttpStatusCode);
 
     }
+
+    private Dictionary<NotificationType, string> notificationTypes = new Dictionary<NotificationType, string>()
+    {
+        // TODO : clarify these
+        { NotificationType.Cveda, "A" },
+        // { NotificationType.Ced, "C" },
+        { NotificationType.Chedpp, "PP" },
+        { NotificationType.Cvedp, "P" }
+    };
+
+    private string GetNotificationTypeIdSuffix(NotificationType notificationType)
+    {
+        return notificationTypes.ContainsKey(notificationType) ? notificationTypes[notificationType]  : "?";
+    }
     
-    private string GenerateChedID(string type = "A", string id = null)
+    private string GenerateChedID(NotificationType notificationType = NotificationType.Cveda, string id = null)
     {
         id = id ?? testId;
-        return string.Format("CHED{0}.GB.2024.MOCK.{1}", type, id);
+        return string.Format("CHED{0}.GB.2024.MOCK.{1}", GetNotificationTypeIdSuffix(notificationType), id);
     }
     
     private string GenerateDeclarationID(string id = null)
@@ -143,14 +177,15 @@ public class CreateResourceTests(ITestOutputHelper output)
         id = id ?? testId;
         return string.Format("DEC_GB_2024_{0}", id);
     }
-    private IpaffsNotification CreateChedANotification(String id = null)
+    private IpaffsNotification CreateChedANotification(String id = null, NotificationType notificationType = NotificationType.Cveda)
     {
-        id = id ?? GenerateChedID(id:testId);
+        id = id ?? GenerateChedID(notificationType, testId);
             
         return new IpaffsNotification()
         {
             Id = id,
             Version = 1,
+            NotificationType = notificationType,
             PartOne = new IpaffsPartOne()
             {
                 PersonResponsible = new IpaffsResponsiblePerson()
@@ -183,7 +218,6 @@ public class CreateResourceTests(ITestOutputHelper output)
     private Movement CreateChedAMovement(String id = null, MovementItem[] items = null)
     {
         id = id ?? GenerateChedID(id:testId);
-        // var item = new MovementItem() { CustomsProcedureCode = "AAA" };
         items = items ?? new[] { new MovementItem() { CustomsProcedureCode = "AAA" } };
         return new Movement()
         {
