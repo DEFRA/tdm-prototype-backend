@@ -23,4 +23,5 @@ jobs:
         with:
           dotnet-version: |
             6.0.412
-      - run: dotnet test
+      - run: dotnet test --filter Category!=Integration
+

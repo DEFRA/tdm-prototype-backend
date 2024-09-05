@@ -1,14 +1,33 @@
+using System.Reflection;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Config;
 using TdmPrototypeBackend.Data;
-using TdmPrototypeBackend.Endpoints;
-using TdmPrototypeBackend.Services;
 using TdmPrototypeBackend.Utils;
 using FluentValidation;
+using JsonApiDotNetCore.Configuration;
+using JsonApiDotNetCore.MongoDb.Configuration;
+using JsonApiDotNetCore.MongoDb.Repositories;
+using JsonApiDotNetCore.Repositories;
+using Microsoft.AspNetCore.HttpLogging;
+using MongoDB.Driver;
 using Serilog;
+using TdmPrototypeBackend.Types;
+// using TdmPrototypeBackend.Models;
 
 //-------- Configure the WebApplication builder------------------//
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHttpLogging(logging =>
+{
+    logging.LoggingFields = HttpLoggingFields.All;
+    logging.RequestHeaders.Add("sec-ch-ua");
+    logging.ResponseHeaders.Add("MyResponseHeader");
+    logging.MediaTypeOptions.AddText("application/javascript");
+    logging.RequestBodyLogLimit = 4096;
+    logging.ResponseBodyLogLimit = 4096;
+    logging.CombineLogs = true;
+});
 
 // Grab environment variables
 builder.Configuration.AddEnvironmentVariables("CDP");
@@ -37,12 +56,11 @@ if (builder.IsDevMode())
 }
 
 // Mongo
-builder.Services.AddSingleton<IMongoDbClientFactory>(_ =>
-    new MongoDbClientFactory(mongoUri,
-        mongoDatabaseName));
+var factory = new MongoDbClientFactory(mongoUri,
+    mongoDatabaseName);
 
-// our service
-builder.Services.AddSingleton<IBookService, BookService>();
+builder.Services.AddSingleton<IMongoDbClientFactory>(_ =>
+    factory);
 
 // health checks
 builder.Services.AddHealthChecks();
@@ -50,6 +68,42 @@ builder.Services.AddHealthChecks();
 // http client
 builder.Services.AddHttpClient();
 builder.Services.AddHttpProxyClient(logger);
+
+// JSON API
+
+static void ConfigureJsonApiOptions(JsonApiOptions options)
+{ 
+    options.Namespace = "api";
+    options.UseRelativeLinks = true;
+    options.IncludeTotalResourceCount = true;
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    options.ClientIdGeneration = ClientIdGenerationMode.Allowed;
+    // options.AllowClientGeneratedIds = true;
+// #if DEBUG
+    options.IncludeExceptionStackTraceInErrors = true;
+    options.IncludeRequestBodyInErrors = true;
+    options.SerializerOptions.WriteIndented = true;
+// #endif
+}
+
+builder.Services.AddSingleton<IMongoDatabase>(_ => factory.CreateClient().GetDatabase(mongoDatabaseName));
+// builder.Services.AddJsonApi(resources: resourceGraphBuilder =>
+// {
+//     resourceGraphBuilder.Add<ClearanceRequest, string?>();
+//     resourceGraphBuilder.Add<GvmsGmr, string?>();
+//     resourceGraphBuilder.Add<IpaffsNotification, string?>();
+//     // resourceGraphBuilder.Add<Item, string?>();
+// });
+// builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.AddCurrentAssembly());
+builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.AddAssembly(Assembly.Load("TdmPrototypeBackend.Types")));
+// builder.Services.AddJsonApi(options: ConfigureJsonApiOptions);
+// builder.Services.AddJsonApi(discovery: discovery => discovery.AddAssembly(Assembly.Load("TdmPrototypeBackend.Types")));
+
+builder.Services.AddJsonApiMongoDb();
+
+builder.Services.AddScoped(typeof(IResourceReadRepository<,>), typeof(MongoRepository<,>));
+builder.Services.AddScoped(typeof(IResourceWriteRepository<,>), typeof(MongoRepository<,>));
+builder.Services.AddScoped(typeof(IResourceRepository<,>), typeof(MongoRepository<,>));
 
 // swagger endpoints
 if (builder.IsSwaggerEnabled())
@@ -68,7 +122,9 @@ if (builder.IsSwaggerEnabled())
 }
 
 app.UseRouting();
-app.UseLibraryEndpoints();
+app.UseJsonApi();
+app.MapControllers();
 app.MapHealthChecks("/health");
+app.UseHttpLogging();
 
 app.Run();
