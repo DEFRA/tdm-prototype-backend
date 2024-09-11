@@ -11,12 +11,18 @@ using JsonApiDotNetCore.Repositories;
 using Microsoft.AspNetCore.HttpLogging;
 using MongoDB.Driver;
 using Serilog;
+
+using TdmPrototypeDmpSynchroniser.Api.Endpoints;
+using TdmPrototypeBackend.Api.Utils;
 using TdmPrototypeBackend.Types;
+using TdmPrototypeDmpSynchroniser.Api.Extensions;
+
 // using TdmPrototypeBackend.Models;
 
 //-------- Configure the WebApplication builder------------------//
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Configuration.AddIniFile("Properties/local.env", true);
 
 builder.Services.AddHttpLogging(logging =>
 {
@@ -67,7 +73,7 @@ builder.Services.AddHealthChecks();
 
 // http client
 builder.Services.AddHttpClient();
-builder.Services.AddHttpProxyClient(logger);
+builder.Services.AddHttpProxyServices(logger, builder.Configuration);
 
 // JSON API
 
@@ -79,11 +85,11 @@ static void ConfigureJsonApiOptions(JsonApiOptions options)
     options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
     options.ClientIdGeneration = ClientIdGenerationMode.Allowed;
     // options.AllowClientGeneratedIds = true;
-// #if DEBUG
+#if DEBUG
     options.IncludeExceptionStackTraceInErrors = true;
     options.IncludeRequestBodyInErrors = true;
     options.SerializerOptions.WriteIndented = true;
-// #endif
+#endif
 }
 
 builder.Services.AddSingleton<IMongoDatabase>(_ => factory.CreateClient().GetDatabase(mongoDatabaseName));
@@ -100,6 +106,10 @@ builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.AddA
 // builder.Services.AddJsonApi(discovery: discovery => discovery.AddAssembly(Assembly.Load("TdmPrototypeBackend.Types")));
 
 builder.Services.AddJsonApiMongoDb();
+
+// Expose the synchroniser project
+builder.AddSynchroniserDatabase();
+builder.Services.AddSynchroniserServices();
 
 builder.Services.AddScoped(typeof(IResourceReadRepository<,>), typeof(MongoRepository<,>));
 builder.Services.AddScoped(typeof(IResourceWriteRepository<,>), typeof(MongoRepository<,>));
@@ -124,6 +134,8 @@ if (builder.IsSwaggerEnabled())
 app.UseRouting();
 app.UseJsonApi();
 app.MapControllers();
+app.UseDiagnosticEndpoints();
+app.UseSyncEndpoints();
 app.MapHealthChecks("/health");
 app.UseHttpLogging();
 

@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using JsonApiDotNetCore.MongoDb.Resources;
 using JsonApiDotNetCore.Resources.Annotations;
 using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json.Converters;
+
 // using JsonApiSerializer.JsonApi;
 
 namespace TdmPrototypeBackend.Types;
@@ -10,7 +12,7 @@ namespace TdmPrototypeBackend.Types;
 // Recreation of ClearanceRequest schema from
 // https://eaflood.atlassian.net/wiki/spaces/TRADE/pages/5104664583/PHA+Port+Health+Authority+Integration+Data+Schema
 
-public class ClearanceRequestHeader
+public class ClearanceRequest
 {
     [Attr]
     public string EntryReference { get; set; } = default!;
@@ -22,6 +24,7 @@ public class ClearanceRequestHeader
     public int PreviousVersionNumber { get; set; } = default!;
     
     [Attr]
+    [JsonPropertyName("DeclarationUCR")]
     public string DeclarationUcr{ get; set; } = default!;
     
     [Attr]
@@ -31,9 +34,11 @@ public class ClearanceRequestHeader
     public string DeclarationType { get; set; } = default!;
     
     [Attr]
+    [Newtonsoft.Json.JsonConverter(typeof(IsoDateTimeConverter))]
     public DateTime ArrivalDateTime { get; set; } = default!;
     
     [Attr]
+    [JsonPropertyName("SubmitterTURN")]
     public string SubmitterTurn { get; set; } = default!;
     
     [Attr]
@@ -49,11 +54,15 @@ public class ClearanceRequestHeader
     public string GoodsLocationCode { get; set; } = default!;
     
     [Attr]
+    [JsonPropertyName("MasterUCR")]
     public string MasterUcr { get; set; } = default!;
+    
+    [Attr]
+    public MovementItem[] Items { get; set; } = default!;
 }
 
 // [Resource]
-public class ClearanceRequest //: CustomStringMongoIdentifiable
+public class ClearanceRequestEnvelope
 {
 
     // This field is used by the jsonapi-consumer to control the correct casing in the type field
@@ -66,7 +75,7 @@ public class ClearanceRequest //: CustomStringMongoIdentifiable
     public AlvsServiceHeader ServiceHeader { get; set; } = default!;
     
     [Attr]
-    public ClearanceRequestHeader Header { get; set; } = default!;
+    public ClearanceRequest Header { get; set; } = default!;
 
     [Attr]
     public MovementItem[] Items { get; set; } = default!;

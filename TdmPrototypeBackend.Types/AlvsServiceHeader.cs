@@ -14,6 +14,8 @@ public class AlvsServiceHeader
     [Attr]
     public int CorrelationID { get; set; } = default!;
 
+    // TODO : Should be datetime...
     [Attr]
     public DateTime ServiceCallTimestamp { get; set; } = default!;
+    
 }

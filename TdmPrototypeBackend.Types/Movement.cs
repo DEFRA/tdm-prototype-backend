@@ -41,8 +41,9 @@ public class Movement : CustomStringMongoIdentifiable
     public MatchingStatus IpaffsNotification { get; set; } = new MatchingStatus() { Matched = false };
     
     [Attr]
-    public ClearanceRequest[] ClearanceRequests { get; set; } = default!;
+    public ClearanceRequestEnvelope[] ClearanceRequests { get; set; } = default!;
     
     [Attr]
     public MovementItem[] Items { get; set; } = default!;
+    
 }

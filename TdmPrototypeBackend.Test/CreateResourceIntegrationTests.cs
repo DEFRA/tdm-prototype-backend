@@ -244,15 +244,15 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         };
     }
 
-    private ClearanceRequest CreateChedAClearanceRequest(String id = null, MovementItem[] items = null)
+    private ClearanceRequestEnvelope CreateChedAClearanceRequest(String id = null, MovementItem[] items = null)
     {
         id = id ?? GenerateChedID(id:testId);
         items = items ?? new[] { new MovementItem() { CustomsProcedureCode = "AAA" } };
-        return new ClearanceRequest()
+        return new ClearanceRequestEnvelope()
         {
             // Id = id,
             ServiceHeader = new AlvsServiceHeader() { SourceSystem = "CDS", DestinationSystem = "ALVS" },
-            Header = new ClearanceRequestHeader() {},
+            Header = new ClearanceRequest() {},
             Items = items
             
         };
