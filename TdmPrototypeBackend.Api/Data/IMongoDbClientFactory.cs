@@ -1,10 +1,14 @@
 using MongoDB.Driver;
 
-namespace TdmPrototypeBackend.Data;
+namespace TdmPrototypeBackend.Api.Data;
 
 public interface IMongoDbClientFactory
 {
-    protected IMongoClient CreateClient();
+    public IMongoClient CreateClient();
 
     IMongoCollection<T> GetCollection<T>(string collection);
+
+    public List<string> GetCollections();
+    
+    public void DropCollections();
 }

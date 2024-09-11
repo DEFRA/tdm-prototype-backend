@@ -1,7 +1,7 @@
 using Serilog.Core;
 using Serilog.Events;
 
-namespace TdmPrototypeBackend.Utils;
+namespace TdmPrototypeBackend.Api.Utils;
 
 
 /**

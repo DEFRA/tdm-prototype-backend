@@ -1,8 +1,8 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
-using TdmPrototypeBackend.Config;
-using TdmPrototypeBackend.Data;
-using TdmPrototypeBackend.Utils;
+using TdmPrototypeBackend.Api.Config;
+using TdmPrototypeBackend.Api.Data;
+using TdmPrototypeBackend.Api.Utils;
 using FluentValidation;
 using JsonApiDotNetCore.Configuration;
 using JsonApiDotNetCore.MongoDb.Configuration;
@@ -11,7 +11,7 @@ using JsonApiDotNetCore.Repositories;
 using Microsoft.AspNetCore.HttpLogging;
 using MongoDB.Driver;
 using Serilog;
-
+using TdmPrototypeBackend.Api.Endpoints;
 using TdmPrototypeDmpSynchroniser.Api.Endpoints;
 using TdmPrototypeBackend.Api.Utils;
 using TdmPrototypeBackend.Types;
@@ -41,10 +41,17 @@ builder.Configuration.AddEnvironmentVariables();
 
 // Serilog
 builder.Logging.ClearProviders();
-var logger = new LoggerConfiguration()
+var loggerConfiguration = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
-    .Enrich.With<LogLevelMapper>()
+    .Enrich.With<LogLevelMapper>();
+
+// Is there something better we can do here:
+var loggerFactory = builder.Services.BuildServiceProvider()
+    .GetService<ILoggerFactory>()!;
+
+var logger = loggerConfiguration
     .CreateLogger();
+
 builder.Logging.AddSerilog(logger);
 
 logger.Information("Starting application");
@@ -62,7 +69,7 @@ if (builder.IsDevMode())
 }
 
 // Mongo
-var factory = new MongoDbClientFactory(mongoUri,
+var factory = new MongoDbClientFactory(loggerFactory.CreateLogger<MongoDbClientFactory>(), mongoUri,
     mongoDatabaseName);
 
 builder.Services.AddSingleton<IMongoDbClientFactory>(_ =>
@@ -75,6 +82,7 @@ builder.Services.AddHealthChecks();
 builder.Services.AddHttpClient();
 builder.Services.AddHttpProxyServices(logger, builder.Configuration);
 
+// TODO Refactor this and tidy up
 // JSON API
 
 static void ConfigureJsonApiOptions(JsonApiOptions options)
@@ -92,18 +100,11 @@ static void ConfigureJsonApiOptions(JsonApiOptions options)
 #endif
 }
 
+builder.Services.AddSingleton<BackendConfig, BackendConfig>();
+
 builder.Services.AddSingleton<IMongoDatabase>(_ => factory.CreateClient().GetDatabase(mongoDatabaseName));
-// builder.Services.AddJsonApi(resources: resourceGraphBuilder =>
-// {
-//     resourceGraphBuilder.Add<ClearanceRequest, string?>();
-//     resourceGraphBuilder.Add<GvmsGmr, string?>();
-//     resourceGraphBuilder.Add<IpaffsNotification, string?>();
-//     // resourceGraphBuilder.Add<Item, string?>();
-// });
-// builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.AddCurrentAssembly());
+
 builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.AddAssembly(Assembly.Load("TdmPrototypeBackend.Types")));
-// builder.Services.AddJsonApi(options: ConfigureJsonApiOptions);
-// builder.Services.AddJsonApi(discovery: discovery => discovery.AddAssembly(Assembly.Load("TdmPrototypeBackend.Types")));
 
 builder.Services.AddJsonApiMongoDb();
 
@@ -135,6 +136,7 @@ app.UseRouting();
 app.UseJsonApi();
 app.MapControllers();
 app.UseDiagnosticEndpoints();
+app.UseManagementEndpoints(new BackendConfig(builder.Configuration));
 app.UseSyncEndpoints();
 app.MapHealthChecks("/health");
 app.UseHttpLogging();

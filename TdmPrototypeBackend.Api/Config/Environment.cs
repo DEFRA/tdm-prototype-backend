@@ -1,4 +1,4 @@
-namespace TdmPrototypeBackend.Config;
+namespace TdmPrototypeBackend.Api.Config;
 
 public static class Environment
 {
