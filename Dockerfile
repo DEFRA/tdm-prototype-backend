@@ -15,10 +15,10 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0-bookworm-slim AS build
 WORKDIR /src
 
 COPY . .
-WORKDIR "/src/TdmPrototypeBackend"
+WORKDIR "/src/TdmPrototypeBackend.Api"
 
 FROM build AS publish
-RUN dotnet publish "TdmPrototypeBackend.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "TdmPrototypeBackend.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # unit test and code coverage
 # use the label to identity this layer later
@@ -33,4 +33,4 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 EXPOSE 8085
-ENTRYPOINT ["dotnet", "TdmPrototypeBackend.dll"]
+ENTRYPOINT ["dotnet", "TdmPrototypeBackend.Api.dll"]

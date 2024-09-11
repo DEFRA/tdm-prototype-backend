@@ -30,7 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\tdm-prototype-backend\TdmPrototypeBackend.Types\TdmPrototypeBackend.Types.csproj" />
+    <ProjectReference Include="..\TdmPrototypeBackend.Types\TdmPrototypeBackend.Types.csproj" />
     <ProjectReference Include="..\libs\jsonapi-consumer\jsonapi-consumer.csproj" />
   </ItemGroup>
 
