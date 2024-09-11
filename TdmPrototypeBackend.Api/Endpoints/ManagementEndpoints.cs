@@ -1,4 +1,5 @@
-﻿using TdmPrototypeBackend.Api.Data;
+﻿using System.Collections;
+using TdmPrototypeBackend.Api.Data;
 using TdmPrototypeDmpSynchroniser.Api.Config;
 using TdmPrototypeDmpSynchroniser.Api.Services;
 using TdmPrototypeBackend.Api.Config;
@@ -16,8 +17,40 @@ public static class ManagementEndpoints
         if (config.EnableMongoManagement)
         {
             app.MapGet(BaseRoute + "/collections", GetCollectionsAsync);
-            app.MapGet(BaseRoute + "/collections/drop", DropCollectionsAsync);    
+            app.MapGet(BaseRoute + "/collections/drop", DropCollectionsAsync);  
+            app.MapGet(BaseRoute + "/environment", GetEnvironment);
+            app.MapGet(BaseRoute + "/proxy/set", SetProxy);
+            app.MapGet(BaseRoute + "/proxy/unset", UnsetProxy);   
         }
+    }
+
+    private static bool FilterEnvKeys(DictionaryEntry d)
+    {
+        var key = d.Key.ToString()!;
+        return key.StartsWith("DMP") | key.StartsWith("CDP")
+                                     | key.StartsWith("AZURE") | key.StartsWith("TRADE")
+                                     | key.StartsWith("HTTP") | key.StartsWith("TDM");
+    }
+    private static IResult GetEnvironment(IConfiguration configuration)
+    {
+        
+        var dict = System.Environment.GetEnvironmentVariables();
+        var filtered = dict.Cast<DictionaryEntry>().Where(FilterEnvKeys).ToArray();
+        return Results.Ok(filtered); //(Dictionary)dict.Where(i => i.Value.BooleanProperty));
+    }
+    
+    private static IResult SetProxy(IConfiguration configuration)
+    {
+        System.Environment.SetEnvironmentVariable("HTTPS_PROXY", configuration["CDP_HTTPS_PROXY"]);
+        System.Environment.SetEnvironmentVariable("HTTP_PROXY", configuration["CDP_HTTP_PROXY"]);
+        return Results.Ok();
+    }
+
+    private static IResult UnsetProxy(IConfiguration configuration)
+    {
+        System.Environment.SetEnvironmentVariable("HTTPS_PROXY", "");
+        System.Environment.SetEnvironmentVariable("HTTP_PROXY", "");
+        return Results.Ok();
     }
 
     private static async Task<IResult> GetCollectionsAsync(

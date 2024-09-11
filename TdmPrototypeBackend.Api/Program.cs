@@ -4,14 +4,17 @@ using TdmPrototypeBackend.Api.Config;
 using TdmPrototypeBackend.Api.Data;
 using TdmPrototypeBackend.Api.Utils;
 using FluentValidation;
+using HealthChecks.UI.Client;
 using JsonApiDotNetCore.Configuration;
 using JsonApiDotNetCore.MongoDb.Configuration;
 using JsonApiDotNetCore.MongoDb.Repositories;
 using JsonApiDotNetCore.Repositories;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.HttpLogging;
 using MongoDB.Driver;
 using Serilog;
 using TdmPrototypeBackend.Api.Endpoints;
+using TdmPrototypeBackend.Api.HealthChecks;
 using TdmPrototypeDmpSynchroniser.Api.Endpoints;
 using TdmPrototypeBackend.Api.Utils;
 using TdmPrototypeBackend.Types;
@@ -116,6 +119,9 @@ builder.Services.AddScoped(typeof(IResourceReadRepository<,>), typeof(MongoRepos
 builder.Services.AddScoped(typeof(IResourceWriteRepository<,>), typeof(MongoRepository<,>));
 builder.Services.AddScoped(typeof(IResourceRepository<,>), typeof(MongoRepository<,>));
 
+builder.Services.AddHealthChecks()
+    .AddCheck<SampleHealthCheck>("Sample");
+
 // swagger endpoints
 if (builder.IsSwaggerEnabled())
 {
@@ -138,7 +144,14 @@ app.MapControllers();
 app.UseDiagnosticEndpoints();
 app.UseManagementEndpoints(new BackendConfig(builder.Configuration));
 app.UseSyncEndpoints();
-app.MapHealthChecks("/health");
+// app.MapHealthChecks("/health")
+
+app.MapHealthChecks("/health", new HealthCheckOptions()
+{
+    Predicate = _ => true,
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
+
 app.UseHttpLogging();
 
 app.Run();
