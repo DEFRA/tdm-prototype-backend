@@ -10,6 +10,8 @@ public class ClassDescriptor(string name)
 
     public string Description { get; set; }
 
+    public bool IsResource { get; set; }
+
     public List<PropertyDescriptor> Properties { get; set; } = [];
 
     public string GetClassName()
