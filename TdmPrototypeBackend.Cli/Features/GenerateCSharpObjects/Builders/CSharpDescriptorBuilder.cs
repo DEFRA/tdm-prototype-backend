@@ -12,6 +12,7 @@ public class CSharpDescriptorBuilder(List<ISchemaVisitor> visitors)
         var csharpDescriptor = new CSharpDescriptor();
 
         var mainClassDescriptor = new ClassDescriptor(mySchema.GetId().ToString());
+        mainClassDescriptor.IsResource = true;
         csharpDescriptor.AddClassDescriptor(mainClassDescriptor);
         foreach (var property in mySchema.GetProperties())
         {
