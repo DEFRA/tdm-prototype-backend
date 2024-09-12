@@ -9,6 +9,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
     public void OnProperty(PropertyVisitorContext context)
     {
         var typeKeyword = context.JsonSchema.GetKeyword<TypeKeyword>();
+        var description = context.JsonSchema.GetDescription();
 
         if (typeKeyword is not null)
         {
@@ -24,6 +25,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
 
                         context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key,
                             $"{value}",
+                            description,
                             true, true));
                     }
                     else
@@ -33,6 +35,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
                         {
                             context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key,
                                 itemType.ToCSharpArrayType(),
+                                description,
                                 false, true));
                         }
                         else
@@ -40,6 +43,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
                             OnDefinition(new DefinitionVisitorContext(context.CSharpDescriptor, context.RootJsonSchema, context.Key, itemsKeyword.SingleSchema));
                             context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key,
                                 context.Key,
+                                description,
                                 true, true));
                         }
                     }
@@ -49,6 +53,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
             else
             {
                 context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key, typeKeyword.Type.ToCSharpType(),
+                    description,
                     false, false));
             }
 
@@ -66,7 +71,8 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
 
                 if (defType == SchemaValueType.Object)
                 {
-                    context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key, value, true, false));
+                    context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key, value,
+                        description, true, false));
                 }
                 else if (defType == SchemaValueType.Array)
                 {
@@ -78,17 +84,15 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
                         {
                             context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key,
                                 itemType.ToCSharpArrayType(),
+                                description,
                                 false, true));
-                        }
-                        else
-                        {
-
                         }
                     }
                 }
                 else
                 {
                     context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key, defType.ToCSharpType(),
+                        description,
                         true, false));
                 }
             }
@@ -110,7 +114,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
         else if (context.JsonSchema.IsClass())
         {
             var classDescriptor = new ClassDescriptor(context.Key.Dehumanize());
-
+            classDescriptor.Description = context.JsonSchema.GetDescription();
             context.CSharpDescriptor.AddClassDescriptor(classDescriptor);
 
             var propertiesKeyword = context.JsonSchema.GetKeyword<PropertiesKeyword>();

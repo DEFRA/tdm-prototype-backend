@@ -8,6 +8,8 @@ public class ClassDescriptor(string name)
 {
     public string Name { get; set; } = name;
 
+    public string Description { get; set; }
+
     public List<PropertyDescriptor> Properties { get; set; } = [];
 
     public string GetClassName()
