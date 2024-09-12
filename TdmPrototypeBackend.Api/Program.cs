@@ -26,7 +26,6 @@ using TdmPrototypeDmpSynchroniser.Api.Extensions;
 //-------- Configure the WebApplication builder------------------//
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Configuration.AddIniFile("Properties/local.env", true);
 
 builder.Services.AddHttpLogging(logging =>
 {
@@ -42,6 +41,7 @@ builder.Services.AddHttpLogging(logging =>
 // Grab environment variables
 builder.Configuration.AddEnvironmentVariables("CDP");
 builder.Configuration.AddEnvironmentVariables();
+builder.Configuration.AddIniFile("Properties/local.env", true);
 
 // Serilog
 builder.Logging.ClearProviders();

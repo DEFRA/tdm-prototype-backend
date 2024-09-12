@@ -94,6 +94,8 @@ public class BlobService(ILoggerFactory loggerFactory, SynchroniserConfig config
                     output.Add(new SynchroniserBlobItem() { Name = item.Name });    
                 }
             }
+            
+            Logger.LogInformation($"GetResourcesAsync {output.Count} blobs found.");
 
             return output;
         }
