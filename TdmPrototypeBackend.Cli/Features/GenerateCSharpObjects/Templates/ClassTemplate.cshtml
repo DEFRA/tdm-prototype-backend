@@ -1,0 +1,26 @@
+@using RazorLight
+@model TdmPrototypeBackend.Cli.Features.GenerateCSharpObjects.DescriptorModel.ClassDescriptor
+@inherits TemplatePage<TdmPrototypeBackend.Cli.Features.GenerateCSharpObjects.DescriptorModel.ClassDescriptor>
+
+using JsonApiDotNetCore.Resources.Annotations;
+using Newtonsoft.Json;
+
+
+namespace TdmPrototypeBackend.Types;
+
+public partial class @Model.GetClassName()
+{
+@foreach(var property in Model.Properties)
+{
+
+<text>
+	    [Attr]
+		[JsonProperty("@property.Name", NullValueHandling = NullValueHandling.Ignore)]
+		public @property.GetPropertyType() @property.GetPropertyName() { get; set; }
+</text>
+	
+}
+
+}
+
+

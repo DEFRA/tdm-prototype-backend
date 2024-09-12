@@ -1,0 +1,62 @@
+using Json.Schema;
+
+namespace TdmPrototypeBackend.Cli.Features.GenerateCSharpObjects;
+
+public static class JsonSchemaExtensions
+{
+    public static bool IsClass(this JsonSchema jsonSchema)
+    {
+        var typeKeyword = jsonSchema.GetKeyword<TypeKeyword>();
+
+        if (typeKeyword != null)
+        {
+            return typeKeyword.Type == SchemaValueType.Object;
+        }
+
+        return false;
+    }
+
+    public static bool IsReferenceType(this JsonSchema jsonSchema)
+    {
+        var typeKeyword = jsonSchema.GetKeyword<RefKeyword>();
+
+        return typeKeyword != null;
+    }
+
+    public static bool IsEnum(this JsonSchema jsonSchema)
+    {
+        var typeKeyword = jsonSchema.GetKeyword<EnumKeyword>();
+
+        return typeKeyword != null;
+    }
+
+    public static string ToCSharpType(this SchemaValueType schemaValueType)
+    {
+        return schemaValueType switch
+        {
+            SchemaValueType.Object => "object",
+            SchemaValueType.Array => "string[]",
+            SchemaValueType.Boolean => "bool",
+            SchemaValueType.String => "string",
+            SchemaValueType.Number => "double",
+            SchemaValueType.Integer => "int",
+            SchemaValueType.Null => "null",
+            _ => throw new ArgumentOutOfRangeException(nameof(schemaValueType), schemaValueType, null)
+        };
+    }
+
+    public static string ToCSharpArrayType(this SchemaValueType schemaValueType)
+    {
+        return schemaValueType switch
+        {
+            SchemaValueType.Object => "object[]",
+            SchemaValueType.Array => "string[]",
+            SchemaValueType.Boolean => "bool[]",
+            SchemaValueType.String => "string[]",
+            SchemaValueType.Number => "double[]",
+            SchemaValueType.Integer => "int[]",
+            SchemaValueType.Null => "null",
+            _ => throw new ArgumentOutOfRangeException(nameof(schemaValueType), schemaValueType, null)
+        };
+    }
+}
