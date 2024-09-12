@@ -22,12 +22,18 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateCSharpObjects.DescriptorModel
 
         public string GetPropertyName()
         {
+            if (name.Equals("type", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return $"_{name.Dehumanize()}";
+            }
             return Name.Dehumanize();
         }
 
         public string GetPropertyType()
         {
             var t = Type;
+
+           
             if (isReferenceType && !Type.Equals("Result") && !Type.Equals("Unit") && !Type.Equals("string") && !Type.Equals("InspectionRequired"))
             {
                 t = $"{Type}Dto".Dehumanize();
