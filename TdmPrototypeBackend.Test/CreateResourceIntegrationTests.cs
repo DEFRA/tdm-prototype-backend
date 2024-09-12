@@ -201,7 +201,8 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
             
         return new IpaffsNotification()
         {
-            ReferenceNumber = id,
+            Id = id,
+            // ReferenceNumber = id,
             Version = 1,
             NotificationType = notificationType,
             PartOne = new IpaffsPartOne()

@@ -1,5 +1,9 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+using JsonApiDotNetCore.MongoDb.Resources;
 using JsonApiDotNetCore.Resources.Annotations;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace TdmPrototypeBackend.Types;
 
@@ -134,18 +138,41 @@ public class IpaffsPartOne
 }
 
 [Resource]
-public class IpaffsNotification : CustomStringMongoIdentifiable
+public class IpaffsNotification : IMongoIdentifiable
 {
 
     // This field is used by the jsonapi-consumer to control the correct casing in the type field
     public string Type { get; set; } = "ipaffsNotifications";
     
+    [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
+    [JsonPropertyName("referenceNumber")]
+    public virtual string? Id { get; set; }
+    
+    // TODO : this is currently being written on the wire by the json api client
+    /// <inheritdoc />
+    [BsonIgnore]
+    [JsonIgnore]
+    // [NotMapped]
+    [Attr]
+    public string? StringId
+    {
+        get => Id;
+        set => Id = value;
+    }
+    
+    /// <inheritdoc />
+    [BsonIgnore]
+    [JsonIgnore]
+    [NotMapped]
+    // [Attr]
+    public string? LocalId { get; set; }
+    
     // [JsonPropertyName("referenceNumber")]
     // public new string? Id { get; set; }
     
-    [Attr]
-    [JsonPropertyName("referenceNumber")]
-    public new string ReferenceNumber { get; set; } = default!;
+    // [Attr]
+    // [JsonPropertyName("referenceNumber")]
+    // public new string ReferenceNumber { get; set; } = default!;
     
     [Attr]
     public MatchingStatus Movement { get; set; } = new MatchingStatus() { Matched = false };

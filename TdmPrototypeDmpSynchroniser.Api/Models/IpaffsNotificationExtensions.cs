@@ -18,7 +18,7 @@ public static class IpaffsNotificationExtensions
         
         var r = JsonSerializer.Deserialize<IpaffsNotification>(s, options)!;
         
-        r.Id = r.ReferenceNumber;
+        // r.Id = r.ReferenceNumber;
         
         return r;
     }
