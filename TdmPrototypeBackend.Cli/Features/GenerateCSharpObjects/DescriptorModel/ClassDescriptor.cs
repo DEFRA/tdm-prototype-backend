@@ -16,6 +16,6 @@ public class ClassDescriptor(string name)
 
     public string GetClassName()
     {
-        return $"{Name}Dto".Dehumanize();
+        return IsResource ? Name.Dehumanize() : $"{Name}Dto".Dehumanize();
     }
 }

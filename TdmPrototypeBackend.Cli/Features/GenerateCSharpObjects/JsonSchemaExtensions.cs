@@ -16,6 +16,19 @@ public static class JsonSchemaExtensions
         return false;
     }
 
+    public static bool IsClassAndHasProperties(this JsonSchema jsonSchema)
+    {
+        var typeKeyword = jsonSchema.GetKeyword<TypeKeyword>();
+        var propertiesKeyword = jsonSchema.GetKeyword<PropertiesKeyword>();
+
+        if (typeKeyword != null)
+        {
+            return typeKeyword.Type == SchemaValueType.Object && propertiesKeyword != null;
+        }
+
+        return false;
+    }
+
     public static string GetDescription(this JsonSchema jsonSchema)
     {
         var keyword = jsonSchema.GetKeyword<DescriptionKeyword>();

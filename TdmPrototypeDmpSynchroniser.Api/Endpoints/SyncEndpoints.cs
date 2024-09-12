@@ -44,4 +44,18 @@ public static class SyncEndpoints
         }
         return Results.Conflict(result);
     }
+    
+    private static async Task<IResult> SyncIpaffsNotificationsAsync(
+        ISyncService service)
+    {
+        // var Logger = ApplicationLogging.CreateLogger("SyncEndpoints");
+        
+        var result = await service.SyncIpaffsNotifications();
+        // Logger.LogInformation(result.ToJson());
+        if (result.Success)
+        {
+            return Results.Ok(result);    
+        }
+        return Results.Conflict(result);
+    }
 }

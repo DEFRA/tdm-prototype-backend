@@ -10,20 +10,16 @@ public static class IpaffsNotificationExtensions
     
     public static IpaffsNotification FromBlob(string s)
     {
-        JsonSerializerOptions options = new JsonSerializerOptions();
+        JsonSerializerOptions options = new JsonSerializerOptions()
+        {
+            // PropertyNameCaseInsensitive = true,
+            NumberHandling = JsonNumberHandling.AllowReadingFromString
+        };
         
         var r = JsonSerializer.Deserialize<IpaffsNotification>(s, options)!;
-        // var cr = r.Header;
-        // cr.Items = r.Items;
-
+        
+        // r.Id = r.ReferenceNumber;
+        
         return r;
-        // {
-        //     Id = r.Header.MasterUcr,
-        //     ClearanceRequests = new ClearanceRequestEnvelope[]
-        //     {
-        //         r
-        //     },
-        //     Items = r.Items
-        // };
     }
 }

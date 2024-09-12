@@ -11,7 +11,7 @@ public class CSharpDescriptorBuilder(List<ISchemaVisitor> visitors)
 
         var csharpDescriptor = new CSharpDescriptor();
 
-        var mainClassDescriptor = new ClassDescriptor(mySchema.GetId().ToString());
+        var mainClassDescriptor = new ClassDescriptor("IpaffsNotification");
         mainClassDescriptor.IsResource = true;
         csharpDescriptor.AddClassDescriptor(mainClassDescriptor);
         foreach (var property in mySchema.GetProperties())

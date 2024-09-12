@@ -3,11 +3,11 @@
 @inherits TemplatePage<TdmPrototypeBackend.Cli.Features.GenerateCSharpObjects.DescriptorModel.ClassDescriptor>
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// @Model.Description
@@ -35,7 +35,7 @@ public partial class @Model.GetClassName()  @if (Model.IsResource) { <text>: Cus
         /// @property.Description
         /// </summary>
         [Attr]
-        [JsonProperty("@property.Name", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("@property.Name")]
         public @property.GetPropertyType() @property.GetPropertyName() { get; set; }
     </text>
 	

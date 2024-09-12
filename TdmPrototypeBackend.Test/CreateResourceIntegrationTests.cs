@@ -202,6 +202,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         return new IpaffsNotification()
         {
             Id = id,
+            // ReferenceNumber = id,
             Version = 1,
             NotificationType = notificationType,
             PartOne = new IpaffsPartOne()
@@ -214,17 +215,14 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
                     Country = "GB"
                     
                 },
-                Commodities = new[]
+                Commodities = new IpaffsNotificationCommodities()
                 {
-                    new IpaffsNotificationCommodities()
-                    {
-                        CommodityComplement = new []{ new IpaffsNotificationCommodityComplement()
-                        {   
-                            CommodityID = "0101",
-                            CommodityDescription = "Live horses, asses, mules and hinnies"
-                        }},
-                        NumberOfAnimals = 1, CountryOfOrigin = "FRA"
-                    }
+                    CommodityComplements = new []{ new IpaffsNotificationCommodityComplement()
+                    {   
+                        CommodityID = "0101",
+                        CommodityDescription = "Live horses, asses, mules and hinnies"
+                    }},
+                    NumberOfAnimals = 1, CountryOfOrigin = "FRA"
                 },
                 PointOfEntry = "GBEDI4",
                 ArrivalDate = DateTime.Today.AddDays(7).ToString("yyyy-MM-dd"),

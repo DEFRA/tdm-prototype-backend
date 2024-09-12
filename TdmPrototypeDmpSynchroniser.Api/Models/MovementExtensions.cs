@@ -12,17 +12,35 @@ public static class MovementExtensions
         public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             Debug.Assert(typeToConvert == typeof(DateTime));
-            var s = reader.GetString();
-            var i = 0;
-            var result = int.TryParse(s, out i);
 
-            if (result)
+            ulong number = 0;
+
+            if (reader.TokenType == JsonTokenType.Number)
             {
-                var s_epoch = new DateTime(1970, 1, 1, 0, 0, 0);
-                return s_epoch.AddSeconds(i);
+                reader.TryGetUInt64(out number);
             }
+            else
+            {
+                var s = reader.GetString();
+                if (!ulong.TryParse(s, out number))
+                {
+                    return DateTime.Parse(s!);
+                }    
+            }
+            var s_epoch = new DateTime(1970, 1, 1, 0, 0, 0);
             
-            return DateTime.Parse(s ?? string.Empty);
+            // 1723127967 - DEV
+            // 1712851200000 - SND
+            if (number > 10000000000)
+            {
+                return s_epoch.AddMilliseconds(number);
+            }
+            else if (number > 0)
+            {
+                return s_epoch.AddSeconds(number);
+            }
+
+            return s_epoch;
         }
 
         public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
@@ -33,7 +51,12 @@ public static class MovementExtensions
     
     public static Movement FromClearanceRequest(string s)
     {
-        JsonSerializerOptions options = new JsonSerializerOptions();
+        JsonSerializerOptions options = new JsonSerializerOptions()
+        {
+            PropertyNameCaseInsensitive = true,
+            NumberHandling = JsonNumberHandling.AllowReadingFromString
+        };
+        
         options.Converters.Add(new DateTimeConverterUsingDateTimeParse());
         
         var r = JsonSerializer.Deserialize<ClearanceRequestEnvelope>(s, options)!;
@@ -41,7 +64,7 @@ public static class MovementExtensions
         cr.Items = r.Items;
         
         return new Movement() {
-            Id = r.Header.MasterUcr,
+            Id = r.Header.EntryReference,
             ClearanceRequests = new ClearanceRequestEnvelope[]
             {
                 r

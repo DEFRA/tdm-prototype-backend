@@ -16,7 +16,7 @@ public class SyncClearanceRequestTests
         
         
         // Unique ID should be set - need to check where the 'movement ID' is stored on the ALVS message 
-        m.Id.Should().Be("MasterUcrf0be5d5d-0259-4fee-82b8-6e654c3e45c8");
+        m.Id.Should().Be("ALVSCDSSTAND1094395");
         m.Items.Length.Should().Be(2);
         m.ClearanceRequests.Length.Should().Be(1);
         
@@ -29,6 +29,21 @@ public class SyncClearanceRequestTests
         // Datetime parsing
         m.ClearanceRequests.First().Header.ArrivalDateTime.Should().Be(new DateTime(2024, 8, 8, 16, 39, 27));
 
+    }
+    
+    [Fact]
+    public void SndExample_ShouldDeserialise()
+    {
+        var s =
+            "{\"serviceHeader\":{\"sourceSystem\":\"CDS\",\"destinationSystem\":\"ALVS\",\"correlationId\":\"20\",\"serviceCallTimestamp\":1712851200000},\"header\":{\"entryReference\":\"CHEDPGB20241036190\",\"entryVersionNumber\":2,\"previousVersionNumber\":1,\"declarationUCR\":\"1GB782435121000-000000001079849\",\"declarationPartNumber\":null,\"declarationType\":\"F\",\"arrivalDateTime\":\"202309100911\",\"submitterTURN\":\"GB363127805000\",\"declarantId\":\"GB363127805000\",\"declarantName\":\"GB363127805000\",\"dispatchCountryCode\":\"GB\",\"goodsLocationCode\":\"BELBELGVM\",\"masterUCR\":null},\"items\":[{\"itemNumber\":1,\"customsProcedureCode\":\"4000000\",\"taricCommodityCode\":\"1702401000\",\"goodsDescription\":\"Other\",\"consigneeId\":\"GB782435121000\",\"consigneeName\":\"GB782435121000\",\"itemNetMass\":14910.75,\"itemSupplementaryUnits\":0,\"itemThirdQuantity\":null,\"itemOriginCountryCode\":\"NZ\",\"documents\":[{\"documentCode\":\"N853\",\"documentReference\":\"GBCHD2024.1036190\",\"documentStatus\":\"AE\",\"documentControl\":\"P\",\"documentQuantity\":null}],\"checks\":[{\"checkCode\":\"H234\",\"departmentCode\":\"PHA\"}]}]}";
+
+        var m = MovementExtensions.FromClearanceRequest(s);
+        
+        
+        // Unique ID should be set - need to check where the 'movement ID' is stored on the ALVS message 
+        m.Id.Should().Be("CHEDPGB20241036190");
+        m.Items.Length.Should().Be(1);
+        m.ClearanceRequests.Length.Should().Be(1);
     }
     
     [Fact]

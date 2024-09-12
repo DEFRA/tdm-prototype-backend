@@ -52,9 +52,30 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
             }
             else
             {
-                context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key, typeKeyword.Type.ToCSharpType(),
-                    description,
-                    false, false));
+                if (context.JsonSchema.IsClassAndHasProperties())
+                {
+                    var propertiesKeyword = context.JsonSchema.GetKeyword<PropertiesKeyword>();
+                    var classDescriptor = new ClassDescriptor(context.Key.Dehumanize());
+                    classDescriptor.Description = context.JsonSchema.GetDescription();
+                    context.CSharpDescriptor.AddClassDescriptor(classDescriptor);
+
+                    foreach (var property in propertiesKeyword.Properties)
+                    {
+                        OnProperty(new PropertyVisitorContext(context.CSharpDescriptor, classDescriptor, context.RootJsonSchema, property.Key,
+                            property.Value));
+                    }
+
+                    context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key, context.Key,
+                        description,
+                        true, false));
+                }
+                else
+                {
+                    context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key, typeKeyword.Type.ToCSharpType(),
+                        description,
+                        false, false));
+                }
+               
             }
 
         }
@@ -95,6 +116,23 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
                         description,
                         true, false));
                 }
+            }
+            else
+            {
+                var propertiesKeyword = context.JsonSchema.GetKeyword<PropertiesKeyword>();
+                var classDescriptor = new ClassDescriptor(context.Key.Dehumanize());
+                classDescriptor.Description = context.JsonSchema.GetDescription();
+                context.CSharpDescriptor.AddClassDescriptor(classDescriptor);
+
+                foreach (var property in propertiesKeyword.Properties)
+                {
+                    OnProperty(new PropertyVisitorContext(context.CSharpDescriptor, classDescriptor, context.RootJsonSchema, property.Key,
+                        property.Value));
+                }
+
+                context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key, context.Key,
+                    description,
+                    true, false));
             }
 
             if (context.JsonSchema.IsEnum())
