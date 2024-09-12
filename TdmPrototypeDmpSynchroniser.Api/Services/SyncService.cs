@@ -63,13 +63,13 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
         }
     }
     
-    public async Task<Status> SyncIPaffsNotifications()
+    public async Task<Status> SyncIpaffsNotifications()
     {
         try
         {
             // TODO need to figure out how we select path
             
-            var result = await blobService.GetResourcesAsync("RAW/IPAFFS/2024/09/");
+            var result = await blobService.GetResourcesAsync("RAW/IPAFFS/CHEDP/2024/09/");
             
             var itemCount = 0;
             var erroredCount = 0;
@@ -82,7 +82,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                 }
                 catch (Exception ex)
                 {
-                    Logger.LogError($"Failed to upsert movement from file {item.Name}. {ex.ToString()}.");
+                    Logger.LogError($"Failed to upsert ipaffs notification from file {item.Name}. {ex.ToString()}.");
                     
                     erroredCount++;
                 }

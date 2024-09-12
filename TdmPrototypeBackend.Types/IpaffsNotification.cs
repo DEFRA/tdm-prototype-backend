@@ -1,4 +1,5 @@
-﻿using JsonApiDotNetCore.Resources.Annotations;
+﻿using System.Text.Json.Serialization;
+using JsonApiDotNetCore.Resources.Annotations;
 
 namespace TdmPrototypeBackend.Types;
 
@@ -62,15 +63,19 @@ public class IpaffsNotificationCommodities
     // public string? TotalGrossVolumeUnit { get; set; } = default!;
     //
     [Attr]
+    [JsonPropertyName("commodityComplement")]
     public IpaffsNotificationCommodityComplement[]? CommodityComplement { get; set; } = default!;
     
     [Attr]
+    [JsonPropertyName("numberOfAnimals")]
     public int? NumberOfAnimals { get; set; } = default!;
     
     [Attr]
+    [JsonPropertyName("numberOfPackages")]
     public int? NumberOfPackages { get; set; } = default!;
     
     [Attr]
+    [JsonPropertyName("countryOfOrigin")]
     public string CountryOfOrigin { get; set; }
     //
     // [Attr]
@@ -89,30 +94,42 @@ public class IpaffsNotificationCommodities
 public class IpaffsResponsiblePerson
 {
     [Attr]
+    [JsonPropertyName("name")]
     public string Name { get; set; }
+    
     [Attr]
+    [JsonPropertyName("companyId")]
     public string CompanyId { get; set; }
+    
     [Attr]
+    [JsonPropertyName("companyName")]
     public string CompanyName { get; set; }
+    
     [Attr]
+    [JsonPropertyName("country")]
     public string Country { get; set; }
 }
 
 public class IpaffsPartOne
 {
     [Attr]
+    [JsonPropertyName("personResponsible")]
     public IpaffsResponsiblePerson PersonResponsible { get; set; }
     
     [Attr]
-    public IpaffsNotificationCommodities[]? Commodities { get; set; } = default!;
+    [JsonPropertyName("commodities")]
+    public IpaffsNotificationCommodities? Commodities { get; set; } = default!;
     
     [Attr]
+    [JsonPropertyName("pointOfEntry")]
     public string PointOfEntry { get; set; }
     
     [Attr]
+    [JsonPropertyName("arrivalDate")]
     public string ArrivalDate { get; set; }
     
     [Attr]
+    [JsonPropertyName("arrivalTime")]
     public string ArrivalTime { get; set; }
 }
 
@@ -123,8 +140,18 @@ public class IpaffsNotification : CustomStringMongoIdentifiable
     // This field is used by the jsonapi-consumer to control the correct casing in the type field
     public string Type { get; set; } = "ipaffsNotifications";
     
+    // [JsonPropertyName("referenceNumber")]
+    // public new string? Id { get; set; }
+    
+    [JsonPropertyName("referenceNumber")]
+    public new string ReferenceNumber { get; set; } = default!;
+    
     [Attr]
     public MatchingStatus Movement { get; set; } = new MatchingStatus() { Matched = false };
+    
+    [Attr]
+    [JsonPropertyName("id")]
+    public int IpaffsId { get; set; } = default!;
     
     [Attr]
     public int Version { get; set; } = default!;
@@ -136,5 +163,6 @@ public class IpaffsNotification : CustomStringMongoIdentifiable
     public NotificationStatus Status { get; set; } = default!;
     
     [Attr]
+    [JsonPropertyName("partOne")]
     public IpaffsPartOne PartOne { get; set; } = default!;
 }

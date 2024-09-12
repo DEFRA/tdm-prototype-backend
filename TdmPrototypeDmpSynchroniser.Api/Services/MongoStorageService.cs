@@ -9,10 +9,10 @@ namespace TdmPrototypeDmpSynchroniser.Api.Services;
 public class MongoStorageService<T> : MongoService<T>, IStorageService<T> where T : class, new()
 {   
     
-    public MongoStorageService(IMongoDbClientFactory connectionFactory, ILoggerFactory loggerFactory, SynchroniserConfig config, MongoDbOptions<Movement> options)
-        : base(connectionFactory, "Movement", loggerFactory, config)
+    public MongoStorageService(IMongoDbClientFactory connectionFactory, ILoggerFactory loggerFactory, SynchroniserConfig config, MongoDbOptions<T> options)
+        : base(connectionFactory, options.CollectionName, loggerFactory, config)
     {
-        Logger.LogInformation($"Connecting movement to MongoDB");
+        Logger.LogInformation($"Connecting {options.CollectionName} to MongoDB");
     }
 
     public async Task Upsert(T item)
@@ -22,18 +22,6 @@ public class MongoStorageService<T> : MongoService<T>, IStorageService<T> where 
             Logger.LogInformation("Upsert to MongoDB");
             
             await Collection.InsertOneAsync(item);
-            
-            // Response<Movement> response = JsonApiConsumer.JsonApiConsumer.Create<Movement, Movement>(
-            //     model: movement,
-            //     baseURI: Config.TdmBackendApiUri,
-            //     path: "api/movements"
-            // );
-            //
-            // Logger.LogInformation($"HTTP Response {response.HttpStatusCode}");
-            // if (response.DocumentRoot != null)
-            // {
-            //     Logger.LogInformation(response.DocumentRoot.ToString());    
-            // }
         }
         catch (Exception ex)
         {
