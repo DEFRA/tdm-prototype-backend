@@ -25,7 +25,6 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                 {
                     await movementService.Upsert(await ConvertMovement(item));
                     itemCount++;
-                    throw new Exception();
                 }
                 catch (Exception ex)
                 {
@@ -54,7 +53,6 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
 
         try
         {
-            throw new Exception();
             return MovementExtensions.FromClearanceRequest(blob.Content);
         }
         catch (Exception ex)
