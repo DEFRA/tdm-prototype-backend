@@ -11,6 +11,7 @@ using JsonApiDotNetCore.MongoDb.Repositories;
 using JsonApiDotNetCore.Repositories;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.VisualBasic.CompilerServices;
 using MongoDB.Driver;
 using Serilog;
 using TdmPrototypeBackend.Api.Endpoints;
@@ -51,6 +52,9 @@ var loggerConfiguration = new LoggerConfiguration()
 // Is there something better we can do here:
 var loggerFactory = builder.Services.BuildServiceProvider()
     .GetService<ILoggerFactory>()!;
+
+TdmPrototypeBackend.Api.Utils.ApplicationLogging.LoggerFactory = loggerFactory;
+
 
 var logger = loggerConfiguration
     .CreateLogger();

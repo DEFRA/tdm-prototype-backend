@@ -17,15 +17,16 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
             
             var itemCount = 0;
             var erroredCount = 0;
-            foreach (BlobItem item in result.Where(i => i.Properties.ContentLength is not 0).Take(5)) //
+            foreach (IBlobItem item in result.Take(5)) //
             {
                 try
                 {
                     await movementService.Upsert(await ConvertMovement(item));
                     itemCount++;
                 }
-                catch
+                catch (Exception ex)
                 {
+                    Logger.LogError(ex.ToString());
                     erroredCount++;
                 }
             }
@@ -42,13 +43,13 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
         }
     }
 
-    private async Task<Movement> ConvertMovement(BlobItem item)
+    private async Task<Movement> ConvertMovement(IBlobItem item)
     {
         var blob = await blobService.GetBlobAsync(item.Name);
         
-        Logger.LogInformation(blob.Content.ToString());
+        Logger.LogInformation(blob.Content);
         
-        return MovementExtensions.FromClearanceRequest(blob.Content.ToString());
+        return MovementExtensions.FromClearanceRequest(blob.Content);
     }
 
 }

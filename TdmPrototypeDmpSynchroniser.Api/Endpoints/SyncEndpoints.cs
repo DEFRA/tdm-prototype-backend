@@ -1,4 +1,5 @@
 ﻿using TdmPrototypeDmpSynchroniser.Api.Services;
+using TdmPrototypeDmpSynchroniser.Api.Utils;
 
 // using FluentValidation.Results;
 // using MongoDB.Bson;
@@ -8,7 +9,8 @@ namespace TdmPrototypeDmpSynchroniser.Api.Endpoints;
 public static class SyncEndpoints
 {
     private const string BaseRoute = "sync";
-
+    // private static ILogger Logger = ApplicationLogging.CreateLogger("SyncEndpoints");
+    
     public static void UseSyncEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapGet(BaseRoute + "/clearance-requests", SyncClearanceRequestsAsync);
@@ -17,8 +19,10 @@ public static class SyncEndpoints
     private static async Task<IResult> SyncClearanceRequestsAsync(
         ISyncService service)
     {
+        // var Logger = ApplicationLogging.CreateLogger("SyncEndpoints");
+        
         var result = await service.SyncMovements();
-        Console.WriteLine(result.ToJson());
+        // Logger.LogInformation(result.ToJson());
         if (result.Success)
         {
             return Results.Ok(result);    

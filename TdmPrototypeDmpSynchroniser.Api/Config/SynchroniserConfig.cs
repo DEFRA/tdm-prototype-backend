@@ -18,8 +18,8 @@ public class SynchroniserConfig
     public string? AzureClientId { get; set; } = default!;
     public string? AzureTenantId { get; set; } = default!;
     public string? AzureClientSecret { get; set; } = default!;
-    
-    // public string? CdsHttpsProxy { get; set; } = default!;
+    public bool CachingStoreEnabled  { get; set; } = default!;
+    public bool CachingReadEnabled  { get; set; } = default!;
     
     public SynchroniserConfig(IConfiguration configuration)
     {
@@ -34,7 +34,7 @@ public class SynchroniserConfig
         
         TradeApiEmvironment = configuration["TRADE_API_ENVIRONMENT"];
         TradeApiUri = $"https://{TradeApiEmvironment}-gateway.trade.azure.defra.cloud";
-        TdmBackendApiUri = configuration["TDM_BACKEND_API_URI"];
+        TdmBackendApiUri = configuration["SYNCHRONISER_TDM_BACKEND_API_URI"];
         
         DmpBusNamespace = $"{configuration["DMP_SERVICE_BUS_NAME"]!}.servicebus.windows.net";
         DmpBusTopic = $"defra.trade.dmp.ingestipaffs.{DmpEnvironment}.{dmpSlot}.topic";
@@ -44,5 +44,8 @@ public class SynchroniserConfig
         
         DmpBlobPrivateEndpoint = $"https://{configuration["DMP_BLOB_PRIVATE_ENDPOINT"]}";
         DmpBusPrivateEndpoint = configuration["DMP_BUS_PRIVATE_ENDPOINT"];
+        
+        CachingStoreEnabled = configuration["SYNCHRONISER_CACHE_STORE_ENABLED"] == "true";
+        CachingReadEnabled = configuration["SYNCHRONISER_CACHE_READ_ENABLED"] == "true";
     }
 }
