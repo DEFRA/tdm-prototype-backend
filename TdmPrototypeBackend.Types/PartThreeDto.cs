@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Control part of notification
@@ -16,42 +16,42 @@ public partial class PartThreeDto  {
         /// Control status enum
         /// </summary>
         [Attr]
-        [JsonProperty("controlStatus", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("controlStatus")]
         public string ControlStatus { get; set; }
     
         /// <summary>
         /// Control details
         /// </summary>
         [Attr]
-        [JsonProperty("control", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("control")]
         public ControlDto Control { get; set; }
     
         /// <summary>
         /// Validation messages for Part 3 - Control
         /// </summary>
         [Attr]
-        [JsonProperty("consignmentValidation", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("consignmentValidation")]
         public ValidationMessageCodeDto[] ConsignmentValidation { get; set; }
     
         /// <summary>
         /// Is the seal check required
         /// </summary>
         [Attr]
-        [JsonProperty("sealCheckRequired", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("sealCheckRequired")]
         public bool SealCheckRequired { get; set; }
     
         /// <summary>
         /// Seal check details
         /// </summary>
         [Attr]
-        [JsonProperty("sealCheck", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("sealCheck")]
         public SealCheckDto SealCheck { get; set; }
     
         /// <summary>
         /// Seal check override details
         /// </summary>
         [Attr]
-        [JsonProperty("sealCheckOverride", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("sealCheckOverride")]
         public InspectionOverrideDto SealCheckOverride { get; set; }
     
 }

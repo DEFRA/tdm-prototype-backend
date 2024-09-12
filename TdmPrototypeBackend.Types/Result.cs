@@ -13,19 +13,19 @@ public enum Result
 		Satisfactory,
 	
 		[EnumMember(Value = "Satisfactory following official intervention")]
-		SatisfactoryFollowingOfficialIntervention,
+		Satisfactoryfollowingofficialintervention,
 	
 		[EnumMember(Value = "Not Satisfactory")]
-		NotSatisfactory,
+		Notsatisfactory,
 	
 		[EnumMember(Value = "Not Done")]
-		NotDone,
+		Notdone,
 	
 		[EnumMember(Value = "Derogation")]
 		Derogation,
 	
 		[EnumMember(Value = "Not Set")]
-		NotSet,
+		Notset,
 	
 }
 

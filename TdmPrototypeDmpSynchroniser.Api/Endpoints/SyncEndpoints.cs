@@ -1,4 +1,4 @@
-﻿using TdmPrototypeDmpSynchroniser.Api.Services;
+using TdmPrototypeDmpSynchroniser.Api.Services;
 using TdmPrototypeDmpSynchroniser.Api.Utils;
 
 // using FluentValidation.Results;
@@ -37,20 +37,6 @@ public static class SyncEndpoints
         // var Logger = ApplicationLogging.CreateLogger("SyncEndpoints");
         
         var result = await service.SyncMovements();
-        // Logger.LogInformation(result.ToJson());
-        if (result.Success)
-        {
-            return Results.Ok(result);    
-        }
-        return Results.Conflict(result);
-    }
-    
-    private static async Task<IResult> SyncIpaffsNotificationsAsync(
-        ISyncService service)
-    {
-        // var Logger = ApplicationLogging.CreateLogger("SyncEndpoints");
-        
-        var result = await service.SyncIpaffsNotifications();
         // Logger.LogInformation(result.ToJson());
         if (result.Success)
         {

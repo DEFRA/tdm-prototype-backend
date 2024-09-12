@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Result of risk assessment by the risk scorer
@@ -16,14 +16,14 @@ public partial class RiskAssessmentResultDto  {
         /// List of risk assessed commodities
         /// </summary>
         [Attr]
-        [JsonProperty("commodityResults", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("commodityResults")]
         public CommodityRiskResultDto[] CommodityResults { get; set; }
     
         /// <summary>
         /// Date and time of assessment
         /// </summary>
         [Attr]
-        [JsonProperty("assessmentDateTime", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("assessmentDateTime")]
         public string AssessmentDateTime { get; set; }
     
 }

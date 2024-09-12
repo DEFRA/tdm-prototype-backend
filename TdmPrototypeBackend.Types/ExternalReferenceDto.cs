@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Reference number from an external system which is related to this notification
@@ -16,35 +16,35 @@ public partial class ExternalReferenceDto  {
         /// Identifier of the external system to which the reference relates
         /// </summary>
         [Attr]
-        [JsonProperty("system", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("system")]
         public string System { get; set; }
     
         /// <summary>
         /// Reference which is added to the notification when either sent to the downstream system or received from it
         /// </summary>
         [Attr]
-        [JsonProperty("reference", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("reference")]
         public string Reference { get; set; }
     
         /// <summary>
         /// Details whether there&#x27;s an exact match between the external source and IPAFFS data
         /// </summary>
         [Attr]
-        [JsonProperty("exactMatch", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("exactMatch")]
         public bool ExactMatch { get; set; }
     
         /// <summary>
         /// Details whether an importer has verified the data from an external source
         /// </summary>
         [Attr]
-        [JsonProperty("verifiedByImporter", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("verifiedByImporter")]
         public bool VerifiedByImporter { get; set; }
     
         /// <summary>
         /// Details whether an inspector has verified the data from an external source
         /// </summary>
         [Attr]
-        [JsonProperty("verifiedByInspector", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("verifiedByInspector")]
         public bool VerifiedByInspector { get; set; }
     
 }

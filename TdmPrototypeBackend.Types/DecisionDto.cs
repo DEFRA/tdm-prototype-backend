@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Decision if the consignment can be imported
@@ -16,259 +16,259 @@ public partial class DecisionDto  {
         /// Is consignment acceptable or not
         /// </summary>
         [Attr]
-        [JsonProperty("consignmentAcceptable", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("consignmentAcceptable")]
         public bool ConsignmentAcceptable { get; set; }
     
         /// <summary>
         /// Filled if consignmentAcceptable is set to false
         /// </summary>
         [Attr]
-        [JsonProperty("notAcceptableAction", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("notAcceptableAction")]
         public string NotAcceptableAction { get; set; }
     
         /// <summary>
         /// Filled if not acceptable action is set to destruction
         /// </summary>
         [Attr]
-        [JsonProperty("notAcceptableActionDestructionReason", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("notAcceptableActionDestructionReason")]
         public string NotAcceptableActionDestructionReason { get; set; }
     
         /// <summary>
         /// Filled if not acceptable action is set to entry refusal
         /// </summary>
         [Attr]
-        [JsonProperty("notAcceptableActionEntryRefusalReason", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("notAcceptableActionEntryRefusalReason")]
         public string NotAcceptableActionEntryRefusalReason { get; set; }
     
         /// <summary>
         /// Filled if not acceptable action is set to quarantine imposed
         /// </summary>
         [Attr]
-        [JsonProperty("notAcceptableActionQuarantineImposedReason", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("notAcceptableActionQuarantineImposedReason")]
         public string NotAcceptableActionQuarantineImposedReason { get; set; }
     
         /// <summary>
         /// Filled if not acceptable action is set to special treatment
         /// </summary>
         [Attr]
-        [JsonProperty("notAcceptableActionSpecialTreatmentReason", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("notAcceptableActionSpecialTreatmentReason")]
         public string NotAcceptableActionSpecialTreatmentReason { get; set; }
     
         /// <summary>
         /// Filled if not acceptable action is set to industrial processing
         /// </summary>
         [Attr]
-        [JsonProperty("notAcceptableActionIndustrialProcessingReason", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("notAcceptableActionIndustrialProcessingReason")]
         public string NotAcceptableActionIndustrialProcessingReason { get; set; }
     
         /// <summary>
         /// Filled if not acceptable action is set to re-dispatch
         /// </summary>
         [Attr]
-        [JsonProperty("notAcceptableActionReDispatchReason", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("notAcceptableActionReDispatchReason")]
         public string NotAcceptableActionReDispatchReason { get; set; }
     
         /// <summary>
         /// Filled if not acceptable action is set to use for other purposes
         /// </summary>
         [Attr]
-        [JsonProperty("notAcceptableActionUseForOtherPurposesReason", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("notAcceptableActionUseForOtherPurposesReason")]
         public string NotAcceptableActionUseForOtherPurposesReason { get; set; }
     
         /// <summary>
         /// Filled when notAcceptableAction is equal to destruction
         /// </summary>
         [Attr]
-        [JsonProperty("notAcceptableDestructionReason", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("notAcceptableDestructionReason")]
         public string NotAcceptableDestructionReason { get; set; }
     
         /// <summary>
         /// Filled when notAcceptableAction is equal to other
         /// </summary>
         [Attr]
-        [JsonProperty("notAcceptableActionOtherReason", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("notAcceptableActionOtherReason")]
         public string NotAcceptableActionOtherReason { get; set; }
     
         /// <summary>
         /// Filled when consignmentAcceptable is set to false
         /// </summary>
         [Attr]
-        [JsonProperty("notAcceptableActionByDate", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("notAcceptableActionByDate")]
         public string NotAcceptableActionByDate { get; set; }
     
         /// <summary>
         /// List of details for individual chedpp not acceptable reasons
         /// </summary>
         [Attr]
-        [JsonProperty("chedppNotAcceptableReasons", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("chedppNotAcceptableReasons")]
         public ChedppNotAcceptableReasonDto[] ChedppNotAcceptableReasons { get; set; }
     
         /// <summary>
         /// If the consignment was not accepted what was the reason
         /// </summary>
         [Attr]
-        [JsonProperty("notAcceptableReasons", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("notAcceptableReasons")]
         public string[][] NotAcceptableReasons { get; set; }
     
         /// <summary>
         /// 2 digits ISO code of country (not acceptable country can be empty)
         /// </summary>
         [Attr]
-        [JsonProperty("notAcceptableCountry", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("notAcceptableCountry")]
         public string NotAcceptableCountry { get; set; }
     
         /// <summary>
         /// Filled if consignmentAcceptable is set to false
         /// </summary>
         [Attr]
-        [JsonProperty("notAcceptableEstablishment", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("notAcceptableEstablishment")]
         public string NotAcceptableEstablishment { get; set; }
     
         /// <summary>
         /// Filled if consignmentAcceptable is set to false
         /// </summary>
         [Attr]
-        [JsonProperty("notAcceptableOtherReason", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("notAcceptableOtherReason")]
         public string NotAcceptableOtherReason { get; set; }
     
         /// <summary>
         /// Details of controlled destinations
         /// </summary>
         [Attr]
-        [JsonProperty("detailsOfControlledDestinations", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("detailsOfControlledDestinations")]
         public PartyDto DetailsOfControlledDestinations { get; set; }
     
         /// <summary>
         /// Filled if consignment is set to acceptable and decision type is Specific Warehouse
         /// </summary>
         [Attr]
-        [JsonProperty("specificWarehouseNonConformingConsignment", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("specificWarehouseNonConformingConsignment")]
         public string SpecificWarehouseNonConformingConsignment { get; set; }
     
         /// <summary>
         /// Deadline when consignment has to leave borders
         /// </summary>
         [Attr]
-        [JsonProperty("temporaryDeadline", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("temporaryDeadline")]
         public string TemporaryDeadline { get; set; }
     
         /// <summary>
         /// Detailed decision for consignment
         /// </summary>
         [Attr]
-        [JsonProperty("decision", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("decision")]
         public string Decision { get; set; }
     
         /// <summary>
         /// Decision over purpose of free circulation in country
         /// </summary>
         [Attr]
-        [JsonProperty("freeCirculationPurpose", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("freeCirculationPurpose")]
         public string FreeCirculationPurpose { get; set; }
     
         /// <summary>
         /// Decision over purpose of definitive import
         /// </summary>
         [Attr]
-        [JsonProperty("definitiveImportPurpose", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("definitiveImportPurpose")]
         public string DefinitiveImportPurpose { get; set; }
     
         /// <summary>
         /// Decision channeled option based on (article8, article15)
         /// </summary>
         [Attr]
-        [JsonProperty("ifChanneledOption", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("ifChanneledOption")]
         public string IfChanneledOption { get; set; }
     
         /// <summary>
         /// Custom warehouse registered number
         /// </summary>
         [Attr]
-        [JsonProperty("customWarehouseRegisteredNumber", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("customWarehouseRegisteredNumber")]
         public string CustomWarehouseRegisteredNumber { get; set; }
     
         /// <summary>
         /// Free warehouse registered number
         /// </summary>
         [Attr]
-        [JsonProperty("freeWarehouseRegisteredNumber", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("freeWarehouseRegisteredNumber")]
         public string FreeWarehouseRegisteredNumber { get; set; }
     
         /// <summary>
         /// Ship name
         /// </summary>
         [Attr]
-        [JsonProperty("shipName", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("shipName")]
         public string ShipName { get; set; }
     
         /// <summary>
         /// Port of exit
         /// </summary>
         [Attr]
-        [JsonProperty("shipPortOfExit", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("shipPortOfExit")]
         public string ShipPortOfExit { get; set; }
     
         /// <summary>
         /// Ship supplier registered number
         /// </summary>
         [Attr]
-        [JsonProperty("shipSupplierRegisteredNumber", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("shipSupplierRegisteredNumber")]
         public string ShipSupplierRegisteredNumber { get; set; }
     
         /// <summary>
         /// Transhipment BIP
         /// </summary>
         [Attr]
-        [JsonProperty("transhipmentBip", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("transhipmentBip")]
         public string TranshipmentBip { get; set; }
     
         /// <summary>
         /// Transhipment third country
         /// </summary>
         [Attr]
-        [JsonProperty("transhipmentThirdCountry", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("transhipmentThirdCountry")]
         public string TranshipmentThirdCountry { get; set; }
     
         /// <summary>
         /// Transit exit BIP
         /// </summary>
         [Attr]
-        [JsonProperty("transitExitBip", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("transitExitBip")]
         public string TransitExitBip { get; set; }
     
         /// <summary>
         /// Transit third country
         /// </summary>
         [Attr]
-        [JsonProperty("transitThirdCountry", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("transitThirdCountry")]
         public string TransitThirdCountry { get; set; }
     
         /// <summary>
         /// Transit destination third country
         /// </summary>
         [Attr]
-        [JsonProperty("transitDestinationThirdCountry", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("transitDestinationThirdCountry")]
         public string TransitDestinationThirdCountry { get; set; }
     
         /// <summary>
         /// Temporary exit BIP
         /// </summary>
         [Attr]
-        [JsonProperty("temporaryExitBip", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("temporaryExitBip")]
         public string TemporaryExitBip { get; set; }
     
         /// <summary>
         /// Horse re-entry
         /// </summary>
         [Attr]
-        [JsonProperty("horseReentry", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("horseReentry")]
         public string HorseReentry { get; set; }
     
         /// <summary>
         /// Is it transshipped to EU or third country (values EU / country name)
         /// </summary>
         [Attr]
-        [JsonProperty("transhipmentEuOrThirdCountry", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("transhipmentEuOrThirdCountry")]
         public string TranshipmentEuOrThirdCountry { get; set; }
     
 }

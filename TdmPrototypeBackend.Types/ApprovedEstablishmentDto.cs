@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Approved Establishment details
@@ -16,42 +16,42 @@ public partial class ApprovedEstablishmentDto  {
         /// ID
         /// </summary>
         [Attr]
-        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("id")]
         public string Id { get; set; }
     
         /// <summary>
         /// Name of approved establishment
         /// </summary>
         [Attr]
-        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
     
         /// <summary>
         /// Country of approved establishment
         /// </summary>
         [Attr]
-        [JsonProperty("country", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("country")]
         public string Country { get; set; }
     
         /// <summary>
         /// Types of approved establishment
         /// </summary>
         [Attr]
-        [JsonProperty("types", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("types")]
         public string[][] Types { get; set; }
     
         /// <summary>
         /// Approval number
         /// </summary>
         [Attr]
-        [JsonProperty("approvalNumber", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("approvalNumber")]
         public string ApprovalNumber { get; set; }
     
         /// <summary>
         /// Section of approved establishment
         /// </summary>
         [Attr]
-        [JsonProperty("section", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("section")]
         public string Section { get; set; }
     
 }

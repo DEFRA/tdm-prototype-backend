@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Details of the seal check
@@ -16,28 +16,28 @@ public partial class SealCheckDto  {
         /// Is seal check satisfactory
         /// </summary>
         [Attr]
-        [JsonProperty("satisfactory", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("satisfactory")]
         public bool Satisfactory { get; set; }
     
         /// <summary>
         /// reason for not satisfactory
         /// </summary>
         [Attr]
-        [JsonProperty("reason", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("reason")]
         public string Reason { get; set; }
     
         /// <summary>
         /// Official inspector
         /// </summary>
         [Attr]
-        [JsonProperty("officialInspector", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("officialInspector")]
         public OfficialInspectorDto OfficialInspector { get; set; }
     
         /// <summary>
         /// date and time of seal check
         /// </summary>
         [Attr]
-        [JsonProperty("dateTimeOfCheck", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("dateTimeOfCheck")]
         public string DateTimeOfCheck { get; set; }
     
 }

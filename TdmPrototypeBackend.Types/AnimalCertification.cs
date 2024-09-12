@@ -10,13 +10,13 @@ public enum AnimalCertification
 {
 
 		[EnumMember(Value = "Animal feeding stuff")]
-		AnimalFeedingStuff,
+		Animalfeedingstuff,
 	
 		[EnumMember(Value = "Approved")]
 		Approved,
 	
 		[EnumMember(Value = "Artificial reproduction")]
-		ArtificialReproduction,
+		Artificialreproduction,
 	
 		[EnumMember(Value = "Breeding")]
 		Breeding,
@@ -25,28 +25,28 @@ public enum AnimalCertification
 		Circus,
 	
 		[EnumMember(Value = "Commercial sale")]
-		CommercialSale,
+		Commercialsale,
 	
 		[EnumMember(Value = "Commercial sale or change of ownership")]
-		CommercialSaleOrChangeOfOwnership,
+		Commercialsaleorchangeofownership,
 	
 		[EnumMember(Value = "Fattening")]
 		Fattening,
 	
 		[EnumMember(Value = "Game restocking")]
-		GameRestocking,
+		Gamerestocking,
 	
 		[EnumMember(Value = "Human consumption")]
-		HumanConsumption,
+		Humanconsumption,
 	
 		[EnumMember(Value = "Internal market")]
-		InternalMarket,
+		Internalmarket,
 	
 		[EnumMember(Value = "Other")]
 		Other,
 	
 		[EnumMember(Value = "Personally owned pets not for rehoming")]
-		PersonallyOwnedPetsNotForRehoming,
+		Personallyownedpetsnotforrehoming,
 	
 		[EnumMember(Value = "Pets")]
 		Pets,
@@ -58,22 +58,22 @@ public enum AnimalCertification
 		Quarantine,
 	
 		[EnumMember(Value = "Racing/Competition")]
-		RacingCompetition,
+		Racingcompetition,
 	
 		[EnumMember(Value = "Registered equidae")]
-		RegisteredEquidae,
+		Registeredequidae,
 	
 		[EnumMember(Value = "Registered")]
 		Registered,
 	
 		[EnumMember(Value = "Rejected or Returned consignment")]
-		RejectedOrReturnedConsignment,
+		Rejectedorreturnedconsignment,
 	
 		[EnumMember(Value = "Relaying")]
 		Relaying,
 	
 		[EnumMember(Value = "Rescue/Rehoming")]
-		RescueRehoming,
+		Rescuerehoming,
 	
 		[EnumMember(Value = "Research")]
 		Research,
@@ -82,13 +82,13 @@ public enum AnimalCertification
 		Slaughter,
 	
 		[EnumMember(Value = "Technical/Pharmaceutical use")]
-		TechnicalPharmaceuticalUse,
+		Technicalpharmaceuticaluse,
 	
 		[EnumMember(Value = "Transit")]
 		Transit,
 	
 		[EnumMember(Value = "Zoo/Collection")]
-		ZooCollection,
+		Zoocollection,
 	
 }
 

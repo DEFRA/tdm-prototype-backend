@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Information about logged-in user
@@ -16,21 +16,21 @@ public partial class UserInformationDto  {
         /// Display name
         /// </summary>
         [Attr]
-        [JsonProperty("displayName", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("displayName")]
         public string DisplayName { get; set; }
     
         /// <summary>
         /// User ID
         /// </summary>
         [Attr]
-        [JsonProperty("userId", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("userId")]
         public string UserId { get; set; }
     
         /// <summary>
         /// Is this user a control
         /// </summary>
         [Attr]
-        [JsonProperty("isControlUser", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("isControlUser")]
         public bool IsControlUser { get; set; }
     
 }

@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Details of transport
@@ -16,21 +16,21 @@ public partial class MeansOfTransportDto  {
         /// Type of transport
         /// </summary>
         [Attr]
-        [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("type")]
         public string _Type { get; set; }
     
         /// <summary>
         /// Document for transport
         /// </summary>
         [Attr]
-        [JsonProperty("document", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("document")]
         public string Document { get; set; }
     
         /// <summary>
         /// ID of transport
         /// </summary>
         [Attr]
-        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("id")]
         public string Id { get; set; }
     
 }

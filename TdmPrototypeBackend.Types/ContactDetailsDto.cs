@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Person to be contacted if there is an issue with the consignment
@@ -16,28 +16,28 @@ public partial class ContactDetailsDto  {
         /// Name of designated contact
         /// </summary>
         [Attr]
-        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
     
         /// <summary>
         /// Telephone number of designated contact
         /// </summary>
         [Attr]
-        [JsonProperty("telephone", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("telephone")]
         public string Telephone { get; set; }
     
         /// <summary>
         /// Email address of designated contact
         /// </summary>
         [Attr]
-        [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("email")]
         public string Email { get; set; }
     
         /// <summary>
         /// Name of agent representing designated contact
         /// </summary>
         [Attr]
-        [JsonProperty("agent", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("agent")]
         public string Agent { get; set; }
     
 }

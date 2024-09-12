@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Authority which performed control
@@ -16,49 +16,49 @@ public partial class ControlAuthorityDto  {
         /// Official veterinarian
         /// </summary>
         [Attr]
-        [JsonProperty("officialVeterinarian", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("officialVeterinarian")]
         public OfficialVeterinarianDto OfficialVeterinarian { get; set; }
     
         /// <summary>
         /// Customs reference number
         /// </summary>
         [Attr]
-        [JsonProperty("customsReferenceNo", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("customsReferenceNo")]
         public string CustomsReferenceNo { get; set; }
     
         /// <summary>
         /// Were containers resealed?
         /// </summary>
         [Attr]
-        [JsonProperty("containerResealed", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("containerResealed")]
         public bool ContainerResealed { get; set; }
     
         /// <summary>
         /// When the containers are resealed they need new seal numbers
         /// </summary>
         [Attr]
-        [JsonProperty("newSealNumber", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("newSealNumber")]
         public string NewSealNumber { get; set; }
     
         /// <summary>
         /// Illegal, Unreported and Unregulated (IUU) fishing reference number
         /// </summary>
         [Attr]
-        [JsonProperty("iuuFishingReference", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("iuuFishingReference")]
         public string IuuFishingReference { get; set; }
     
         /// <summary>
         /// Was Illegal, Unreported and Unregulated (IUU) check required
         /// </summary>
         [Attr]
-        [JsonProperty("iuuCheckRequired", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("iuuCheckRequired")]
         public bool IuuCheckRequired { get; set; }
     
         /// <summary>
         /// Result of Illegal, Unreported and Unregulated (IUU) check
         /// </summary>
         [Attr]
-        [JsonProperty("iuuOption", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("iuuOption")]
         public string IuuOption { get; set; }
     
 }

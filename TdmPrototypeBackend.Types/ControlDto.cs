@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Details of Control (Part 3)
@@ -16,28 +16,28 @@ public partial class ControlDto  {
         /// Feedback information of Control
         /// </summary>
         [Attr]
-        [JsonProperty("feedbackInformation", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("feedbackInformation")]
         public FeedbackInformationDto FeedbackInformation { get; set; }
     
         /// <summary>
         /// Details on re-export
         /// </summary>
         [Attr]
-        [JsonProperty("detailsOnReExport", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("detailsOnReExport")]
         public DetailsOnReExportDto DetailsOnReExport { get; set; }
     
         /// <summary>
         /// Official inspector
         /// </summary>
         [Attr]
-        [JsonProperty("officialInspector", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("officialInspector")]
         public OfficialInspectorDto OfficialInspector { get; set; }
     
         /// <summary>
         /// Is the consignment leaving UK borders?
         /// </summary>
         [Attr]
-        [JsonProperty("consignmentLeave", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("consignmentLeave")]
         public string ConsignmentLeave { get; set; }
     
 }

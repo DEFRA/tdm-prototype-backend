@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Feedback information from control
@@ -16,35 +16,35 @@ public partial class FeedbackInformationDto  {
         /// Type of authority
         /// </summary>
         [Attr]
-        [JsonProperty("authorityType", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("authorityType")]
         public string AuthorityType { get; set; }
     
         /// <summary>
         /// Did the consignment arrive
         /// </summary>
         [Attr]
-        [JsonProperty("consignmentArrival", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("consignmentArrival")]
         public bool ConsignmentArrival { get; set; }
     
         /// <summary>
         /// Does the consignment conform
         /// </summary>
         [Attr]
-        [JsonProperty("consignmentConformity", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("consignmentConformity")]
         public bool ConsignmentConformity { get; set; }
     
         /// <summary>
         /// Reason for consignment not arriving at the entry point
         /// </summary>
         [Attr]
-        [JsonProperty("consignmentNoArrivalReason", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("consignmentNoArrivalReason")]
         public string ConsignmentNoArrivalReason { get; set; }
     
         /// <summary>
         /// Date of consignment destruction
         /// </summary>
         [Attr]
-        [JsonProperty("destructionDate", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("destructionDate")]
         public string DestructionDate { get; set; }
     
 }

@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Party details
@@ -16,112 +16,112 @@ public partial class PartyDto  {
         /// IPAFFS ID of party
         /// </summary>
         [Attr]
-        [JsonProperty("id", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("id")]
         public string Id { get; set; }
     
         /// <summary>
         /// Name of party
         /// </summary>
         [Attr]
-        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
     
         /// <summary>
         /// Company ID
         /// </summary>
         [Attr]
-        [JsonProperty("companyId", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("companyId")]
         public string CompanyId { get; set; }
     
         /// <summary>
         /// Contact ID (B2C)
         /// </summary>
         [Attr]
-        [JsonProperty("contactId", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("contactId")]
         public string ContactId { get; set; }
     
         /// <summary>
         /// Company name
         /// </summary>
         [Attr]
-        [JsonProperty("companyName", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("companyName")]
         public string CompanyName { get; set; }
     
         /// <summary>
         /// Addresses
         /// </summary>
         [Attr]
-        [JsonProperty("address", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("address")]
         public string[][] Address { get; set; }
     
         /// <summary>
         /// County
         /// </summary>
         [Attr]
-        [JsonProperty("county", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("county")]
         public string County { get; set; }
     
         /// <summary>
         /// Post code of party
         /// </summary>
         [Attr]
-        [JsonProperty("postCode", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("postCode")]
         public string PostCode { get; set; }
     
         /// <summary>
         /// Country of party
         /// </summary>
         [Attr]
-        [JsonProperty("country", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("country")]
         public string Country { get; set; }
     
         /// <summary>
         /// City
         /// </summary>
         [Attr]
-        [JsonProperty("city", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("city")]
         public string City { get; set; }
     
         /// <summary>
         /// TRACES ID
         /// </summary>
         [Attr]
-        [JsonProperty("tracesID", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("tracesID")]
         public int TracesID { get; set; }
     
         /// <summary>
         /// Type of party
         /// </summary>
         [Attr]
-        [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("type")]
         public string _Type { get; set; }
     
         /// <summary>
         /// Approval number
         /// </summary>
         [Attr]
-        [JsonProperty("approvalNumber", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("approvalNumber")]
         public string ApprovalNumber { get; set; }
     
         /// <summary>
         /// Phone number of party
         /// </summary>
         [Attr]
-        [JsonProperty("phone", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("phone")]
         public string Phone { get; set; }
     
         /// <summary>
         /// Fax number of party
         /// </summary>
         [Attr]
-        [JsonProperty("fax", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("fax")]
         public string Fax { get; set; }
     
         /// <summary>
         /// Email number of party
         /// </summary>
         [Attr]
-        [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("email")]
         public string Email { get; set; }
     
 }

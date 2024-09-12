@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Impact of transport on animals
@@ -16,35 +16,35 @@ public partial class ImpactOfTransportOnAnimalsDto  {
         /// Number of dead animals specified by units
         /// </summary>
         [Attr]
-        [JsonProperty("numberOfDeadAnimals", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("numberOfDeadAnimals")]
         public int NumberOfDeadAnimals { get; set; }
     
         /// <summary>
         /// Unit used for specifying number of dead animals (percent or units)
         /// </summary>
         [Attr]
-        [JsonProperty("numberOfDeadAnimalsUnit", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("numberOfDeadAnimalsUnit")]
         public string NumberOfDeadAnimalsUnit { get; set; }
     
         /// <summary>
         /// Number of unfit animals
         /// </summary>
         [Attr]
-        [JsonProperty("numberOfUnfitAnimals", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("numberOfUnfitAnimals")]
         public int NumberOfUnfitAnimals { get; set; }
     
         /// <summary>
         /// Unit used for specifying number of unfit animals (percent or units)
         /// </summary>
         [Attr]
-        [JsonProperty("numberOfUnfitAnimalsUnit", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("numberOfUnfitAnimalsUnit")]
         public string NumberOfUnfitAnimalsUnit { get; set; }
     
         /// <summary>
         /// Number of births or abortions (unit)
         /// </summary>
         [Attr]
-        [JsonProperty("numberOfBirthOrAbortion", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("numberOfBirthOrAbortion")]
         public int NumberOfBirthOrAbortion { get; set; }
     
 }

@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Validation field code-message representation
@@ -16,14 +16,14 @@ public partial class ValidationMessageCodeDto  {
         /// Field
         /// </summary>
         [Attr]
-        [JsonProperty("field", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("field")]
         public string Field { get; set; }
     
         /// <summary>
         /// Code
         /// </summary>
         [Attr]
-        [JsonProperty("code", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("code")]
         public string Code { get; set; }
     
 }

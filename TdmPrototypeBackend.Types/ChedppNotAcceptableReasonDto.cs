@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Information about not acceptable reason
@@ -16,14 +16,14 @@ public partial class ChedppNotAcceptableReasonDto  {
         /// reason for refusal
         /// </summary>
         [Attr]
-        [JsonProperty("reason", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("reason")]
         public string Reason { get; set; }
     
         /// <summary>
         /// commodity or package
         /// </summary>
         [Attr]
-        [JsonProperty("commodityOrPackage", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("commodityOrPackage")]
         public string CommodityOrPackage { get; set; }
     
 }

@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Tests results corresponding to LaboratoryTests
@@ -16,42 +16,42 @@ public partial class LaboratoryTestResultDto  {
         /// When sample was used
         /// </summary>
         [Attr]
-        [JsonProperty("sampleUseByDate", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("sampleUseByDate")]
         public string SampleUseByDate { get; set; }
     
         /// <summary>
         /// When it was released
         /// </summary>
         [Attr]
-        [JsonProperty("releasedDate", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("releasedDate")]
         public string ReleasedDate { get; set; }
     
         /// <summary>
         /// Laboratory test method
         /// </summary>
         [Attr]
-        [JsonProperty("laboratoryTestMethod", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("laboratoryTestMethod")]
         public string LaboratoryTestMethod { get; set; }
     
         /// <summary>
         /// Result of test
         /// </summary>
         [Attr]
-        [JsonProperty("results", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("results")]
         public string Results { get; set; }
     
         /// <summary>
         /// Conclusion of laboratory test
         /// </summary>
         [Attr]
-        [JsonProperty("conclusion", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("conclusion")]
         public string Conclusion { get; set; }
     
         /// <summary>
         /// Date of lab test created in IPAFFS
         /// </summary>
         [Attr]
-        [JsonProperty("labTestCreatedDate", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("labTestCreatedDate")]
         public string LabTestCreatedDate { get; set; }
     
 }

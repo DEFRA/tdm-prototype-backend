@@ -134,11 +134,11 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
                     description,
                     true, false));
             }
+        }
 
-            if (context.JsonSchema.IsEnum())
-            {
-                OnEnum(context.CSharpDescriptor, context.JsonSchema, context.Key);
-            }
+        if (context.JsonSchema.IsEnum())
+        {
+            OnEnum(context.CSharpDescriptor, context.JsonSchema, context.Key);
         }
     }
 

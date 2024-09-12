@@ -16,7 +16,7 @@ public enum InspectionRequired
 		Inconclusive,
 	
 		[EnumMember(Value = "Not required")]
-		NotRequired,
+		Notrequired,
 	
 }
 

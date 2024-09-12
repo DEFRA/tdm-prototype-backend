@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Person to be nominated for text and email contact for the consignment
@@ -16,21 +16,21 @@ public partial class NominatedContactDto  {
         /// Name of nominated contact
         /// </summary>
         [Attr]
-        [JsonProperty("name", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
     
         /// <summary>
         /// Email address of nominated contact
         /// </summary>
         [Attr]
-        [JsonProperty("email", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("email")]
         public string Email { get; set; }
     
         /// <summary>
         /// Telephone number of nominated contact
         /// </summary>
         [Attr]
-        [JsonProperty("telephone", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("telephone")]
         public string Telephone { get; set; }
     
 }

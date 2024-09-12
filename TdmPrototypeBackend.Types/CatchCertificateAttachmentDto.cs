@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Catch certificate attachment
@@ -16,21 +16,21 @@ public partial class CatchCertificateAttachmentDto  {
         /// The UUID of the uploaded catch certificate file in blob storage
         /// </summary>
         [Attr]
-        [JsonProperty("attachmentId", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("attachmentId")]
         public string AttachmentId { get; set; }
     
         /// <summary>
         /// The total number of catch certificates on the attachment
         /// </summary>
         [Attr]
-        [JsonProperty("numberOfCatchCertificates", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("numberOfCatchCertificates")]
         public int NumberOfCatchCertificates { get; set; }
     
         /// <summary>
         /// List of catch certificate details
         /// </summary>
         [Attr]
-        [JsonProperty("CatchCertificateDetails", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("CatchCertificateDetails")]
         public CatchCertificateDetailsDto[] CatchCertificateDetails { get; set; }
     
 }

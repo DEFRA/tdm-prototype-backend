@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Details about the manual inspection override
@@ -16,21 +16,21 @@ public partial class InspectionOverrideDto  {
         /// Original inspection decision
         /// </summary>
         [Attr]
-        [JsonProperty("originalDecision", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("originalDecision")]
         public string OriginalDecision { get; set; }
     
         /// <summary>
         /// The time the risk decision is overridden
         /// </summary>
         [Attr]
-        [JsonProperty("overriddenOn", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("overriddenOn")]
         public string OverriddenOn { get; set; }
     
         /// <summary>
         /// User entity who has manually overridden the inspection
         /// </summary>
         [Attr]
-        [JsonProperty("overriddenBy", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("overriddenBy")]
         public UserInformationDto OverriddenBy { get; set; }
     
 }

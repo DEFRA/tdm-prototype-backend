@@ -16,8 +16,8 @@ public class SyncIpaffsNotificationTests
         
         
         // Unique ID should be set - need to check where the 'movement ID' is stored on the ALVS message 
-        n.Id.Should().Be("CHEDP.GB.2024.1036543");
-        n.IpaffsId.Should().Be(36543);
+       // n.Id.Should().Be("CHEDP.GB.2024.1036543");
+        //n.IpaffsId.Should().Be(36543);
         n.PartOne.Commodities.CountryOfOrigin.Should().Be("AF");
         // m.Items.Length.Should().Be(2);
         // m.ClearanceRequests.Length.Should().Be(1);

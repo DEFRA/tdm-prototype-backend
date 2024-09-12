@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Inspector Address
@@ -16,28 +16,28 @@ public partial class AddressDto  {
         /// Street
         /// </summary>
         [Attr]
-        [JsonProperty("street", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("street")]
         public string Street { get; set; }
     
         /// <summary>
         /// City
         /// </summary>
         [Attr]
-        [JsonProperty("city", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("city")]
         public string City { get; set; }
     
         /// <summary>
         /// Country
         /// </summary>
         [Attr]
-        [JsonProperty("country", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("country")]
         public string Country { get; set; }
     
         /// <summary>
         /// Postal Code
         /// </summary>
         [Attr]
-        [JsonProperty("postalCode", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("postalCode")]
         public string PostalCode { get; set; }
     
 }

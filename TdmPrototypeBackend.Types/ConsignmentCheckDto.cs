@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// consignment checks
@@ -16,112 +16,112 @@ public partial class ConsignmentCheckDto  {
         /// Does it conform EU standards
         /// </summary>
         [Attr]
-        [JsonProperty("euStandard", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("euStandard")]
         public string EuStandard { get; set; }
     
         /// <summary>
         /// Result of additional guarantees
         /// </summary>
         [Attr]
-        [JsonProperty("additionalGuarantees", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("additionalGuarantees")]
         public string AdditionalGuarantees { get; set; }
     
         /// <summary>
         /// Result of document check
         /// </summary>
         [Attr]
-        [JsonProperty("documentCheckResult", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("documentCheckResult")]
         public string DocumentCheckResult { get; set; }
     
         /// <summary>
         /// Result of national requirements check
         /// </summary>
         [Attr]
-        [JsonProperty("nationalRequirements", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("nationalRequirements")]
         public string NationalRequirements { get; set; }
     
         /// <summary>
         /// Was identity check done
         /// </summary>
         [Attr]
-        [JsonProperty("identityCheckDone", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("identityCheckDone")]
         public bool IdentityCheckDone { get; set; }
     
         /// <summary>
         /// Type of identity check performed
         /// </summary>
         [Attr]
-        [JsonProperty("identityCheckType", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("identityCheckType")]
         public string IdentityCheckType { get; set; }
     
         /// <summary>
         /// Result of identity check
         /// </summary>
         [Attr]
-        [JsonProperty("identityCheckResult", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("identityCheckResult")]
         public string IdentityCheckResult { get; set; }
     
         /// <summary>
         /// What was the reason for skipping identity check
         /// </summary>
         [Attr]
-        [JsonProperty("identityCheckNotDoneReason", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("identityCheckNotDoneReason")]
         public string IdentityCheckNotDoneReason { get; set; }
     
         /// <summary>
         /// Was physical check done
         /// </summary>
         [Attr]
-        [JsonProperty("physicalCheckDone", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("physicalCheckDone")]
         public bool PhysicalCheckDone { get; set; }
     
         /// <summary>
         /// Result of physical check
         /// </summary>
         [Attr]
-        [JsonProperty("physicalCheckResult", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("physicalCheckResult")]
         public string PhysicalCheckResult { get; set; }
     
         /// <summary>
         /// What was the reason for skipping physical check
         /// </summary>
         [Attr]
-        [JsonProperty("physicalCheckNotDoneReason", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("physicalCheckNotDoneReason")]
         public string PhysicalCheckNotDoneReason { get; set; }
     
         /// <summary>
         /// Other reason to not do physical check
         /// </summary>
         [Attr]
-        [JsonProperty("physicalCheckOtherText", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("physicalCheckOtherText")]
         public string PhysicalCheckOtherText { get; set; }
     
         /// <summary>
         /// Welfare check
         /// </summary>
         [Attr]
-        [JsonProperty("welfareCheck", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("welfareCheck")]
         public string WelfareCheck { get; set; }
     
         /// <summary>
         /// Number of animals checked
         /// </summary>
         [Attr]
-        [JsonProperty("numberOfAnimalsChecked", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("numberOfAnimalsChecked")]
         public int NumberOfAnimalsChecked { get; set; }
     
         /// <summary>
         /// Were laboratory tests done
         /// </summary>
         [Attr]
-        [JsonProperty("laboratoryCheckDone", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("laboratoryCheckDone")]
         public bool LaboratoryCheckDone { get; set; }
     
         /// <summary>
         /// Result of laboratory tests
         /// </summary>
         [Attr]
-        [JsonProperty("laboratoryCheckResult", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("laboratoryCheckResult")]
         public string LaboratoryCheckResult { get; set; }
     
 }

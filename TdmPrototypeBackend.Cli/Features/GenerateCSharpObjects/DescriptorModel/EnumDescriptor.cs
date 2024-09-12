@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using Humanizer;
 
 namespace TdmPrototypeBackend.Cli.Features.GenerateCSharpObjects.DescriptorModel;
@@ -35,7 +35,7 @@ public class EnumDescriptor(string name)
 
             }
 
-            return Value.Dehumanize();
+            return Value.Dehumanize().ToLower().Pascalize();
         }
     }
 }

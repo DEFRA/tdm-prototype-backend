@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Accompanying document
@@ -16,63 +16,63 @@ public partial class AccompanyingDocumentDto  {
         /// Additional document type
         /// </summary>
         [Attr]
-        [JsonProperty("documentType", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("documentType")]
         public string DocumentType { get; set; }
     
         /// <summary>
         /// Additional document reference
         /// </summary>
         [Attr]
-        [JsonProperty("documentReference", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("documentReference")]
         public string DocumentReference { get; set; }
     
         /// <summary>
         /// Additional document issue date
         /// </summary>
         [Attr]
-        [JsonProperty("documentIssueDate", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("documentIssueDate")]
         public string DocumentIssueDate { get; set; }
     
         /// <summary>
         /// The UUID used for the uploaded file in blob storage
         /// </summary>
         [Attr]
-        [JsonProperty("attachmentId", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("attachmentId")]
         public string AttachmentId { get; set; }
     
         /// <summary>
         /// The original filename of the uploaded file
         /// </summary>
         [Attr]
-        [JsonProperty("attachmentFilename", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("attachmentFilename")]
         public string AttachmentFilename { get; set; }
     
         /// <summary>
         /// The MIME type of the uploaded file
         /// </summary>
         [Attr]
-        [JsonProperty("attachmentContentType", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("attachmentContentType")]
         public string AttachmentContentType { get; set; }
     
         /// <summary>
         /// The UUID for the user that uploaded the file
         /// </summary>
         [Attr]
-        [JsonProperty("uploadUserId", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("uploadUserId")]
         public string UploadUserId { get; set; }
     
         /// <summary>
         /// The UUID for the organisation that the upload user is associated with
         /// </summary>
         [Attr]
-        [JsonProperty("uploadOrganisationId", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("uploadOrganisationId")]
         public string UploadOrganisationId { get; set; }
     
         /// <summary>
         /// External reference of accompanying document, which relates to a downstream service
         /// </summary>
         [Attr]
-        [JsonProperty("externalReference", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("externalReference")]
         public ExternalReferenceDto ExternalReference { get; set; }
     
 }

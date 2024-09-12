@@ -1,10 +1,10 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 
 
-namespace TdmDataModel;
+namespace TdmPrototypeBackend.Types;
 
     /// <summary>
     /// Seal container details
@@ -16,28 +16,28 @@ public partial class SealContainerDto  {
         /// 
         /// </summary>
         [Attr]
-        [JsonProperty("sealNumber", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("sealNumber")]
         public string SealNumber { get; set; }
     
         /// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonProperty("containerNumber", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("containerNumber")]
         public string ContainerNumber { get; set; }
     
         /// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonProperty("officialSeal", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("officialSeal")]
         public bool OfficialSeal { get; set; }
     
         /// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonProperty("resealedSealNumber", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonPropertyName("resealedSealNumber")]
         public string ResealedSealNumber { get; set; }
     
 }
