@@ -12,7 +12,7 @@ public class AlvsServiceHeader
     public string DestinationSystem { get; set; } = default!;
     
     [Attr]
-    public int CorrelationID { get; set; } = default!;
+    public ulong CorrelationID { get; set; } = default!;
 
     // TODO : Should be datetime...
     [Attr]
