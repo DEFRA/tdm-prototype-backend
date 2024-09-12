@@ -222,7 +222,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
                         CommodityID = "0101",
                         CommodityDescription = "Live horses, asses, mules and hinnies"
                     }},
-                    NumberOfAnimals = 1, CountryOfOrigin = "FRA"
+                    CountryOfOrigin = "FRA"
                 },
                 PointOfEntry = "GBEDI4",
                 ArrivalDate = DateTime.Today.AddDays(7).ToString("yyyy-MM-dd"),
