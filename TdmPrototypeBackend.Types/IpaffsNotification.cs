@@ -64,7 +64,7 @@ public class IpaffsNotificationCommodities
     //
     [Attr]
     [JsonPropertyName("commodityComplement")]
-    public IpaffsNotificationCommodityComplement[]? CommodityComplement { get; set; } = default!;
+    public IpaffsNotificationCommodityComplement[]? CommodityComplements { get; set; } = default!;
     
     [Attr]
     [JsonPropertyName("numberOfAnimals")]
@@ -143,6 +143,7 @@ public class IpaffsNotification : CustomStringMongoIdentifiable
     // [JsonPropertyName("referenceNumber")]
     // public new string? Id { get; set; }
     
+    [Attr]
     [JsonPropertyName("referenceNumber")]
     public new string ReferenceNumber { get; set; } = default!;
     
