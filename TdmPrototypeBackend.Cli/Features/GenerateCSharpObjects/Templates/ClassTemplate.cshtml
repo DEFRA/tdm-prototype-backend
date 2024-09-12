@@ -6,18 +6,24 @@ using JsonApiDotNetCore.Resources.Annotations;
 using Newtonsoft.Json;
 
 
-namespace TdmPrototypeBackend.Types;
+namespace TdmDataModel;
 
+/// <summary>
+/// @Model.Description
+/// </summary>
 public partial class @Model.GetClassName()
 {
 @foreach(var property in Model.Properties)
 {
 
-<text>
-	    [Attr]
-		[JsonProperty("@property.Name", NullValueHandling = NullValueHandling.Ignore)]
-		public @property.GetPropertyType() @property.GetPropertyName() { get; set; }
-</text>
+    <text>
+        /// <summary>
+        /// @property.Description
+        /// </summary>
+        [Attr]
+        [JsonProperty("@property.Name", NullValueHandling = NullValueHandling.Ignore)]
+        public @property.GetPropertyType() @property.GetPropertyName() { get; set; }
+    </text>
 	
 }
 

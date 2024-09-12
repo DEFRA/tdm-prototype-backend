@@ -6,11 +6,13 @@ using System.Runtime;
 namespace TdmPrototypeBackend.Cli.Features.GenerateCSharpObjects.DescriptorModel
 {
     [DebuggerDisplay("{Name}")]
-    public class PropertyDescriptor(string name, string type, bool isReferenceType, bool isArray)
+    public class PropertyDescriptor(string name, string type, string description, bool isReferenceType, bool isArray)
     {
         public string Name { get; set; } = name;
 
         public string Type { get; set; } = type;
+
+        public string Description { get; set; } = description;
 
         public bool IsReferenceType { get; set; } = isReferenceType;
 

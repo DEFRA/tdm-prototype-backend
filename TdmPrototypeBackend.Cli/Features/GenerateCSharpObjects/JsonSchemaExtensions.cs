@@ -16,6 +16,13 @@ public static class JsonSchemaExtensions
         return false;
     }
 
+    public static string GetDescription(this JsonSchema jsonSchema)
+    {
+        var keyword = jsonSchema.GetKeyword<DescriptionKeyword>();
+
+        return keyword != null ? keyword.Value : string.Empty;
+    }
+
     public static bool IsReferenceType(this JsonSchema jsonSchema)
     {
         var typeKeyword = jsonSchema.GetKeyword<RefKeyword>();
