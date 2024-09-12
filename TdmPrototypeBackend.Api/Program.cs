@@ -11,6 +11,7 @@ using JsonApiDotNetCore.MongoDb.Repositories;
 using JsonApiDotNetCore.Repositories;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.VisualBasic.CompilerServices;
 using MongoDB.Driver;
 using Serilog;
 using TdmPrototypeBackend.Api.Endpoints;
@@ -25,7 +26,6 @@ using TdmPrototypeDmpSynchroniser.Api.Extensions;
 //-------- Configure the WebApplication builder------------------//
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Configuration.AddIniFile("Properties/local.env", true);
 
 builder.Services.AddHttpLogging(logging =>
 {
@@ -41,6 +41,7 @@ builder.Services.AddHttpLogging(logging =>
 // Grab environment variables
 builder.Configuration.AddEnvironmentVariables("CDP");
 builder.Configuration.AddEnvironmentVariables();
+builder.Configuration.AddIniFile("Properties/local.env", true);
 
 // Serilog
 builder.Logging.ClearProviders();
@@ -51,6 +52,9 @@ var loggerConfiguration = new LoggerConfiguration()
 // Is there something better we can do here:
 var loggerFactory = builder.Services.BuildServiceProvider()
     .GetService<ILoggerFactory>()!;
+
+TdmPrototypeBackend.Api.Utils.ApplicationLogging.LoggerFactory = loggerFactory;
+
 
 var logger = loggerConfiguration
     .CreateLogger();

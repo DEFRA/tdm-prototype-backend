@@ -38,7 +38,8 @@ public static class ServiceExtensions
         
         
         services.AddSingleton<SynchroniserConfig, SynchroniserConfig>();
-        services.AddSingleton<IBlobService, BlobService>();
+        services.AddKeyedSingleton<IBlobService, BlobService>("base");
+        services.AddSingleton<IBlobService, CachingBlobService>();
         services.AddSingleton<IBusService, BusService>();
         services.AddSingleton<IWebService, WebService>();
         services.AddSingleton<ISyncService, SyncService>();

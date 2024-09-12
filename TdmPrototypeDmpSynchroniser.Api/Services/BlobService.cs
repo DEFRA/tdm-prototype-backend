@@ -8,7 +8,7 @@ namespace TdmPrototypeDmpSynchroniser.Api.Services;
 public class BlobService(ILoggerFactory loggerFactory, SynchroniserConfig config, IHttpClientFactory clientFactory)
     : AzureService(loggerFactory, config, clientFactory), IBlobService
 {
-    private BlobContainerClient CreateBlobClient(string uri, int retries = 3, int timeout = 10)
+    private BlobContainerClient CreateBlobClient(string serviceUri, int retries = 3, int timeout = 10)
     {
         var options = new BlobClientOptions
         {
@@ -26,7 +26,7 @@ public class BlobService(ILoggerFactory loggerFactory, SynchroniserConfig config
         };
         
         var blobServiceClient = new BlobServiceClient(
-            new Uri(uri),
+            new Uri(serviceUri),
             Credentials,
             options);
 
@@ -40,13 +40,13 @@ public class BlobService(ILoggerFactory loggerFactory, SynchroniserConfig config
         return await CheckBlobAsync(Config.DmpBlobUri);
     }
     
-    public async Task<Status> CheckBlobAsync(string uri)
+    public async Task<Status> CheckBlobAsync(string serviceUri)
     {
-        Logger.LogInformation("Connecting to blob storage {0} : {1}", uri,
+        Logger.LogInformation("Connecting to blob storage {0} : {1}", serviceUri,
             Config.DmpBlobContainer);
         try
         {
-            var containerClient = CreateBlobClient(uri, 0, 5);
+            var containerClient = CreateBlobClient(serviceUri, 0, 5);
             
             Logger.LogInformation("Getting blob folders...");
             var folders = containerClient.GetBlobsByHierarchyAsync(prefix: "RAW/", delimiter: "/");
@@ -54,7 +54,7 @@ public class BlobService(ILoggerFactory loggerFactory, SynchroniserConfig config
             var itemCount = 0;
             await foreach (BlobHierarchyItem blobItem in folders)
             {
-                Console.WriteLine("\t" + blobItem.Prefix);
+                Logger.LogInformation("\t" + blobItem.Prefix);
                 itemCount++;
             }
 
@@ -71,7 +71,7 @@ public class BlobService(ILoggerFactory loggerFactory, SynchroniserConfig config
 
     }
 
-    public async Task<IEnumerable<BlobItem>> GetResourcesAsync(string prefix)
+    public async Task<IEnumerable<IBlobItem>> GetResourcesAsync(string prefix)
     {
         Logger.LogInformation("Connecting to blob storage {0} : {1}", Config.DmpBlobUri,
             Config.DmpBlobContainer);
@@ -80,17 +80,22 @@ public class BlobService(ILoggerFactory loggerFactory, SynchroniserConfig config
             var containerClient = CreateBlobClient(Config.DmpBlobUri);
 
             Logger.LogInformation("Getting blob files from {0}...", prefix);
-            var itemCount = 0;
+            // var itemCount = 0;
             
             var files = containerClient.GetBlobsAsync(prefix: prefix);
-            var output = new List<BlobItem>();
+            var output = new List<IBlobItem>();
             
             await foreach (BlobItem item in files)
             {
-                Console.WriteLine("\t" + item.Name);
-                itemCount++;
-                output.Add(item);
+                if (item.Properties.ContentLength is not 0)
+                {
+                    Logger.LogInformation("\t" + item.Name);
+                    // itemCount++;
+                    output.Add(new SynchroniserBlobItem() { Name = item.Name });    
+                }
             }
+            
+            Logger.LogInformation($"GetResourcesAsync {output.Count} blobs found.");
 
             return output;
         }
@@ -102,7 +107,7 @@ public class BlobService(ILoggerFactory loggerFactory, SynchroniserConfig config
 
     }
     
-    public async Task<BlobDownloadResult> GetBlobAsync(string path)
+    public async Task<IBlobItem?> GetBlobAsync(string path)
     {
         Logger.LogInformation(
             $"Downloading blob {path} from blob storage {Config.DmpBlobUri} : {Config.DmpBlobContainer}");
@@ -115,7 +120,7 @@ public class BlobService(ILoggerFactory loggerFactory, SynchroniserConfig config
             var content = await blobClient.DownloadContentAsync();
             
             // content.Value.Content.
-            return content.Value;
+            return new SynchroniserBlobItem() { Name = path, Content = content.Value.Content.ToString()! };
         }
         catch (Exception ex)
         {
