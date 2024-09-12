@@ -39,9 +39,11 @@ public class IpaffsNotificationCommodityComplement
 {
     
     [Attr]
+    [JsonPropertyName("commodityID")]
     public string CommodityID { get; set; }
     
     [Attr]
+    [JsonPropertyName("commodityDescription")]
     public string CommodityDescription { get; set; }
 }
 
@@ -70,9 +72,9 @@ public class IpaffsNotificationCommodities
     [JsonPropertyName("commodityComplement")]
     public IpaffsNotificationCommodityComplement[]? CommodityComplements { get; set; } = default!;
     
-    [Attr]
-    [JsonPropertyName("numberOfAnimals")]
-    public int? NumberOfAnimals { get; set; } = default!;
+    // [Attr]
+    // [JsonPropertyName("numberOfAnimals")]
+    // public int? NumberOfAnimals { get; set; } = default!;
     
     [Attr]
     [JsonPropertyName("numberOfPackages")]

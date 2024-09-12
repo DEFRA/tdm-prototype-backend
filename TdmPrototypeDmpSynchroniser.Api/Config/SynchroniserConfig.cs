@@ -20,6 +20,7 @@ public class SynchroniserConfig
     public string? AzureClientSecret { get; set; } = default!;
     public bool CachingStoreEnabled  { get; set; } = default!;
     public bool CachingReadEnabled  { get; set; } = default!;
+    public int RecordsToIngest  { get; set; } = default!;
     
     public SynchroniserConfig(IConfiguration configuration)
     {
@@ -47,5 +48,7 @@ public class SynchroniserConfig
         
         CachingStoreEnabled = configuration["SYNCHRONISER_CACHE_STORE_ENABLED"] == "true";
         CachingReadEnabled = configuration["SYNCHRONISER_CACHE_READ_ENABLED"] == "true";
+
+        RecordsToIngest = configuration.GetValue<int>("SYNCHRONISER_RECORDS", 0);
     }
 }

@@ -66,7 +66,10 @@ public class CachingBlobService(ILoggerFactory loggerFactory, SynchroniserConfig
             
             if (blob != null && config.CachingStoreEnabled)
             {
-                File.WriteAllText($"{System.Environment.CurrentDirectory}/.synchroniser-cache/{blob.Name}", blob.Content);
+                var fullPath = $"{System.Environment.CurrentDirectory}/.synchroniser-cache/{blob.Name}";
+                
+                Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
+                File.WriteAllText(fullPath, blob.Content);
             }
 
 
