@@ -13,7 +13,9 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
     {
         try
         {
-            var result = await blobService.GetResourcesAsync("RAW/ALVS/");
+            // TODO need to figure out how we select path
+            
+            var result = await blobService.GetResourcesAsync("RAW/ALVS/2024/09/");
             
             var itemCount = 0;
             var erroredCount = 0;
@@ -23,10 +25,12 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                 {
                     await movementService.Upsert(await ConvertMovement(item));
                     itemCount++;
+                    throw new Exception();
                 }
                 catch (Exception ex)
                 {
-                    Logger.LogError(ex.ToString());
+                    Logger.LogError($"Failed to upsert movement from file {item.Name}. {ex.ToString()}.");
+                    
                     erroredCount++;
                 }
             }
@@ -39,6 +43,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
         catch (Exception ex)
         {
             Logger.LogError(ex.ToString());
+            
             return new Status() { Success = false, Description = ex.Message };
         }
     }
@@ -46,10 +51,17 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
     private async Task<Movement> ConvertMovement(IBlobItem item)
     {
         var blob = await blobService.GetBlobAsync(item.Name);
-        
-        Logger.LogInformation(blob.Content);
-        
-        return MovementExtensions.FromClearanceRequest(blob.Content);
+
+        try
+        {
+            throw new Exception();
+            return MovementExtensions.FromClearanceRequest(blob.Content);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError($"Failed to convert file {item.Name} to movement. {ex.ToString()}. {blob.Content}");
+            throw;
+        }
     }
 
 }
