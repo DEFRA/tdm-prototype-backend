@@ -6,6 +6,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateCSharpObjects.DescriptorModel
 [DebuggerDisplay("{Name}")]
 public class ClassDescriptor(string name)
 {
+    private const string classPrefix = "Ipaffs";
     public string Name { get; set; } = name;
 
     public string Description { get; set; }
@@ -16,6 +17,12 @@ public class ClassDescriptor(string name)
 
     public string GetClassName()
     {
-        return IsResource ? Name.Dehumanize() : $"{Name}Dto".Dehumanize();
+        return BuildClassName(Name, IsResource);
     }
+
+    public static string BuildClassName(string name, bool isResource = false)
+    {
+        return isResource ? name.Dehumanize() : $"{classPrefix}{name.Dehumanize()}";
+    }
+
 }

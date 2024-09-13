@@ -81,7 +81,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
     public void CreateChedPIpaffsNotification()
     {
         JsonApiConsumer.Response<IpaffsNotification> response = JsonApiConsumer.JsonApiConsumer.Create<IpaffsNotification, IpaffsNotification>(
-            model: CreateChedANotification(notificationType: NotificationType.Cvedp),
+            model: CreateChedANotification(notificationType: IpaffsTypeEnum.Cvedp),
             baseURI: apiHost,
             path: "api/ipaffsnotifications"
         );
@@ -170,21 +170,21 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
     //     );
     // }
 
-    private Dictionary<NotificationType, string> notificationTypes = new Dictionary<NotificationType, string>()
+    private Dictionary<IpaffsTypeEnum, string> notificationTypes = new Dictionary<IpaffsTypeEnum, string>()
     {
         // TODO : clarify these
-        { NotificationType.Cveda, "A" },
+        { IpaffsTypeEnum.Cveda, "A" },
         // { NotificationType.Ced, "C" },
-        { NotificationType.Chedpp, "PP" },
-        { NotificationType.Cvedp, "P" }
+        { IpaffsTypeEnum.Chedpp, "PP" },
+        { IpaffsTypeEnum.Cvedp, "P" }
     };
 
-    private string GetNotificationTypeIdSuffix(NotificationType notificationType)
+    private string GetNotificationTypeIdSuffix(IpaffsTypeEnum notificationType)
     {
         return notificationTypes.ContainsKey(notificationType) ? notificationTypes[notificationType]  : "?";
     }
     
-    private string GenerateChedID(NotificationType notificationType = NotificationType.Cveda, string id = null)
+    private string GenerateChedID(IpaffsTypeEnum notificationType = IpaffsTypeEnum.Cveda, string id = null)
     {
         id = id ?? testId;
         return string.Format("CHED{0}.GB.2024.MOCK.{1}", GetNotificationTypeIdSuffix(notificationType), id);
@@ -195,7 +195,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         id = id ?? testId;
         return string.Format("DEC_GB_2024_{0}", id);
     }
-    private IpaffsNotification CreateChedANotification(String id = null, NotificationType notificationType = NotificationType.Cveda)
+    private IpaffsNotification CreateChedANotification(String id = null, IpaffsTypeEnum notificationType = IpaffsTypeEnum.Cveda)
     {
         id = id ?? GenerateChedID(notificationType, testId);
             
@@ -204,10 +204,10 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
             Id = id,
             // ReferenceNumber = id,
             Version = 1,
-            NotificationType = notificationType,
+            IpaffsType = notificationType,
             PartOne = new IpaffsPartOne()
             {
-                PersonResponsible = new IpaffsResponsiblePerson()
+                PersonResponsible = new  IpaffsParty()
                 {
                     Name = "Mr Tester",
                     CompanyId = "123",
@@ -215,9 +215,9 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
                     Country = "GB"
                     
                 },
-                Commodities = new IpaffsNotificationCommodities()
+                Commodities = new  IpaffsCommodities()
                 {
-                    CommodityComplements = new []{ new IpaffsNotificationCommodityComplement()
+                    CommodityComplements =  new []{ new IpaffsCommodityComplement()
                     {   
                         CommodityID = "0101",
                         CommodityDescription = "Live horses, asses, mules and hinnies"

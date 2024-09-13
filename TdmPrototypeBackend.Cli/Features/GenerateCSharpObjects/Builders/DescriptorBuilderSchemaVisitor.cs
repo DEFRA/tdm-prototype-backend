@@ -71,7 +71,13 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
                 }
                 else
                 {
-                    context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key, typeKeyword.Type.ToCSharpType(),
+                    var t = typeKeyword.Type.ToCSharpType();
+                    if (context.JsonSchema.IsEnum())
+                    {
+                        t = EnumDescriptor.BuildEnumName(context.Key);
+                    }
+
+                    context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key, t,
                         description,
                         false, false));
                 }

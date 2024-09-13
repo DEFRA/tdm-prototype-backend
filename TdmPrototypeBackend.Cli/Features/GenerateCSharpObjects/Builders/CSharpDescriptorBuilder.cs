@@ -20,7 +20,6 @@ public class CSharpDescriptorBuilder(List<ISchemaVisitor> visitors)
 
         }
 
-
         foreach (var definition in mySchema.GetDefinitions())
         {
             visitors.ForEach(x => x.OnDefinition(new DefinitionVisitorContext(csharpDescriptor, mySchema, definition.Key, definition.Value)));

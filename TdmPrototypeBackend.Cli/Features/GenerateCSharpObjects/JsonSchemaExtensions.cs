@@ -79,4 +79,9 @@ public static class JsonSchemaExtensions
             _ => throw new ArgumentOutOfRangeException(nameof(schemaValueType), schemaValueType, null)
         };
     }
+
+    public static bool IsAllUpper(string input)
+    {
+        return input.All(char.IsUpper);
+    }
 }

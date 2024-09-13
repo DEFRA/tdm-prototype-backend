@@ -1,13 +1,13 @@
 using System.Diagnostics;
 using Humanizer;
-using Json.Schema;
-using System.Runtime;
 
 namespace TdmPrototypeBackend.Cli.Features.GenerateCSharpObjects.DescriptorModel
 {
     [DebuggerDisplay("{Name}")]
     public class PropertyDescriptor(string name, string type, string description, bool isReferenceType, bool isArray)
     {
+        private const string prefix = "Ipaffs";
+
         public string Name { get; set; } = name;
 
         public string Type { get; set; } = type;
@@ -22,11 +22,19 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateCSharpObjects.DescriptorModel
 
         public string GetPropertyName()
         {
-            if (name.Equals("type", StringComparison.InvariantCultureIgnoreCase))
+            string n = Name.Dehumanize();
+            if (name.Equals("type", StringComparison.InvariantCultureIgnoreCase) || name.Equals("id", StringComparison.InvariantCultureIgnoreCase))
             {
-                return $"_{name.Dehumanize()}";
+                return $"{prefix}{name.Dehumanize()}";
             }
-            return Name.Dehumanize();
+            
+
+            if (isArray)
+            {
+                n = n.Pluralize();
+            }
+
+            return n;
         }
 
         public string GetPropertyType()
@@ -36,7 +44,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateCSharpObjects.DescriptorModel
            
             if (isReferenceType && !Type.Equals("Result") && !Type.Equals("Unit") && !Type.Equals("string") && !Type.Equals("InspectionRequired"))
             {
-                t = $"{Type}Dto".Dehumanize();
+               t =  ClassDescriptor.BuildClassName(Type);
             }
 
             if (IsArray)
