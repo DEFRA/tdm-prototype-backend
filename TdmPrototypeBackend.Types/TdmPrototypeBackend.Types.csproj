@@ -16,7 +16,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="Generated\" />
+    <Folder Include="Ipaffs\" />
   </ItemGroup>
 
 

@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
+using TdmPrototypeBackend.Types.Ipaffs;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Models;
 

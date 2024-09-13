@@ -2,7 +2,7 @@
   "profiles": {
     "TdmPrototypeBackend.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "generate-csharp-from-json-schema --schema D:\\repos\\esynergy\\tdm-prototype-backend\\TdmPrototypeBackend.Cli\\Features\\GenerateCSharpObjects\\\\jsonschema.json --outputPath D:\\repos\\esynergy\\tdm-prototype-backend\\TdmPrototypeBackend.Types\\Generated\\"
+      "commandLineArgs": "generate-ipaffs-model --schema D:\\repos\\esynergy\\tdm-prototype-backend\\TdmPrototypeBackend.Cli\\Features\\GenerateIpaffsModel\\\\jsonschema.json --outputPath D:\\repos\\esynergy\\tdm-prototype-backend\\TdmPrototypeBackend.Types\\Ipaffs\\"
     }
   }
 }

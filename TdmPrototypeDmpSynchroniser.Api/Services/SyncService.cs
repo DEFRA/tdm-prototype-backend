@@ -1,5 +1,6 @@
 using Azure.Storage.Blobs.Models;
 using TdmPrototypeBackend.Types;
+using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeDmpSynchroniser.Api.Config;
 using TdmPrototypeDmpSynchroniser.Api.Models;
 using Status = TdmPrototypeDmpSynchroniser.Api.Models.Status;

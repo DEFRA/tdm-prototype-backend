@@ -5,7 +5,7 @@ using JsonApiDotNetCore.Resources.Annotations;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
 
-namespace TdmPrototypeBackend.Types;
+namespace TdmPrototypeBackend.Types.Ipaffs;
 
 // TODO : Can we generate this from the schema file 
 // https://eaflood.atlassian.net/wiki/spaces/TRADE/pages/5104664583/PHA+Port+Health+Authority+Integration+Data+Schema

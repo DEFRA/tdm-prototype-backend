@@ -4,6 +4,7 @@ using MongoDB.Bson;
 using Xunit.Abstractions;
 
 using TdmPrototypeBackend.Types;
+using TdmPrototypeBackend.Types.Ipaffs;
 
 namespace TdmPrototypeBackend.Test;
 
