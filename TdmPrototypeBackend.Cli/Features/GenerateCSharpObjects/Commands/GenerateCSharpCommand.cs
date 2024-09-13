@@ -35,14 +35,14 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateCSharpObjects.Commands
                 {
                     string contents = await engine.CompileRenderAsync("ClassTemplate", @class);
                     //await File.WriteAllTextAsync($"../../../Model/{@class.GetClassName()}.cs", contents, cancellationToken);
-                    await File.WriteAllTextAsync(Path.Combine(request.OutputPath, $"{@class.GetClassName()}.cs"), contents, cancellationToken);
+                    await File.WriteAllTextAsync(Path.Combine(request.OutputPath, $"{@class.GetClassName()}.g.cs"), contents, cancellationToken);
                     Console.WriteLine($"Created file: {@class.Name}.cs");
                 }
 
                 foreach (var @enum in model.Enums)
                 {
                     string contents = await engine.CompileRenderAsync("EnumTemplate", @enum);
-                    await File.WriteAllTextAsync(Path.Combine(request.OutputPath, $"{@enum.GetEnumName()}.cs"), contents, cancellationToken);
+                    await File.WriteAllTextAsync(Path.Combine(request.OutputPath, $"{@enum.GetEnumName()}.g.cs"), contents, cancellationToken);
                    // File.WriteAllText($"../../../Model/{@enum.GetEnumName()}.cs", contents);
                     Console.WriteLine($"Created file: {@enum.Name}.cs");
                 }
