@@ -24,14 +24,14 @@ public partial class IpaffsJourneyRiskCategorisationResult  {
         /// </summary>
         [Attr]
         [JsonPropertyName("riskLevel")]
-        public IpaffsRiskLevelEnum RiskLevel { get; set; }
+        public IpaffsJourneyRiskCategorisationResultRiskLevelEnum RiskLevel { get; set; }
     
         /// <summary>
         /// Indicator of whether the risk level was determined by the system or by the user
         /// </summary>
         [Attr]
         [JsonPropertyName("riskLevelMethod")]
-        public IpaffsRiskLevelMethodEnum RiskLevelMethod { get; set; }
+        public IpaffsJourneyRiskCategorisationResultRiskLevelMethodEnum RiskLevelMethod { get; set; }
     
         /// <summary>
         /// The date and time the risk level has been set for a notification

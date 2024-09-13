@@ -24,7 +24,7 @@ public partial class IpaffsPartOne  {
         /// </summary>
         [Attr]
         [JsonPropertyName("typeOfImp")]
-        public IpaffsTypeOfImpEnum TypeOfImp { get; set; }
+        public IpaffsPartOneTypeOfImpEnum TypeOfImp { get; set; }
     
         /// <summary>
         /// The individual who has submitted the notification
@@ -381,7 +381,7 @@ public partial class IpaffsPartOne  {
         /// </summary>
         [Attr]
         [JsonPropertyName("provideCtcMrn")]
-        public IpaffsProvideCtcMrnEnum ProvideCtcMrn { get; set; }
+        public IpaffsPartOneProvideCtcMrnEnum ProvideCtcMrn { get; set; }
     
 }
 

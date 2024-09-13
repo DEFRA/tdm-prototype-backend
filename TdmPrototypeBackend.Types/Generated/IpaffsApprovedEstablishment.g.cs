@@ -45,7 +45,7 @@ public partial class IpaffsApprovedEstablishment  {
         /// </summary>
         [Attr]
         [JsonPropertyName("types")]
-        public string[][] Types { get; set; }
+        public string[] Types { get; set; }
     
         /// <summary>
         /// Approval number

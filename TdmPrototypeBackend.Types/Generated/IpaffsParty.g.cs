@@ -59,7 +59,7 @@ public partial class IpaffsParty  {
         /// </summary>
         [Attr]
         [JsonPropertyName("address")]
-        public string[][] Addresses { get; set; }
+        public string[] Addresses { get; set; }
     
         /// <summary>
         /// County
@@ -101,7 +101,7 @@ public partial class IpaffsParty  {
         /// </summary>
         [Attr]
         [JsonPropertyName("type")]
-        public IpaffsTypeEnum IpaffsType { get; set; }
+        public IpaffsPartyTypeEnum IpaffsType { get; set; }
     
         /// <summary>
         /// Approval number

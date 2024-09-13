@@ -66,7 +66,7 @@ public partial class IpaffsApplicant  {
         /// </summary>
         [Attr]
         [JsonPropertyName("analysisType")]
-        public IpaffsAnalysisTypeEnum AnalysisType { get; set; }
+        public IpaffsApplicantAnalysisTypeEnum AnalysisType { get; set; }
     
         /// <summary>
         /// Number of samples analysed
@@ -87,7 +87,7 @@ public partial class IpaffsApplicant  {
         /// </summary>
         [Attr]
         [JsonPropertyName("conservationOfSample")]
-        public IpaffsConservationOfSampleEnum ConservationOfSample { get; set; }
+        public IpaffsApplicantConservationOfSampleEnum ConservationOfSample { get; set; }
     
         /// <summary>
         /// inspector

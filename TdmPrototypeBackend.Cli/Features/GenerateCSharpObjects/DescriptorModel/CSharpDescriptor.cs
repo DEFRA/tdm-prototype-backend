@@ -8,7 +8,7 @@ public class CSharpDescriptor
 
 	public void AddEnumDescriptor(EnumDescriptor enumDescriptor)
 	{
-		if (Enums.All(x => x.Name != enumDescriptor.Name))
+		if (Enums.All(x => x.GetEnumName() != enumDescriptor.GetEnumName()))
 		{
 			Enums.Add(enumDescriptor);
 		}

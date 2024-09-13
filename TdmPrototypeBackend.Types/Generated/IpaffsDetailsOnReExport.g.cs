@@ -38,7 +38,7 @@ public partial class IpaffsDetailsOnReExport  {
         /// </summary>
         [Attr]
         [JsonPropertyName("transportType")]
-        public IpaffsTransportTypeEnum TransportType { get; set; }
+        public IpaffsDetailsOnReExportTransportTypeEnum TransportType { get; set; }
     
         /// <summary>
         /// Document issued for re-export

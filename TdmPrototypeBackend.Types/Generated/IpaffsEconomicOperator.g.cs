@@ -31,14 +31,14 @@ public partial class IpaffsEconomicOperator  {
         /// </summary>
         [Attr]
         [JsonPropertyName("type")]
-        public IpaffsTypeEnum IpaffsType { get; set; }
+        public IpaffsEconomicOperatorTypeEnum IpaffsType { get; set; }
     
         /// <summary>
         /// Status of organisation
         /// </summary>
         [Attr]
         [JsonPropertyName("status")]
-        public IpaffsStatusEnum Status { get; set; }
+        public IpaffsEconomicOperatorStatusEnum Status { get; set; }
     
         /// <summary>
         /// Name of organisation

@@ -47,7 +47,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateCSharpObjects.DescriptorModel
                t =  ClassDescriptor.BuildClassName(Type);
             }
 
-            if (IsArray)
+            if (IsArray && !t.Contains("[]"))
             {
                 t = $"{t}[]";
             }

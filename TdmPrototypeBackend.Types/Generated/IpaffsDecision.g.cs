@@ -31,56 +31,56 @@ public partial class IpaffsDecision  {
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableAction")]
-        public IpaffsNotAcceptableActionEnum NotAcceptableAction { get; set; }
+        public IpaffsDecisionNotAcceptableActionEnum NotAcceptableAction { get; set; }
     
         /// <summary>
         /// Filled if not acceptable action is set to destruction
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableActionDestructionReason")]
-        public IpaffsNotAcceptableActionDestructionReasonEnum NotAcceptableActionDestructionReason { get; set; }
+        public IpaffsDecisionNotAcceptableActionDestructionReasonEnum NotAcceptableActionDestructionReason { get; set; }
     
         /// <summary>
         /// Filled if not acceptable action is set to entry refusal
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableActionEntryRefusalReason")]
-        public IpaffsNotAcceptableActionEntryRefusalReasonEnum NotAcceptableActionEntryRefusalReason { get; set; }
+        public IpaffsDecisionNotAcceptableActionEntryRefusalReasonEnum NotAcceptableActionEntryRefusalReason { get; set; }
     
         /// <summary>
         /// Filled if not acceptable action is set to quarantine imposed
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableActionQuarantineImposedReason")]
-        public IpaffsNotAcceptableActionQuarantineImposedReasonEnum NotAcceptableActionQuarantineImposedReason { get; set; }
+        public IpaffsDecisionNotAcceptableActionQuarantineImposedReasonEnum NotAcceptableActionQuarantineImposedReason { get; set; }
     
         /// <summary>
         /// Filled if not acceptable action is set to special treatment
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableActionSpecialTreatmentReason")]
-        public IpaffsNotAcceptableActionSpecialTreatmentReasonEnum NotAcceptableActionSpecialTreatmentReason { get; set; }
+        public IpaffsDecisionNotAcceptableActionSpecialTreatmentReasonEnum NotAcceptableActionSpecialTreatmentReason { get; set; }
     
         /// <summary>
         /// Filled if not acceptable action is set to industrial processing
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableActionIndustrialProcessingReason")]
-        public IpaffsNotAcceptableActionIndustrialProcessingReasonEnum NotAcceptableActionIndustrialProcessingReason { get; set; }
+        public IpaffsDecisionNotAcceptableActionIndustrialProcessingReasonEnum NotAcceptableActionIndustrialProcessingReason { get; set; }
     
         /// <summary>
         /// Filled if not acceptable action is set to re-dispatch
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableActionReDispatchReason")]
-        public IpaffsNotAcceptableActionReDispatchReasonEnum NotAcceptableActionReDispatchReason { get; set; }
+        public IpaffsDecisionNotAcceptableActionReDispatchReasonEnum NotAcceptableActionReDispatchReason { get; set; }
     
         /// <summary>
         /// Filled if not acceptable action is set to use for other purposes
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableActionUseForOtherPurposesReason")]
-        public IpaffsNotAcceptableActionUseForOtherPurposesReasonEnum NotAcceptableActionUseForOtherPurposesReason { get; set; }
+        public IpaffsDecisionNotAcceptableActionUseForOtherPurposesReasonEnum NotAcceptableActionUseForOtherPurposesReason { get; set; }
     
         /// <summary>
         /// Filled when notAcceptableAction is equal to destruction
@@ -115,7 +115,7 @@ public partial class IpaffsDecision  {
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableReasons")]
-        public string[][] NotAcceptableReasons { get; set; }
+        public string[] NotAcceptableReasons { get; set; }
     
         /// <summary>
         /// 2 digits ISO code of country (not acceptable country can be empty)
@@ -150,7 +150,7 @@ public partial class IpaffsDecision  {
         /// </summary>
         [Attr]
         [JsonPropertyName("specificWarehouseNonConformingConsignment")]
-        public IpaffsSpecificWarehouseNonConformingConsignmentEnum SpecificWarehouseNonConformingConsignment { get; set; }
+        public IpaffsDecisionSpecificWarehouseNonConformingConsignmentEnum SpecificWarehouseNonConformingConsignment { get; set; }
     
         /// <summary>
         /// Deadline when consignment has to leave borders
@@ -164,28 +164,28 @@ public partial class IpaffsDecision  {
         /// </summary>
         [Attr]
         [JsonPropertyName("decision")]
-        public IpaffsDecisionEnum Decision { get; set; }
+        public IpaffsDecisionDecisionEnum Decision { get; set; }
     
         /// <summary>
         /// Decision over purpose of free circulation in country
         /// </summary>
         [Attr]
         [JsonPropertyName("freeCirculationPurpose")]
-        public IpaffsFreeCirculationPurposeEnum FreeCirculationPurpose { get; set; }
+        public IpaffsDecisionFreeCirculationPurposeEnum FreeCirculationPurpose { get; set; }
     
         /// <summary>
         /// Decision over purpose of definitive import
         /// </summary>
         [Attr]
         [JsonPropertyName("definitiveImportPurpose")]
-        public IpaffsDefinitiveImportPurposeEnum DefinitiveImportPurpose { get; set; }
+        public IpaffsDecisionDefinitiveImportPurposeEnum DefinitiveImportPurpose { get; set; }
     
         /// <summary>
         /// Decision channeled option based on (article8, article15)
         /// </summary>
         [Attr]
         [JsonPropertyName("ifChanneledOption")]
-        public IpaffsIfChanneledOptionEnum IfChanneledOption { get; set; }
+        public IpaffsDecisionIfChanneledOptionEnum IfChanneledOption { get; set; }
     
         /// <summary>
         /// Custom warehouse registered number

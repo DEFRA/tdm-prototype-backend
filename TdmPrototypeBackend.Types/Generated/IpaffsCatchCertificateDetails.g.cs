@@ -52,7 +52,7 @@ public partial class IpaffsCatchCertificateDetails  {
         /// </summary>
         [Attr]
         [JsonPropertyName("species")]
-        public string[][] Species { get; set; }
+        public string[] Species { get; set; }
     
 }
 

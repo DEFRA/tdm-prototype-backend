@@ -24,7 +24,7 @@ public partial class IpaffsExternalReference  {
         /// </summary>
         [Attr]
         [JsonPropertyName("system")]
-        public IpaffsSystemEnum System { get; set; }
+        public IpaffsExternalReferenceSystemEnum System { get; set; }
     
         /// <summary>
         /// Reference which is added to the notification when either sent to the downstream system or received from it

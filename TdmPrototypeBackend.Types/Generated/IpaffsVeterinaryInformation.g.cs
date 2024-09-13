@@ -52,7 +52,7 @@ public partial class IpaffsVeterinaryInformation  {
         /// </summary>
         [Attr]
         [JsonPropertyName("accompanyingDocumentNumbers")]
-        public string[][] AccompanyingDocumentNumbers { get; set; }
+        public string[] AccompanyingDocumentNumbers { get; set; }
     
         /// <summary>
         /// Accompanying documents

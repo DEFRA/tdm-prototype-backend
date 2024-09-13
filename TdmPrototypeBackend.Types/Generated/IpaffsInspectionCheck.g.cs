@@ -24,14 +24,14 @@ public partial class IpaffsInspectionCheck  {
         /// </summary>
         [Attr]
         [JsonPropertyName("type")]
-        public IpaffsTypeEnum IpaffsType { get; set; }
+        public IpaffsInspectionCheckTypeEnum IpaffsType { get; set; }
     
         /// <summary>
         /// Status of the check
         /// </summary>
         [Attr]
         [JsonPropertyName("status")]
-        public IpaffsStatusEnum Status { get; set; }
+        public IpaffsInspectionCheckStatusEnum Status { get; set; }
     
         /// <summary>
         /// Reason for the status if applicable

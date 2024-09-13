@@ -4,7 +4,7 @@ using Humanizer;
 namespace TdmPrototypeBackend.Cli.Features.GenerateCSharpObjects.DescriptorModel;
 
 [DebuggerDisplay("{Name}")]
-public class EnumDescriptor(string name)
+public class EnumDescriptor(string name, string parentName)
 {
     private const string prefix = "Ipaffs";
     private const string suffix = "Enum";
@@ -15,7 +15,7 @@ public class EnumDescriptor(string name)
 
     public string GetEnumName()
     {
-        return BuildEnumName(Name);
+        return BuildEnumName(Name, parentName);
     }
 
     public class EnumValueDescriptor(string value)
@@ -47,8 +47,13 @@ public class EnumDescriptor(string name)
         }
     }
 
-    public static string BuildEnumName(string name)
+    public static string BuildEnumName(string name, string parentName)
     {
-        return $"{prefix}{name.Dehumanize()}{suffix}";
+        if (string.IsNullOrEmpty(parentName))
+        {
+            return $"{prefix}{name.Dehumanize()}{suffix}";
+        }
+
+        return $"{prefix}{parentName}{name.Dehumanize()}{suffix}";
     }
 }

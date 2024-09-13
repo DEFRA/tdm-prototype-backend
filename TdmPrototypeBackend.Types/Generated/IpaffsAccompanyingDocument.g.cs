@@ -24,7 +24,7 @@ public partial class IpaffsAccompanyingDocument  {
         /// </summary>
         [Attr]
         [JsonPropertyName("documentType")]
-        public IpaffsDocumentTypeEnum DocumentType { get; set; }
+        public IpaffsAccompanyingDocumentDocumentTypeEnum DocumentType { get; set; }
     
         /// <summary>
         /// Additional document reference

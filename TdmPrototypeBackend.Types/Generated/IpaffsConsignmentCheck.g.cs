@@ -59,7 +59,7 @@ public partial class IpaffsConsignmentCheck  {
         /// </summary>
         [Attr]
         [JsonPropertyName("identityCheckType")]
-        public IpaffsIdentityCheckTypeEnum IdentityCheckType { get; set; }
+        public IpaffsConsignmentCheckIdentityCheckTypeEnum IdentityCheckType { get; set; }
     
         /// <summary>
         /// Result of identity check
@@ -73,7 +73,7 @@ public partial class IpaffsConsignmentCheck  {
         /// </summary>
         [Attr]
         [JsonPropertyName("identityCheckNotDoneReason")]
-        public IpaffsIdentityCheckNotDoneReasonEnum IdentityCheckNotDoneReason { get; set; }
+        public IpaffsConsignmentCheckIdentityCheckNotDoneReasonEnum IdentityCheckNotDoneReason { get; set; }
     
         /// <summary>
         /// Was physical check done
@@ -94,7 +94,7 @@ public partial class IpaffsConsignmentCheck  {
         /// </summary>
         [Attr]
         [JsonPropertyName("physicalCheckNotDoneReason")]
-        public IpaffsPhysicalCheckNotDoneReasonEnum PhysicalCheckNotDoneReason { get; set; }
+        public IpaffsConsignmentCheckPhysicalCheckNotDoneReasonEnum PhysicalCheckNotDoneReason { get; set; }
     
         /// <summary>
         /// Other reason to not do physical check

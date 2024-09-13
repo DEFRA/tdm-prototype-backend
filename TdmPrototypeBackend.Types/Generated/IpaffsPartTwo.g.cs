@@ -66,7 +66,7 @@ public partial class IpaffsPartTwo  {
         /// </summary>
         [Attr]
         [JsonPropertyName("resealedContainers")]
-        public string[][] ResealedContainers { get; set; }
+        public string[] ResealedContainers { get; set; }
     
         /// <summary>
         /// Resealed containers information details

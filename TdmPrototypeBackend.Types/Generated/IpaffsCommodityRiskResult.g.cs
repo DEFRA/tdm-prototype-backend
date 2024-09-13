@@ -24,35 +24,35 @@ public partial class IpaffsCommodityRiskResult  {
         /// </summary>
         [Attr]
         [JsonPropertyName("riskDecision")]
-        public IpaffsRiskDecisionEnum RiskDecision { get; set; }
+        public IpaffsCommodityRiskResultRiskDecisionEnum RiskDecision { get; set; }
     
         /// <summary>
         /// Transit CHED - what is the commodity complement exit risk decision
         /// </summary>
         [Attr]
         [JsonPropertyName("exitRiskDecision")]
-        public IpaffsExitRiskDecisionEnum ExitRiskDecision { get; set; }
+        public IpaffsCommodityRiskResultExitRiskDecisionEnum ExitRiskDecision { get; set; }
     
         /// <summary>
         /// HMI decision required
         /// </summary>
         [Attr]
         [JsonPropertyName("hmiDecision")]
-        public IpaffsHmiDecisionEnum HmiDecision { get; set; }
+        public IpaffsCommodityRiskResultHmiDecisionEnum HmiDecision { get; set; }
     
         /// <summary>
         /// PHSI decision required
         /// </summary>
         [Attr]
         [JsonPropertyName("phsiDecision")]
-        public IpaffsPhsiDecisionEnum PhsiDecision { get; set; }
+        public IpaffsCommodityRiskResultPhsiDecisionEnum PhsiDecision { get; set; }
     
         /// <summary>
         /// PHSI classification
         /// </summary>
         [Attr]
         [JsonPropertyName("phsiClassification")]
-        public IpaffsPhsiClassificationEnum PhsiClassification { get; set; }
+        public IpaffsCommodityRiskResultPhsiClassificationEnum PhsiClassification { get; set; }
     
         /// <summary>
         /// PHSI Decision Breakdown

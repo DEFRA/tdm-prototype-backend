@@ -24,7 +24,7 @@ public partial class IpaffsFeedbackInformation  {
         /// </summary>
         [Attr]
         [JsonPropertyName("authorityType")]
-        public IpaffsAuthorityTypeEnum AuthorityType { get; set; }
+        public IpaffsFeedbackInformationAuthorityTypeEnum AuthorityType { get; set; }
     
         /// <summary>
         /// Did the consignment arrive

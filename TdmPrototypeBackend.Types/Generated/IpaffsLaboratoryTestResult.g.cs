@@ -52,7 +52,7 @@ public partial class IpaffsLaboratoryTestResult  {
         /// </summary>
         [Attr]
         [JsonPropertyName("conclusion")]
-        public IpaffsConclusionEnum Conclusion { get; set; }
+        public IpaffsLaboratoryTestResultConclusionEnum Conclusion { get; set; }
     
         /// <summary>
         /// Date of lab test created in IPAFFS

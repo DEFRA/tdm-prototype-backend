@@ -31,7 +31,7 @@ public partial class IpaffsLaboratoryTests  {
         /// </summary>
         [Attr]
         [JsonPropertyName("testReason")]
-        public IpaffsTestReasonEnum TestReason { get; set; }
+        public IpaffsLaboratoryTestsTestReasonEnum TestReason { get; set; }
     
         /// <summary>
         /// List of details of individual tests performed or to be performed

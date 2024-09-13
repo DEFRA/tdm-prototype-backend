@@ -31,7 +31,7 @@ public partial class IpaffsPurpose  {
         /// </summary>
         [Attr]
         [JsonPropertyName("internalMarketPurpose")]
-        public IpaffsInternalMarketPurposeEnum InternalMarketPurpose { get; set; }
+        public IpaffsPurposeInternalMarketPurposeEnum InternalMarketPurpose { get; set; }
     
         /// <summary>
         /// Country that consignment is transshipped through
@@ -45,7 +45,7 @@ public partial class IpaffsPurpose  {
         /// </summary>
         [Attr]
         [JsonPropertyName("forNonConforming")]
-        public IpaffsForNonConformingEnum ForNonConforming { get; set; }
+        public IpaffsPurposeForNonConformingEnum ForNonConforming { get; set; }
     
         /// <summary>
         /// There are 3 types of registration number based on the purpose of consignment. Customs registration number, Free zone registration number and Shipping supplier registration number.&#xA;
@@ -87,14 +87,14 @@ public partial class IpaffsPurpose  {
         /// </summary>
         [Attr]
         [JsonPropertyName("transitThirdCountries")]
-        public string[][] TransitThirdCountries { get; set; }
+        public string[] TransitThirdCountries { get; set; }
     
         /// <summary>
         /// Specification of Import or admission purpose
         /// </summary>
         [Attr]
         [JsonPropertyName("forImportOrAdmission")]
-        public IpaffsForImportOrAdmissionEnum ForImportOrAdmission { get; set; }
+        public IpaffsPurposeForImportOrAdmissionEnum ForImportOrAdmission { get; set; }
     
         /// <summary>
         /// Exit date when import or admission
@@ -115,7 +115,7 @@ public partial class IpaffsPurpose  {
         /// </summary>
         [Attr]
         [JsonPropertyName("purposeGroup")]
-        public IpaffsPurposeGroupEnum PurposeGroup { get; set; }
+        public IpaffsPurposePurposeGroupEnum PurposeGroup { get; set; }
     
         /// <summary>
         /// Estimated date at port of exit

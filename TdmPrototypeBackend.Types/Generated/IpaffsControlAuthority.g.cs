@@ -66,7 +66,7 @@ public partial class IpaffsControlAuthority  {
         /// </summary>
         [Attr]
         [JsonPropertyName("iuuOption")]
-        public IpaffsIuuOptionEnum IuuOption { get; set; }
+        public IpaffsControlAuthorityIuuOptionEnum IuuOption { get; set; }
     
 }
 

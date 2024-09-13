@@ -31,20 +31,20 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateCSharpObjects.Commands
                     .UseMemoryCachingProvider()
                     .Build();
 
-                foreach (var @class in model.Classes)
+                foreach (var @class in model.Classes.OrderBy(x => x.Name))
                 {
                     string contents = await engine.CompileRenderAsync("ClassTemplate", @class);
                     //await File.WriteAllTextAsync($"../../../Model/{@class.GetClassName()}.cs", contents, cancellationToken);
                     await File.WriteAllTextAsync(Path.Combine(request.OutputPath, $"{@class.GetClassName()}.g.cs"), contents, cancellationToken);
-                    Console.WriteLine($"Created file: {@class.Name}.cs");
+                    Console.WriteLine($"Created file: {@class.GetClassName()}.cs");
                 }
 
-                foreach (var @enum in model.Enums)
+                foreach (var @enum in model.Enums.OrderBy(x => x.Name))
                 {
                     string contents = await engine.CompileRenderAsync("EnumTemplate", @enum);
                     await File.WriteAllTextAsync(Path.Combine(request.OutputPath, $"{@enum.GetEnumName()}.g.cs"), contents, cancellationToken);
                    // File.WriteAllText($"../../../Model/{@enum.GetEnumName()}.cs", contents);
-                    Console.WriteLine($"Created file: {@enum.Name}.cs");
+                    Console.WriteLine($"Created file: {@enum.GetEnumName()}.cs");
                 }
             }
         }

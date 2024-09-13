@@ -150,7 +150,7 @@ public partial class IpaffsCommodities  {
         /// </summary>
         [Attr]
         [JsonPropertyName("commodityIntendedFor")]
-        public IpaffsCommodityIntendedForEnum CommodityIntendedFor { get; set; }
+        public IpaffsCommoditiesCommodityIntendedForEnum CommodityIntendedFor { get; set; }
     
 }
 

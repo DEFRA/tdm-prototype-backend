@@ -45,7 +45,7 @@ public partial class IpaffsControl  {
         /// </summary>
         [Attr]
         [JsonPropertyName("consignmentLeave")]
-        public IpaffsConsignmentLeaveEnum ConsignmentLeave { get; set; }
+        public IpaffsControlConsignmentLeaveEnum ConsignmentLeave { get; set; }
     
 }
 

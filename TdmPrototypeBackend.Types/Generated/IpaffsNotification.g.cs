@@ -77,7 +77,7 @@ namespace TdmPrototypeBackend.Types;
         /// </summary>
         [Attr]
         [JsonPropertyName("type")]
-        public IpaffsTypeEnum IpaffsType { get; set; }
+        public IpaffsIpaffsNotificationTypeEnum IpaffsType { get; set; }
     
         /// <summary>
         /// Reference number of notification that was replaced by this one
@@ -98,7 +98,7 @@ namespace TdmPrototypeBackend.Types;
         /// </summary>
         [Attr]
         [JsonPropertyName("status")]
-        public IpaffsStatusEnum Status { get; set; }
+        public IpaffsIpaffsNotificationStatusEnum Status { get; set; }
     
         /// <summary>
         /// Present if the consignment has been split

@@ -74,7 +74,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
                     var t = typeKeyword.Type.ToCSharpType();
                     if (context.JsonSchema.IsEnum())
                     {
-                        t = EnumDescriptor.BuildEnumName(context.Key);
+                        t = EnumDescriptor.BuildEnumName(context.Key, context.ClassDescriptor.Name);
                     }
 
                     context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key, t,
@@ -144,7 +144,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
 
         if (context.JsonSchema.IsEnum())
         {
-            OnEnum(context.CSharpDescriptor, context.JsonSchema, context.Key);
+            OnEnum(context.CSharpDescriptor, context.JsonSchema, context.ClassDescriptor, context.Key);
         }
     }
 
@@ -152,7 +152,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
     {
         if (context.JsonSchema.IsEnum())
         {
-            OnEnum(context.CSharpDescriptor, context.JsonSchema, context.Key);
+            OnEnum(context.CSharpDescriptor, context.JsonSchema, null, context.Key);
 
         }
         else if (context.JsonSchema.IsClass())
@@ -171,7 +171,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
         }
     }
 
-    private void OnEnum(CSharpDescriptor cSharpDescriptor, JsonSchema schema, string name)
+    private void OnEnum(CSharpDescriptor cSharpDescriptor, JsonSchema schema, ClassDescriptor classDescriptor, string name)
     {
         var enumKeyword = schema.GetKeyword<EnumKeyword>();
 
@@ -179,7 +179,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
         {
             var values = enumKeyword.Values.Select(x => new EnumDescriptor.EnumValueDescriptor(x.ToString()))
                 .ToList();
-            cSharpDescriptor.AddEnumDescriptor(new EnumDescriptor(name) { Values = values });
+            cSharpDescriptor.AddEnumDescriptor(new EnumDescriptor(name, classDescriptor?.Name) { Values = values });
         }
     }
 }

@@ -24,7 +24,7 @@ public partial class IpaffsPartThree  {
         /// </summary>
         [Attr]
         [JsonPropertyName("controlStatus")]
-        public IpaffsControlStatusEnum ControlStatus { get; set; }
+        public IpaffsPartThreeControlStatusEnum ControlStatus { get; set; }
     
         /// <summary>
         /// Control details

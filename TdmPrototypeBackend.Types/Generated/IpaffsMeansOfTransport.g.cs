@@ -24,7 +24,7 @@ public partial class IpaffsMeansOfTransport  {
         /// </summary>
         [Attr]
         [JsonPropertyName("type")]
-        public IpaffsTypeEnum IpaffsType { get; set; }
+        public IpaffsMeansOfTransportTypeEnum IpaffsType { get; set; }
     
         /// <summary>
         /// Document for transport
