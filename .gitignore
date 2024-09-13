@@ -270,3 +270,6 @@ library.db
 
 # Local env var
 *.env
+
+# Local cache
+TdmPrototypeBackend.Api/.synchroniser-cache/

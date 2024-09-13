@@ -4,7 +4,6 @@ using MongoDB.Bson;
 using Xunit.Abstractions;
 
 using TdmPrototypeBackend.Types;
-using Type = TdmPrototypeBackend.Types.Type;
 
 namespace TdmPrototypeBackend.Test;
 
@@ -82,7 +81,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
     public void CreateChedPIpaffsNotification()
     {
         JsonApiConsumer.Response<IpaffsNotification> response = JsonApiConsumer.JsonApiConsumer.Create<IpaffsNotification, IpaffsNotification>(
-            model: CreateChedANotification(notificationType: Type.Cvedp),
+            model: CreateChedANotification(notificationType: NotificationType.Cvedp),
             baseURI: apiHost,
             path: "api/ipaffsnotifications"
         );
@@ -144,11 +143,11 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         Assert.Equal(201, (int)crResponse.HttpStatusCode);
         
         var notification = CreateChedANotification(notificationId);
-        //notification.Movement = new MatchingStatus()
-        //{
-        //    Matched = true, Reference = declarationId, Item = 1,
-        //    AdditionalInformation = new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("matchLevel", "1")}
-        //};
+        notification.Movement = new MatchingStatus()
+        {
+            Matched = true, Reference = declarationId, Item = 1,
+            AdditionalInformation = new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("matchLevel", "1")}
+        };
 
         // var response = Send<IpaffsNotification>(ref notification, "api/ipaffsnotifications");
         JsonApiConsumer.Response<IpaffsNotification> response = JsonApiConsumer.JsonApiConsumer.Create<IpaffsNotification, IpaffsNotification>(
@@ -171,21 +170,21 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
     //     );
     // }
 
-    private Dictionary<Type, string> notificationTypes = new Dictionary<Type, string>()
+    private Dictionary<NotificationType, string> notificationTypes = new Dictionary<NotificationType, string>()
     {
         // TODO : clarify these
-        { Type.Cveda, "A" },
+        { NotificationType.Cveda, "A" },
         // { NotificationType.Ced, "C" },
-        { Type.Chedpp, "PP" },
-        { Type.Cvedp, "P" }
+        { NotificationType.Chedpp, "PP" },
+        { NotificationType.Cvedp, "P" }
     };
 
-    private string GetNotificationTypeIdSuffix(Type notificationType)
+    private string GetNotificationTypeIdSuffix(NotificationType notificationType)
     {
         return notificationTypes.ContainsKey(notificationType) ? notificationTypes[notificationType]  : "?";
     }
     
-    private string GenerateChedID(Type notificationType = Type.Cveda, string id = null)
+    private string GenerateChedID(NotificationType notificationType = NotificationType.Cveda, string id = null)
     {
         id = id ?? testId;
         return string.Format("CHED{0}.GB.2024.MOCK.{1}", GetNotificationTypeIdSuffix(notificationType), id);
@@ -196,19 +195,19 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         id = id ?? testId;
         return string.Format("DEC_GB_2024_{0}", id);
     }
-    private IpaffsNotification CreateChedANotification(String id = null, Type notificationType = Type.Cveda)
+    private IpaffsNotification CreateChedANotification(String id = null, NotificationType notificationType = NotificationType.Cveda)
     {
         id = id ?? GenerateChedID(notificationType, testId);
             
         return new IpaffsNotification()
         {
-            Id = 1, //id,
+            Id = id,
             // ReferenceNumber = id,
             Version = 1,
-            Type = notificationType.ToString(),
-            PartOne = new PartOneDto()
+            NotificationType = notificationType,
+            PartOne = new IpaffsPartOne()
             {
-                PersonResponsible = new PartyDto()
+                PersonResponsible = new IpaffsResponsiblePerson()
                 {
                     Name = "Mr Tester",
                     CompanyId = "123",
@@ -216,17 +215,14 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
                     Country = "GB"
                     
                 },
-                Commodities = new CommoditiesDto()
+                Commodities = new IpaffsNotificationCommodities()
                 {
-                    CommodityComplement = new []
-                    {
-                        new CommodityComplementDto()
-                        {
-                            CommodityID = "0101",
-                            CommodityDescription = "Live horses, asses, mules and hinnies"
-                        }
-                    },
-                    NumberOfAnimals = 1, CountryOfOrigin = "FRA"
+                    CommodityComplements = new []{ new IpaffsNotificationCommodityComplement()
+                    {   
+                        CommodityID = "0101",
+                        CommodityDescription = "Live horses, asses, mules and hinnies"
+                    }},
+                    CountryOfOrigin = "FRA"
                 },
                 PointOfEntry = "GBEDI4",
                 ArrivalDate = DateTime.Today.AddDays(7).ToString("yyyy-MM-dd"),

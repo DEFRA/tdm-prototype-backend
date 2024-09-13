@@ -74,7 +74,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
             
             var itemCount = 0;
             var erroredCount = 0;
-            foreach (IBlobItem item in result.Take(5)) //) //
+            foreach (IBlobItem item in result) //) //
             {
                 try
                 {
