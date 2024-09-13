@@ -24,21 +24,21 @@ public partial class IpaffsLaboratoryTests  {
         /// </summary>
         [Attr]
         [JsonPropertyName("testDate")]
-        public string TestDate { get; set; }
+        public string? TestDate { get; set; }
     
         /// <summary>
         /// Reason for test
         /// </summary>
         [Attr]
         [JsonPropertyName("testReason")]
-        public IpaffsLaboratoryTestsTestReasonEnum TestReason { get; set; }
+        public IpaffsLaboratoryTestsTestReasonEnum? TestReason { get; set; }
     
         /// <summary>
         /// List of details of individual tests performed or to be performed
         /// </summary>
         [Attr]
         [JsonPropertyName("singleLaboratoryTests")]
-        public IpaffsSingleLaboratoryTest[] SingleLaboratoryTests { get; set; }
+        public IpaffsSingleLaboratoryTest[]? SingleLaboratoryTests { get; set; }
     
 }
 

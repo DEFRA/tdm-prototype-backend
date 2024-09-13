@@ -24,42 +24,42 @@ public partial class IpaffsDetailsOnReExport  {
         /// </summary>
         [Attr]
         [JsonPropertyName("date")]
-        public string Date { get; set; }
+        public string? Date { get; set; }
     
         /// <summary>
         /// Number of vehicle
         /// </summary>
         [Attr]
         [JsonPropertyName("meansOfTransportNo")]
-        public string MeansOfTransportNo { get; set; }
+        public string? MeansOfTransportNo { get; set; }
     
         /// <summary>
         /// Type of transport to be used
         /// </summary>
         [Attr]
         [JsonPropertyName("transportType")]
-        public IpaffsDetailsOnReExportTransportTypeEnum TransportType { get; set; }
+        public IpaffsDetailsOnReExportTransportTypeEnum? TransportType { get; set; }
     
         /// <summary>
         /// Document issued for re-export
         /// </summary>
         [Attr]
         [JsonPropertyName("document")]
-        public string Document { get; set; }
+        public string? Document { get; set; }
     
         /// <summary>
         /// Two letter ISO code for country of re-dispatching
         /// </summary>
         [Attr]
         [JsonPropertyName("countryOfReDispatching")]
-        public string CountryOfReDispatching { get; set; }
+        public string? CountryOfReDispatching { get; set; }
     
         /// <summary>
         /// Exit BIP (where consignment will leave the country)
         /// </summary>
         [Attr]
         [JsonPropertyName("exitBIP")]
-        public string ExitBIP { get; set; }
+        public string? ExitBIP { get; set; }
     
 }
 

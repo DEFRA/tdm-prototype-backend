@@ -43,7 +43,7 @@ public partial class @Model.GetClassName()  @if (Model.IsResource) { <text>: Cus
         /// </summary>
         [Attr]
         [JsonPropertyName("@property.Name")]
-        public @property.GetPropertyType() @property.GetPropertyName() { get; set; }
+        public @property.GetPropertyType()? @property.GetPropertyName() { get; set; }
     </text>
 	
 }

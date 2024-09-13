@@ -24,21 +24,21 @@ public partial class IpaffsCatchCertificateAttachment  {
         /// </summary>
         [Attr]
         [JsonPropertyName("attachmentId")]
-        public string AttachmentId { get; set; }
+        public string? AttachmentId { get; set; }
     
         /// <summary>
         /// The total number of catch certificates on the attachment
         /// </summary>
         [Attr]
         [JsonPropertyName("numberOfCatchCertificates")]
-        public int NumberOfCatchCertificates { get; set; }
+        public int? NumberOfCatchCertificates { get; set; }
     
         /// <summary>
         /// List of catch certificate details
         /// </summary>
         [Attr]
         [JsonPropertyName("CatchCertificateDetails")]
-        public IpaffsCatchCertificateDetails[] CatchCertificateDetails { get; set; }
+        public IpaffsCatchCertificateDetails[]? CatchCertificateDetails { get; set; }
     
 }
 

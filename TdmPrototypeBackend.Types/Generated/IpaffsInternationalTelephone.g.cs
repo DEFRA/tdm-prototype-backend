@@ -24,14 +24,14 @@ public partial class IpaffsInternationalTelephone  {
         /// </summary>
         [Attr]
         [JsonPropertyName("countryCode")]
-        public string CountryCode { get; set; }
+        public string? CountryCode { get; set; }
     
         /// <summary>
         /// Phone number
         /// </summary>
         [Attr]
         [JsonPropertyName("subscriberNumber")]
-        public string SubscriberNumber { get; set; }
+        public string? SubscriberNumber { get; set; }
     
 }
 

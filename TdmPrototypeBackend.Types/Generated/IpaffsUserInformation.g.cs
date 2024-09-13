@@ -24,21 +24,21 @@ public partial class IpaffsUserInformation  {
         /// </summary>
         [Attr]
         [JsonPropertyName("displayName")]
-        public string DisplayName { get; set; }
+        public string? DisplayName { get; set; }
     
         /// <summary>
         /// User ID
         /// </summary>
         [Attr]
         [JsonPropertyName("userId")]
-        public string UserId { get; set; }
+        public string? UserId { get; set; }
     
         /// <summary>
         /// Is this user a control
         /// </summary>
         [Attr]
         [JsonPropertyName("isControlUser")]
-        public bool IsControlUser { get; set; }
+        public bool? IsControlUser { get; set; }
     
 }
 

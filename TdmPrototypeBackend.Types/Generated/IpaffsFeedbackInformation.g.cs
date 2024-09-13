@@ -24,35 +24,35 @@ public partial class IpaffsFeedbackInformation  {
         /// </summary>
         [Attr]
         [JsonPropertyName("authorityType")]
-        public IpaffsFeedbackInformationAuthorityTypeEnum AuthorityType { get; set; }
+        public IpaffsFeedbackInformationAuthorityTypeEnum? AuthorityType { get; set; }
     
         /// <summary>
         /// Did the consignment arrive
         /// </summary>
         [Attr]
         [JsonPropertyName("consignmentArrival")]
-        public bool ConsignmentArrival { get; set; }
+        public bool? ConsignmentArrival { get; set; }
     
         /// <summary>
         /// Does the consignment conform
         /// </summary>
         [Attr]
         [JsonPropertyName("consignmentConformity")]
-        public bool ConsignmentConformity { get; set; }
+        public bool? ConsignmentConformity { get; set; }
     
         /// <summary>
         /// Reason for consignment not arriving at the entry point
         /// </summary>
         [Attr]
         [JsonPropertyName("consignmentNoArrivalReason")]
-        public string ConsignmentNoArrivalReason { get; set; }
+        public string? ConsignmentNoArrivalReason { get; set; }
     
         /// <summary>
         /// Date of consignment destruction
         /// </summary>
         [Attr]
         [JsonPropertyName("destructionDate")]
-        public string DestructionDate { get; set; }
+        public string? DestructionDate { get; set; }
     
 }
 

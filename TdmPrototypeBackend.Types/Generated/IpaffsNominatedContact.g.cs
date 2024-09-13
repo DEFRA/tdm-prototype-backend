@@ -24,21 +24,21 @@ public partial class IpaffsNominatedContact  {
         /// </summary>
         [Attr]
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
     
         /// <summary>
         /// Email address of nominated contact
         /// </summary>
         [Attr]
         [JsonPropertyName("email")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
     
         /// <summary>
         /// Telephone number of nominated contact
         /// </summary>
         [Attr]
         [JsonPropertyName("telephone")]
-        public string Telephone { get; set; }
+        public string? Telephone { get; set; }
     
 }
 

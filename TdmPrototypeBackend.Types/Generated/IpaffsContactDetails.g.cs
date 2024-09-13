@@ -24,28 +24,28 @@ public partial class IpaffsContactDetails  {
         /// </summary>
         [Attr]
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
     
         /// <summary>
         /// Telephone number of designated contact
         /// </summary>
         [Attr]
         [JsonPropertyName("telephone")]
-        public string Telephone { get; set; }
+        public string? Telephone { get; set; }
     
         /// <summary>
         /// Email address of designated contact
         /// </summary>
         [Attr]
         [JsonPropertyName("email")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
     
         /// <summary>
         /// Name of agent representing designated contact
         /// </summary>
         [Attr]
         [JsonPropertyName("agent")]
-        public string Agent { get; set; }
+        public string? Agent { get; set; }
     
 }
 

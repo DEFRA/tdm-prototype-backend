@@ -24,28 +24,28 @@ public partial class IpaffsSealCheck  {
         /// </summary>
         [Attr]
         [JsonPropertyName("satisfactory")]
-        public bool Satisfactory { get; set; }
+        public bool? Satisfactory { get; set; }
     
         /// <summary>
         /// reason for not satisfactory
         /// </summary>
         [Attr]
         [JsonPropertyName("reason")]
-        public string Reason { get; set; }
+        public string? Reason { get; set; }
     
         /// <summary>
         /// Official inspector
         /// </summary>
         [Attr]
         [JsonPropertyName("officialInspector")]
-        public IpaffsOfficialInspector OfficialInspector { get; set; }
+        public IpaffsOfficialInspector? OfficialInspector { get; set; }
     
         /// <summary>
         /// date and time of seal check
         /// </summary>
         [Attr]
         [JsonPropertyName("dateTimeOfCheck")]
-        public string DateTimeOfCheck { get; set; }
+        public string? DateTimeOfCheck { get; set; }
     
 }
 

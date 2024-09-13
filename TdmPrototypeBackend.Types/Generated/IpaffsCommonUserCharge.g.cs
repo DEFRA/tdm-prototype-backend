@@ -24,7 +24,7 @@ public partial class IpaffsCommonUserCharge  {
         /// </summary>
         [Attr]
         [JsonPropertyName("wasSentToTradeCharge")]
-        public bool WasSentToTradeCharge { get; set; }
+        public bool? WasSentToTradeCharge { get; set; }
     
 }
 

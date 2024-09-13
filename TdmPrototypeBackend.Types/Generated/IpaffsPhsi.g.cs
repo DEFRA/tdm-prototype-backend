@@ -24,21 +24,21 @@ public partial class IpaffsPhsi  {
         /// </summary>
         [Attr]
         [JsonPropertyName("documentCheck")]
-        public bool DocumentCheck { get; set; }
+        public bool? DocumentCheck { get; set; }
     
         /// <summary>
         /// Whether or not an identity check is required for PHSI
         /// </summary>
         [Attr]
         [JsonPropertyName("identityCheck")]
-        public bool IdentityCheck { get; set; }
+        public bool? IdentityCheck { get; set; }
     
         /// <summary>
         /// Whether or not a physical check is required for PHSI
         /// </summary>
         [Attr]
         [JsonPropertyName("physicalCheck")]
-        public bool PhysicalCheck { get; set; }
+        public bool? PhysicalCheck { get; set; }
     
 }
 

@@ -24,28 +24,28 @@ public partial class IpaffsIdentifiers  {
         /// </summary>
         [Attr]
         [JsonPropertyName("speciesNumber")]
-        public int SpeciesNumber { get; set; }
+        public int? SpeciesNumber { get; set; }
     
         /// <summary>
         /// List of identifiers and their keys
         /// </summary>
         [Attr]
         [JsonPropertyName("data")]
-        public object Data { get; set; }
+        public object? Data { get; set; }
     
         /// <summary>
         /// Is the place of destination the permanent address?
         /// </summary>
         [Attr]
         [JsonPropertyName("isPlaceOfDestinationThePermanentAddress")]
-        public bool IsPlaceOfDestinationThePermanentAddress { get; set; }
+        public bool? IsPlaceOfDestinationThePermanentAddress { get; set; }
     
         /// <summary>
         /// Permanent address of the species
         /// </summary>
         [Attr]
         [JsonPropertyName("permanentAddress")]
-        public IpaffsEconomicOperator PermanentAddress { get; set; }
+        public IpaffsEconomicOperator? PermanentAddress { get; set; }
     
 }
 

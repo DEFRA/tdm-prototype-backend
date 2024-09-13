@@ -24,28 +24,28 @@ public partial class IpaffsAddress  {
         /// </summary>
         [Attr]
         [JsonPropertyName("street")]
-        public string Street { get; set; }
+        public string? Street { get; set; }
     
         /// <summary>
         /// City
         /// </summary>
         [Attr]
         [JsonPropertyName("city")]
-        public string City { get; set; }
+        public string? City { get; set; }
     
         /// <summary>
         /// Country
         /// </summary>
         [Attr]
         [JsonPropertyName("country")]
-        public string Country { get; set; }
+        public string? Country { get; set; }
     
         /// <summary>
         /// Postal Code
         /// </summary>
         [Attr]
         [JsonPropertyName("postalCode")]
-        public string PostalCode { get; set; }
+        public string? PostalCode { get; set; }
     
 }
 

@@ -24,42 +24,42 @@ public partial class IpaffsApprovedEstablishment  {
         /// </summary>
         [Attr]
         [JsonPropertyName("id")]
-        public string IpaffsId { get; set; }
+        public string? IpaffsId { get; set; }
     
         /// <summary>
         /// Name of approved establishment
         /// </summary>
         [Attr]
         [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
     
         /// <summary>
         /// Country of approved establishment
         /// </summary>
         [Attr]
         [JsonPropertyName("country")]
-        public string Country { get; set; }
+        public string? Country { get; set; }
     
         /// <summary>
         /// Types of approved establishment
         /// </summary>
         [Attr]
         [JsonPropertyName("types")]
-        public string[] Types { get; set; }
+        public string[]? Types { get; set; }
     
         /// <summary>
         /// Approval number
         /// </summary>
         [Attr]
         [JsonPropertyName("approvalNumber")]
-        public string ApprovalNumber { get; set; }
+        public string? ApprovalNumber { get; set; }
     
         /// <summary>
         /// Section of approved establishment
         /// </summary>
         [Attr]
         [JsonPropertyName("section")]
-        public string Section { get; set; }
+        public string? Section { get; set; }
     
 }
 

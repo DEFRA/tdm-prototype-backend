@@ -24,35 +24,35 @@ public partial class IpaffsBillingInformation  {
         /// </summary>
         [Attr]
         [JsonPropertyName("isConfirmed")]
-        public bool IsConfirmed { get; set; }
+        public bool? IsConfirmed { get; set; }
     
         /// <summary>
         /// Billing email address
         /// </summary>
         [Attr]
         [JsonPropertyName("emailAddress")]
-        public string EmailAddress { get; set; }
+        public string? EmailAddress { get; set; }
     
         /// <summary>
         /// Billing phone number
         /// </summary>
         [Attr]
         [JsonPropertyName("phoneNumber")]
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
     
         /// <summary>
         /// Billing Contact Name
         /// </summary>
         [Attr]
         [JsonPropertyName("contactName")]
-        public string ContactName { get; set; }
+        public string? ContactName { get; set; }
     
         /// <summary>
         /// Billing postal address
         /// </summary>
         [Attr]
         [JsonPropertyName("postalAddress")]
-        public IpaffsPostalAddress PostalAddress { get; set; }
+        public IpaffsPostalAddress? PostalAddress { get; set; }
     
 }
 

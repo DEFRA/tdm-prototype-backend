@@ -24,28 +24,28 @@ public partial class IpaffsSealContainer  {
         /// </summary>
         [Attr]
         [JsonPropertyName("sealNumber")]
-        public string SealNumber { get; set; }
+        public string? SealNumber { get; set; }
     
         /// <summary>
         /// 
         /// </summary>
         [Attr]
         [JsonPropertyName("containerNumber")]
-        public string ContainerNumber { get; set; }
+        public string? ContainerNumber { get; set; }
     
         /// <summary>
         /// 
         /// </summary>
         [Attr]
         [JsonPropertyName("officialSeal")]
-        public bool OfficialSeal { get; set; }
+        public bool? OfficialSeal { get; set; }
     
         /// <summary>
         /// 
         /// </summary>
         [Attr]
         [JsonPropertyName("resealedSealNumber")]
-        public string ResealedSealNumber { get; set; }
+        public string? ResealedSealNumber { get; set; }
     
 }
 

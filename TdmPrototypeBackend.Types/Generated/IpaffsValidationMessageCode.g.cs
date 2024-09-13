@@ -24,14 +24,14 @@ public partial class IpaffsValidationMessageCode  {
         /// </summary>
         [Attr]
         [JsonPropertyName("field")]
-        public string Field { get; set; }
+        public string? Field { get; set; }
     
         /// <summary>
         /// Code
         /// </summary>
         [Attr]
         [JsonPropertyName("code")]
-        public string Code { get; set; }
+        public string? Code { get; set; }
     
 }
 

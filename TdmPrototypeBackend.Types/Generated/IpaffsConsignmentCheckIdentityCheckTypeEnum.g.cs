@@ -17,8 +17,13 @@ public enum IpaffsConsignmentCheckIdentityCheckTypeEnum
 		FullIdentityCheck,
 	
 		[EnumMember(Value = "Not Done")]
-		NotDone,
-	
+		NotDone, 
+        
+
+        // TODO: this was added manually due to data in dev using the below value, which isn't part of the schema
+        [EnumMember(Value = "Seal AlvsRequestCheck")]
+        SealCheckAlvs,
+
 }
 
 

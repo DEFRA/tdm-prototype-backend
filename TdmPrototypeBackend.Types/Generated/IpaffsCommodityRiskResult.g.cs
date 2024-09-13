@@ -24,91 +24,91 @@ public partial class IpaffsCommodityRiskResult  {
         /// </summary>
         [Attr]
         [JsonPropertyName("riskDecision")]
-        public IpaffsCommodityRiskResultRiskDecisionEnum RiskDecision { get; set; }
+        public IpaffsCommodityRiskResultRiskDecisionEnum? RiskDecision { get; set; }
     
         /// <summary>
         /// Transit CHED - what is the commodity complement exit risk decision
         /// </summary>
         [Attr]
         [JsonPropertyName("exitRiskDecision")]
-        public IpaffsCommodityRiskResultExitRiskDecisionEnum ExitRiskDecision { get; set; }
+        public IpaffsCommodityRiskResultExitRiskDecisionEnum? ExitRiskDecision { get; set; }
     
         /// <summary>
         /// HMI decision required
         /// </summary>
         [Attr]
         [JsonPropertyName("hmiDecision")]
-        public IpaffsCommodityRiskResultHmiDecisionEnum HmiDecision { get; set; }
+        public IpaffsCommodityRiskResultHmiDecisionEnum? HmiDecision { get; set; }
     
         /// <summary>
         /// PHSI decision required
         /// </summary>
         [Attr]
         [JsonPropertyName("phsiDecision")]
-        public IpaffsCommodityRiskResultPhsiDecisionEnum PhsiDecision { get; set; }
+        public IpaffsCommodityRiskResultPhsiDecisionEnum? PhsiDecision { get; set; }
     
         /// <summary>
         /// PHSI classification
         /// </summary>
         [Attr]
         [JsonPropertyName("phsiClassification")]
-        public IpaffsCommodityRiskResultPhsiClassificationEnum PhsiClassification { get; set; }
+        public IpaffsCommodityRiskResultPhsiClassificationEnum? PhsiClassification { get; set; }
     
         /// <summary>
         /// PHSI Decision Breakdown
         /// </summary>
         [Attr]
         [JsonPropertyName("phsi")]
-        public IpaffsPhsi Phsi { get; set; }
+        public IpaffsPhsi? Phsi { get; set; }
     
         /// <summary>
         /// UUID used to match to the complement parameter set
         /// </summary>
         [Attr]
         [JsonPropertyName("uniqueId")]
-        public string UniqueId { get; set; }
+        public string? UniqueId { get; set; }
     
         /// <summary>
         /// EPPO Code for the species
         /// </summary>
         [Attr]
         [JsonPropertyName("eppoCode")]
-        public string EppoCode { get; set; }
+        public string? EppoCode { get; set; }
     
         /// <summary>
         /// Name or ID of the variety
         /// </summary>
         [Attr]
         [JsonPropertyName("variety")]
-        public string Variety { get; set; }
+        public string? Variety { get; set; }
     
         /// <summary>
         /// Whether or not a plant is woody
         /// </summary>
         [Attr]
         [JsonPropertyName("isWoody")]
-        public bool IsWoody { get; set; }
+        public bool? IsWoody { get; set; }
     
         /// <summary>
         /// Indoor or Outdoor for a plant
         /// </summary>
         [Attr]
         [JsonPropertyName("indoorOutdoor")]
-        public string IndoorOutdoor { get; set; }
+        public string? IndoorOutdoor { get; set; }
     
         /// <summary>
         /// Whether the propagation is considered a Plant, Bulb, Seed or None
         /// </summary>
         [Attr]
         [JsonPropertyName("propagation")]
-        public string Propagation { get; set; }
+        public string? Propagation { get; set; }
     
         /// <summary>
         /// Rule type for PHSI checks
         /// </summary>
         [Attr]
         [JsonPropertyName("phsiRuleType")]
-        public string PhsiRuleType { get; set; }
+        public string? PhsiRuleType { get; set; }
     
 }
 

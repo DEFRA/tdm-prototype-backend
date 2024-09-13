@@ -24,42 +24,42 @@ public partial class IpaffsComplementParameterSet  {
         /// </summary>
         [Attr]
         [JsonPropertyName("uniqueComplementID")]
-        public string UniqueComplementID { get; set; }
+        public string? UniqueComplementID { get; set; }
     
         /// <summary>
         /// 
         /// </summary>
         [Attr]
         [JsonPropertyName("complementID")]
-        public int ComplementID { get; set; }
+        public int? ComplementID { get; set; }
     
         /// <summary>
         /// 
         /// </summary>
         [Attr]
         [JsonPropertyName("speciesID")]
-        public string SpeciesID { get; set; }
+        public string? SpeciesID { get; set; }
     
         /// <summary>
         /// 
         /// </summary>
         [Attr]
         [JsonPropertyName("keyDataPair")]
-        public IpaffsKeyDataPair[] KeyDataPairs { get; set; }
+        public IpaffsKeyDataPair[]? KeyDataPairs { get; set; }
     
         /// <summary>
         /// Catch certificate details
         /// </summary>
         [Attr]
         [JsonPropertyName("catchCertificates")]
-        public IpaffsCatchCertificates[] CatchCertificates { get; set; }
+        public IpaffsCatchCertificates[]? CatchCertificates { get; set; }
     
         /// <summary>
         /// Data used to identify the complements inside an IMP consignment
         /// </summary>
         [Attr]
         [JsonPropertyName("identifiers")]
-        public IpaffsIdentifiers[] Identifiers { get; set; }
+        public IpaffsIdentifiers[]? Identifiers { get; set; }
     
 }
 

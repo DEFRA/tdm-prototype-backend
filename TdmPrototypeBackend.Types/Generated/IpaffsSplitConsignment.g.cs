@@ -24,14 +24,14 @@ public partial class IpaffsSplitConsignment  {
         /// </summary>
         [Attr]
         [JsonPropertyName("validReferenceNumber")]
-        public string ValidReferenceNumber { get; set; }
+        public string? ValidReferenceNumber { get; set; }
     
         /// <summary>
         /// Reference number of the rejected split consignment
         /// </summary>
         [Attr]
         [JsonPropertyName("rejectedReferenceNumber")]
-        public string RejectedReferenceNumber { get; set; }
+        public string? RejectedReferenceNumber { get; set; }
     
 }
 

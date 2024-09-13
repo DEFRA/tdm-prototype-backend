@@ -36,7 +36,7 @@ public static class SyncEndpoints
     {
         // var Logger = ApplicationLogging.CreateLogger("SyncEndpoints");
         
-        var result = await service.SyncMovements();
+        var result = await service.SyncIpaffsNotifications();
         // Logger.LogInformation(result.ToJson());
         if (result.Success)
         {

@@ -24,56 +24,56 @@ public partial class IpaffsVeterinaryInformation  {
         /// </summary>
         [Attr]
         [JsonPropertyName("establishmentsOfOriginExternalReference")]
-        public IpaffsExternalReference EstablishmentsOfOriginExternalReference { get; set; }
+        public IpaffsExternalReference? EstablishmentsOfOriginExternalReference { get; set; }
     
         /// <summary>
         /// List of establishments which were approved by UK to issue veterinary documents
         /// </summary>
         [Attr]
         [JsonPropertyName("establishmentsOfOrigin")]
-        public IpaffsApprovedEstablishment[] EstablishmentsOfOrigins { get; set; }
+        public IpaffsApprovedEstablishment[]? EstablishmentsOfOrigins { get; set; }
     
         /// <summary>
         /// Veterinary document identification
         /// </summary>
         [Attr]
         [JsonPropertyName("veterinaryDocument")]
-        public string VeterinaryDocument { get; set; }
+        public string? VeterinaryDocument { get; set; }
     
         /// <summary>
         /// Veterinary document issue date
         /// </summary>
         [Attr]
         [JsonPropertyName("veterinaryDocumentIssueDate")]
-        public string VeterinaryDocumentIssueDate { get; set; }
+        public string? VeterinaryDocumentIssueDate { get; set; }
     
         /// <summary>
         /// Additional documents
         /// </summary>
         [Attr]
         [JsonPropertyName("accompanyingDocumentNumbers")]
-        public string[] AccompanyingDocumentNumbers { get; set; }
+        public string[]? AccompanyingDocumentNumbers { get; set; }
     
         /// <summary>
         /// Accompanying documents
         /// </summary>
         [Attr]
         [JsonPropertyName("accompanyingDocuments")]
-        public IpaffsAccompanyingDocument[] AccompanyingDocuments { get; set; }
+        public IpaffsAccompanyingDocument[]? AccompanyingDocuments { get; set; }
     
         /// <summary>
         /// Catch certificate attachments
         /// </summary>
         [Attr]
         [JsonPropertyName("catchCertificateAttachments")]
-        public IpaffsCatchCertificateAttachment[] CatchCertificateAttachments { get; set; }
+        public IpaffsCatchCertificateAttachment[]? CatchCertificateAttachments { get; set; }
     
         /// <summary>
         /// Details helpful for identification
         /// </summary>
         [Attr]
         [JsonPropertyName("identificationDetails")]
-        public IpaffsIdentificationDetails[] IdentificationDetails { get; set; }
+        public IpaffsIdentificationDetails[]? IdentificationDetails { get; set; }
     
 }
 

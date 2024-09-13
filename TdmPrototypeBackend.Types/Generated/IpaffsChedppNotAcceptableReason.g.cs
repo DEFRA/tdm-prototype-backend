@@ -24,14 +24,14 @@ public partial class IpaffsChedppNotAcceptableReason  {
         /// </summary>
         [Attr]
         [JsonPropertyName("reason")]
-        public IpaffsChedppNotAcceptableReasonReasonEnum Reason { get; set; }
+        public IpaffsChedppNotAcceptableReasonReasonEnum? Reason { get; set; }
     
         /// <summary>
         /// commodity or package
         /// </summary>
         [Attr]
         [JsonPropertyName("commodityOrPackage")]
-        public IpaffsChedppNotAcceptableReasonCommodityOrPackageEnum CommodityOrPackage { get; set; }
+        public IpaffsChedppNotAcceptableReasonCommodityOrPackageEnum? CommodityOrPackage { get; set; }
     
 }
 

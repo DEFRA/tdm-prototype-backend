@@ -24,21 +24,21 @@ public partial class IpaffsMeansOfTransport  {
         /// </summary>
         [Attr]
         [JsonPropertyName("type")]
-        public IpaffsMeansOfTransportTypeEnum IpaffsType { get; set; }
+        public IpaffsMeansOfTransportTypeEnum? IpaffsType { get; set; }
     
         /// <summary>
         /// Document for transport
         /// </summary>
         [Attr]
         [JsonPropertyName("document")]
-        public string Document { get; set; }
+        public string? Document { get; set; }
     
         /// <summary>
         /// ID of transport
         /// </summary>
         [Attr]
         [JsonPropertyName("id")]
-        public string IpaffsId { get; set; }
+        public string? IpaffsId { get; set; }
     
 }
 

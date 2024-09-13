@@ -24,14 +24,14 @@ public partial class IpaffsCatchCertificates  {
         /// </summary>
         [Attr]
         [JsonPropertyName("certificateNumber")]
-        public string CertificateNumber { get; set; }
+        public string? CertificateNumber { get; set; }
     
         /// <summary>
         /// The catch certificate weight number
         /// </summary>
         [Attr]
         [JsonPropertyName("weight")]
-        public double Weight { get; set; }
+        public double? Weight { get; set; }
     
 }
 

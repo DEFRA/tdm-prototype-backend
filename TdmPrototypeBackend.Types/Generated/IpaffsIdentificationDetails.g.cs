@@ -24,14 +24,14 @@ public partial class IpaffsIdentificationDetails  {
         /// </summary>
         [Attr]
         [JsonPropertyName("identificationDetail")]
-        public string IdentificationDetail { get; set; }
+        public string? IdentificationDetail { get; set; }
     
         /// <summary>
         /// Identification description
         /// </summary>
         [Attr]
         [JsonPropertyName("identificationDescription")]
-        public string IdentificationDescription { get; set; }
+        public string? IdentificationDescription { get; set; }
     
 }
 

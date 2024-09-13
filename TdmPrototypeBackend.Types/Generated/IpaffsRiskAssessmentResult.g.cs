@@ -24,14 +24,14 @@ public partial class IpaffsRiskAssessmentResult  {
         /// </summary>
         [Attr]
         [JsonPropertyName("commodityResults")]
-        public IpaffsCommodityRiskResult[] CommodityResults { get; set; }
+        public IpaffsCommodityRiskResult[]? CommodityResults { get; set; }
     
         /// <summary>
         /// Date and time of assessment
         /// </summary>
         [Attr]
         [JsonPropertyName("assessmentDateTime")]
-        public string AssessmentDateTime { get; set; }
+        public string? AssessmentDateTime { get; set; }
     
 }
 
