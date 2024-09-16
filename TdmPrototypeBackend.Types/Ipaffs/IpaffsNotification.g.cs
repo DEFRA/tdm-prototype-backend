@@ -17,23 +17,23 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// 
     /// </summary>
      [Resource] 
-    public partial class IpaffsNotification  : CustomStringMongoIdentifiable{
+    public partial class IpaffsNotification {
 
-        // This field is used by the jsonapi-consumer to control the correct casing in the type field
-       // public string Type { get; set; } = "IpaffsNotification";
-    
+    // This field is used by the jsonapi-consumer to control the correct casing in the type field
+    // public string Type { get; set; } = "IpaffsNotification";
 
-        /// <summary>
-        /// The IPAFFS ID number for this notification.
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("id")]
-        public int? IpaffsId { get; set; }
-    
-        /// <summary>
-        /// The etag for this notification.
-        /// </summary>
-        [Attr]
+
+    /// <summary>
+    /// The IPAFFS ID number for this notification.
+    /// </summary>
+    [Attr]
+    [JsonPropertyName("id")]
+    public int? IpaffsId { get; set; }
+
+    /// <summary>
+    /// The etag for this notification.
+    /// </summary>
+    [Attr]
         [JsonPropertyName("etag")]
         public string? Etag { get; set; }
     

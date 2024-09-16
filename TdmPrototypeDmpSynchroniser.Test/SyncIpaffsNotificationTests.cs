@@ -2,9 +2,11 @@ using FluentAssertions;
 using System.Reflection;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using MongoDB.Bson.IO;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeDmpSynchroniser.Api.Models;
 using static TdmPrototypeDmpSynchroniser.Api.Models.Test.SyncIpaffsNotificationTests;
+using MongoDB.Bson.Serialization;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Models.Test;
 
@@ -18,7 +20,14 @@ public class SyncIpaffsNotificationTests
 
         var n = IpaffsNotificationExtensions.FromBlob(s);
 
-      
+        MemoryStream ms = new MemoryStream();
+        using (BsonWriter writer = new BsonBinaryWriter(ms))
+        {
+            BsonSerializer.Serialize(writer, n);
+        }
+
+        string data = Convert.ToBase64String(ms.ToArray());
+
 
 
         // Unique ID should be set - need to check where the 'movement ID' is stored on the ALVS message 
