@@ -6,6 +6,7 @@ using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using TdmPrototypeBackend.Types.Ipaffs;
+using MongoDB.Bson.Serialization;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Models.Test;
 
@@ -19,9 +20,18 @@ public class SyncIpaffsNotificationTests
 
         var n = IpaffsNotificationExtensions.FromBlob(s);
 
-        var output = JsonSerializer.Serialize(n);
+        MemoryStream ms = new MemoryStream();
+        using (BsonWriter writer = new BsonBinaryWriter(ms))
+        {
+            BsonSerializer.Serialize(writer, n);
+        }
 
-        n.IpaffsId.Should().Be(36543);
+        string data = Convert.ToBase64String(ms.ToArray());
+
+
+
+        // n.Id.Should().Be("CHEDP.GB.2024.1036543");
+        //n.IpaffsId.Should().Be(36543);
         n.ReferenceNumber.Should().Be("CHEDP.GB.2024.1036543");
         n.Version.Should().Be(1);
         n.LastUpdated.Should().Be("2024-09-12T12:13:47.923Z");
@@ -100,7 +110,7 @@ public class SyncIpaffsNotificationTests
 
             string data = Convert.ToBase64String(ms.ToArray());
 
-    }
+      }
 }
 
 

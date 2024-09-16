@@ -44,7 +44,7 @@ public class CachingBlobService(ILoggerFactory loggerFactory, SynchroniserConfig
         {
             Logger.LogInformation("CachingBlobService scanning disk");
             var items = new List<IBlobItem>();
-            ScanFolder(items, $"{System.Environment.CurrentDirectory}/.synchroniser-cache");
+            ScanFolder(items, $"{System.Environment.CurrentDirectory}/.synchroniser-cache/{prefix}");
             return items;
         }
         else

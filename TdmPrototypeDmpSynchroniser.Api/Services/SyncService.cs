@@ -55,7 +55,6 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
 
         try
         {
-            // throw new Exception();
             return MovementExtensions.FromClearanceRequest(blob.Content);
         }
         catch (Exception ex)
@@ -69,26 +68,26 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
     {
         try
         {
-            // TODO need to figure out how we select path
-            
-            var result = await blobService.GetResourcesAsync("RAW/IPAFFS/CHEDA/2024/09/");
-            
             var itemCount = 0;
             var erroredCount = 0;
-            foreach (IBlobItem item in result) //) //
-            {
-                try
-                {
-                    await notificationService.Upsert(await ConvertIpaffsNotification(item));
-                    itemCount++;
-                }
-                catch (Exception ex)
-                {
-                    Logger.LogError($"Failed to upsert ipaffs notification from file {item.Name}. {ex.ToString()}.");
-                    
-                    erroredCount++;
-                }
-            }
+        
+            // TODO need to figure out how we select path
+
+            var (e, i) = await SyncIpaffsNotifications("RAW/IPAFFS/CHEDA/2024/09/");
+            itemCount += i;
+            erroredCount += e;
+                
+            (e, i) = await SyncIpaffsNotifications("RAW/IPAFFS/CHEDD/2024/09/");
+            itemCount += i;
+            erroredCount += e;
+            
+            (e, i) = await SyncIpaffsNotifications("RAW/IPAFFS/CHEDP/2024/09/");
+            itemCount += i;
+            erroredCount += e;
+            
+            (e, i) = await SyncIpaffsNotifications("RAW/IPAFFS/CHEDPP/2024/09/");
+            itemCount += i;
+            erroredCount += e;
             
             return new Status()
             {
@@ -101,6 +100,42 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
             
             return new Status() { Success = false, Description = ex.Message };
         }
+    }
+    
+    public async Task<(int, int)> SyncIpaffsNotifications(string path = "RAW/IPAFFS/")
+    {
+        var itemCount = 0;
+        var erroredCount = 0;
+
+        try
+        {
+            // TODO need to figure out how we select path
+
+            var result = await blobService.GetResourcesAsync(path);
+
+            foreach (IBlobItem item in result) //) //
+            {
+                try
+                {
+                    var n = await ConvertIpaffsNotification(item);
+                    await notificationService.Upsert(n);
+                    itemCount++;
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogError($"Failed to upsert ipaffs notification from file {item.Name}. {ex.ToString()}.");
+
+                    erroredCount++;
+                }
+            }
+
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex.ToString());
+        }
+        
+        return (erroredCount, itemCount);
     }
 
     private async Task<IpaffsNotification> ConvertIpaffsNotification(IBlobItem item)

@@ -1,15 +1,10 @@
 // See https://aka.ms/new-console-template for more information
-
-using System.Reflection;
 using CommandLine;
 using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Readers;
-using TdmPrototypeBackend.Cli;
-
-
 
 var builder = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
@@ -37,17 +32,14 @@ using var serviceScope = host.Services.CreateScope();
     }
 }
 
-namespace TdmPrototypeBackend.Cli
+class App(IMediator mediator)
 {
-    class App(IMediator mediator)
+    public Task Run(string[] args)
     {
-        public Task Run(string[] args)
-        {
-            var types = Assembly.GetExecutingAssembly().GetTypes()
-                .Where(t => t.GetCustomAttribute<VerbAttribute>() != null).ToArray();
+        var types = Assembly.GetExecutingAssembly().GetTypes()
+            .Where(t => t.GetCustomAttribute<VerbAttribute>() != null).ToArray();
 
-            return Parser.Default.ParseArguments(args, types)
-                .WithParsedAsync(o => mediator.Send(o));
-        }
+        return Parser.Default.ParseArguments(args, types)
+            .WithParsedAsync(o => mediator.Send(o));
     }
 }
