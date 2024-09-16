@@ -57,14 +57,14 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
                     var propertiesKeyword = context.JsonSchema.GetKeyword<PropertiesKeyword>();
                     var classDescriptor = new ClassDescriptor(context.Key.Dehumanize(), IpaffsDescriptorBuilder.Namespace, IpaffsDescriptorBuilder.ClassNamePrefix);
                     classDescriptor.Description = context.JsonSchema.GetDescription();
-                    context.CSharpDescriptor.AddClassDescriptor(classDescriptor);
+                    
 
                     foreach (var property in propertiesKeyword.Properties)
                     {
                         OnProperty(new PropertyVisitorContext(context.CSharpDescriptor, classDescriptor, context.RootJsonSchema, property.Key,
                             property.Value));
                     }
-
+                    context.CSharpDescriptor.AddClassDescriptor(classDescriptor);
                     context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key, context.Key,
                         description,
                         true, false, IpaffsDescriptorBuilder.ClassNamePrefix));

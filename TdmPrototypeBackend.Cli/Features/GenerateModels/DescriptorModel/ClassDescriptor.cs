@@ -16,6 +16,14 @@ public class ClassDescriptor(string name, string @namespace, string classNamePre
 
     public List<PropertyDescriptor> Properties { get; set; } = [];
 
+    public void AddPropertyDescriptor(PropertyDescriptor propertyDescriptor)
+    {
+        if (Properties.All(x => x.Name != propertyDescriptor.Name))
+        {
+            Properties.Add(propertyDescriptor);
+        }
+    }
+
     public string GetClassName()
     {
         return BuildClassName(Name, classNamePrefix, IsResource);

@@ -20,5 +20,13 @@ public class CSharpDescriptor
         {
             Classes.Add(classDescriptor);
         }
+        else
+        {
+            var existing = Classes.First(x => x.Name == classDescriptor.Name);
+            foreach (var propertyDescriptor in classDescriptor.Properties)
+            {
+                existing.AddPropertyDescriptor(propertyDescriptor);
+            }
+        }
     }
 }
