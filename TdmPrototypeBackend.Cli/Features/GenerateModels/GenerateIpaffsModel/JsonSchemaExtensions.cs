@@ -54,7 +54,7 @@ public static class JsonSchemaExtensions
     {
         return schemaValueType switch
         {
-            SchemaValueType.Object => "object",
+            SchemaValueType.Object => "ExpandoObject",
             SchemaValueType.Array => "string[]",
             SchemaValueType.Boolean => "bool",
             SchemaValueType.String => "string",

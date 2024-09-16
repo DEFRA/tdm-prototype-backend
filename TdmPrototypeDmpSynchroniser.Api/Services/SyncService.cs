@@ -71,7 +71,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
         {
             // TODO need to figure out how we select path
             
-            var result = await blobService.GetResourcesAsync("RAW/IPAFFS/CHEDP/2024/09/");
+            var result = await blobService.GetResourcesAsync("RAW/IPAFFS/CHEDA/2024/09/");
             
             var itemCount = 0;
             var erroredCount = 0;
