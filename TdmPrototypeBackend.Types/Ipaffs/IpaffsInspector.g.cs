@@ -6,39 +6,42 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// inspector
     /// </summary>
-public partial class IpaffsInspector  {
+public partial class IpaffsInspector  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Name of inspector
         /// </summary>
         [Attr]
         [JsonPropertyName("name")]
-        public string? Name { get; set; }
+		public  string? Name { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Phone number of inspector
         /// </summary>
         [Attr]
         [JsonPropertyName("phone")]
-        public string? Phone { get; set; }
+		public  string? Phone { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Email address of inspector
         /// </summary>
         [Attr]
         [JsonPropertyName("email")]
-        public string? Email { get; set; }
+		public  string? Email { get; set; }
     
 }
 

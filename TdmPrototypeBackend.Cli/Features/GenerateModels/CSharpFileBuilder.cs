@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using RazorLight;
 using TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel;
 
@@ -18,7 +20,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels
                 await File.WriteAllTextAsync(Path.Combine(outputPath, $"{@class.GetClassName()}.g.cs"), contents, cancellationToken);
                 Console.WriteLine($"Created file: {@class.GetClassName()}.cs");
             }
-
+            
             foreach (var @enum in descriptor.Enums.OrderBy(x => x.Name))
             {
                 var contents = await engine.CompileRenderAsync("EnumTemplate", @enum);

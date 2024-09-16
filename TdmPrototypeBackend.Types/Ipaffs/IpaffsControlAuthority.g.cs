@@ -6,67 +6,70 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Authority which performed control
     /// </summary>
-public partial class IpaffsControlAuthority  {
+public partial class IpaffsControlAuthority  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Official veterinarian
         /// </summary>
         [Attr]
         [JsonPropertyName("officialVeterinarian")]
-        public IpaffsOfficialVeterinarian? OfficialVeterinarian { get; set; }
+		public  IpaffsOfficialVeterinarian? OfficialVeterinarian { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Customs reference number
         /// </summary>
         [Attr]
         [JsonPropertyName("customsReferenceNo")]
-        public string? CustomsReferenceNo { get; set; }
+		public  string? CustomsReferenceNo { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Were containers resealed?
         /// </summary>
         [Attr]
         [JsonPropertyName("containerResealed")]
-        public bool? ContainerResealed { get; set; }
+		public  bool? ContainerResealed { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// When the containers are resealed they need new seal numbers
         /// </summary>
         [Attr]
         [JsonPropertyName("newSealNumber")]
-        public string? NewSealNumber { get; set; }
+		public  string? NewSealNumber { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Illegal, Unreported and Unregulated (IUU) fishing reference number
         /// </summary>
         [Attr]
         [JsonPropertyName("iuuFishingReference")]
-        public string? IuuFishingReference { get; set; }
+		public  string? IuuFishingReference { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Was Illegal, Unreported and Unregulated (IUU) check required
         /// </summary>
         [Attr]
         [JsonPropertyName("iuuCheckRequired")]
-        public bool? IuuCheckRequired { get; set; }
+		public  bool? IuuCheckRequired { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Result of Illegal, Unreported and Unregulated (IUU) check
         /// </summary>
         [Attr]
         [JsonPropertyName("iuuOption")]
-        public IpaffsControlAuthorityIuuOptionEnum? IuuOption { get; set; }
+		public  IpaffsControlAuthorityIuuOptionEnum? IuuOption { get; set; }
     
 }
 

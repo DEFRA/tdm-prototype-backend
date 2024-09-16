@@ -18,7 +18,7 @@ public partial class IpaffsNotification : IMongoIdentifiable
     
     //[BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
     //[JsonPropertyName("referenceNumber")]
-    //public virtual string? Id { get; set; }
+    public virtual string? Id { get; set; }
     
     // TODO : this is currently being written on the wire by the json api client
     /// <inheritdoc />

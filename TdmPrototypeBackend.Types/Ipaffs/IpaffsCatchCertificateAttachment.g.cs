@@ -6,39 +6,42 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Catch certificate attachment
     /// </summary>
-public partial class IpaffsCatchCertificateAttachment  {
+public partial class IpaffsCatchCertificateAttachment  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// The UUID of the uploaded catch certificate file in blob storage
         /// </summary>
         [Attr]
         [JsonPropertyName("attachmentId")]
-        public string? AttachmentId { get; set; }
+		public  string? AttachmentId { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// The total number of catch certificates on the attachment
         /// </summary>
         [Attr]
         [JsonPropertyName("numberOfCatchCertificates")]
-        public int? NumberOfCatchCertificates { get; set; }
+		public  int? NumberOfCatchCertificates { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// List of catch certificate details
         /// </summary>
         [Attr]
         [JsonPropertyName("CatchCertificateDetails")]
-        public IpaffsCatchCertificateDetails[]? CatchCertificateDetails { get; set; }
+		public  IpaffsCatchCertificateDetails[]? CatchCertificateDetails { get; set; }
     
 }
 

@@ -14,7 +14,7 @@ public enum IpaffsPartOneProvideCtcMrnEnum
 		Yes,
 	
 		[EnumMember(Value = "YES_ADD_LATER")]
-		YESADDLATER,
+		Yesaddlater,
 	
 		[EnumMember(Value = "NO")]
 		No,

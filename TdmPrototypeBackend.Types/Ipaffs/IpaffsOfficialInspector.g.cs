@@ -6,67 +6,70 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Official inspector details
     /// </summary>
-public partial class IpaffsOfficialInspector  {
+public partial class IpaffsOfficialInspector  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// First name of inspector
         /// </summary>
         [Attr]
         [JsonPropertyName("firstName")]
-        public string? FirstName { get; set; }
+		public  string? FirstName { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Last name of inspector
         /// </summary>
         [Attr]
         [JsonPropertyName("lastName")]
-        public string? LastName { get; set; }
+		public  string? LastName { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Email of inspector
         /// </summary>
         [Attr]
         [JsonPropertyName("email")]
-        public string? Email { get; set; }
+		public  string? Email { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Phone number of inspector
         /// </summary>
         [Attr]
         [JsonPropertyName("phone")]
-        public string? Phone { get; set; }
+		public  string? Phone { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Fax number of inspector
         /// </summary>
         [Attr]
         [JsonPropertyName("fax")]
-        public string? Fax { get; set; }
+		public  string? Fax { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Address of inspector
         /// </summary>
         [Attr]
         [JsonPropertyName("address")]
-        public IpaffsAddress? Address { get; set; }
+		public  IpaffsAddress? Address { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Date of sign
         /// </summary>
         [Attr]
         [JsonPropertyName("signed")]
-        public string? Signed { get; set; }
+		public  string? Signed { get; set; }
     
 }
 

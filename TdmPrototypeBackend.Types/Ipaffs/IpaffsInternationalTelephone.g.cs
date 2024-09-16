@@ -6,32 +6,35 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// International phone number
     /// </summary>
-public partial class IpaffsInternationalTelephone  {
+public partial class IpaffsInternationalTelephone  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Country code of phone number
         /// </summary>
         [Attr]
         [JsonPropertyName("countryCode")]
-        public string? CountryCode { get; set; }
+		public  string? CountryCode { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Phone number
         /// </summary>
         [Attr]
         [JsonPropertyName("subscriberNumber")]
-        public string? SubscriberNumber { get; set; }
+		public  string? SubscriberNumber { get; set; }
     
 }
 

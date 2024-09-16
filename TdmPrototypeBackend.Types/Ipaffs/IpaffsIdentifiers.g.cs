@@ -6,46 +6,49 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// 
     /// </summary>
-public partial class IpaffsIdentifiers  {
+public partial class IpaffsIdentifiers  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Number used to identify which item the identifiers are related to
         /// </summary>
         [Attr]
         [JsonPropertyName("speciesNumber")]
-        public int? SpeciesNumber { get; set; }
+		public  int? SpeciesNumber { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// List of identifiers and their keys
         /// </summary>
         [Attr]
         [JsonPropertyName("data")]
-        public object? Data { get; set; }
+		public  IDictionary<string, string>? Data { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Is the place of destination the permanent address?
         /// </summary>
         [Attr]
         [JsonPropertyName("isPlaceOfDestinationThePermanentAddress")]
-        public bool? IsPlaceOfDestinationThePermanentAddress { get; set; }
+		public  bool? IsPlaceOfDestinationThePermanentAddress { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Permanent address of the species
         /// </summary>
         [Attr]
         [JsonPropertyName("permanentAddress")]
-        public IpaffsEconomicOperator? PermanentAddress { get; set; }
+		public  IpaffsEconomicOperator? PermanentAddress { get; set; }
     
 }
 

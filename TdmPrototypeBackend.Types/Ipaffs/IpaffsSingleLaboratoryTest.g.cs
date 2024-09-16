@@ -6,60 +6,63 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Information about single laboratory test
     /// </summary>
-public partial class IpaffsSingleLaboratoryTest  {
+public partial class IpaffsSingleLaboratoryTest  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Commodity code for which lab test was ordered
         /// </summary>
         [Attr]
         [JsonPropertyName("commodityCode")]
-        public string? CommodityCode { get; set; }
+		public  string? CommodityCode { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Species id of commodity for which lab test was ordered
         /// </summary>
         [Attr]
         [JsonPropertyName("speciesID")]
-        public int? SpeciesID { get; set; }
+		public  int? SpeciesID { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// TRACES ID
         /// </summary>
         [Attr]
         [JsonPropertyName("tracesID")]
-        public int? TracesID { get; set; }
+		public  int? TracesID { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Test name
         /// </summary>
         [Attr]
         [JsonPropertyName("testName")]
-        public string? TestName { get; set; }
+		public  string? TestName { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Laboratory tests information details and information about laboratory
         /// </summary>
         [Attr]
         [JsonPropertyName("applicant")]
-        public IpaffsApplicant? Applicant { get; set; }
+		public  IpaffsApplicant? Applicant { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Information about results of test
         /// </summary>
         [Attr]
         [JsonPropertyName("laboratoryTestResult")]
-        public IpaffsLaboratoryTestResult? LaboratoryTestResult { get; set; }
+		public  IpaffsLaboratoryTestResult? LaboratoryTestResult { get; set; }
     
 }
 

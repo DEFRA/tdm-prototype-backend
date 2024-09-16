@@ -6,74 +6,77 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Part 1 - Holds the information related to veterinary checks and details
     /// </summary>
-public partial class IpaffsVeterinaryInformation  {
+public partial class IpaffsVeterinaryInformation  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// External reference of approved establishments, which relates to a downstream service
         /// </summary>
         [Attr]
         [JsonPropertyName("establishmentsOfOriginExternalReference")]
-        public IpaffsExternalReference? EstablishmentsOfOriginExternalReference { get; set; }
+		public  IpaffsExternalReference? EstablishmentsOfOriginExternalReference { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// List of establishments which were approved by UK to issue veterinary documents
         /// </summary>
         [Attr]
         [JsonPropertyName("establishmentsOfOrigin")]
-        public IpaffsApprovedEstablishment[]? EstablishmentsOfOrigins { get; set; }
+		public  IpaffsApprovedEstablishment[]? EstablishmentsOfOrigins { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Veterinary document identification
         /// </summary>
         [Attr]
         [JsonPropertyName("veterinaryDocument")]
-        public string? VeterinaryDocument { get; set; }
+		public  string? VeterinaryDocument { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Veterinary document issue date
         /// </summary>
         [Attr]
         [JsonPropertyName("veterinaryDocumentIssueDate")]
-        public string? VeterinaryDocumentIssueDate { get; set; }
+		public  string? VeterinaryDocumentIssueDate { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Additional documents
         /// </summary>
         [Attr]
         [JsonPropertyName("accompanyingDocumentNumbers")]
-        public string[]? AccompanyingDocumentNumbers { get; set; }
+		public  string[]? AccompanyingDocumentNumbers { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Accompanying documents
         /// </summary>
         [Attr]
         [JsonPropertyName("accompanyingDocuments")]
-        public IpaffsAccompanyingDocument[]? AccompanyingDocuments { get; set; }
+		public  IpaffsAccompanyingDocument[]? AccompanyingDocuments { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Catch certificate attachments
         /// </summary>
         [Attr]
         [JsonPropertyName("catchCertificateAttachments")]
-        public IpaffsCatchCertificateAttachment[]? CatchCertificateAttachments { get; set; }
+		public  IpaffsCatchCertificateAttachment[]? CatchCertificateAttachments { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Details helpful for identification
         /// </summary>
         [Attr]
         [JsonPropertyName("identificationDetails")]
-        public IpaffsIdentificationDetails[]? IdentificationDetails { get; set; }
+		public  IpaffsIdentificationDetails[]? IdentificationDetails { get; set; }
     
 }
 

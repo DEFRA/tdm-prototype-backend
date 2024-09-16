@@ -6,130 +6,133 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Purpose of consignment details
     /// </summary>
-public partial class IpaffsPurpose  {
+public partial class IpaffsPurpose  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Does consignment conforms to UK laws
         /// </summary>
         [Attr]
         [JsonPropertyName("conformsToEU")]
-        public bool? ConformsToEU { get; set; }
+		public  bool? ConformsToEU { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Detailed purpose of internal market purpose group
         /// </summary>
         [Attr]
         [JsonPropertyName("internalMarketPurpose")]
-        public IpaffsPurposeInternalMarketPurposeEnum? InternalMarketPurpose { get; set; }
+		public  IpaffsPurposeInternalMarketPurposeEnum? InternalMarketPurpose { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Country that consignment is transshipped through
         /// </summary>
         [Attr]
         [JsonPropertyName("thirdCountryTranshipment")]
-        public string? ThirdCountryTranshipment { get; set; }
+		public  string? ThirdCountryTranshipment { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Detailed purpose for non conforming purpose group
         /// </summary>
         [Attr]
         [JsonPropertyName("forNonConforming")]
-        public IpaffsPurposeForNonConformingEnum? ForNonConforming { get; set; }
+		public  IpaffsPurposeForNonConformingEnum? ForNonConforming { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// There are 3 types of registration number based on the purpose of consignment. Customs registration number, Free zone registration number and Shipping supplier registration number.&#xA;
         /// </summary>
         [Attr]
         [JsonPropertyName("regNumber")]
-        public string? RegNumber { get; set; }
+		public  string? RegNumber { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Ship name
         /// </summary>
         [Attr]
         [JsonPropertyName("shipName")]
-        public string? ShipName { get; set; }
+		public  string? ShipName { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Destination Ship port
         /// </summary>
         [Attr]
         [JsonPropertyName("shipPort")]
-        public string? ShipPort { get; set; }
+		public  string? ShipPort { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Exit Border Inspection Post
         /// </summary>
         [Attr]
         [JsonPropertyName("exitBIP")]
-        public string? ExitBIP { get; set; }
+		public  string? ExitBIP { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Country to which consignment is transited
         /// </summary>
         [Attr]
         [JsonPropertyName("thirdCountry")]
-        public string? ThirdCountry { get; set; }
+		public  string? ThirdCountry { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Countries that consignment is transited through
         /// </summary>
         [Attr]
         [JsonPropertyName("transitThirdCountries")]
-        public string[]? TransitThirdCountries { get; set; }
+		public  string[]? TransitThirdCountries { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Specification of Import or admission purpose
         /// </summary>
         [Attr]
         [JsonPropertyName("forImportOrAdmission")]
-        public IpaffsPurposeForImportOrAdmissionEnum? ForImportOrAdmission { get; set; }
+		public  IpaffsPurposeForImportOrAdmissionEnum? ForImportOrAdmission { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Exit date when import or admission
         /// </summary>
         [Attr]
         [JsonPropertyName("exitDate")]
-        public string? ExitDate { get; set; }
+		public  string? ExitDate { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Final Border Inspection Post
         /// </summary>
         [Attr]
         [JsonPropertyName("finalBIP")]
-        public string? FinalBIP { get; set; }
+		public  string? FinalBIP { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Purpose group of consignment (general purpose)
         /// </summary>
         [Attr]
         [JsonPropertyName("purposeGroup")]
-        public IpaffsPurposePurposeGroupEnum? PurposeGroup { get; set; }
+		public  IpaffsPurposePurposeGroupEnum? PurposeGroup { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Estimated date at port of exit
         /// </summary>
         [Attr]
         [JsonPropertyName("estimatedArrivalDateAtPortOfExit")]
-        public string? EstimatedArrivalDateAtPortOfExit { get; set; }
+		public  string? EstimatedArrivalDateAtPortOfExit { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Estimated time at port of exit
         /// </summary>
         [Attr]
         [JsonPropertyName("estimatedArrivalTimeAtPortOfExit")]
-        public string? EstimatedArrivalTimeAtPortOfExit { get; set; }
+		public  string? EstimatedArrivalTimeAtPortOfExit { get; set; }
     
 }
 

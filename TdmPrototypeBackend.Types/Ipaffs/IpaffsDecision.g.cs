@@ -6,277 +6,280 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Decision if the consignment can be imported
     /// </summary>
-public partial class IpaffsDecision  {
+public partial class IpaffsDecision  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Is consignment acceptable or not
         /// </summary>
         [Attr]
         [JsonPropertyName("consignmentAcceptable")]
-        public bool? ConsignmentAcceptable { get; set; }
+		public  bool? ConsignmentAcceptable { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Filled if consignmentAcceptable is set to false
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableAction")]
-        public IpaffsDecisionNotAcceptableActionEnum? NotAcceptableAction { get; set; }
+		public  IpaffsDecisionNotAcceptableActionEnum? NotAcceptableAction { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Filled if not acceptable action is set to destruction
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableActionDestructionReason")]
-        public IpaffsDecisionNotAcceptableActionDestructionReasonEnum? NotAcceptableActionDestructionReason { get; set; }
+		public  IpaffsDecisionNotAcceptableActionDestructionReasonEnum? NotAcceptableActionDestructionReason { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Filled if not acceptable action is set to entry refusal
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableActionEntryRefusalReason")]
-        public IpaffsDecisionNotAcceptableActionEntryRefusalReasonEnum? NotAcceptableActionEntryRefusalReason { get; set; }
+		public  IpaffsDecisionNotAcceptableActionEntryRefusalReasonEnum? NotAcceptableActionEntryRefusalReason { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Filled if not acceptable action is set to quarantine imposed
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableActionQuarantineImposedReason")]
-        public IpaffsDecisionNotAcceptableActionQuarantineImposedReasonEnum? NotAcceptableActionQuarantineImposedReason { get; set; }
+		public  IpaffsDecisionNotAcceptableActionQuarantineImposedReasonEnum? NotAcceptableActionQuarantineImposedReason { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Filled if not acceptable action is set to special treatment
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableActionSpecialTreatmentReason")]
-        public IpaffsDecisionNotAcceptableActionSpecialTreatmentReasonEnum? NotAcceptableActionSpecialTreatmentReason { get; set; }
+		public  IpaffsDecisionNotAcceptableActionSpecialTreatmentReasonEnum? NotAcceptableActionSpecialTreatmentReason { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Filled if not acceptable action is set to industrial processing
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableActionIndustrialProcessingReason")]
-        public IpaffsDecisionNotAcceptableActionIndustrialProcessingReasonEnum? NotAcceptableActionIndustrialProcessingReason { get; set; }
+		public  IpaffsDecisionNotAcceptableActionIndustrialProcessingReasonEnum? NotAcceptableActionIndustrialProcessingReason { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Filled if not acceptable action is set to re-dispatch
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableActionReDispatchReason")]
-        public IpaffsDecisionNotAcceptableActionReDispatchReasonEnum? NotAcceptableActionReDispatchReason { get; set; }
+		public  IpaffsDecisionNotAcceptableActionReDispatchReasonEnum? NotAcceptableActionReDispatchReason { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Filled if not acceptable action is set to use for other purposes
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableActionUseForOtherPurposesReason")]
-        public IpaffsDecisionNotAcceptableActionUseForOtherPurposesReasonEnum? NotAcceptableActionUseForOtherPurposesReason { get; set; }
+		public  IpaffsDecisionNotAcceptableActionUseForOtherPurposesReasonEnum? NotAcceptableActionUseForOtherPurposesReason { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Filled when notAcceptableAction is equal to destruction
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableDestructionReason")]
-        public string? NotAcceptableDestructionReason { get; set; }
+		public  string? NotAcceptableDestructionReason { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Filled when notAcceptableAction is equal to other
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableActionOtherReason")]
-        public string? NotAcceptableActionOtherReason { get; set; }
+		public  string? NotAcceptableActionOtherReason { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Filled when consignmentAcceptable is set to false
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableActionByDate")]
-        public string? NotAcceptableActionByDate { get; set; }
+		public  string? NotAcceptableActionByDate { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// List of details for individual chedpp not acceptable reasons
         /// </summary>
         [Attr]
         [JsonPropertyName("chedppNotAcceptableReasons")]
-        public IpaffsChedppNotAcceptableReason[]? ChedppNotAcceptableReasons { get; set; }
+		public  IpaffsChedppNotAcceptableReason[]? ChedppNotAcceptableReasons { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// If the consignment was not accepted what was the reason
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableReasons")]
-        public string[]? NotAcceptableReasons { get; set; }
+		public  string[]? NotAcceptableReasons { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// 2 digits ISO code of country (not acceptable country can be empty)
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableCountry")]
-        public string? NotAcceptableCountry { get; set; }
+		public  string? NotAcceptableCountry { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Filled if consignmentAcceptable is set to false
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableEstablishment")]
-        public string? NotAcceptableEstablishment { get; set; }
+		public  string? NotAcceptableEstablishment { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Filled if consignmentAcceptable is set to false
         /// </summary>
         [Attr]
         [JsonPropertyName("notAcceptableOtherReason")]
-        public string? NotAcceptableOtherReason { get; set; }
+		public  string? NotAcceptableOtherReason { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Details of controlled destinations
         /// </summary>
         [Attr]
         [JsonPropertyName("detailsOfControlledDestinations")]
-        public IpaffsParty? DetailsOfControlledDestinations { get; set; }
+		public  IpaffsParty? DetailsOfControlledDestinations { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Filled if consignment is set to acceptable and decision type is Specific Warehouse
         /// </summary>
         [Attr]
         [JsonPropertyName("specificWarehouseNonConformingConsignment")]
-        public IpaffsDecisionSpecificWarehouseNonConformingConsignmentEnum? SpecificWarehouseNonConformingConsignment { get; set; }
+		public  IpaffsDecisionSpecificWarehouseNonConformingConsignmentEnum? SpecificWarehouseNonConformingConsignment { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Deadline when consignment has to leave borders
         /// </summary>
         [Attr]
         [JsonPropertyName("temporaryDeadline")]
-        public string? TemporaryDeadline { get; set; }
+		public  string? TemporaryDeadline { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Detailed decision for consignment
         /// </summary>
         [Attr]
         [JsonPropertyName("decision")]
-        public IpaffsDecisionDecisionEnum? Decision { get; set; }
+		public  IpaffsDecisionDecisionEnum? Decision { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Decision over purpose of free circulation in country
         /// </summary>
         [Attr]
         [JsonPropertyName("freeCirculationPurpose")]
-        public IpaffsDecisionFreeCirculationPurposeEnum? FreeCirculationPurpose { get; set; }
+		public  IpaffsDecisionFreeCirculationPurposeEnum? FreeCirculationPurpose { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Decision over purpose of definitive import
         /// </summary>
         [Attr]
         [JsonPropertyName("definitiveImportPurpose")]
-        public IpaffsDecisionDefinitiveImportPurposeEnum? DefinitiveImportPurpose { get; set; }
+		public  IpaffsDecisionDefinitiveImportPurposeEnum? DefinitiveImportPurpose { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Decision channeled option based on (article8, article15)
         /// </summary>
         [Attr]
         [JsonPropertyName("ifChanneledOption")]
-        public IpaffsDecisionIfChanneledOptionEnum? IfChanneledOption { get; set; }
+		public  IpaffsDecisionIfChanneledOptionEnum? IfChanneledOption { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Custom warehouse registered number
         /// </summary>
         [Attr]
         [JsonPropertyName("customWarehouseRegisteredNumber")]
-        public string? CustomWarehouseRegisteredNumber { get; set; }
+		public  string? CustomWarehouseRegisteredNumber { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Free warehouse registered number
         /// </summary>
         [Attr]
         [JsonPropertyName("freeWarehouseRegisteredNumber")]
-        public string? FreeWarehouseRegisteredNumber { get; set; }
+		public  string? FreeWarehouseRegisteredNumber { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Ship name
         /// </summary>
         [Attr]
         [JsonPropertyName("shipName")]
-        public string? ShipName { get; set; }
+		public  string? ShipName { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Port of exit
         /// </summary>
         [Attr]
         [JsonPropertyName("shipPortOfExit")]
-        public string? ShipPortOfExit { get; set; }
+		public  string? ShipPortOfExit { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Ship supplier registered number
         /// </summary>
         [Attr]
         [JsonPropertyName("shipSupplierRegisteredNumber")]
-        public string? ShipSupplierRegisteredNumber { get; set; }
+		public  string? ShipSupplierRegisteredNumber { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Transhipment BIP
         /// </summary>
         [Attr]
         [JsonPropertyName("transhipmentBip")]
-        public string? TranshipmentBip { get; set; }
+		public  string? TranshipmentBip { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Transhipment third country
         /// </summary>
         [Attr]
         [JsonPropertyName("transhipmentThirdCountry")]
-        public string? TranshipmentThirdCountry { get; set; }
+		public  string? TranshipmentThirdCountry { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Transit exit BIP
         /// </summary>
         [Attr]
         [JsonPropertyName("transitExitBip")]
-        public string? TransitExitBip { get; set; }
+		public  string? TransitExitBip { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Transit third country
         /// </summary>
         [Attr]
         [JsonPropertyName("transitThirdCountry")]
-        public string? TransitThirdCountry { get; set; }
+		public  string? TransitThirdCountry { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Transit destination third country
         /// </summary>
         [Attr]
         [JsonPropertyName("transitDestinationThirdCountry")]
-        public string? TransitDestinationThirdCountry { get; set; }
+		public  string? TransitDestinationThirdCountry { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Temporary exit BIP
         /// </summary>
         [Attr]
         [JsonPropertyName("temporaryExitBip")]
-        public string? TemporaryExitBip { get; set; }
+		public  string? TemporaryExitBip { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Horse re-entry
         /// </summary>
         [Attr]
         [JsonPropertyName("horseReentry")]
-        public string? HorseReentry { get; set; }
+		public  string? HorseReentry { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Is it transshipped to EU or third country (values EU / country name)
         /// </summary>
         [Attr]
         [JsonPropertyName("transhipmentEuOrThirdCountry")]
-        public string? TranshipmentEuOrThirdCountry { get; set; }
+		public  string? TranshipmentEuOrThirdCountry { get; set; }
     
 }
 

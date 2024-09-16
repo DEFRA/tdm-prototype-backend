@@ -6,32 +6,35 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Validation field code-message representation
     /// </summary>
-public partial class IpaffsValidationMessageCode  {
+public partial class IpaffsValidationMessageCode  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Field
         /// </summary>
         [Attr]
         [JsonPropertyName("field")]
-        public string? Field { get; set; }
+		public  string? Field { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Code
         /// </summary>
         [Attr]
         [JsonPropertyName("code")]
-        public string? Code { get; set; }
+		public  string? Code { get; set; }
     
 }
 

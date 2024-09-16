@@ -6,53 +6,56 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// 
     /// </summary>
-public partial class IpaffsBillingInformation  {
+public partial class IpaffsBillingInformation  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Indicates whether user has confirmed their billing information
         /// </summary>
         [Attr]
         [JsonPropertyName("isConfirmed")]
-        public bool? IsConfirmed { get; set; }
+		public  bool? IsConfirmed { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Billing email address
         /// </summary>
         [Attr]
         [JsonPropertyName("emailAddress")]
-        public string? EmailAddress { get; set; }
+		public  string? EmailAddress { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Billing phone number
         /// </summary>
         [Attr]
         [JsonPropertyName("phoneNumber")]
-        public string? PhoneNumber { get; set; }
+		public  string? PhoneNumber { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Billing Contact Name
         /// </summary>
         [Attr]
         [JsonPropertyName("contactName")]
-        public string? ContactName { get; set; }
+		public  string? ContactName { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Billing postal address
         /// </summary>
         [Attr]
         [JsonPropertyName("postalAddress")]
-        public IpaffsPostalAddress? PostalAddress { get; set; }
+		public  IpaffsPostalAddress? PostalAddress { get; set; }
     
 }
 

@@ -6,25 +6,28 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Contains countries and transfer points that consignment is going through
     /// </summary>
-public partial class IpaffsRoute  {
+public partial class IpaffsRoute  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// 
         /// </summary>
         [Attr]
         [JsonPropertyName("transitingStates")]
-        public string[]? TransitingStates { get; set; }
+		public  string[]? TransitingStates { get; set; }
     
 }
 

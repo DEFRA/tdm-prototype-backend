@@ -6,144 +6,147 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Holder for additional parameters of a commodity
     /// </summary>
-public partial class IpaffsCommodityComplement  {
+public partial class IpaffsCommodityComplement  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// UUID used to match commodityComplement to its complementParameter set. CHEDPP only
         /// </summary>
         [Attr]
         [JsonPropertyName("uniqueComplementID")]
-        public string? UniqueComplementID { get; set; }
+		public  string? UniqueComplementID { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Description of the commodity
         /// </summary>
         [Attr]
         [JsonPropertyName("commodityDescription")]
-        public string? CommodityDescription { get; set; }
+		public  string? CommodityDescription { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// The unique commodity ID
         /// </summary>
         [Attr]
         [JsonPropertyName("commodityID")]
-        public string? CommodityID { get; set; }
+		public  string? CommodityID { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Identifier of complement chosen from speciesFamily,speciesClass and speciesType&#x27;. This is also used to link to the complementParameterSet
         /// </summary>
         [Attr]
         [JsonPropertyName("complementID")]
-        public int? ComplementID { get; set; }
+		public  int? ComplementID { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Represents the lowest granularity - either type, class, family or species name - for the commodity selected.  This is also used to drive behaviour for EU Import journeys
         /// </summary>
         [Attr]
         [JsonPropertyName("complementName")]
-        public string? ComplementName { get; set; }
+		public  string? ComplementName { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// EPPO Code related to plant commodities and wood packaging
         /// </summary>
         [Attr]
         [JsonPropertyName("eppoCode")]
-        public string? EppoCode { get; set; }
+		public  string? EppoCode { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// (Deprecated in IMTA-11832) Is this commodity wood packaging?
         /// </summary>
         [Attr]
         [JsonPropertyName("isWoodPackaging")]
-        public bool? IsWoodPackaging { get; set; }
+		public  bool? IsWoodPackaging { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// The species ID of the commodity that is imported. Not every commodity has a species ID. This is also used to link to the complementParameterSet. The species ID can change over time
         /// </summary>
         [Attr]
         [JsonPropertyName("speciesID")]
-        public string? SpeciesID { get; set; }
+		public  string? SpeciesID { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Species name
         /// </summary>
         [Attr]
         [JsonPropertyName("speciesName")]
-        public string? SpeciesName { get; set; }
+		public  string? SpeciesName { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Species nomination
         /// </summary>
         [Attr]
         [JsonPropertyName("speciesNomination")]
-        public string? SpeciesNomination { get; set; }
+		public  string? SpeciesNomination { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Species type name
         /// </summary>
         [Attr]
         [JsonPropertyName("speciesTypeName")]
-        public string? SpeciesTypeName { get; set; }
+		public  string? SpeciesTypeName { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Species type identifier of commodity
         /// </summary>
         [Attr]
         [JsonPropertyName("speciesType")]
-        public string? SpeciesType { get; set; }
+		public  string? SpeciesType { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Species class name
         /// </summary>
         [Attr]
         [JsonPropertyName("speciesClassName")]
-        public string? SpeciesClassName { get; set; }
+		public  string? SpeciesClassName { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Species class identifier of commodity
         /// </summary>
         [Attr]
         [JsonPropertyName("speciesClass")]
-        public string? SpeciesClass { get; set; }
+		public  string? SpeciesClass { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Species family name of commodity
         /// </summary>
         [Attr]
         [JsonPropertyName("speciesFamilyName")]
-        public string? SpeciesFamilyName { get; set; }
+		public  string? SpeciesFamilyName { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Species family identifier of commodity
         /// </summary>
         [Attr]
         [JsonPropertyName("speciesFamily")]
-        public string? SpeciesFamily { get; set; }
+		public  string? SpeciesFamily { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Species common name of commodity for IMP notification simple commodity selection
         /// </summary>
         [Attr]
         [JsonPropertyName("speciesCommonName")]
-        public string? SpeciesCommonName { get; set; }
+		public  string? SpeciesCommonName { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Has commodity been matched with corresponding CDS declaration
         /// </summary>
         [Attr]
         [JsonPropertyName("isCdsMatched")]
-        public bool? IsCdsMatched { get; set; }
+		public  bool? IsCdsMatched { get; set; }
     
 }
 

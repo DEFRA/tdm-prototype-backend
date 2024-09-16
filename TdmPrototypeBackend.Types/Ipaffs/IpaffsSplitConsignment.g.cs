@@ -6,32 +6,35 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Present if the consignment has been split
     /// </summary>
-public partial class IpaffsSplitConsignment  {
+public partial class IpaffsSplitConsignment  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Reference number of the valid split consignment
         /// </summary>
         [Attr]
         [JsonPropertyName("validReferenceNumber")]
-        public string? ValidReferenceNumber { get; set; }
+		public  string? ValidReferenceNumber { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Reference number of the rejected split consignment
         /// </summary>
         [Attr]
         [JsonPropertyName("rejectedReferenceNumber")]
-        public string? RejectedReferenceNumber { get; set; }
+		public  string? RejectedReferenceNumber { get; set; }
     
 }
 

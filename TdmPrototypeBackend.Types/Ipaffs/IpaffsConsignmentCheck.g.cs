@@ -6,130 +6,133 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// consignment checks
     /// </summary>
-public partial class IpaffsConsignmentCheck  {
+public partial class IpaffsConsignmentCheck  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Does it conform EU standards
         /// </summary>
         [Attr]
         [JsonPropertyName("euStandard")]
-        public string? EuStandard { get; set; }
+		public  string? EuStandard { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Result of additional guarantees
         /// </summary>
         [Attr]
         [JsonPropertyName("additionalGuarantees")]
-        public string? AdditionalGuarantees { get; set; }
+		public  string? AdditionalGuarantees { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Result of document check
         /// </summary>
         [Attr]
         [JsonPropertyName("documentCheckResult")]
-        public string? DocumentCheckResult { get; set; }
+		public  string? DocumentCheckResult { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Result of national requirements check
         /// </summary>
         [Attr]
         [JsonPropertyName("nationalRequirements")]
-        public string? NationalRequirements { get; set; }
+		public  string? NationalRequirements { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Was identity check done
         /// </summary>
         [Attr]
         [JsonPropertyName("identityCheckDone")]
-        public bool? IdentityCheckDone { get; set; }
+		public  bool? IdentityCheckDone { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Type of identity check performed
         /// </summary>
         [Attr]
         [JsonPropertyName("identityCheckType")]
-        public IpaffsConsignmentCheckIdentityCheckTypeEnum? IdentityCheckType { get; set; }
+		public  IpaffsConsignmentCheckIdentityCheckTypeEnum? IdentityCheckType { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Result of identity check
         /// </summary>
         [Attr]
         [JsonPropertyName("identityCheckResult")]
-        public string? IdentityCheckResult { get; set; }
+		public  string? IdentityCheckResult { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// What was the reason for skipping identity check
         /// </summary>
         [Attr]
         [JsonPropertyName("identityCheckNotDoneReason")]
-        public IpaffsConsignmentCheckIdentityCheckNotDoneReasonEnum? IdentityCheckNotDoneReason { get; set; }
+		public  IpaffsConsignmentCheckIdentityCheckNotDoneReasonEnum? IdentityCheckNotDoneReason { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Was physical check done
         /// </summary>
         [Attr]
         [JsonPropertyName("physicalCheckDone")]
-        public bool? PhysicalCheckDone { get; set; }
+		public  bool? PhysicalCheckDone { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Result of physical check
         /// </summary>
         [Attr]
         [JsonPropertyName("physicalCheckResult")]
-        public string? PhysicalCheckResult { get; set; }
+		public  string? PhysicalCheckResult { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// What was the reason for skipping physical check
         /// </summary>
         [Attr]
         [JsonPropertyName("physicalCheckNotDoneReason")]
-        public IpaffsConsignmentCheckPhysicalCheckNotDoneReasonEnum? PhysicalCheckNotDoneReason { get; set; }
+		public  IpaffsConsignmentCheckPhysicalCheckNotDoneReasonEnum? PhysicalCheckNotDoneReason { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Other reason to not do physical check
         /// </summary>
         [Attr]
         [JsonPropertyName("physicalCheckOtherText")]
-        public string? PhysicalCheckOtherText { get; set; }
+		public  string? PhysicalCheckOtherText { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Welfare check
         /// </summary>
         [Attr]
         [JsonPropertyName("welfareCheck")]
-        public string? WelfareCheck { get; set; }
+		public  string? WelfareCheck { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Number of animals checked
         /// </summary>
         [Attr]
         [JsonPropertyName("numberOfAnimalsChecked")]
-        public int? NumberOfAnimalsChecked { get; set; }
+		public  int? NumberOfAnimalsChecked { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Were laboratory tests done
         /// </summary>
         [Attr]
         [JsonPropertyName("laboratoryCheckDone")]
-        public bool? LaboratoryCheckDone { get; set; }
+		public  bool? LaboratoryCheckDone { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Result of laboratory tests
         /// </summary>
         [Attr]
         [JsonPropertyName("laboratoryCheckResult")]
-        public string? LaboratoryCheckResult { get; set; }
+		public  string? LaboratoryCheckResult { get; set; }
     
 }
 
