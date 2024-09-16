@@ -1,4 +1,4 @@
-﻿using TdmPrototypeDmpSynchroniser.Api.Services;
+using TdmPrototypeDmpSynchroniser.Api.Services;
 using TdmPrototypeDmpSynchroniser.Api.Utils;
 
 // using FluentValidation.Results;

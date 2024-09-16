@@ -1,5 +1,6 @@
 using MongoDB.Driver;
 using TdmPrototypeBackend.Types;
+using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeDmpSynchroniser.Api.Config;
 using TdmPrototypeDmpSynchroniser.Api.Data;
 using TdmPrototypeDmpSynchroniser.Api.Services;

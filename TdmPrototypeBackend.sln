@@ -3,26 +3,67 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TdmPrototypeBackend", "TdmPrototypeBackend\TdmPrototypeBackend.csproj", "{7D935959-D3BE-4EDC-BAEC-541C72741633}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TdmPrototypeBackend.Test", "TdmPrototypeBackend.Test\TdmPrototypeBackend.Test.csproj", "{5CB86A4A-162D-4A20-9403-5BB89D671BF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TdmPrototypeBackend.Test", "TdmPrototypeBackend.Test\TdmPrototypeBackend.Test.csproj", "{5CB86A4A-162D-4A20-9403-5BB89D671BF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TdmPrototypeBackend.Api", "TdmPrototypeBackend.Api\TdmPrototypeBackend.Api.csproj", "{77B6BBE9-673A-4423-B891-2FC76BCFF698}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TdmPrototypeBackend.Types", "TdmPrototypeBackend.Types\TdmPrototypeBackend.Types.csproj", "{C26476B0-9D9E-4C76-BB95-0D53BFB4D9D0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{D28787F8-FAFE-4724-8476-88E817E01C42}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TdmPrototypeBackend.Cli", "TdmPrototypeBackend.Cli\TdmPrototypeBackend.Cli.csproj", "{9279FC4F-675F-4C97-AB0C-5A7AE5690715}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TdmPrototypeDmpSynchroniser.Api", "TdmPrototypeDmpSynchroniser.Api\TdmPrototypeDmpSynchroniser.Api.csproj", "{DA54D23D-7B7E-4DEA-9FA1-97BD71E71ACA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{AAA39F74-0FD4-42BB-8BFD-39B70EBBD9D7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jsonapi-consumer", "libs\jsonapi-consumer\jsonapi-consumer.csproj", "{55821389-F563-42C1-805A-CF84ABE6018B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TdmPrototypeDmpSynchroniser.Test", "TdmPrototypeDmpSynchroniser.Test\TdmPrototypeDmpSynchroniser.Test.csproj", "{8EA6CFDD-BBCD-4AE1-B503-2B9AD420D1FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7D935959-D3BE-4EDC-BAEC-541C72741633}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D935959-D3BE-4EDC-BAEC-541C72741633}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D935959-D3BE-4EDC-BAEC-541C72741633}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D935959-D3BE-4EDC-BAEC-541C72741633}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5CB86A4A-162D-4A20-9403-5BB89D671BF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5CB86A4A-162D-4A20-9403-5BB89D671BF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CB86A4A-162D-4A20-9403-5BB89D671BF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CB86A4A-162D-4A20-9403-5BB89D671BF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77B6BBE9-673A-4423-B891-2FC76BCFF698}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77B6BBE9-673A-4423-B891-2FC76BCFF698}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77B6BBE9-673A-4423-B891-2FC76BCFF698}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77B6BBE9-673A-4423-B891-2FC76BCFF698}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C26476B0-9D9E-4C76-BB95-0D53BFB4D9D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C26476B0-9D9E-4C76-BB95-0D53BFB4D9D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C26476B0-9D9E-4C76-BB95-0D53BFB4D9D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C26476B0-9D9E-4C76-BB95-0D53BFB4D9D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9279FC4F-675F-4C97-AB0C-5A7AE5690715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9279FC4F-675F-4C97-AB0C-5A7AE5690715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9279FC4F-675F-4C97-AB0C-5A7AE5690715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9279FC4F-675F-4C97-AB0C-5A7AE5690715}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA54D23D-7B7E-4DEA-9FA1-97BD71E71ACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA54D23D-7B7E-4DEA-9FA1-97BD71E71ACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA54D23D-7B7E-4DEA-9FA1-97BD71E71ACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA54D23D-7B7E-4DEA-9FA1-97BD71E71ACA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55821389-F563-42C1-805A-CF84ABE6018B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55821389-F563-42C1-805A-CF84ABE6018B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55821389-F563-42C1-805A-CF84ABE6018B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55821389-F563-42C1-805A-CF84ABE6018B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EA6CFDD-BBCD-4AE1-B503-2B9AD420D1FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EA6CFDD-BBCD-4AE1-B503-2B9AD420D1FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EA6CFDD-BBCD-4AE1-B503-2B9AD420D1FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EA6CFDD-BBCD-4AE1-B503-2B9AD420D1FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9279FC4F-675F-4C97-AB0C-5A7AE5690715} = {D28787F8-FAFE-4724-8476-88E817E01C42}
+		{55821389-F563-42C1-805A-CF84ABE6018B} = {AAA39F74-0FD4-42BB-8BFD-39B70EBBD9D7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C397DA36-BA75-4366-A480-71026B8F38D3}
 	EndGlobalSection
 EndGlobal
