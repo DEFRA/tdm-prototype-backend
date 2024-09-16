@@ -15,11 +15,14 @@ public partial class IpaffsNotification : IMongoIdentifiable
 
     //// This field is used by the jsonapi-consumer to control the correct casing in the type field
     public string Type { get; set; } = "ipaffsNotifications";
-    
-    //[BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
-    //[JsonPropertyName("referenceNumber")]
-    //public virtual string? Id { get; set; }
-    
+
+    [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
+    public virtual string? Id
+    {
+        get => ReferenceNumber;
+        set => ReferenceNumber = value;
+    }
+
     // TODO : this is currently being written on the wire by the json api client
     /// <inheritdoc />
     [BsonIgnore]
