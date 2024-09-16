@@ -1,12 +1,12 @@
 using System.Diagnostics;
 using Humanizer;
 
-namespace TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.DescriptorModel;
+namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel;
 
 [DebuggerDisplay("{Name}")]
 public class ClassDescriptor(string name, string @namespace, string classNamePrefix)
 {
-   // private const string classPrefix = "Ipaffs";
+    // private const string classPrefix = "Ipaffs";
     public string Name { get; set; } = name;
     public string Namespace { get; } = @namespace;
 

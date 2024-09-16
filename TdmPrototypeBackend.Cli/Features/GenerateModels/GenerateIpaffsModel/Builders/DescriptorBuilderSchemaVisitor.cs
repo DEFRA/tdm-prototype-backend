@@ -1,8 +1,8 @@
 using Humanizer;
 using Json.Schema;
-using TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.DescriptorModel;
+using TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel;
 
-namespace TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.Builders;
+namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateIpaffsModel.Builders;
 
 public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
 {
@@ -81,7 +81,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
                         description,
                         false, false, IpaffsDescriptorBuilder.ClassNamePrefix));
                 }
-               
+
             }
 
         }

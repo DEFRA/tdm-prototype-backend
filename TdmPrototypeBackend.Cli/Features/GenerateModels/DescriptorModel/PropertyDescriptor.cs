@@ -1,12 +1,12 @@
 using System.Diagnostics;
 using Humanizer;
 
-namespace TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.DescriptorModel
+namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel
 {
     [DebuggerDisplay("{Name}")]
     public class PropertyDescriptor(string name, string type, string description, bool isReferenceType, bool isArray, string classNamePrefix)
     {
-       // private const string prefix = "Ipaffs";
+        // private const string prefix = "Ipaffs";
 
         public string Name { get; set; } = name;
 
@@ -22,12 +22,12 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.DescriptorModel
 
         public string GetPropertyName()
         {
-            string n = Name.Dehumanize();
+            var n = Name.Dehumanize();
             if (name.Equals("type", StringComparison.InvariantCultureIgnoreCase) || name.Equals("id", StringComparison.InvariantCultureIgnoreCase))
             {
                 return $"{classNamePrefix}{name.Dehumanize()}";
             }
-            
+
 
             if (isArray)
             {
@@ -41,10 +41,10 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.DescriptorModel
         {
             var t = Type;
 
-           
+
             if (isReferenceType && !Type.Equals("Result") && !Type.Equals("Unit") && !Type.Equals("string") && !Type.Equals("InspectionRequired"))
             {
-               t =  ClassDescriptor.BuildClassName(Type, classNamePrefix);
+                t = ClassDescriptor.BuildClassName(Type, classNamePrefix);
             }
 
             if (IsArray && !t.Contains("[]"))

@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Humanizer;
 
-namespace TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.DescriptorModel;
+namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel;
 
 [DebuggerDisplay("{Name}")]
 public class EnumDescriptor(string name, string parentName, string @namespace, string classNamePrefix)
@@ -45,7 +45,7 @@ public class EnumDescriptor(string name, string parentName, string @namespace, s
 
             }
 
-            string v = Value.Dehumanize();
+            var v = Value.Dehumanize();
             if (v.All(char.IsUpper))
             {
                 return v.ToLower().Pascalize();

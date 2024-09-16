@@ -1,7 +1,7 @@
 using Json.Schema;
 using Microsoft.OpenApi.Models;
 
-namespace TdmPrototypeBackend.Cli.Features.GenerateVehicleMovementModel;
+namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateVehicleMovementModel;
 
 public static class OpenApiExtensions
 {

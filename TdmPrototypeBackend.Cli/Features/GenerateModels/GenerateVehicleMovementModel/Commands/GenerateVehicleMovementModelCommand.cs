@@ -2,15 +2,10 @@ using CommandLine;
 using MediatR;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Readers;
-using RazorLight;
-using RazorLight.Razor;
-using System.Text.RegularExpressions;
 using Microsoft.OpenApi.Models;
-using TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.Builders;
-using TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.DescriptorModel;
-using Microsoft.OpenApi.MicrosoftExtensions;
+using TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel;
 
-namespace TdmPrototypeBackend.Cli.Features.GenerateVehicleMovementModel.Commands
+namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateVehicleMovementModel.Commands
 {
 
     [Verb("generate-vehicle-movement-model", isDefault: false, HelpText = "Generates Csharp Ipaffs classes from Json Schema.")]
@@ -22,6 +17,27 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateVehicleMovementModel.Commands
         public string OutputPath { get; set; } = "D:\\repos\\esynergy\\tdm-prototype-backend\\TdmPrototypeBackend.Types\\VehicleMovement\\";
         public class Handler : AsyncRequestHandler<GenerateVehicleMovementModelCommand>
         {
+           
+            protected override async Task Handle(GenerateVehicleMovementModelCommand request, CancellationToken cancellationToken)
+            {
+                using var streamReader = new StreamReader("D:\\repos\\esynergy\\tdm-prototype-backend\\TdmPrototypeBackend.Cli\\Features\\GenerateVehicleMovementModel\\Goods-Vehicle-Movement-Search-1.0-Open-API-Spec.yaml");
+                var reader = new OpenApiStreamReader();
+                var document = reader.Read(streamReader.BaseStream, out var diagnostic);
+
+                var csharpDescriptor = new CSharpDescriptor();
+
+                foreach (var schemas in document.Components.Schemas)
+                {
+                    if (schemas.Key.EndsWith("request", StringComparison.InvariantCultureIgnoreCase) ||
+                        schemas.Key.EndsWith("response", StringComparison.InvariantCultureIgnoreCase))
+
+
+                        BuildClass(csharpDescriptor, schemas.Key, schemas.Value);
+                }
+
+                await CSharpFileBuilder.Build(csharpDescriptor, request.OutputPath);
+            }
+
             private void BuildClass(CSharpDescriptor cSharpDescriptor, string name, OpenApiSchema schema)
             {
                 var classDescriptor = new ClassDescriptor(name, Namespace, ClassNamePrefix);
@@ -95,42 +111,6 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateVehicleMovementModel.Commands
 
                         classDescriptor.Properties.Add(propertyDescriptor);
                     }
-                }
-            }
-            protected override async Task Handle(GenerateVehicleMovementModelCommand request, CancellationToken cancellationToken)
-            {
-                using var streamReader = new StreamReader("D:\\repos\\esynergy\\tdm-prototype-backend\\TdmPrototypeBackend.Cli\\Features\\GenerateVehicleMovementModel\\Goods-Vehicle-Movement-Search-1.0-Open-API-Spec.yaml");
-                var reader = new OpenApiStreamReader();
-                var document = reader.Read(streamReader.BaseStream, out var diagnostic);
-
-                var csharpDescriptor = new CSharpDescriptor();
-               
-                foreach (var schemas in document.Components.Schemas)
-                {
-                    if (schemas.Key.EndsWith("request", StringComparison.InvariantCultureIgnoreCase) ||
-                        schemas.Key.EndsWith("response", StringComparison.InvariantCultureIgnoreCase))
-                        
-
-                    BuildClass(csharpDescriptor, schemas.Key, schemas.Value);
-                }
-
-                var engine = new RazorLightEngineBuilder()
-                    .UseEmbeddedResourcesProject(typeof(Program).Assembly, "TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.Templates")
-                    .UseMemoryCachingProvider()
-                    .Build();
-
-                foreach (var @class in csharpDescriptor.Classes.OrderBy(x => x.Name))
-                {
-                    string contents = await engine.CompileRenderAsync("ClassTemplate", @class);
-                    await File.WriteAllTextAsync(Path.Combine(request.OutputPath, $"{@class.GetClassName()}.g.cs"), contents, cancellationToken);
-                    Console.WriteLine($"Created file: {@class.GetClassName()}.cs");
-                }
-
-                foreach (var @enum in csharpDescriptor.Enums.OrderBy(x => x.Name))
-                {
-                    string contents = await engine.CompileRenderAsync("EnumTemplate", @enum);
-                    await File.WriteAllTextAsync(Path.Combine(request.OutputPath, $"{@enum.GetEnumName()}.g.cs"), contents, cancellationToken);
-                    Console.WriteLine($"Created file: {@enum.GetEnumName()}.cs");
                 }
             }
         }

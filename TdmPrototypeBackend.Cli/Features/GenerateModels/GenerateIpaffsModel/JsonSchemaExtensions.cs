@@ -1,6 +1,6 @@
 using Json.Schema;
 
-namespace TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel;
+namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateIpaffsModel;
 
 public static class JsonSchemaExtensions
 {

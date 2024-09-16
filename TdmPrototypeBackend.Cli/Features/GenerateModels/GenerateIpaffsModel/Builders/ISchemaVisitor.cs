@@ -1,4 +1,4 @@
-namespace TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.Builders;
+namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateIpaffsModel.Builders;
 
 public interface ISchemaVisitor
 {
