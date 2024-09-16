@@ -6,7 +6,7 @@ using TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.Builders;
 namespace TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.Commands
 {
 
-    [Verb("generate-ipaffs-model", isDefault: true, HelpText = "Generates Csharp Ipaffs classes from Json Schema.")]
+    [Verb("generate-ipaffs-model", isDefault: false, HelpText = "Generates Csharp Ipaffs classes from Json Schema.")]
     class GenerateIpaffsModelCommand : IRequest
     {
         [Option('s', "schema", Required = true, HelpText = "The Json schema file, which to use to generate the csharp classes.")]
@@ -19,7 +19,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.Commands
         {
             protected override async Task Handle(GenerateIpaffsModelCommand request, CancellationToken cancellationToken)
             {
-                var builder = new CSharpDescriptorBuilder(new List<ISchemaVisitor>() { new DescriptorBuilderSchemaVisitor() });
+                var builder = new IpaffsDescriptorBuilder(new List<ISchemaVisitor>() { new DescriptorBuilderSchemaVisitor() });
                // var model = builder.Build(File.ReadAllText("jsonschema.txt"));
                 var model = builder.Build(await File.ReadAllTextAsync(request.SchemaFile, cancellationToken));
 

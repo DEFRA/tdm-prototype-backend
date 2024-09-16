@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-
+#nullable enable
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
 

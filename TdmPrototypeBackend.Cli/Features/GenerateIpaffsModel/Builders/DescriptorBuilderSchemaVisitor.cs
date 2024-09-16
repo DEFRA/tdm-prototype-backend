@@ -26,7 +26,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
                         context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key,
                             $"{value}",
                             description,
-                            true, true));
+                            true, true, IpaffsDescriptorBuilder.ClassNamePrefix));
                     }
                     else
                     {
@@ -36,7 +36,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
                             context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key,
                                 itemType.ToCSharpArrayType(),
                                 description,
-                                false, true));
+                                false, true, IpaffsDescriptorBuilder.ClassNamePrefix));
                         }
                         else
                         {
@@ -44,7 +44,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
                             context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key,
                                 context.Key,
                                 description,
-                                true, true));
+                                true, true, IpaffsDescriptorBuilder.ClassNamePrefix));
                         }
                     }
 
@@ -55,7 +55,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
                 if (context.JsonSchema.IsClassAndHasProperties())
                 {
                     var propertiesKeyword = context.JsonSchema.GetKeyword<PropertiesKeyword>();
-                    var classDescriptor = new ClassDescriptor(context.Key.Dehumanize());
+                    var classDescriptor = new ClassDescriptor(context.Key.Dehumanize(), IpaffsDescriptorBuilder.Namespace, IpaffsDescriptorBuilder.ClassNamePrefix);
                     classDescriptor.Description = context.JsonSchema.GetDescription();
                     context.CSharpDescriptor.AddClassDescriptor(classDescriptor);
 
@@ -67,19 +67,19 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
 
                     context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key, context.Key,
                         description,
-                        true, false));
+                        true, false, IpaffsDescriptorBuilder.ClassNamePrefix));
                 }
                 else
                 {
                     var t = typeKeyword.Type.ToCSharpType();
                     if (context.JsonSchema.IsEnum())
                     {
-                        t = EnumDescriptor.BuildEnumName(context.Key, context.ClassDescriptor.Name);
+                        t = EnumDescriptor.BuildEnumName(context.Key, context.ClassDescriptor.Name, IpaffsDescriptorBuilder.ClassNamePrefix);
                     }
 
                     context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key, t,
                         description,
-                        false, false));
+                        false, false, IpaffsDescriptorBuilder.ClassNamePrefix));
                 }
                
             }
@@ -99,7 +99,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
                 if (defType == SchemaValueType.Object)
                 {
                     context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key, value,
-                        description, true, false));
+                        description, true, false, IpaffsDescriptorBuilder.ClassNamePrefix));
                 }
                 else if (defType == SchemaValueType.Array)
                 {
@@ -112,7 +112,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
                             context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key,
                                 itemType.ToCSharpArrayType(),
                                 description,
-                                false, true));
+                                false, true, IpaffsDescriptorBuilder.ClassNamePrefix));
                         }
                     }
                 }
@@ -120,13 +120,13 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
                 {
                     context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key, defType.ToCSharpType(),
                         description,
-                        true, false));
+                        true, false, IpaffsDescriptorBuilder.ClassNamePrefix));
                 }
             }
             else
             {
                 var propertiesKeyword = context.JsonSchema.GetKeyword<PropertiesKeyword>();
-                var classDescriptor = new ClassDescriptor(context.Key.Dehumanize());
+                var classDescriptor = new ClassDescriptor(context.Key.Dehumanize(), IpaffsDescriptorBuilder.Namespace, IpaffsDescriptorBuilder.ClassNamePrefix);
                 classDescriptor.Description = context.JsonSchema.GetDescription();
                 context.CSharpDescriptor.AddClassDescriptor(classDescriptor);
 
@@ -138,7 +138,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
 
                 context.ClassDescriptor.Properties.Add(new PropertyDescriptor(context.Key, context.Key,
                     description,
-                    true, false));
+                    true, false, IpaffsDescriptorBuilder.ClassNamePrefix));
             }
         }
 
@@ -157,7 +157,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
         }
         else if (context.JsonSchema.IsClass())
         {
-            var classDescriptor = new ClassDescriptor(context.Key.Dehumanize());
+            var classDescriptor = new ClassDescriptor(context.Key.Dehumanize(), IpaffsDescriptorBuilder.Namespace, IpaffsDescriptorBuilder.ClassNamePrefix);
             classDescriptor.Description = context.JsonSchema.GetDescription();
             context.CSharpDescriptor.AddClassDescriptor(classDescriptor);
 
@@ -179,7 +179,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
         {
             var values = enumKeyword.Values.Select(x => new EnumDescriptor.EnumValueDescriptor(x.ToString()))
                 .ToList();
-            cSharpDescriptor.AddEnumDescriptor(new EnumDescriptor(name, classDescriptor?.Name) { Values = values });
+            cSharpDescriptor.AddEnumDescriptor(new EnumDescriptor(name, classDescriptor?.Name, IpaffsDescriptorBuilder.Namespace, IpaffsDescriptorBuilder.ClassNamePrefix) { Values = values });
         }
     }
 }

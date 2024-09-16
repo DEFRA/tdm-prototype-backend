@@ -4,9 +4,9 @@ using Humanizer;
 namespace TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.DescriptorModel
 {
     [DebuggerDisplay("{Name}")]
-    public class PropertyDescriptor(string name, string type, string description, bool isReferenceType, bool isArray)
+    public class PropertyDescriptor(string name, string type, string description, bool isReferenceType, bool isArray, string classNamePrefix)
     {
-        private const string prefix = "Ipaffs";
+       // private const string prefix = "Ipaffs";
 
         public string Name { get; set; } = name;
 
@@ -25,7 +25,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.DescriptorModel
             string n = Name.Dehumanize();
             if (name.Equals("type", StringComparison.InvariantCultureIgnoreCase) || name.Equals("id", StringComparison.InvariantCultureIgnoreCase))
             {
-                return $"{prefix}{name.Dehumanize()}";
+                return $"{classNamePrefix}{name.Dehumanize()}";
             }
             
 
@@ -44,7 +44,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.DescriptorModel
            
             if (isReferenceType && !Type.Equals("Result") && !Type.Equals("Unit") && !Type.Equals("string") && !Type.Equals("InspectionRequired"))
             {
-               t =  ClassDescriptor.BuildClassName(Type);
+               t =  ClassDescriptor.BuildClassName(Type, classNamePrefix);
             }
 
             if (IsArray && !t.Contains("[]"))

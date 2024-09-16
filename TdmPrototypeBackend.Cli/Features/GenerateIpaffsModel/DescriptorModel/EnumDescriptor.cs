@@ -4,18 +4,25 @@ using Humanizer;
 namespace TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.DescriptorModel;
 
 [DebuggerDisplay("{Name}")]
-public class EnumDescriptor(string name, string parentName)
+public class EnumDescriptor(string name, string parentName, string @namespace, string classNamePrefix)
 {
-    private const string prefix = "Ipaffs";
+    //private const string prefix = "Ipaffs";
     private const string suffix = "Enum";
 
     public string Name { get; set; } = name;
 
+    public string Namespace { get; } = @namespace;
+
     public List<EnumValueDescriptor> Values { get; set; } = [];
+
+    public void AddValues(List<EnumValueDescriptor> values)
+    {
+        Values.AddRange(values);
+    }
 
     public string GetEnumName()
     {
-        return BuildEnumName(Name, parentName);
+        return BuildEnumName(Name, parentName, classNamePrefix);
     }
 
     public class EnumValueDescriptor(string value)
@@ -38,22 +45,23 @@ public class EnumDescriptor(string name, string parentName)
 
             }
 
-            if (Value.All(char.IsUpper))
+            string v = Value.Dehumanize();
+            if (v.All(char.IsUpper))
             {
-                return Value.Dehumanize().ToLower().Pascalize();
+                return v.ToLower().Pascalize();
             }
 
-            return Value.Dehumanize();
+            return v;
         }
     }
 
-    public static string BuildEnumName(string name, string parentName)
+    public static string BuildEnumName(string name, string parentName, string classNamePrefix)
     {
         if (string.IsNullOrEmpty(parentName))
         {
-            return $"{prefix}{name.Dehumanize()}{suffix}";
+            return $"{classNamePrefix}{name.Dehumanize()}{suffix}";
         }
 
-        return $"{prefix}{parentName}{name.Dehumanize()}{suffix}";
+        return $"{classNamePrefix}{parentName}{name.Dehumanize()}{suffix}";
     }
 }

@@ -3,6 +3,7 @@ using JsonApiDotNetCore.MongoDb.Resources;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
 using Newtonsoft.Json;
+#nullable enable
 
 // Custom implementation of FreeStringMongoIdentifiable from JsonApiDotNetCore.MongoDb
 // with an attribute on StringId to prevent it being serialised by the client we're using

@@ -3,15 +3,17 @@ using TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.DescriptorModel;
 
 namespace TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.Builders;
 
-public class CSharpDescriptorBuilder(List<ISchemaVisitor> visitors)
+public class IpaffsDescriptorBuilder(List<ISchemaVisitor> visitors)
 {
+    public const string Namespace = "TdmPrototypeBackend.Types.Ipaffs";
+    public const string ClassNamePrefix = "Ipaffs";
     public CSharpDescriptor Build(string jsonSchema)
     {
         var mySchema = JsonSchema.FromText(jsonSchema);
 
         var csharpDescriptor = new CSharpDescriptor();
 
-        var mainClassDescriptor = new ClassDescriptor("IpaffsNotification");
+        var mainClassDescriptor = new ClassDescriptor("IpaffsNotification", Namespace, ClassNamePrefix);
         mainClassDescriptor.IsResource = true;
         csharpDescriptor.AddClassDescriptor(mainClassDescriptor);
         foreach (var property in mySchema.GetProperties())

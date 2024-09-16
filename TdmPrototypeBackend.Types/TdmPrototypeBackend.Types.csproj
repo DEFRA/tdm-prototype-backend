@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
   
   <ItemGroup>
@@ -17,6 +18,7 @@
   
   <ItemGroup>
     <Folder Include="Ipaffs\" />
+    <Folder Include="VehicleMovement\" />
   </ItemGroup>
 
 

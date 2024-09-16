@@ -4,10 +4,11 @@ using Humanizer;
 namespace TdmPrototypeBackend.Cli.Features.GenerateIpaffsModel.DescriptorModel;
 
 [DebuggerDisplay("{Name}")]
-public class ClassDescriptor(string name)
+public class ClassDescriptor(string name, string @namespace, string classNamePrefix)
 {
-    private const string classPrefix = "Ipaffs";
+   // private const string classPrefix = "Ipaffs";
     public string Name { get; set; } = name;
+    public string Namespace { get; } = @namespace;
 
     public string Description { get; set; }
 
@@ -17,12 +18,12 @@ public class ClassDescriptor(string name)
 
     public string GetClassName()
     {
-        return BuildClassName(Name, IsResource);
+        return BuildClassName(Name, classNamePrefix, IsResource);
     }
 
-    public static string BuildClassName(string name, bool isResource = false)
+    public static string BuildClassName(string name, string classNamePrefix, bool isResource = false)
     {
-        return isResource ? name.Dehumanize() : $"{classPrefix}{name.Dehumanize()}";
+        return isResource ? name.Dehumanize() : $"{classNamePrefix}{name.Dehumanize()}";
     }
 
 }
