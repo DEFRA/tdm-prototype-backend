@@ -42,9 +42,9 @@ public class Movement : CustomStringMongoIdentifiable
     public MatchingStatus IpaffsNotification { get; set; } = new MatchingStatus() { Matched = false };
     
     [Attr]
-    public ALVSClearanceRequest[] ClearanceRequests { get; set; } = default!;
+    public Alvs.ALVSClearanceRequest[] ClearanceRequests { get; set; } = default!;
     
     [Attr]
     public MovementItem[] Items { get; set; } = default!;
-    
+
 }

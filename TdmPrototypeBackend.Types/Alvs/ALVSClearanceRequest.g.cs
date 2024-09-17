@@ -20,6 +20,8 @@ namespace TdmPrototypeBackend.Types.Alvs;
     /// </summary>
 public partial class ALVSClearanceRequest  //
 {
+
+
 		/// <summary>
         /// 
         /// </summary>
@@ -38,8 +40,8 @@ public partial class ALVSClearanceRequest  //
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("Item")]
-		public  Item[]? Items { get; set; }
+        [JsonPropertyName("Items")]
+		public  Items[]? Items { get; set; }
     
 }
 

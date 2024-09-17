@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Alvs;
+using ALVSClearanceRequest = TdmPrototypeBackend.Types.Alvs.ALVSClearanceRequest;
 using Type = System.Type;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Models;

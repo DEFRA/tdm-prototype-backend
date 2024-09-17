@@ -6,6 +6,7 @@ using Xunit.Abstractions;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Alvs;
 using TdmPrototypeBackend.Types.Ipaffs;
+using ALVSClearanceRequest = TdmPrototypeBackend.Types.Alvs.ALVSClearanceRequest;
 
 namespace TdmPrototypeBackend.Test;
 
