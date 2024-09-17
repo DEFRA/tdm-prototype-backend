@@ -20,8 +20,6 @@ namespace TdmPrototypeBackend.Types.Alvs;
     /// </summary>
 public partial class ALVSClearanceRequest  //
 {
-
-
 		/// <summary>
         /// 
         /// </summary>

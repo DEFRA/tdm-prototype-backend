@@ -1,7 +1,8 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using JsonApiDotNetCore.MongoDb.Resources;
 using JsonApiDotNetCore.Resources.Annotations;
 using MongoDB.Bson.Serialization.Attributes;
+using TdmPrototypeBackend.Types.Alvs;
 // using JsonApiSerializer.JsonApi;
 
 namespace TdmPrototypeBackend.Types;
@@ -41,7 +42,7 @@ public class Movement : CustomStringMongoIdentifiable
     public MatchingStatus IpaffsNotification { get; set; } = new MatchingStatus() { Matched = false };
     
     [Attr]
-    public ClearanceRequestEnvelope[] ClearanceRequests { get; set; } = default!;
+    public ALVSClearanceRequest[] ClearanceRequests { get; set; } = default!;
     
     [Attr]
     public MovementItem[] Items { get; set; } = default!;

@@ -4,6 +4,7 @@ using MongoDB.Bson;
 using Xunit.Abstractions;
 
 using TdmPrototypeBackend.Types;
+using TdmPrototypeBackend.Types.Alvs;
 using TdmPrototypeBackend.Types.Ipaffs;
 
 namespace TdmPrototypeBackend.Test;
@@ -243,16 +244,16 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         };
     }
 
-    private ClearanceRequestEnvelope CreateChedAClearanceRequest(String id = null, MovementItem[] items = null)
+    private ALVSClearanceRequest CreateChedAClearanceRequest(String id = null, MovementItem[] items = null)
     {
         id = id ?? GenerateChedID(id:testId);
         items = items ?? new[] { new MovementItem() { CustomsProcedureCode = "AAA" } };
-        return new ClearanceRequestEnvelope()
+        return new ALVSClearanceRequest()
         {
             // Id = id,
-            ServiceHeader = new AlvsServiceHeader() { SourceSystem = "CDS", DestinationSystem = "ALVS" },
-            Header = new ClearanceRequest() {},
-            Items = items
+            ServiceHeader = new ServiceHeader() { SourceSystem = "CDS", DestinationSystem = "ALVS" },
+            Header = new  Header() {},
+            Items = items.Select(x => new Item() { CustomsProcedureCode = x.CustomsProcedureCode}).ToArray()
             
         };
     }

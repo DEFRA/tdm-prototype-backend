@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
+using TdmPrototypeBackend.Types.Alvs;
 using Type = System.Type;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Models;
@@ -60,17 +61,17 @@ public static class MovementExtensions
         
         options.Converters.Add(new DateTimeConverterUsingDateTimeParse());
         
-        var r = JsonSerializer.Deserialize<ClearanceRequestEnvelope>(s, options)!;
+        var r = JsonSerializer.Deserialize<ALVSClearanceRequest>(s, options)!;
         var cr = r.Header;
-        cr.Items = r.Items;
+       // cr.Items = r.Items;
         
         return new Movement() {
             Id = r.Header.EntryReference,
-            ClearanceRequests = new ClearanceRequestEnvelope[]
+            ClearanceRequests = new ALVSClearanceRequest[]
             {
                 r
             },
-            Items = r.Items
+            Items = r.Items.Select(x => new MovementItem() { CustomsProcedureCode = x.CustomsProcedureCode}).ToArray()
         };
     }
 }
