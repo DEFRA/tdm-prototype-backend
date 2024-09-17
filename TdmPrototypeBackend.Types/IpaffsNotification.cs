@@ -46,3 +46,19 @@ public partial class IpaffsNotification : IMongoIdentifiable
     public MatchingStatus Movement { get; set; } = new MatchingStatus() { Matched = false };
    
 }
+
+/// <summary>
+/// Added manual class to include message, which isn't part of the schema, but a lot of data includes it
+/// </summary>
+public partial class IpaffsValidationMessageCode  //
+{
+
+
+    /// <summary>
+    /// Field
+    /// </summary>
+    [Attr]
+    [JsonPropertyName("message")]
+    public string? Message { get; set; }
+
+}
