@@ -6,7 +6,6 @@ using Xunit.Abstractions;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Alvs;
 using TdmPrototypeBackend.Types.Ipaffs;
-using ALVSClearanceRequest = TdmPrototypeBackend.Types.Alvs.ALVSClearanceRequest;
 
 namespace TdmPrototypeBackend.Test;
 
@@ -254,7 +253,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
             // Id = id,
             ServiceHeader = new ServiceHeader() { SourceSystem = "CDS", DestinationSystem = "ALVS" },
             Header = new  Header() {},
-            Items = items.Select(x => new Item() { CustomsProcedureCode = x.CustomsProcedureCode}).ToArray()
+            Items = items.Select(x => new Items() { CustomsProcedureCode = x.CustomsProcedureCode}).ToArray()
             
         };
     }
