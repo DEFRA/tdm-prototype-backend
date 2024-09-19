@@ -6,39 +6,42 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Details of transport
     /// </summary>
-public partial class IpaffsMeansOfTransport  {
+public partial class IpaffsMeansOfTransport  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Type of transport
         /// </summary>
         [Attr]
         [JsonPropertyName("type")]
-        public IpaffsMeansOfTransportTypeEnum? IpaffsType { get; set; }
+		public  IpaffsMeansOfTransportTypeEnum? IpaffsType { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Document for transport
         /// </summary>
         [Attr]
         [JsonPropertyName("document")]
-        public string? Document { get; set; }
+		public  string? Document { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// ID of transport
         /// </summary>
         [Attr]
         [JsonPropertyName("id")]
-        public string? IpaffsId { get; set; }
+		public  string? IpaffsId { get; set; }
     
 }
 

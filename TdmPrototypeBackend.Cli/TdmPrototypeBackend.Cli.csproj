@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -9,8 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Features\GenerateIpaffsModel\Templates\ClassTemplate.cshtml" />
-    <None Remove="Features\GenerateIpaffsModel\Templates\EnumTemplate.cshtml" />
+    <Compile Remove="Features\GenerateIpaffsModel\**" />
+    <EmbeddedResource Remove="Features\GenerateIpaffsModel\**" />
+    <None Remove="Features\GenerateIpaffsModel\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Features\GenerateModels\Templates\ClassTemplate.cshtml" />
+    <None Remove="Features\GenerateModels\Templates\EnumTemplate.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,8 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Features\GenerateIpaffsModel\Templates\ClassTemplate.cshtml" />
-    <EmbeddedResource Include="Features\GenerateIpaffsModel\Templates\EnumTemplate.cshtml" />
+    <EmbeddedResource Include="Features\GenerateModels\Templates\ClassTemplate.cshtml" />
+    <EmbeddedResource Include="Features\GenerateModels\Templates\EnumTemplate.cshtml" />
   </ItemGroup>
 
 </Project>

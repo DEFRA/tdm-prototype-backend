@@ -6,60 +6,63 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Control part of notification
     /// </summary>
-public partial class IpaffsPartThree  {
+public partial class IpaffsPartThree  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Control status enum
         /// </summary>
         [Attr]
         [JsonPropertyName("controlStatus")]
-        public IpaffsPartThreeControlStatusEnum? ControlStatus { get; set; }
+		public  IpaffsPartThreeControlStatusEnum? ControlStatus { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Control details
         /// </summary>
         [Attr]
         [JsonPropertyName("control")]
-        public IpaffsControl? Control { get; set; }
+		public  IpaffsControl? Control { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Validation messages for Part 3 - Control
         /// </summary>
         [Attr]
         [JsonPropertyName("consignmentValidation")]
-        public IpaffsValidationMessageCode[]? ConsignmentValidations { get; set; }
+		public  IpaffsValidationMessageCode[]? ConsignmentValidations { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Is the seal check required
         /// </summary>
         [Attr]
         [JsonPropertyName("sealCheckRequired")]
-        public bool? SealCheckRequired { get; set; }
+		public  bool? SealCheckRequired { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Seal check details
         /// </summary>
         [Attr]
         [JsonPropertyName("sealCheck")]
-        public IpaffsSealCheck? SealCheck { get; set; }
+		public  IpaffsSealCheck? SealCheck { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Seal check override details
         /// </summary>
         [Attr]
         [JsonPropertyName("sealCheckOverride")]
-        public IpaffsInspectionOverride? SealCheckOverride { get; set; }
+		public  IpaffsInspectionOverride? SealCheckOverride { get; set; }
     
 }
 

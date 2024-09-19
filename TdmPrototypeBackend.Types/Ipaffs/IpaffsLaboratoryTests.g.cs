@@ -6,39 +6,42 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Laboratory tests details
     /// </summary>
-public partial class IpaffsLaboratoryTests  {
+public partial class IpaffsLaboratoryTests  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Date of tests
         /// </summary>
         [Attr]
         [JsonPropertyName("testDate")]
-        public string? TestDate { get; set; }
+		public  string? TestDate { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Reason for test
         /// </summary>
         [Attr]
         [JsonPropertyName("testReason")]
-        public IpaffsLaboratoryTestsTestReasonEnum? TestReason { get; set; }
+		public  IpaffsLaboratoryTestsTestReasonEnum? TestReason { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// List of details of individual tests performed or to be performed
         /// </summary>
         [Attr]
         [JsonPropertyName("singleLaboratoryTests")]
-        public IpaffsSingleLaboratoryTest[]? SingleLaboratoryTests { get; set; }
+		public  IpaffsSingleLaboratoryTest[]? SingleLaboratoryTests { get; set; }
     
 }
 

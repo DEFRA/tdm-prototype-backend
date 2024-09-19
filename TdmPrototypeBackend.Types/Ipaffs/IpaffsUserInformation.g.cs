@@ -6,39 +6,42 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Information about logged-in user
     /// </summary>
-public partial class IpaffsUserInformation  {
+public partial class IpaffsUserInformation  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Display name
         /// </summary>
         [Attr]
         [JsonPropertyName("displayName")]
-        public string? DisplayName { get; set; }
+		public  string? DisplayName { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// User ID
         /// </summary>
         [Attr]
         [JsonPropertyName("userId")]
-        public string? UserId { get; set; }
+		public  string? UserId { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Is this user a control
         /// </summary>
         [Attr]
         [JsonPropertyName("isControlUser")]
-        public bool? IsControlUser { get; set; }
+		public  bool? IsControlUser { get; set; }
     
 }
 

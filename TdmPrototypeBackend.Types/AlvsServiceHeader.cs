@@ -1,4 +1,4 @@
-﻿using JsonApiDotNetCore.Resources.Annotations;
+using JsonApiDotNetCore.Resources.Annotations;
 
 namespace TdmPrototypeBackend.Types;
 

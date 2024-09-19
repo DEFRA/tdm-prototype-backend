@@ -6,81 +6,84 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Accompanying document
     /// </summary>
-public partial class IpaffsAccompanyingDocument  {
+public partial class IpaffsAccompanyingDocument  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Additional document type
         /// </summary>
         [Attr]
         [JsonPropertyName("documentType")]
-        public IpaffsAccompanyingDocumentDocumentTypeEnum? DocumentType { get; set; }
+		public  IpaffsAccompanyingDocumentDocumentTypeEnum? DocumentType { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Additional document reference
         /// </summary>
         [Attr]
         [JsonPropertyName("documentReference")]
-        public string? DocumentReference { get; set; }
+		public  string? DocumentReference { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Additional document issue date
         /// </summary>
         [Attr]
         [JsonPropertyName("documentIssueDate")]
-        public string? DocumentIssueDate { get; set; }
+		public  string? DocumentIssueDate { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// The UUID used for the uploaded file in blob storage
         /// </summary>
         [Attr]
         [JsonPropertyName("attachmentId")]
-        public string? AttachmentId { get; set; }
+		public  string? AttachmentId { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// The original filename of the uploaded file
         /// </summary>
         [Attr]
         [JsonPropertyName("attachmentFilename")]
-        public string? AttachmentFilename { get; set; }
+		public  string? AttachmentFilename { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// The MIME type of the uploaded file
         /// </summary>
         [Attr]
         [JsonPropertyName("attachmentContentType")]
-        public string? AttachmentContentType { get; set; }
+		public  string? AttachmentContentType { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// The UUID for the user that uploaded the file
         /// </summary>
         [Attr]
         [JsonPropertyName("uploadUserId")]
-        public string? UploadUserId { get; set; }
+		public  string? UploadUserId { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// The UUID for the organisation that the upload user is associated with
         /// </summary>
         [Attr]
         [JsonPropertyName("uploadOrganisationId")]
-        public string? UploadOrganisationId { get; set; }
+		public  string? UploadOrganisationId { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// External reference of accompanying document, which relates to a downstream service
         /// </summary>
         [Attr]
         [JsonPropertyName("externalReference")]
-        public IpaffsExternalReference? ExternalReference { get; set; }
+		public  IpaffsExternalReference? ExternalReference { get; set; }
     
 }
 

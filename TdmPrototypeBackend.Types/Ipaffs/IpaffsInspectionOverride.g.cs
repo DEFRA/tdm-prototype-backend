@@ -6,39 +6,42 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Details about the manual inspection override
     /// </summary>
-public partial class IpaffsInspectionOverride  {
+public partial class IpaffsInspectionOverride  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Original inspection decision
         /// </summary>
         [Attr]
         [JsonPropertyName("originalDecision")]
-        public string? OriginalDecision { get; set; }
+		public  string? OriginalDecision { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// The time the risk decision is overridden
         /// </summary>
         [Attr]
         [JsonPropertyName("overriddenOn")]
-        public string? OverriddenOn { get; set; }
+		public  string? OverriddenOn { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// User entity who has manually overridden the inspection
         /// </summary>
         [Attr]
         [JsonPropertyName("overriddenBy")]
-        public IpaffsUserInformation? OverriddenBy { get; set; }
+		public  IpaffsUserInformation? OverriddenBy { get; set; }
     
 }
 

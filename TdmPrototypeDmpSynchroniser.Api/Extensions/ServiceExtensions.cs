@@ -46,9 +46,9 @@ public static class ServiceExtensions
         services.AddSingleton<ISyncService, SyncService>();
         // services.AddSingleton<IStorageService<Movement>, JsonApiStorageService<Movement>>();
         services.AddSingleton<MongoDbOptions<Movement>, MongoDbOptions<Movement>>(_ => new MongoDbOptions<Movement>() { CollectionName = "Movement"});
-        services.AddSingleton<MongoDbOptions<IpaffsNotification>, MongoDbOptions<IpaffsNotification>>(_ => new MongoDbOptions<IpaffsNotification>() { CollectionName = "IpaffsNotification"});
+        services.AddSingleton<MongoDbOptions<Notification>, MongoDbOptions<Notification>>(_ => new MongoDbOptions<Notification>() { CollectionName = "Notification"});
         services.AddSingleton<IStorageService<Movement>, MongoStorageService<Movement>>();
-        services.AddSingleton<IStorageService<IpaffsNotification>, MongoStorageService<IpaffsNotification>>();
+        services.AddSingleton<IStorageService<Notification>, MongoStorageService<Notification>>();
         // services.AddSingleton<IStorageService<Movement>, MongoStorageService<Movement>>(x => ActivatorUtilities.CreateInstance<MongoStorageService>(x,"", ));
     }
 }

@@ -6,46 +6,112 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Inspector Address
     /// </summary>
-public partial class IpaffsAddress  {
+public partial class IpaffsAddress  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Street
         /// </summary>
         [Attr]
         [JsonPropertyName("street")]
-        public string? Street { get; set; }
+		public  string? Street { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// City
         /// </summary>
         [Attr]
         [JsonPropertyName("city")]
-        public string? City { get; set; }
+		public  string? City { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Country
         /// </summary>
         [Attr]
         [JsonPropertyName("country")]
-        public string? Country { get; set; }
+		public  string? Country { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Postal Code
         /// </summary>
         [Attr]
         [JsonPropertyName("postalCode")]
-        public string? PostalCode { get; set; }
+		public  string? PostalCode { get; set; }
+    
+		/// <summary>
+        /// 1st line of address
+        /// </summary>
+        [Attr]
+        [JsonPropertyName("addressLine1")]
+		public  string? AddressLine1 { get; set; }
+    
+		/// <summary>
+        /// 2nd line of address
+        /// </summary>
+        [Attr]
+        [JsonPropertyName("addressLine2")]
+		public  string? AddressLine2 { get; set; }
+    
+		/// <summary>
+        /// 3rd line of address
+        /// </summary>
+        [Attr]
+        [JsonPropertyName("addressLine3")]
+		public  string? AddressLine3 { get; set; }
+    
+		/// <summary>
+        /// Post / zip code
+        /// </summary>
+        [Attr]
+        [JsonPropertyName("postalZipCode")]
+		public  string? PostalZipCode { get; set; }
+    
+		/// <summary>
+        /// country 2-digits ISO code
+        /// </summary>
+        [Attr]
+        [JsonPropertyName("countryISOCode")]
+		public  string? CountryISOCode { get; set; }
+    
+		/// <summary>
+        /// Email address
+        /// </summary>
+        [Attr]
+        [JsonPropertyName("email")]
+		public  string? Email { get; set; }
+    
+		/// <summary>
+        /// UK phone number
+        /// </summary>
+        [Attr]
+        [JsonPropertyName("ukTelephone")]
+		public  string? UkTelephone { get; set; }
+    
+		/// <summary>
+        /// Telephone number
+        /// </summary>
+        [Attr]
+        [JsonPropertyName("telephone")]
+		public  string? Telephone { get; set; }
+    
+		/// <summary>
+        /// International phone number
+        /// </summary>
+        [Attr]
+        [JsonPropertyName("internationalTelephone")]
+		public  IpaffsInternationalTelephone? InternationalTelephone { get; set; }
     
 }
 

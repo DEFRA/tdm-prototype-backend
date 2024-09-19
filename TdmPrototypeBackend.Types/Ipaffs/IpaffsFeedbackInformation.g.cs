@@ -6,53 +6,56 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Feedback information from control
     /// </summary>
-public partial class IpaffsFeedbackInformation  {
+public partial class IpaffsFeedbackInformation  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Type of authority
         /// </summary>
         [Attr]
         [JsonPropertyName("authorityType")]
-        public IpaffsFeedbackInformationAuthorityTypeEnum? AuthorityType { get; set; }
+		public  IpaffsFeedbackInformationAuthorityTypeEnum? AuthorityType { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Did the consignment arrive
         /// </summary>
         [Attr]
         [JsonPropertyName("consignmentArrival")]
-        public bool? ConsignmentArrival { get; set; }
+		public  bool? ConsignmentArrival { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Does the consignment conform
         /// </summary>
         [Attr]
         [JsonPropertyName("consignmentConformity")]
-        public bool? ConsignmentConformity { get; set; }
+		public  bool? ConsignmentConformity { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Reason for consignment not arriving at the entry point
         /// </summary>
         [Attr]
         [JsonPropertyName("consignmentNoArrivalReason")]
-        public string? ConsignmentNoArrivalReason { get; set; }
+		public  string? ConsignmentNoArrivalReason { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Date of consignment destruction
         /// </summary>
         [Attr]
         [JsonPropertyName("destructionDate")]
-        public string? DestructionDate { get; set; }
+		public  string? DestructionDate { get; set; }
     
 }
 

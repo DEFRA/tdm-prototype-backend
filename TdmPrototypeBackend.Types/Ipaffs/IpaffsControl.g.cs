@@ -6,46 +6,49 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Details of Control (Part 3)
     /// </summary>
-public partial class IpaffsControl  {
+public partial class IpaffsControl  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Feedback information of Control
         /// </summary>
         [Attr]
         [JsonPropertyName("feedbackInformation")]
-        public IpaffsFeedbackInformation? FeedbackInformation { get; set; }
+		public  IpaffsFeedbackInformation? FeedbackInformation { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Details on re-export
         /// </summary>
         [Attr]
         [JsonPropertyName("detailsOnReExport")]
-        public IpaffsDetailsOnReExport? DetailsOnReExport { get; set; }
+		public  IpaffsDetailsOnReExport? DetailsOnReExport { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Official inspector
         /// </summary>
         [Attr]
         [JsonPropertyName("officialInspector")]
-        public IpaffsOfficialInspector? OfficialInspector { get; set; }
+		public  IpaffsOfficialInspector? OfficialInspector { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Is the consignment leaving UK borders?
         /// </summary>
         [Attr]
         [JsonPropertyName("consignmentLeave")]
-        public IpaffsControlConsignmentLeaveEnum? ConsignmentLeave { get; set; }
+		public  IpaffsControlConsignmentLeaveEnum? ConsignmentLeave { get; set; }
     
 }
 

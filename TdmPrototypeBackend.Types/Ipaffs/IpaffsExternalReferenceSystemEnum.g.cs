@@ -11,13 +11,13 @@ public enum IpaffsExternalReferenceSystemEnum
 {
 
 		[EnumMember(Value = "E-CERT")]
-		ECERT,
+		Ecert,
 	
 		[EnumMember(Value = "E-PHYTO")]
-		EPHYTO,
+		Ephyto,
 	
 		[EnumMember(Value = "E-NOTIFICATION")]
-		ENOTIFICATION,
+		Enotification,
 	
 		[EnumMember(Value = "NCTS")]
 		Ncts,

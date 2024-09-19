@@ -6,39 +6,42 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Details of the risk categorisation level for a notification
     /// </summary>
-public partial class IpaffsJourneyRiskCategorisationResult  {
+public partial class IpaffsJourneyRiskCategorisationResult  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Risk Level is defined using enum values High,Medium,Low
         /// </summary>
         [Attr]
         [JsonPropertyName("riskLevel")]
-        public IpaffsJourneyRiskCategorisationResultRiskLevelEnum? RiskLevel { get; set; }
+		public  IpaffsJourneyRiskCategorisationResultRiskLevelEnum? RiskLevel { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Indicator of whether the risk level was determined by the system or by the user
         /// </summary>
         [Attr]
         [JsonPropertyName("riskLevelMethod")]
-        public IpaffsJourneyRiskCategorisationResultRiskLevelMethodEnum? RiskLevelMethod { get; set; }
+		public  IpaffsJourneyRiskCategorisationResultRiskLevelMethodEnum? RiskLevelMethod { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// The date and time the risk level has been set for a notification
         /// </summary>
         [Attr]
         [JsonPropertyName("riskLevelDateTime")]
-        public string? RiskLevelDateTime { get; set; }
+		public  string? RiskLevelDateTime { get; set; }
     
 }
 

@@ -6,60 +6,63 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// 
     /// </summary>
-public partial class IpaffsInspectionCheck  {
+public partial class IpaffsInspectionCheck  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Type of check
         /// </summary>
         [Attr]
         [JsonPropertyName("type")]
-        public IpaffsInspectionCheckTypeEnum? IpaffsType { get; set; }
+		public  IpaffsInspectionCheckTypeEnum? IpaffsType { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Status of the check
         /// </summary>
         [Attr]
         [JsonPropertyName("status")]
-        public IpaffsInspectionCheckStatusEnum? Status { get; set; }
+		public  IpaffsInspectionCheckStatusEnum? Status { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Reason for the status if applicable
         /// </summary>
         [Attr]
         [JsonPropertyName("reason")]
-        public string? Reason { get; set; }
+		public  string? Reason { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Other reason text when selected reason is &#x27;Other&#x27;
         /// </summary>
         [Attr]
         [JsonPropertyName("otherReason")]
-        public string? OtherReason { get; set; }
+		public  string? OtherReason { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Has commodity been selected for checks?
         /// </summary>
         [Attr]
         [JsonPropertyName("isSelectedForChecks")]
-        public bool? IsSelectedForChecks { get; set; }
+		public  bool? IsSelectedForChecks { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Has commodity completed this type of check
         /// </summary>
         [Attr]
         [JsonPropertyName("hasChecksComplete")]
-        public bool? HasChecksComplete { get; set; }
+		public  bool? HasChecksComplete { get; set; }
     
 }
 

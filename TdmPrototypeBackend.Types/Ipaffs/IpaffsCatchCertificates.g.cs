@@ -6,32 +6,35 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// 
     /// </summary>
-public partial class IpaffsCatchCertificates  {
+public partial class IpaffsCatchCertificates  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// The catch certificate number
         /// </summary>
         [Attr]
         [JsonPropertyName("certificateNumber")]
-        public string? CertificateNumber { get; set; }
+		public  string? CertificateNumber { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// The catch certificate weight number
         /// </summary>
         [Attr]
         [JsonPropertyName("weight")]
-        public double? Weight { get; set; }
+		public  double? Weight { get; set; }
     
 }
 

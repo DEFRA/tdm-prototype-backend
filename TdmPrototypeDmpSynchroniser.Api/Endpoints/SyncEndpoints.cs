@@ -14,7 +14,7 @@ public static class SyncEndpoints
     public static void UseSyncEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapGet(BaseRoute + "/clearance-requests", SyncClearanceRequestsAsync);
-        app.MapGet(BaseRoute + "/ipaffs-notifications", SyncIpaffsNotificationsAsync);
+        app.MapGet(BaseRoute + "/notifications", SyncNotificationsAsync);
     }
 
     private static async Task<IResult> SyncClearanceRequestsAsync(
@@ -31,12 +31,12 @@ public static class SyncEndpoints
         return Results.Conflict(result);
     }
     
-    private static async Task<IResult> SyncIpaffsNotificationsAsync(
+    private static async Task<IResult> SyncNotificationsAsync(
         ISyncService service)
     {
         // var Logger = ApplicationLogging.CreateLogger("SyncEndpoints");
         
-        var result = await service.SyncIpaffsNotifications();
+        var result = await service.SyncNotifications();
         // Logger.LogInformation(result.ToJson());
         if (result.Success)
         {

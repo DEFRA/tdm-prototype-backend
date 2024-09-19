@@ -6,46 +6,49 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Seal container details
     /// </summary>
-public partial class IpaffsSealContainer  {
+public partial class IpaffsSealContainer  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// 
         /// </summary>
         [Attr]
         [JsonPropertyName("sealNumber")]
-        public string? SealNumber { get; set; }
+		public  string? SealNumber { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// 
         /// </summary>
         [Attr]
         [JsonPropertyName("containerNumber")]
-        public string? ContainerNumber { get; set; }
+		public  string? ContainerNumber { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// 
         /// </summary>
         [Attr]
         [JsonPropertyName("officialSeal")]
-        public bool? OfficialSeal { get; set; }
+		public  bool? OfficialSeal { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// 
         /// </summary>
         [Attr]
         [JsonPropertyName("resealedSealNumber")]
-        public string? ResealedSealNumber { get; set; }
+		public  string? ResealedSealNumber { get; set; }
     
 }
 

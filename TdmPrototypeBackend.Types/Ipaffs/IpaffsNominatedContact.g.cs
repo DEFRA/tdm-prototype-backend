@@ -6,39 +6,42 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Person to be nominated for text and email contact for the consignment
     /// </summary>
-public partial class IpaffsNominatedContact  {
+public partial class IpaffsNominatedContact  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Name of nominated contact
         /// </summary>
         [Attr]
         [JsonPropertyName("name")]
-        public string? Name { get; set; }
+		public  string? Name { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Email address of nominated contact
         /// </summary>
         [Attr]
         [JsonPropertyName("email")]
-        public string? Email { get; set; }
+		public  string? Email { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Telephone number of nominated contact
         /// </summary>
         [Attr]
         [JsonPropertyName("telephone")]
-        public string? Telephone { get; set; }
+		public  string? Telephone { get; set; }
     
 }
 

@@ -6,60 +6,63 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// 
     /// </summary>
-public partial class IpaffsComplementParameterSet  {
+public partial class IpaffsComplementParameterSet  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// UUID used to match commodityComplement to its complementParameter set. CHEDPP only
         /// </summary>
         [Attr]
         [JsonPropertyName("uniqueComplementID")]
-        public string? UniqueComplementID { get; set; }
+		public  string? UniqueComplementID { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// 
         /// </summary>
         [Attr]
         [JsonPropertyName("complementID")]
-        public int? ComplementID { get; set; }
+		public  int? ComplementID { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// 
         /// </summary>
         [Attr]
         [JsonPropertyName("speciesID")]
-        public string? SpeciesID { get; set; }
+		public  string? SpeciesID { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// 
         /// </summary>
         [Attr]
         [JsonPropertyName("keyDataPair")]
-        public IpaffsKeyDataPair[]? KeyDataPairs { get; set; }
+		public  IpaffsKeyDataPair[]? KeyDataPairs { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Catch certificate details
         /// </summary>
         [Attr]
         [JsonPropertyName("catchCertificates")]
-        public IpaffsCatchCertificates[]? CatchCertificates { get; set; }
+		public  IpaffsCatchCertificates[]? CatchCertificates { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Data used to identify the complements inside an IMP consignment
         /// </summary>
         [Attr]
         [JsonPropertyName("identifiers")]
-        public IpaffsIdentifiers[]? Identifiers { get; set; }
+		public  IpaffsIdentifiers[]? Identifiers { get; set; }
     
 }
 

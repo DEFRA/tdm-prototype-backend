@@ -6,109 +6,112 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Laboratory tests information details and information about laboratory that did the test
     /// </summary>
-public partial class IpaffsApplicant  {
+public partial class IpaffsApplicant  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// Name of laboratory
         /// </summary>
         [Attr]
         [JsonPropertyName("laboratory")]
-        public string? Laboratory { get; set; }
+		public  string? Laboratory { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Laboratory address
         /// </summary>
         [Attr]
         [JsonPropertyName("laboratoryAddress")]
-        public string? LaboratoryAddress { get; set; }
+		public  string? LaboratoryAddress { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Laboratory identification
         /// </summary>
         [Attr]
         [JsonPropertyName("laboratoryIdentification")]
-        public string? LaboratoryIdentification { get; set; }
+		public  string? LaboratoryIdentification { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Laboratory phone number
         /// </summary>
         [Attr]
         [JsonPropertyName("laboratoryPhoneNumber")]
-        public string? LaboratoryPhoneNumber { get; set; }
+		public  string? LaboratoryPhoneNumber { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Laboratory email
         /// </summary>
         [Attr]
         [JsonPropertyName("laboratoryEmail")]
-        public string? LaboratoryEmail { get; set; }
+		public  string? LaboratoryEmail { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Sample batch number
         /// </summary>
         [Attr]
         [JsonPropertyName("sampleBatchNumber")]
-        public string? SampleBatchNumber { get; set; }
+		public  string? SampleBatchNumber { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Type of analysis
         /// </summary>
         [Attr]
         [JsonPropertyName("analysisType")]
-        public IpaffsApplicantAnalysisTypeEnum? AnalysisType { get; set; }
+		public  IpaffsApplicantAnalysisTypeEnum? AnalysisType { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Number of samples analysed
         /// </summary>
         [Attr]
         [JsonPropertyName("numberOfSamples")]
-        public int? NumberOfSamples { get; set; }
+		public  int? NumberOfSamples { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Type of sample
         /// </summary>
         [Attr]
         [JsonPropertyName("sampleType")]
-        public string? SampleType { get; set; }
+		public  string? SampleType { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Conservation of sample
         /// </summary>
         [Attr]
         [JsonPropertyName("conservationOfSample")]
-        public IpaffsApplicantConservationOfSampleEnum? ConservationOfSample { get; set; }
+		public  IpaffsApplicantConservationOfSampleEnum? ConservationOfSample { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// inspector
         /// </summary>
         [Attr]
         [JsonPropertyName("inspector")]
-        public IpaffsInspector? Inspector { get; set; }
+		public  IpaffsInspector? Inspector { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Date the sample is taken
         /// </summary>
         [Attr]
         [JsonPropertyName("sampleDate")]
-        public string? SampleDate { get; set; }
+		public  string? SampleDate { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Time the sample is taken
         /// </summary>
         [Attr]
         [JsonPropertyName("sampleTime")]
-        public string? SampleTime { get; set; }
+		public  string? SampleTime { get; set; }
     
 }
 

@@ -23,7 +23,7 @@ public enum IpaffsIpaffsNotificationStatusEnum
 		Rejected,
 	
 		[EnumMember(Value = "IN_PROGRESS")]
-		INPROGRESS,
+		Inprogress,
 	
 		[EnumMember(Value = "AMEND")]
 		Amend,
@@ -41,10 +41,10 @@ public enum IpaffsIpaffsNotificationStatusEnum
 		Deleted,
 	
 		[EnumMember(Value = "PARTIALLY_REJECTED")]
-		PARTIALLYREJECTED,
+		Partiallyrejected,
 	
 		[EnumMember(Value = "SPLIT_CONSIGNMENT")]
-		SPLITCONSIGNMENT,
+		Splitconsignment,
 	
 		[EnumMember(Value = "SUBMITTED,IN_PROGRESS,MODIFY")]
 		SUBMITTEDINPROGRESSMODIFY,

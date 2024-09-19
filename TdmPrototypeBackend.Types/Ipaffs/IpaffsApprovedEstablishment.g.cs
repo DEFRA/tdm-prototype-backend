@@ -6,60 +6,63 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#nullable enable
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
     /// <summary>
     /// Approved Establishment details
     /// </summary>
-public partial class IpaffsApprovedEstablishment  {
+public partial class IpaffsApprovedEstablishment  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// ID
         /// </summary>
         [Attr]
         [JsonPropertyName("id")]
-        public string? IpaffsId { get; set; }
+		public  string? IpaffsId { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Name of approved establishment
         /// </summary>
         [Attr]
         [JsonPropertyName("name")]
-        public string? Name { get; set; }
+		public  string? Name { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Country of approved establishment
         /// </summary>
         [Attr]
         [JsonPropertyName("country")]
-        public string? Country { get; set; }
+		public  string? Country { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Types of approved establishment
         /// </summary>
         [Attr]
         [JsonPropertyName("types")]
-        public string[]? Types { get; set; }
+		public  string[]? Types { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Approval number
         /// </summary>
         [Attr]
         [JsonPropertyName("approvalNumber")]
-        public string? ApprovalNumber { get; set; }
+		public  string? ApprovalNumber { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// Section of approved establishment
         /// </summary>
         [Attr]
         [JsonPropertyName("section")]
-        public string? Section { get; set; }
+		public  string? Section { get; set; }
     
 }
 
