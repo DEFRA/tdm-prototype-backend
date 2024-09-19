@@ -66,30 +66,28 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
     }
     
     [Fact]
-    public void CreateIpaffsNotification()
+    public void CreateNotification()
     {
-        JsonApiConsumer.Response<IpaffsNotification> response = JsonApiConsumer.JsonApiConsumer.Create<IpaffsNotification, IpaffsNotification>(
+        JsonApiConsumer.Response<Notification> response = JsonApiConsumer.JsonApiConsumer.Create<Notification, Notification>(
             model: CreateChedANotification(),
             baseURI: apiHost,
-            path: "api/ipaffsnotifications"
+            path: "api/notifications"
         );
         
-        // Console.WriteLine("Response from API {code}", response.HttpStatusCode);
         Console.WriteLine("Response from IpaffsNotification API {0}", response.ToJson());
         Assert.Equal(201, (int)response.HttpStatusCode);
     }
     
     [Fact]
-    public void CreateChedPIpaffsNotification()
+    public void CreateChedPNotification()
     {
-        JsonApiConsumer.Response<IpaffsNotification> response = JsonApiConsumer.JsonApiConsumer.Create<IpaffsNotification, IpaffsNotification>(
+        JsonApiConsumer.Response<Notification> response = JsonApiConsumer.JsonApiConsumer.Create<Notification, Notification>(
             model: CreateChedANotification(notificationType: IpaffsIpaffsNotificationTypeEnum.Cvedp),
             baseURI: apiHost,
-            path: "api/ipaffsnotifications"
+            path: "api/notifications"
         );
         
-        // Console.WriteLine("Response from API {code}", response.HttpStatusCode);
-        Console.WriteLine("Response from IpaffsNotification API {0}", response.ToJson());
+        Console.WriteLine("Response from notification API {0}", response.ToJson());
         Assert.Equal(201, (int)response.HttpStatusCode);
     }
 
@@ -123,7 +121,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
     }
     
     [Fact]
-    public void CreateMovementMatchedIpaffsNotification()
+    public void CreateMovementMatchedNotification()
     {
         var notificationId = GenerateChedID(id: testId);
         var declarationId = GenerateDeclarationID(id: testId);
@@ -131,7 +129,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         var movement = CreateChedAMovement(declarationId);
         
         // var cr = CreateChedAClearanceRequest(declarationId);
-        movement.IpaffsNotification = new MatchingStatus() { Matched = true, Reference = notificationId, AdditionalInformation = new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("matchLevel", "1"),}};
+        movement.Notification = new MatchingStatus() { Matched = true, Reference = notificationId, AdditionalInformation = new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("matchLevel", "1"),}};
         
         // var crResponse = Send<Movement>(ref movement, "api/movements");
         JsonApiConsumer.Response<Movement> crResponse = JsonApiConsumer.JsonApiConsumer.Create<Movement, Movement>(
@@ -151,26 +149,15 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
             AdditionalInformation = new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("matchLevel", "1")}
         };
 
-        // var response = Send<IpaffsNotification>(ref notification, "api/ipaffsnotifications");
-        JsonApiConsumer.Response<IpaffsNotification> response = JsonApiConsumer.JsonApiConsumer.Create<IpaffsNotification, IpaffsNotification>(
+        JsonApiConsumer.Response<Notification> response = JsonApiConsumer.JsonApiConsumer.Create<Notification, Notification>(
             model: notification,
             baseURI: apiHost,
-            path: "api/ipaffsnotifications"
+            path: "api/notifications"
         );
-        // Console.WriteLine("Response from API {code}", response.HttpStatusCode);
-        Console.WriteLine("Response from IpaffsNotification API {0}", response.ToJson());
+        
+        Console.WriteLine("Response from Notification API {0}", response.ToJson());
         Assert.Equal(201, (int)response.HttpStatusCode);
-
     }
-
-    // private JsonApiConsumer.Response<T> Send<T>(ref T model, string path)
-    // {
-    //     return JsonApiConsumer.JsonApiConsumer.Create<T, T>(
-    //         model: model,
-    //         baseURI: apiHost,
-    //         path: path
-    //     );
-    // }
 
     private Dictionary<IpaffsIpaffsNotificationTypeEnum, string> notificationTypes = new Dictionary<IpaffsIpaffsNotificationTypeEnum, string>()
     {
@@ -197,11 +184,11 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         id = id ?? testId;
         return string.Format("DEC_GB_2024_{0}", id);
     }
-    private IpaffsNotification CreateChedANotification(String id = null, IpaffsIpaffsNotificationTypeEnum notificationType = IpaffsIpaffsNotificationTypeEnum.Cveda)
+    private Notification CreateChedANotification(String id = null, IpaffsIpaffsNotificationTypeEnum notificationType = IpaffsIpaffsNotificationTypeEnum.Cveda)
     {
         id = id ?? GenerateChedID(notificationType, testId);
             
-        return new IpaffsNotification()
+        return new Notification()
         {
             Id = id,
             // ReferenceNumber = id,

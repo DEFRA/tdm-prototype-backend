@@ -40,7 +40,7 @@ public static class AssertExtensions
         act.Should().NotThrow("failed to serialize to Bson");
     }
 
-    public static void ShouldBeEqualTo(this IpaffsNotification notification, IpaffsIpaffsNotificationTypeEnum notificationType, IpaffsIpaffsNotificationStatusEnum status, string expectedJson)
+    public static void ShouldBeEqualTo(this Notification notification, IpaffsIpaffsNotificationTypeEnum notificationType, IpaffsIpaffsNotificationStatusEnum status, string expectedJson)
     {
         IDictionary<string, object> dictionary = JsonSerializer.Deserialize<ExpandoObject>(expectedJson) as IDictionary<string, object>;
 

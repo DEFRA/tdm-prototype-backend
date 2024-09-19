@@ -5,6 +5,6 @@ namespace TdmPrototypeDmpSynchroniser.Api.Services;
 public interface ISyncService
 {
     public Task<Status> SyncMovements();
-    public Task<Status> SyncIpaffsNotifications();
+    public Task<Status> SyncNotifications();
     
 }

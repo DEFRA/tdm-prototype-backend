@@ -10,11 +10,11 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
 // TODO : Can we generate this from the schema file 
 // https://eaflood.atlassian.net/wiki/spaces/TRADE/pages/5104664583/PHA+Port+Health+Authority+Integration+Data+Schema
 
-public partial class IpaffsNotification : IMongoIdentifiable
+public partial class Notification : IMongoIdentifiable
 {
 
     //// This field is used by the jsonapi-consumer to control the correct casing in the type field
-    public string Type { get; set; } = "ipaffsNotifications";
+    public string Type { get; set; } = "notifications";
 
     //[BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
     public virtual string? Id

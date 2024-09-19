@@ -68,7 +68,7 @@ public static class MovementExtensions
         
         return new Movement() {
             Id = r.Header.DeclarationUCR,
-            LastUpdateDateTime = r.ServiceHeader?.ServiceCallTimestamp,
+            LastUpdated = r.ServiceHeader?.ServiceCallTimestamp,
             ClearanceRequests = new ALVSClearanceRequest[]
             {
                 r

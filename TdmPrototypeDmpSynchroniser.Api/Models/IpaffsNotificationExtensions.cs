@@ -6,10 +6,10 @@ using TdmPrototypeBackend.Types.Ipaffs;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Models;
 
-public static class IpaffsNotificationExtensions
+public static class NotificationExtensions
 {
     
-    public static IpaffsNotification FromBlob(string s)
+    public static Notification FromBlob(string s)
     {
         JsonSerializerOptions options = new JsonSerializerOptions()
         {
@@ -17,7 +17,7 @@ public static class IpaffsNotificationExtensions
             NumberHandling = JsonNumberHandling.AllowReadingFromString
         };
         
-        var r = JsonSerializer.Deserialize<IpaffsNotification>(s, options)!;
+        var r = JsonSerializer.Deserialize<Notification>(s, options)!;
         
         // r.Id = r.ReferenceNumber;
         
