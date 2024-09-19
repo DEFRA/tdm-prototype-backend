@@ -1,4 +1,6 @@
-using Azure.Storage.Blobs.Models;
+using System.Dynamic;
+using System.Text.Json.JsonDiffPatch;
+using System.Text.Json.Nodes;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeDmpSynchroniser.Api.Config;
@@ -118,6 +120,30 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                 try
                 {
                     var n = await ConvertIpaffsNotification(item);
+                    var existingNotification = await notificationService.Find(n.Id);
+
+                    if (existingNotification is not null)
+                    {
+                        if (n.Version > existingNotification.Version)
+                        {
+                            JsonNode diff = null;
+                            n.VersionHistories = existingNotification.VersionHistories;
+                            var node1 = JsonNode.Parse(existingNotification.ToJson());
+                            var node2 = JsonNode.Parse(n.ToJson());
+                            diff = node1.Diff(node2);
+
+                            n.VersionHistories.Add(new VersionHistory()
+                            {
+                                Id = item.Name,
+                                DateTime = n.LastUpdated,
+                                LastUpdatedBy = n.LastUpdatedBy.DisplayName,
+                                Diff = diff.ToJsonString()
+
+                            });
+                        }
+                    }
+
+
                     await notificationService.Upsert(n);
                     itemCount++;
                 }
