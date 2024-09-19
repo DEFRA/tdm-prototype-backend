@@ -73,7 +73,7 @@ public static class MovementExtensions
             {
                 r
             },
-            Items = r.Items.Select(x => new MovementItem() { CustomsProcedureCode = x.CustomsProcedureCode}).ToArray()
+            Items = r.Items,
         };
     }
 }

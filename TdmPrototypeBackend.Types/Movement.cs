@@ -11,25 +11,25 @@ namespace TdmPrototypeBackend.Types;
 // Recreation of ClearanceRequest schema from
 // https://eaflood.atlassian.net/wiki/spaces/TRADE/pages/5104664583/PHA+Port+Health+Authority+Integration+Data+Schema
 
-public class MovementItem
-{
-    [Attr]
-    public int ItemNumber { get; set; } = default!;
+//public class MovementItem
+//{
+//    [Attr]
+//    public int ItemNumber { get; set; } = default!;
     
-    [Attr]
-    public string CustomsProcedureCode { get; set; } = default!;
+//    [Attr]
+//    public string CustomsProcedureCode { get; set; } = default!;
     
-    [Attr]
-    public string TaricCommodityCode { get; set; } = default!;
+//    [Attr]
+//    public string TaricCommodityCode { get; set; } = default!;
     
-    [Attr]
-    public string GoodsDescription { get; set; } = default!;
+//    [Attr]
+//    public string GoodsDescription { get; set; } = default!;
     
-    // TODO : Unclear yet whether items in a clearance request can be  
-    // split across GMRs
-    [Attr]
-    public MatchingStatus Gmr { get; set; } = default!;
-}
+//    // TODO : Unclear yet whether items in a clearance request can be  
+//    // split across GMRs
+//    [Attr]
+//    public MatchingStatus Gmr { get; set; } = default!;
+//}
 
 [Resource]
 public class Movement : CustomStringMongoIdentifiable
@@ -45,6 +45,9 @@ public class Movement : CustomStringMongoIdentifiable
     public Alvs.ALVSClearanceRequest[] ClearanceRequests { get; set; } = default!;
     
     [Attr]
-    public MovementItem[] Items { get; set; } = default!;
+    public Items[] Items { get; set; } = default!;
+
+    [Attr]
+    public DateTime? LastUpdateDateTime { get; set; }
 
 }

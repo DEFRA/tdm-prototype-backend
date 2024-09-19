@@ -107,7 +107,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         Console.WriteLine("Response from GvmsGmr API {0}", gmrResponse.ToJson());
         
         Assert.Equal(204, (int)gmrResponse.HttpStatusCode);
-        var items = new[] { new MovementItem() { CustomsProcedureCode = "AAA", Gmr = new MatchingStatus() { Matched = true, Reference = gmr.Id} } };
+        var items = new[] { new Items() { CustomsProcedureCode = "AAA" } };
         var movement = CreateChedAMovement(items: items);
         // movement.Items[0].Gmr = new MatchingStatus() { Matched = true, Reference = gmr.Id};
 
@@ -233,10 +233,10 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         };
     }
 
-    private Movement CreateChedAMovement(String id = null, MovementItem[] items = null)
+    private Movement CreateChedAMovement(String id = null, Items[] items = null)
     {
         id = id ?? GenerateChedID(id:testId);
-        items = items ?? new[] { new MovementItem() { CustomsProcedureCode = "AAA" } };
+        items = items ?? new[] { new Items() { CustomsProcedureCode = "AAA" } };
         return new Movement()
         {
             Items = items,
@@ -244,10 +244,10 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         };
     }
 
-    private ALVSClearanceRequest CreateChedAClearanceRequest(String id = null, MovementItem[] items = null)
+    private ALVSClearanceRequest CreateChedAClearanceRequest(String id = null, Items[] items = null)
     {
         id = id ?? GenerateChedID(id:testId);
-        items = items ?? new[] { new MovementItem() { CustomsProcedureCode = "AAA" } };
+        items = items ?? new[] { new Items() { CustomsProcedureCode = "AAA" } };
         return new ALVSClearanceRequest()
         {
             // Id = id,
