@@ -1,6 +1,7 @@
 using System.Dynamic;
 using System.Text.Json.JsonDiffPatch;
 using System.Text.Json.Nodes;
+using Json.Patch;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeDmpSynchroniser.Api.Config;
@@ -126,18 +127,18 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                     {
                         if (n.Version > existingNotification.Version)
                         {
-                            JsonNode diff = null;
+                            JsonPatch diff = null;
                             n.VersionHistories = existingNotification.VersionHistories;
                             var node1 = JsonNode.Parse(existingNotification.ToJson());
                             var node2 = JsonNode.Parse(n.ToJson());
-                            diff = node1.Diff(node2);
+                            diff = node1.CreatePatch(node2);
 
                             n.VersionHistories.Add(new VersionHistory()
                             {
                                 Id = item.Name,
                                 DateTime = n.LastUpdated,
                                 LastUpdatedBy = n.LastUpdatedBy.DisplayName,
-                                Diff = diff.ToJsonString()
+                                Diff = diff.ToJson()
 
                             });
                         }
