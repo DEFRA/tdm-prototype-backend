@@ -3,6 +3,7 @@ using System.Text.Json.JsonDiffPatch;
 using System.Text.Json.Nodes;
 using Json.Patch;
 using TdmPrototypeBackend.Types;
+using TdmPrototypeBackend.Types.Extensions;
 using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeDmpSynchroniser.Api.Config;
 using TdmPrototypeDmpSynchroniser.Api.Models;
@@ -152,7 +153,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                         {
                             n.AuditEntries = existingNotification.AuditEntries;
 
-                            if ((existingNotification.Version - n.Version) == 1)
+                            if ((n.Version - existingNotification.Version) == 1)
                             {
                                 var auditEntry = AuditEntry.Create(existingNotification,
                                     n,
@@ -173,7 +174,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                                 n.AuditEntries.Add(auditEntry);
                             }
 
-                            
+                            var s = n.AuditEntries.ToJsonString();
                             await notificationService.Upsert(n);
                             itemCount++;
                         }
