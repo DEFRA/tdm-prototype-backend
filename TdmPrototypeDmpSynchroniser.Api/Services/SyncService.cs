@@ -10,7 +10,7 @@ using Status = TdmPrototypeDmpSynchroniser.Api.Models.Status;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Services;
 
-public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config, IBlobService blobService, IStorageService<Movement> movementService, IStorageService<IpaffsNotification> notificationService)
+public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config, IBlobService blobService, IStorageService<Movement> movementService, IStorageService<Notification> notificationService)
     : BaseService(loggerFactory, config), ISyncService
 {
     
@@ -67,7 +67,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
         }
     }
     
-    public async Task<Status> SyncIpaffsNotifications()
+    public async Task<Status> SyncNotifications()
     {
         try
         {
@@ -165,14 +165,14 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
         return (erroredCount, itemCount);
     }
 
-    private async Task<IpaffsNotification> ConvertIpaffsNotification(IBlobItem item)
+    private async Task<Notification> ConvertIpaffsNotification(IBlobItem item)
     {
         var blob = await blobService.GetBlobAsync(item.Name);
 
         try
         {
             // throw new Exception();
-            return IpaffsNotificationExtensions.FromBlob(blob.Content);
+            return NotificationExtensions.FromBlob(blob.Content);
         }
         catch (Exception ex)
         {

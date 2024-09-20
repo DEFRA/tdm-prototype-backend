@@ -19,7 +19,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// 
     /// </summary>
      [Resource] 
-    public partial class IpaffsNotification  //: CustomStringMongoIdentifiable
+    public partial class Notification  //: CustomStringMongoIdentifiable
 {
 
 

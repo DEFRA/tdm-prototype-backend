@@ -40,7 +40,7 @@ public static class AssertExtensions
         act.Should().NotThrow("failed to serialize to Bson");
     }
 
-    public static void ShouldBeEqualTo(this IpaffsNotification notification, IpaffsIpaffsNotificationTypeEnum notificationType, IpaffsIpaffsNotificationStatusEnum status, string expectedJson)
+    public static void ShouldBeEqualTo(this Notification notification, IpaffsIpaffsNotificationTypeEnum notificationType, IpaffsIpaffsNotificationStatusEnum status, string expectedJson)
     {
         IDictionary<string, object> dictionary = JsonSerializer.Deserialize<ExpandoObject>(expectedJson) as IDictionary<string, object>;
 
@@ -53,6 +53,10 @@ public static class AssertExtensions
         notification.IpaffsType.Should().Be(notificationType);
         notification.Status.Should().Be(status);
 
+
+        notification.Movement.Should().NotBeNull("Movement should be set to default value");
+        notification.Movement.Matched.Should().Be(false);
+        
         if (notification.RiskAssessment is not null)
         {
             notification.RiskAssessment.ShouldBe((JsonElement)dictionary["riskAssessment"]);

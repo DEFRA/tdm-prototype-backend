@@ -18,7 +18,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="Ipaffs\" />
+    <Folder Include="Alvs\" />
     <Folder Include="Alvs\" />
     <Folder Include="VehicleMovement\" />
   </ItemGroup>

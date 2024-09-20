@@ -67,12 +67,13 @@ public static class MovementExtensions
        // cr.Items = r.Items;
         
         return new Movement() {
-            Id = r.Header.EntryReference,
+            Id = r.Header.DeclarationUCR,
+            LastUpdated = r.ServiceHeader?.ServiceCallTimestamp,
             ClearanceRequests = new ALVSClearanceRequest[]
             {
                 r
             },
-            Items = r.Items.Select(x => new MovementItem() { CustomsProcedureCode = x.CustomsProcedureCode}).ToArray()
+            Items = r.Items,
         };
     }
 }

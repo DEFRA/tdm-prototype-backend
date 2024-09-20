@@ -19,7 +19,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
 // TODO : Can we generate this from the schema file 
 // https://eaflood.atlassian.net/wiki/spaces/TRADE/pages/5104664583/PHA+Port+Health+Authority+Integration+Data+Schema
 
-
+public partial class Notification : IMongoIdentifiable
 
 public class VersionHistory
 {
@@ -35,11 +35,10 @@ public class VersionHistory
 
 }
 
-public partial class IpaffsNotification : IMongoIdentifiable
 {
 
     //// This field is used by the jsonapi-consumer to control the correct casing in the type field
-    public string Type { get; set; } = "ipaffsNotifications";
+    public string Type { get; set; } = "notifications";
 
     //[BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
     public virtual string? Id
@@ -69,6 +68,22 @@ public partial class IpaffsNotification : IMongoIdentifiable
     
     [Attr]
     public MatchingStatus Movement { get; set; } = new MatchingStatus() { Matched = false };
+
+}
+
+/// <summary>
+/// Added manual class to include message, which isn't part of the schema, but a lot of data includes it
+/// </summary>
+public partial class IpaffsValidationMessageCode  //
+{
+
+
+    /// <summary>
+    /// Field
+    /// </summary>
+    [Attr]
+    [JsonPropertyName("message")]
+    public string? Message { get; set; }
 
     public List<VersionHistory> VersionHistories { get; set; } = new List<VersionHistory>();
    
