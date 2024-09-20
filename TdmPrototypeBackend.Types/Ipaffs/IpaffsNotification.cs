@@ -19,8 +19,6 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
 // TODO : Can we generate this from the schema file 
 // https://eaflood.atlassian.net/wiki/spaces/TRADE/pages/5104664583/PHA+Port+Health+Authority+Integration+Data+Schema
 
-public partial class Notification : IMongoIdentifiable
-
 public class VersionHistory
 {
     public string Id { get; set; }
@@ -34,6 +32,10 @@ public class VersionHistory
 
 
 }
+
+public partial class Notification : IMongoIdentifiable
+
+
 
 {
 
@@ -69,24 +71,8 @@ public class VersionHistory
     [Attr]
     public MatchingStatus Movement { get; set; } = new MatchingStatus() { Matched = false };
 
-}
-
-/// <summary>
-/// Added manual class to include message, which isn't part of the schema, but a lot of data includes it
-/// </summary>
-public partial class IpaffsValidationMessageCode  //
-{
-
-
-    /// <summary>
-    /// Field
-    /// </summary>
-    [Attr]
-    [JsonPropertyName("message")]
-    public string? Message { get; set; }
-
     public List<VersionHistory> VersionHistories { get; set; } = new List<VersionHistory>();
-   
+
 }
 
 /// <summary>
@@ -102,5 +88,5 @@ public partial class IpaffsValidationMessageCode  //
     [Attr]
     [JsonPropertyName("message")]
     public string? Message { get; set; }
-
+   
 }
