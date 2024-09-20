@@ -147,12 +147,18 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                                 n.LastUpdatedBy?.DisplayName);
 
                             n.AuditEntries.Add(auditEntry);
+                            await notificationService.Upsert(n);
+                            itemCount++;
                         }
+                    }
+                    else
+                    {
+                        await notificationService.Upsert(n);
+                        itemCount++;
                     }
 
 
-                    await notificationService.Upsert(n);
-                    itemCount++;
+                    
                 }
                 catch (Exception ex)
                 {
