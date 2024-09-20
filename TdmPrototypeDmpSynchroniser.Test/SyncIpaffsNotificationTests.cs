@@ -1,8 +1,13 @@
 using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging.Abstractions;
+using MongoDB.Bson;
+using MongoDB.Bson.IO;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using Moq;
 using TdmPrototypeBackend.Types;
+using TdmPrototypeBackend.Types.Extensions;
 using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeDmpSynchroniser.Api.Config;
 using TdmPrototypeDmpSynchroniser.Api.Services;
@@ -86,7 +91,7 @@ public class SyncIpaffsNotificationTests
 
         notificationService.Verify(x => x.Upsert(It.Is<Notification>(
             x => x.AuditEntries.Count == 1 &&
-                 x.AuditEntries[0].Diff == "[{\"op\":\"replace\",\"path\":\"/version\",\"value\":2},{\"op\":\"replace\",\"path\":\"/lastUpdatedBy/displayName\",\"value\":\"Andrew Inspector-Tester-Changed\"}]")));
+                 x.AuditEntries[0].Diff.ToJsonString(null) == "[{\"op\":\"replace\",\"path\":\"/version\",\"value\":2},{\"op\":\"replace\",\"path\":\"/lastUpdatedBy/displayName\",\"value\":\"Andrew Inspector-Tester-Changed\"}]")));
 
 
     }
@@ -130,6 +135,20 @@ public class SyncIpaffsNotificationTests
     [Fact]
     public async Task SyncNotification_NoPreviousVersionExists_AuditEntriesShouldNotBeCreated()
     {
+        var diffString =
+            "[{\"op\":\"add\",\"path\":\"/partTwo\",\"value\":{\"decision\":{\"decision\":\"Acceptable for Internal Market\"},\"consignmentCheck\":{\"euStandard\":\"Not Set\",\"additionalGuarantees\":\"Not Set\",\"documentCheckResult\":\"Not Set\",\"nationalRequirements\":\"Not Set\"},\"impactOfTransportOnAnimals\":{\"numberOfDeadAnimalsUnit\":\"number\",\"numberOfUnfitAnimalsUnit\":\"number\"},\"laboratoryTests\":{},\"controlAuthority\":{\"officialVeterinarian\":{\"firstName\":\"Mark\",\"lastName\":\"Admin-Tester\",\"email\":\"DefraTestBIP@anthunt3.33mail.com\",\"phone\":\"020 8225 7295\",\"signed\":\"2024-09-02T15:17:45.435028963\"}}}},{\"op\":\"replace\",\"path\":\"/id\",\"value\":30703},{\"op\":\"replace\",\"path\":\"/etag\",\"value\":\"0000000000073EE2\"},{\"op\":\"replace\",\"path\":\"/version\",\"value\":2},{\"op\":\"replace\",\"path\":\"/lastUpdated\",\"value\":\"2024-09-02T15:17:45.437139292Z\"},{\"op\":\"replace\",\"path\":\"/status\",\"value\":\"IN_PROGRESS\"}]";
+
+        using (var jsonReader = new JsonReader(diffString))
+        {
+            var serializer = new BsonArraySerializer();
+            var bsonArray = serializer.Deserialize(BsonDeserializationContext.CreateRoot(jsonReader));
+        }
+
+
+        var v =  BsonDocument.Parse(diffString);
+
+
+
         var newItem =
            "{\"id\":26574,\"referenceNumber\":\"CHEDA.GB.2024.1026574\",\"version\":2,\"lastUpdated\":\"2024-09-03T11:45:38.585822114Z\",\"lastUpdatedBy\":{\"displayName\":\"Andrew Inspector-Tester-Changed\",\"userId\":\"79f6dc68-2144-e911-a96a-000d3a29ba60\"},\"type\":\"CVEDA\",\"status\":\"SUBMITTED\",\"isHighRiskEuImport\":true,\"partOne\":{\"personResponsible\":{\"name\":\"Mark Admin-Tester\",\"companyId\":\"767ceb6a-2144-e911-a96c-000d3a29b5de\",\"companyName\":\"Defra Test BIP\",\"address\":[\"Animal and Plant Health Agency\",\"Woodham Lane\",\"New Haw\",\"Surrey\",\"Addlestone\",\"KT15 3NB\"],\"country\":\"GB\",\"tracesID\":1001,\"phone\":\"020 8225 7295\",\"email\":\"DefraTestBIP@anthunt3.33mail.com\",\"contactId\":\"79f6dc68-2144-e911-a96a-000d3a29ba60\"},\"consignor\":{\"id\":\"d5eba566-9b57-4580-84fb-d28739fa4719\",\"type\":\"exporter\",\"status\":\"nonapproved\",\"companyName\":\"c7f606df309a417da4ec442330ddd52a\",\"address\":{\"addressLine1\":\"07584 Gillian Mews\",\"addressLine2\":\"Apt. 962\",\"addressLine3\":\"Idaho\",\"city\":\"Lake Cristina\",\"postalZipCode\":\"91645\",\"countryISOCode\":\"DE\",\"telephone\":\"01615555555\",\"email\":\"ukoperator@email.com\"},\"tracesId\":10008591},\"consignee\":{\"id\":\"803d26e9-ce15-4512-8d99-2b88499880fd\",\"type\":\"consignee\",\"status\":\"nonapproved\",\"companyName\":\"aa0863fc325945dcb16247e4cc242f38\",\"address\":{\"addressLine1\":\"47107 McCullough Common\",\"addressLine2\":\"Suite 139\",\"addressLine3\":\"Washington\",\"city\":\"New Dayanafurt\",\"postalZipCode\":\"35150-2\",\"countryISOCode\":\"GB\",\"telephone\":\"01615555555\",\"email\":\"ukoperator@email.com\"},\"tracesId\":10001806},\"importer\":{\"id\":\"803d26e9-ce15-4512-8d99-2b88499880fd\",\"type\":\"consignee\",\"status\":\"nonapproved\",\"companyName\":\"aa0863fc325945dcb16247e4cc242f38\",\"address\":{\"addressLine1\":\"47107 McCullough Common\",\"addressLine2\":\"Suite 139\",\"addressLine3\":\"Washington\",\"city\":\"New Dayanafurt\",\"postalZipCode\":\"35150-2\",\"countryISOCode\":\"GB\",\"telephone\":\"01615555555\",\"email\":\"ukoperator@email.com\"},\"tracesId\":10001806},\"placeOfDestination\":{\"id\":\"803d26e9-ce15-4512-8d99-2b88499880fd\",\"type\":\"consignee\",\"status\":\"nonapproved\",\"companyName\":\"aa0863fc325945dcb16247e4cc242f38\",\"address\":{\"addressLine1\":\"47107 McCullough Common\",\"addressLine2\":\"Suite 139\",\"addressLine3\":\"Washington\",\"city\":\"New Dayanafurt\",\"postalZipCode\":\"35150-2\",\"countryISOCode\":\"GB\",\"telephone\":\"01615555555\",\"email\":\"ukoperator@email.com\"},\"tracesId\":10001806},\"commodities\":{\"numberOfPackages\":1,\"numberOfAnimals\":1,\"commodityComplement\":[{\"commodityID\":\"0101\",\"commodityDescription\":\"Live horses, asses, mules and hinnies\",\"complementID\":1,\"complementName\":\"Equus asinus\",\"speciesID\":\"242089\",\"speciesName\":\"Equus asinus\",\"speciesType\":\"2\",\"speciesClass\":\"147603\",\"speciesNomination\":\"Equus asinus\"}],\"complementParameterSet\":[{\"uniqueComplementID\":\"65b5bb8e-5b2c-4f76-ade0-472e1836c4ac\",\"complementID\":1,\"speciesID\":\"242089\",\"keyDataPair\":[{\"key\":\"number_package\",\"data\":\"1\"},{\"key\":\"number_animal\",\"data\":\"1\"}],\"identifiers\":[{\"speciesNumber\":1,\"data\":{\"microchip\":\"1\",\"passport\":\"2\"}}]}],\"includeNonAblactedAnimals\":false,\"countryOfOrigin\":\"ES\",\"animalsCertifiedAs\":\"Approved\"},\"purpose\":{\"internalMarketPurpose\":\"Rescue\",\"purposeGroup\":\"For Import\"},\"pointOfEntry\":\"GBAPHA1A\",\"arrivalDate\":\"2025-01-01\",\"arrivalTime\":\"22:00:00\",\"transporter\":{\"id\":\"ab490d10-48a7-43d8-b552-9bde3ea5ee4a\",\"type\":\"private transporter\",\"status\":\"nonapproved\",\"companyName\":\"222f0960f6884a8780472519ef042379\",\"address\":{\"addressLine1\":\"2736 Thiel Locks\",\"addressLine2\":\"Suite 332\",\"addressLine3\":\"Connecticut\",\"city\":\"Lake Estella\",\"postalZipCode\":\"71961-0\",\"countryISOCode\":\"PL\",\"telephone\":\"01615555555\",\"email\":\"ukoperator@email.com\"},\"tracesId\":10001795},\"meansOfTransport\":{\"id\":\"2121\",\"type\":\"Railway Wagon\",\"document\":\"21\"},\"meansOfTransportFromEntryPoint\":{\"id\":\"1\",\"type\":\"Aeroplane\",\"document\":\"1\"},\"departureDate\":\"2025-02-01\",\"departureTime\":\"11:11:00\",\"estimatedJourneyTimeInMinutes\":1501,\"veterinaryInformation\":{\"accompanyingDocuments\":[{\"documentType\":\"latestVeterinaryHealthCertificate\",\"documentReference\":\"1\",\"documentIssueDate\":\"2024-01-01\"}]},\"route\":{\"transitingStates\":[\"AL\"]},\"submissionDate\":\"2024-09-03T11:45:38.561284044Z\",\"submittedBy\":{\"displayName\":\"Andrew Inspector-Tester\",\"userId\":\"79f6dc68-2144-e911-a96a-000d3a29ba60\"},\"complexCommoditySelected\":true,\"portOfEntry\":\"GBAVO\",\"isGVMSRoute\":true,\"provideCtcMrn\":\"YES\"},\"etag\":\"0000000000074C9B\",\"riskDecisionLockingTime\":\"2025-01-01T20:00:00Z\",\"isRiskDecisionLocked\":false,\"chedTypeVersion\":1}";
 
