@@ -25,20 +25,24 @@ public class AuditEntry
 
     public string DateTime { get; set; }
 
-    [BsonIgnore]
-    public JsonPatch Diff { get; set; }
+    public string Status { get; set; }
 
-    [JsonIgnore]
-    [BsonElement("diff")]
-    public BsonArray BsonDiff
-    {
-        get => _bsonDiff;
-        set
-        {
-            _bsonDiff = value;
-            Diff ??= JsonSerializer.Deserialize<JsonPatch>(BsonDiff.ToJson());
-        }
-    }
+    public List<AuditDiffEntry> Diff { get; set; } = new ();
+
+    //[BsonIgnore]
+    //public JsonPatch Diff { get; set; }
+
+    //[JsonIgnore]
+    //[BsonElement("diff")]
+    //public BsonArray BsonDiff
+    //{
+    //    get => _bsonDiff;
+    //    set
+    //    {
+    //        _bsonDiff = value;
+    //        Diff ??= JsonSerializer.Deserialize<JsonPatch>(BsonDiff.ToJson());
+    //    }
+    //}
 
 
     public static AuditEntry Create<T>(T previous, T current, string id, int version, string lastUpdated, string lastUpdatedBy)
@@ -47,23 +51,83 @@ public class AuditEntry
         var node2 = JsonNode.Parse(current.ToJsonString());
 
         var diff = node1.CreatePatch(node2);
-        BsonArray bsonDiff;
-        using (var jsonReader = new JsonReader(diff.ToJsonString()))
+       
+        var auditEntry =  new AuditEntry()
         {
-            var serializer = new BsonArraySerializer();
-            bsonDiff = serializer.Deserialize(BsonDeserializationContext.CreateRoot(jsonReader));
+            Id = id,
+            Version = version,
+            DateTime = lastUpdated,
+            LastUpdatedBy = lastUpdatedBy,
+            Status = "DiffCreated"
+
+        };
+
+        foreach (var operation in diff.Operations)
+        {
+            auditEntry.Diff.Add(AuditDiffEntry.Create(operation));
         }
 
+        return auditEntry;
+    }
+
+    public static AuditEntry CreateSkippedVersion<T>(T current, string id, int version, string lastUpdated, string lastUpdatedBy)
+    {
         return new AuditEntry()
         {
             Id = id,
             Version = version,
             DateTime = lastUpdated,
             LastUpdatedBy = lastUpdatedBy,
-            Diff = diff,
-            BsonDiff = bsonDiff
+            Status = "SkippedVersion"
 
         };
+    }
+
+    public class AuditDiffEntry
+    {
+        public string Path { get; set; }
+
+        public string Op { get; set; }
+
+        public object Value { get; set; }
+
+        public static AuditDiffEntry Create(PatchOperation operation)
+        {
+            object value = null;
+            switch (operation.Value.GetValueKind())
+            {
+                case JsonValueKind.Undefined:
+                    value = "UNKNOWN";
+                    break;
+                case JsonValueKind.Object:
+                    value = "COMPLEXTYPE";
+                    break;
+                case JsonValueKind.Array:
+                    value = "ARRAY";
+                    break;
+                case JsonValueKind.String:
+                    value = operation.Value.GetValue<string>();
+                    break;
+                case JsonValueKind.Number:
+                    value = operation.Value.GetValue<int>();
+                    break;
+                case JsonValueKind.True:
+                case JsonValueKind.False:
+                    value = operation.Value.GetValue<bool>();
+                    break;
+                case JsonValueKind.Null:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            return new AuditEntry.AuditDiffEntry()
+            {
+                Path = operation.Path.ToString(),
+                Op = operation.Op.ToString(),
+                Value = value
+            };
+        }
     }
 }
 

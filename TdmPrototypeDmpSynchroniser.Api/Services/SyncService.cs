@@ -20,7 +20,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
         {
             // TODO need to figure out how we select path
             
-            var result = await blobService.GetResourcesAsync("RAW/ALVS/2024/09/");
+            var result = await blobService.GetResourcesAsync("RAW/ALVS/");
             
             var itemCount = 0;
             var erroredCount = 0;
@@ -36,7 +36,9 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                         if (movement.ClearanceRequests.First().Header.EntryVersionNumber > existingMovement.ClearanceRequests.First().Header.EntryVersionNumber)
                         {
                             movement.AuditEntries = existingMovement.AuditEntries;
-                            var auditEntry = AuditEntry.Create(existingMovement, movement, item.Name, existingMovement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(), movement.LastUpdated.ToString(),
+                            var auditEntry = AuditEntry.Create(existingMovement, movement,
+                                BuildNormalizedAlvsPath(item.Name),
+                                existingMovement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(), movement.LastUpdated.ToString(),
                                 string.Empty);
 
                             movement.AuditEntries.Add(auditEntry);
@@ -149,10 +151,29 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                         if (n.Version > existingNotification.Version)
                         {
                             n.AuditEntries = existingNotification.AuditEntries;
-                            var auditEntry = AuditEntry.Create(existingNotification, n, item.Name, existingNotification.Version.GetValueOrDefault(), n.LastUpdated,
-                                n.LastUpdatedBy?.DisplayName);
 
-                            n.AuditEntries.Add(auditEntry);
+                            if ((existingNotification.Version - n.Version) == 1)
+                            {
+                                var auditEntry = AuditEntry.Create(existingNotification,
+                                    n,
+                                    BuildNormalizedIpaffsPath(item.Name),
+                                    existingNotification.Version.GetValueOrDefault(),
+                                    n.LastUpdated,
+                                    n.LastUpdatedBy?.DisplayName);
+                                n.AuditEntries.Add(auditEntry);
+                            }
+                            else
+                            {
+                                var auditEntry = AuditEntry.CreateSkippedVersion(
+                                    n,
+                                    BuildNormalizedIpaffsPath(item.Name),
+                                    existingNotification.Version.GetValueOrDefault(),
+                                    n.LastUpdated,
+                                    n.LastUpdatedBy?.DisplayName);
+                                n.AuditEntries.Add(auditEntry);
+                            }
+
+                            
                             await notificationService.Upsert(n);
                             itemCount++;
                         }
@@ -197,6 +218,16 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
             Logger.LogError($"Failed to convert file {item.Name} to ipaffs notification. {ex.ToString()}. {blob.Content}");
             throw;
         }
+    }
+
+    private string BuildNormalizedIpaffsPath(string fullPath)
+    {
+        return fullPath.Replace("\"RAW/IPAFFS/", "");
+    }
+
+    private string BuildNormalizedAlvsPath(string fullPath)
+    {
+        return fullPath.Replace("\"RAW/ALVS/", "");
     }
 
 }
