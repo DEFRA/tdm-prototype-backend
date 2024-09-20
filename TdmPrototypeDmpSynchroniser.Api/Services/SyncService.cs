@@ -40,11 +40,17 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                                 string.Empty);
 
                             movement.AuditEntries.Add(auditEntry);
+                            await movementService.Upsert(movement);
+                            itemCount++;
                         }
                     }
+                    else
+                    {
+                        await movementService.Upsert(movement);
+                        itemCount++;
+                    }
 
-                    await movementService.Upsert(await ConvertMovement(item));
-                    itemCount++;
+                   
                 }
                 catch (Exception ex)
                 {
