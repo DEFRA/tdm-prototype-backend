@@ -1,37 +1,10 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Dynamic;
-using System.Security.Cryptography;
-using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
-using System.Text.RegularExpressions;
-using Json.Patch;
 using JsonApiDotNetCore.MongoDb.Resources;
 using JsonApiDotNetCore.Resources.Annotations;
-using MongoDB.Bson;
-using MongoDB.Bson.IO;
-using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson.Serialization.IdGenerators;
-using MongoDB.Bson.Serialization.Serializers;
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
-
-// TODO : Can we generate this from the schema file 
-// https://eaflood.atlassian.net/wiki/spaces/TRADE/pages/5104664583/PHA+Port+Health+Authority+Integration+Data+Schema
-
-public class VersionHistory
-{
-    public string Id { get; set; }
-    public int Version { get; set; }
-
-    public string LastUpdatedBy { get; set; }
-
-    public string DateTime { get; set; }
-
-    public string Diff { get; set; }
-
-
-}
 
 public partial class Notification : IMongoIdentifiable
 
@@ -71,22 +44,6 @@ public partial class Notification : IMongoIdentifiable
     [Attr]
     public MatchingStatus Movement { get; set; } = new MatchingStatus() { Matched = false };
 
-    public List<VersionHistory> VersionHistories { get; set; } = new List<VersionHistory>();
+    public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
 
-}
-
-/// <summary>
-/// Added manual class to include message, which isn't part of the schema, but a lot of data includes it
-/// </summary>
-public partial class IpaffsValidationMessageCode  //
-{
-
-
-    /// <summary>
-    /// Field
-    /// </summary>
-    [Attr]
-    [JsonPropertyName("message")]
-    public string? Message { get; set; }
-   
 }

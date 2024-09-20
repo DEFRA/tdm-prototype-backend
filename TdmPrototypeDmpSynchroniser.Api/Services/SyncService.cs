@@ -28,6 +28,21 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
             {
                 try
                 {
+                    var movement = await ConvertMovement(item);
+                    var existingMovement = await movementService.Find(movement.Id);
+
+                    if (existingMovement is not null)
+                    {
+                        if (movement.ClearanceRequests.First().Header.EntryVersionNumber > existingMovement.ClearanceRequests.First().Header.EntryVersionNumber)
+                        {
+                            movement.AuditEntries = existingMovement.AuditEntries;
+                            var auditEntry = AuditEntry.Create(existingMovement, movement, item.Name, existingMovement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(), movement.LastUpdated.ToString(),
+                                string.Empty);
+
+                            movement.AuditEntries.Add(auditEntry);
+                        }
+                    }
+
                     await movementService.Upsert(await ConvertMovement(item));
                     itemCount++;
                 }
@@ -127,20 +142,11 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                     {
                         if (n.Version > existingNotification.Version)
                         {
-                            JsonPatch diff = null;
-                            n.VersionHistories = existingNotification.VersionHistories;
-                            var node1 = JsonNode.Parse(existingNotification.ToJson());
-                            var node2 = JsonNode.Parse(n.ToJson());
-                            diff = node1.CreatePatch(node2);
+                            n.AuditEntries = existingNotification.AuditEntries;
+                            var auditEntry = AuditEntry.Create(existingNotification, n, item.Name, existingNotification.Version.GetValueOrDefault(), n.LastUpdated,
+                                n.LastUpdatedBy?.DisplayName);
 
-                            n.VersionHistories.Add(new VersionHistory()
-                            {
-                                Id = item.Name,
-                                DateTime = n.LastUpdated,
-                                LastUpdatedBy = n.LastUpdatedBy.DisplayName,
-                                Diff = diff.ToJson()
-
-                            });
+                            n.AuditEntries.Add(auditEntry);
                         }
                     }
 
