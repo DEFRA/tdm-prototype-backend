@@ -44,6 +44,7 @@ public partial class Notification : IMongoIdentifiable
     [Attr]
     public MatchingStatus Movement { get; set; } = new MatchingStatus() { Matched = false };
 
+    [Attr]
     public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
 
 }

@@ -54,5 +54,6 @@ public class Movement : CustomStringMongoIdentifiable
     [Attr]
     public  DateTime? LastUpdated { get; set; }
 
+    [Attr]
     public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
 }

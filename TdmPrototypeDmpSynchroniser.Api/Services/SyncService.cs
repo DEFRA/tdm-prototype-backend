@@ -229,12 +229,12 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
 
     private string BuildNormalizedIpaffsPath(string fullPath)
     {
-        return fullPath.Replace("\"RAW/IPAFFS/", "");
+        return fullPath.Replace("RAW/IPAFFS/", "");
     }
 
     private string BuildNormalizedAlvsPath(string fullPath)
     {
-        return fullPath.Replace("\"RAW/ALVS/", "");
+        return fullPath.Replace("RAW/ALVS/", "");
     }
 
 }
