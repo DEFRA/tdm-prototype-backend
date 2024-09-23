@@ -1,14 +1,7 @@
-using System.Text.Json;
-using Json.Patch;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging.Abstractions;
-using MongoDB.Bson;
-using MongoDB.Bson.IO;
-using MongoDB.Bson.Serialization;
-using MongoDB.Bson.Serialization.Serializers;
 using Moq;
 using TdmPrototypeBackend.Types;
-using TdmPrototypeBackend.Types.Extensions;
 using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeDmpSynchroniser.Api.Config;
 using TdmPrototypeDmpSynchroniser.Api.Services;
