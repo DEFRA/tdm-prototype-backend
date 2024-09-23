@@ -67,7 +67,7 @@ public static class MovementExtensions
        // cr.Items = r.Items;
         
         return new Movement() {
-            Id = r.Header.DeclarationUCR,
+            Id = r.Header.EntryReference,
             LastUpdated = r.ServiceHeader?.ServiceCallTimestamp,
             ClearanceRequests = new List<ALVSClearanceRequest>()
             {

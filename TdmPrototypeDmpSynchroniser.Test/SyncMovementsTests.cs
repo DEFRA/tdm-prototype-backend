@@ -36,7 +36,7 @@ public class SyncMovementsTests
         blobService.Setup(x => x.GetBlobAsync("Item1"))
             .ReturnsAsync(new SynchroniserBlobItem() { Name = "Item1", Content = newItem });
 
-        movementService.Setup(x => x.Find("1GB782435121000-000000001079849")).ReturnsAsync(
+        movementService.Setup(x => x.Find("21GB3U0G9F0ZAPSFR9")).ReturnsAsync(
             MovementExtensions.FromClearanceRequest(existingItem));
         await syncService.SyncMovements();
 
@@ -72,7 +72,7 @@ public class SyncMovementsTests
         blobService.Setup(x => x.GetBlobAsync("Item1"))
             .ReturnsAsync(new SynchroniserBlobItem() { Name = "Item1", Content = newItem });
 
-        movementService.Setup(x => x.Find("1GB782435121000-000000001079849")).ReturnsAsync(
+        movementService.Setup(x => x.Find("21GB3U0G9F0ZAPSFR9")).ReturnsAsync(
             MovementExtensions.FromClearanceRequest(existingItem));
         await syncService.SyncMovements();
 
