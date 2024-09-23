@@ -10,14 +10,28 @@ namespace TdmPrototypeDmpSynchroniser.Api.Services;
 public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config, IBlobService blobService, IStorageService<Movement> movementService, IStorageService<Notification> notificationService)
     : BaseService(loggerFactory, config), ISyncService
 {
-    
-    public async Task<Status> SyncMovements()
+
+    private static string GetPeriodPath(SyncPeriod period)
     {
+        if (period == SyncPeriod.ThisMonth)
+        {
+            return DateTime.Today.ToString("/yyyy/MM/");
+        }
+        else if (period == SyncPeriod.Today)
+        {
+            return DateTime.Today.ToString("/yyyy/MM/dd/");
+        }
+        return "/";
+    }
+    
+    public async Task<Status> SyncMovements(SyncPeriod period)
+    {
+        Logger.LogInformation($"SyncMovements period={period}");
         try
         {
             // TODO need to figure out how we select path
             
-            var result = await blobService.GetResourcesAsync("RAW/ALVS/2024/09/");
+            var result = await blobService.GetResourcesAsync($"RAW/ALVS{GetPeriodPath(period)}");
             
             var itemCount = 0;
             var erroredCount = 0;
@@ -64,8 +78,9 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
         }
     }
     
-    public async Task<Status> SyncNotifications()
+    public async Task<Status> SyncNotifications(SyncPeriod period)
     {
+        Logger.LogInformation($"SyncNotifications period={period}");
         try
         {
             var itemCount = 0;
@@ -73,19 +88,19 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
         
             // TODO need to figure out how we select path
 
-            var (e, i) = await SyncIpaffsNotifications("RAW/IPAFFS/CHEDA/2024/09/");
+            var (e, i) = await SyncIpaffsNotifications($"RAW/IPAFFS/CHEDA{GetPeriodPath(period)}");
             itemCount += i;
             erroredCount += e;
                 
-            (e, i) = await SyncIpaffsNotifications("RAW/IPAFFS/CHEDD/2024/09/");
+            (e, i) = await SyncIpaffsNotifications($"RAW/IPAFFS/CHEDD{GetPeriodPath(period)}");
             itemCount += i;
             erroredCount += e;
             
-            (e, i) = await SyncIpaffsNotifications("RAW/IPAFFS/CHEDP/2024/09/");
+            (e, i) = await SyncIpaffsNotifications($"RAW/IPAFFS/CHEDP{GetPeriodPath(period)}");
             itemCount += i;
             erroredCount += e;
             
-            (e, i) = await SyncIpaffsNotifications("RAW/IPAFFS/CHEDPP/2024/09/");
+            (e, i) = await SyncIpaffsNotifications($"RAW/IPAFFS/CHEDPP{GetPeriodPath(period)}");
             itemCount += i;
             erroredCount += e;
             
@@ -102,7 +117,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
         }
     }
     
-    public async Task<(int, int)> SyncIpaffsNotifications(string path = "RAW/IPAFFS/")
+    public async Task<(int, int)> SyncIpaffsNotifications(string path)
     {
         var itemCount = 0;
         var erroredCount = 0;

@@ -10,20 +10,29 @@ public static class SyncEndpoints
 {
     private const string BaseRoute = "sync";
     // private static ILogger Logger = ApplicationLogging.CreateLogger("SyncEndpoints");
-    
+    // private static ILogger Logger = ApplicationLogging.CreateLogger("SyncEndpoints");
+
+    private static SyncPeriod Parse(string? period)
+    {
+        if (Enum.TryParse<SyncPeriod>(period, true, out SyncPeriod typed))
+        {
+            return typed;
+        }
+        return SyncPeriod.All;
+    }
     public static void UseSyncEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet(BaseRoute + "/clearance-requests", SyncClearanceRequestsAsync);
-        app.MapGet(BaseRoute + "/notifications", SyncNotificationsAsync);
+        app.MapGet(BaseRoute + "/clearance-requests/{period}", SyncClearanceRequestsAsync);
+        app.MapGet(BaseRoute + "/notifications/{period}", SyncNotificationsAsync);
     }
 
     private static async Task<IResult> SyncClearanceRequestsAsync(
-        ISyncService service)
+        ISyncService service, string? period)
     {
-        // var Logger = ApplicationLogging.CreateLogger("SyncEndpoints");
+        // 
+        // Logger.LogInformation($"SyncClearanceRequestsAsync {period}");
+        var result = await service.SyncMovements(Parse(period));
         
-        var result = await service.SyncMovements();
-        // Logger.LogInformation(result.ToJson());
         if (result.Success)
         {
             return Results.Ok(result);    
@@ -32,11 +41,11 @@ public static class SyncEndpoints
     }
     
     private static async Task<IResult> SyncNotificationsAsync(
-        ISyncService service)
+        ISyncService service, string? period)
     {
         // var Logger = ApplicationLogging.CreateLogger("SyncEndpoints");
         
-        var result = await service.SyncNotifications();
+        var result = await service.SyncNotifications(Parse(period));
         // Logger.LogInformation(result.ToJson());
         if (result.Success)
         {
