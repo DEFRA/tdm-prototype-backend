@@ -52,8 +52,8 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                         if (movement.ClearanceRequests.First().Header.EntryVersionNumber > existingMovement.ClearanceRequests.First().Header.EntryVersionNumber)
                         {
                             movement.AuditEntries = existingMovement.AuditEntries;
-                            var auditEntry = AuditEntry.Create(new List<Items>(),
-                                movement.Items,
+                            var auditEntry = AuditEntry.Create(existingMovement.ClearanceRequests.First(),
+                                movement.ClearanceRequests.First(),
                                 BuildNormalizedAlvsPath(item.Name),
                                 existingMovement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(), 
                                 movement.LastUpdated.ToString(),
@@ -61,6 +61,9 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
 
                             movement.AuditEntries.Add(auditEntry);
                             existingMovement.ClearanceRequests.AddRange(movement.ClearanceRequests);
+                            existingMovement.Items.RemoveAll(x =>
+                                x.ClearanceRequestReference ==
+                                movement.ClearanceRequests.First().Header.EntryReference);
                             existingMovement.Items.AddRange(movement.Items);
 
                             await movementService.Upsert(existingMovement);

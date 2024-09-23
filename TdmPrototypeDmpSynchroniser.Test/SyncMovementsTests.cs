@@ -19,7 +19,7 @@ public class SyncMovementsTests
 
 
         var newItem =
-            "{\"serviceHeader\":{\"sourceSystem\":\"CDS\",\"destinationSystem\":\"ALVS\",\"correlationId\":\"20\",\"serviceCallTimestamp\":1619550176000},\"header\":{\"entryReference\":\"21GB3U0G9F0ZAPSFR9\",\"entryVersionNumber\":2,\"previousVersionNumber\":1,\"declarationUCR\":\"1GB782435121000-000000001079849\",\"declarationPartNumber\":null,\"declarationType\":\"F\",\"arrivalDateTime\":null,\"submitterTURN\":\"GB363127805000\",\"declarantId\":\"GB363127805000\",\"declarantName\":\"GB363127805000\",\"dispatchCountryCode\":\"GB\",\"goodsLocationCode\":\"BELBELGVM\",\"masterUCR\":null},\"items\":[{\"itemNumber\":1,\"customsProcedureCode\":\"4000000\",\"taricCommodityCode\":\"0204423010\",\"goodsDescription\":\"LAMB\",\"consigneeId\":\"GB782435121000\",\"consigneeName\":\"GB782435121000\",\"itemNetMass\":14910.75,\"itemSupplementaryUnits\":0,\"itemThirdQuantity\":null,\"itemOriginCountryCode\":\"NZ\",\"documents\":[{\"documentCode\":\"N853\",\"documentReference\":\"CHEDP.GB.2021.1076308\",\"documentStatus\":\"AE\",\"documentControl\":\"P\",\"documentQuantity\":null}],\"checks\":[{\"checkCode\":\"H234\",\"departmentCode\":\"PHA\"}]}]}";
+            "{\"serviceHeader\":{\"sourceSystem\":\"CDS\",\"destinationSystem\":\"ALVS\",\"correlationId\":\"20\",\"serviceCallTimestamp\":1619550176000},\"header\":{\"entryReference\":\"21GB3U0G9F0ZAPSFR9\",\"entryVersionNumber\":2,\"previousVersionNumber\":1,\"declarationUCR\":\"1GB782435121000-000000001079849\",\"declarationPartNumber\":null,\"declarationType\":\"F\",\"arrivalDateTime\":null,\"submitterTURN\":\"GB363127805001\",\"declarantId\":\"GB363127805000\",\"declarantName\":\"GB363127805000\",\"dispatchCountryCode\":\"GB\",\"goodsLocationCode\":\"BELBELGVM\",\"masterUCR\":null},\"items\":[{\"itemNumber\":1,\"customsProcedureCode\":\"4000000\",\"taricCommodityCode\":\"0204423011\",\"goodsDescription\":\"LAMB\",\"consigneeId\":\"GB782435121001\",\"consigneeName\":\"GB782435121001\",\"itemNetMass\":14910.75,\"itemSupplementaryUnits\":0,\"itemThirdQuantity\":null,\"itemOriginCountryCode\":\"NZ\",\"documents\":[{\"documentCode\":\"N853\",\"documentReference\":\"CHEDP.GB.2021.1076308\",\"documentStatus\":\"AE\",\"documentControl\":\"P\",\"documentQuantity\":null}],\"checks\":[{\"checkCode\":\"H234\",\"departmentCode\":\"PHA\"}]}]}";
 
         IConfiguration config = new ConfigurationBuilder().Build();
         Mock<IBlobService> blobService = new Mock<IBlobService>();
@@ -38,7 +38,7 @@ public class SyncMovementsTests
 
         movementService.Setup(x => x.Find("21GB3U0G9F0ZAPSFR9")).ReturnsAsync(
             MovementExtensions.FromClearanceRequest(existingItem));
-        await syncService.SyncMovements();
+        await syncService.SyncMovements(SyncPeriod.All);
 
 
         movementService.Verify(x => x.Upsert(It.Is<Movement>(x => x.AuditEntries.Count == 1)));
@@ -74,7 +74,7 @@ public class SyncMovementsTests
 
         movementService.Setup(x => x.Find("21GB3U0G9F0ZAPSFR9")).ReturnsAsync(
             MovementExtensions.FromClearanceRequest(existingItem));
-        await syncService.SyncMovements();
+        await syncService.SyncMovements(SyncPeriod.All);
 
         
 
@@ -106,7 +106,7 @@ public class SyncMovementsTests
             .ReturnsAsync(new SynchroniserBlobItem() { Name = "Item1", Content = newItem });
 
         
-        await syncService.SyncMovements();
+        await syncService.SyncMovements(SyncPeriod.All);
 
         movementService.Verify(x => x.Upsert(It.Is<Movement>(
             x => x.AuditEntries.Count == 0)));
