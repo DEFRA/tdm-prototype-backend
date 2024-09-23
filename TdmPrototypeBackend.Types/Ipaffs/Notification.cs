@@ -3,14 +3,13 @@ using System.Text.Json.Serialization;
 using JsonApiDotNetCore.MongoDb.Resources;
 using JsonApiDotNetCore.Resources.Annotations;
 using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
-// TODO : Can we generate this from the schema file 
-// https://eaflood.atlassian.net/wiki/spaces/TRADE/pages/5104664583/PHA+Port+Health+Authority+Integration+Data+Schema
-
 public partial class Notification : IMongoIdentifiable
+
+
+
 {
 
     //// This field is used by the jsonapi-consumer to control the correct casing in the type field
@@ -44,21 +43,8 @@ public partial class Notification : IMongoIdentifiable
     
     [Attr]
     public MatchingStatus Movement { get; set; } = new MatchingStatus() { Matched = false };
-   
-}
 
-/// <summary>
-/// Added manual class to include message, which isn't part of the schema, but a lot of data includes it
-/// </summary>
-public partial class IpaffsValidationMessageCode  //
-{
-
-
-    /// <summary>
-    /// Field
-    /// </summary>
     [Attr]
-    [JsonPropertyName("message")]
-    public string? Message { get; set; }
+    public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
 
 }

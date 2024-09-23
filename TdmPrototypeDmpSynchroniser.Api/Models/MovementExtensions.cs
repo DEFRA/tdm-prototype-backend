@@ -65,15 +65,23 @@ public static class MovementExtensions
         var r = JsonSerializer.Deserialize<ALVSClearanceRequest>(s, options)!;
         var cr = r.Header;
        // cr.Items = r.Items;
+       foreach (var rItem in r.Items)
+       {
+           
+       }
         
         return new Movement() {
-            Id = r.Header.DeclarationUCR,
+            Id = r.Header.EntryReference,
             LastUpdated = r.ServiceHeader?.ServiceCallTimestamp,
-            ClearanceRequests = new ALVSClearanceRequest[]
+            ClearanceRequests = new List<ALVSClearanceRequest>()
             {
                 r
             },
-            Items = r.Items,
+            Items = r.Items?.Select(x =>
+            {
+                x.ClearanceRequestReference = r.Header.EntryReference;
+                return x;
+            }).ToList(),
         };
     }
 }

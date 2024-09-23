@@ -1,4 +1,4 @@
-﻿using JsonApiConsumer;
+using JsonApiConsumer;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeDmpSynchroniser.Api.Config;
 
@@ -34,5 +34,10 @@ public class JsonApiStorageService<T>: BaseService, IStorageService<T> where T :
             throw;
         }
 
+    }
+
+    public Task<T> Find(string id)
+    {
+        throw new NotImplementedException();
     }
 }

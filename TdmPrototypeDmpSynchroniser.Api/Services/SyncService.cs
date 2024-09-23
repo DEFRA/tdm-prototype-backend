@@ -1,5 +1,10 @@
-using Azure.Storage.Blobs.Models;
+using System.Dynamic;
+using System.Text.Json.JsonDiffPatch;
+using System.Text.Json.Nodes;
+using Json.Patch;
 using TdmPrototypeBackend.Types;
+using TdmPrototypeBackend.Types.Alvs;
+using TdmPrototypeBackend.Types.Extensions;
 using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeDmpSynchroniser.Api.Config;
 using TdmPrototypeDmpSynchroniser.Api.Models;
@@ -39,8 +44,39 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
             {
                 try
                 {
-                    await movementService.Upsert(await ConvertMovement(item));
-                    itemCount++;
+                    var movement = await ConvertMovement(item);
+                    var existingMovement = await movementService.Find(movement.Id);
+
+                    if (existingMovement is not null)
+                    {
+                        if (movement.ClearanceRequests.First().Header.EntryVersionNumber > existingMovement.ClearanceRequests.First().Header.EntryVersionNumber)
+                        {
+                            movement.AuditEntries = existingMovement.AuditEntries;
+                            var auditEntry = AuditEntry.Create(existingMovement.ClearanceRequests.First(),
+                                movement.ClearanceRequests.First(),
+                                BuildNormalizedAlvsPath(item.Name),
+                                existingMovement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(), 
+                                movement.LastUpdated.ToString(),
+                                string.Empty);
+
+                            movement.AuditEntries.Add(auditEntry);
+                            existingMovement.ClearanceRequests.AddRange(movement.ClearanceRequests);
+                            existingMovement.Items.RemoveAll(x =>
+                                x.ClearanceRequestReference ==
+                                movement.ClearanceRequests.First().Header.EntryReference);
+                            existingMovement.Items.AddRange(movement.Items);
+
+                            await movementService.Upsert(existingMovement);
+                            itemCount++;
+                        }
+                    }
+                    else
+                    {
+                        await movementService.Upsert(movement);
+                        itemCount++;
+                    }
+
+                   
                 }
                 catch (Exception ex)
                 {
@@ -133,8 +169,48 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                 try
                 {
                     var n = await ConvertIpaffsNotification(item);
-                    await notificationService.Upsert(n);
-                    itemCount++;
+                    var existingNotification = await notificationService.Find(n.Id);
+
+                    if (existingNotification is not null)
+                    {
+                        if (n.Version > existingNotification.Version)
+                        {
+                            n.AuditEntries = existingNotification.AuditEntries;
+
+                            if ((n.Version - existingNotification.Version) == 1)
+                            {
+                                var auditEntry = AuditEntry.Create(existingNotification,
+                                    n,
+                                    BuildNormalizedIpaffsPath(item.Name),
+                                    existingNotification.Version.GetValueOrDefault(),
+                                    n.LastUpdated,
+                                    n.LastUpdatedBy?.DisplayName);
+                                n.AuditEntries.Add(auditEntry);
+                            }
+                            else
+                            {
+                                var auditEntry = AuditEntry.CreateSkippedVersion(
+                                    n,
+                                    BuildNormalizedIpaffsPath(item.Name),
+                                    existingNotification.Version.GetValueOrDefault(),
+                                    n.LastUpdated,
+                                    n.LastUpdatedBy?.DisplayName);
+                                n.AuditEntries.Add(auditEntry);
+                            }
+
+                            var s = n.AuditEntries.ToJsonString();
+                            await notificationService.Upsert(n);
+                            itemCount++;
+                        }
+                    }
+                    else
+                    {
+                        await notificationService.Upsert(n);
+                        itemCount++;
+                    }
+
+
+                    
                 }
                 catch (Exception ex)
                 {
@@ -167,6 +243,16 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
             Logger.LogError($"Failed to convert file {item.Name} to ipaffs notification. {ex.ToString()}. {blob.Content}");
             throw;
         }
+    }
+
+    private string BuildNormalizedIpaffsPath(string fullPath)
+    {
+        return fullPath.Replace("RAW/IPAFFS/", "");
+    }
+
+    private string BuildNormalizedAlvsPath(string fullPath)
+    {
+        return fullPath.Replace("RAW/ALVS/", "");
     }
 
 }
