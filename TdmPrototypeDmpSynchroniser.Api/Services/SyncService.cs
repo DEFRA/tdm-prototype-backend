@@ -3,6 +3,7 @@ using System.Text.Json.JsonDiffPatch;
 using System.Text.Json.Nodes;
 using Json.Patch;
 using TdmPrototypeBackend.Types;
+using TdmPrototypeBackend.Types.Alvs;
 using TdmPrototypeBackend.Types.Extensions;
 using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeDmpSynchroniser.Api.Config;
@@ -37,13 +38,18 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                         if (movement.ClearanceRequests.First().Header.EntryVersionNumber > existingMovement.ClearanceRequests.First().Header.EntryVersionNumber)
                         {
                             movement.AuditEntries = existingMovement.AuditEntries;
-                            var auditEntry = AuditEntry.Create(existingMovement, movement,
+                            var auditEntry = AuditEntry.Create(new List<Items>(),
+                                movement.Items,
                                 BuildNormalizedAlvsPath(item.Name),
-                                existingMovement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(), movement.LastUpdated.ToString(),
+                                existingMovement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(), 
+                                movement.LastUpdated.ToString(),
                                 string.Empty);
 
                             movement.AuditEntries.Add(auditEntry);
-                            await movementService.Upsert(movement);
+                            existingMovement.ClearanceRequests.AddRange(movement.ClearanceRequests);
+                            existingMovement.Items.AddRange(movement.Items);
+
+                            await movementService.Upsert(existingMovement);
                             itemCount++;
                         }
                     }

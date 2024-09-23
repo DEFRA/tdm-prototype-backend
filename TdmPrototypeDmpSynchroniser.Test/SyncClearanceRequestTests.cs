@@ -17,8 +17,8 @@ public class SyncClearanceRequestTests
         
         // Unique ID should be set - need to check where the 'movement ID' is stored on the ALVS message 
         m.Id.Should().Be("DeclarationUcr11dff8fb-013f-4f25-9deb-4b7fc4dba73f");
-        m.Items.Length.Should().Be(2);
-        m.ClearanceRequests.Length.Should().Be(1);
+        m.Items.Count.Should().Be(2);
+        m.ClearanceRequests.Count.Should().Be(1);
         
         // Corrects case
         m.ClearanceRequests.First().Header.SubmitterTURN.Should().Be("SubmitterTurn051399d7-da2e-49dc-842c-236a4e84566d");
@@ -42,8 +42,8 @@ public class SyncClearanceRequestTests
         
         // Unique ID should be set - need to check where the 'movement ID' is stored on the ALVS message 
         m.Id.Should().Be("1GB782435121000-000000001079849");
-        m.Items.Length.Should().Be(1);
-        m.ClearanceRequests.Length.Should().Be(1);
+        m.Items.Count.Should().Be(1);
+        m.ClearanceRequests.Count.Should().Be(1);
     }
     
    

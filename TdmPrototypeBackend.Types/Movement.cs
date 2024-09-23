@@ -43,10 +43,10 @@ public class Movement : CustomStringMongoIdentifiable
     public MatchingStatus Notification { get; set; } = new MatchingStatus() { Matched = false };
     
     [Attr]
-    public Alvs.ALVSClearanceRequest[] ClearanceRequests { get; set; } = default!;
+    public List<Alvs.ALVSClearanceRequest> ClearanceRequests { get; set; } = default!;
     
     [Attr]
-    public Items[] Items { get; set; } = default!;
+    public List<Items> Items { get; set; } = default!;
 
     /// <summary>
     /// Date when the notification was last updated.

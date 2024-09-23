@@ -226,8 +226,8 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         items = items ?? new[] { new Items() { CustomsProcedureCode = "AAA" } };
         return new Movement()
         {
-            Items = items,
-            ClearanceRequests = new[] { CreateChedAClearanceRequest(id, items) }
+            Items = items.ToList(),
+            ClearanceRequests = new List<ALVSClearanceRequest>() { CreateChedAClearanceRequest(id, items) }
         };
     }
 

@@ -69,11 +69,11 @@ public static class MovementExtensions
         return new Movement() {
             Id = r.Header.DeclarationUCR,
             LastUpdated = r.ServiceHeader?.ServiceCallTimestamp,
-            ClearanceRequests = new ALVSClearanceRequest[]
+            ClearanceRequests = new List<ALVSClearanceRequest>()
             {
                 r
             },
-            Items = r.Items,
+            Items = r.Items?.ToList(),
         };
     }
 }
