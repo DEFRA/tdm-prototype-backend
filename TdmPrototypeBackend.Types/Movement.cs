@@ -55,5 +55,35 @@ public class Movement : CustomStringMongoIdentifiable
     public  DateTime? LastUpdated { get; set; }
 
     [Attr]
+    public string EntryReference { get; set; }
+    
+    [Attr]
+    public string MasterUCR { get; set; }
+    
+    [Attr]
+    public int? DeclarationPartNumber { get; set; }
+    
+    [Attr]
+    public string DeclarationType { get; set; }
+    
+    [Attr]
+    public DateTime? ArrivalDateTime { get; set; }
+    
+    [Attr]
+    public string SubmitterTURN { get; set; }
+    
+    [Attr]
+    public string DeclarantId { get; set; }
+    
+    [Attr]
+    public string DeclarantName { get; set; }
+    
+    [Attr]
+    public string DispatchCountryCode { get; set; }
+    
+    [Attr]
+    public string GoodsLocationCode { get; set; }
+
+    [Attr]
     public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
 }
