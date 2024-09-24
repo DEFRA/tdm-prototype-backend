@@ -82,6 +82,18 @@ public class KeyDataPairsToDictionaryStringObjectJsonConverter : JsonConverter<D
         JsonSerializer.Serialize(writer, (IDictionary<string, object?>)value, options);
     }
 
+    private object ReadString(ref Utf8JsonReader reader)
+    {
+        var s = reader.GetString();
+        int i;
+        if (int.TryParse(s, out i))
+        {
+            return i;
+        }
+
+        return s;
+    }
+
     private object? ExtractValue(ref Utf8JsonReader reader, JsonSerializerOptions options)
     {
         switch (reader.TokenType)
@@ -91,7 +103,7 @@ public class KeyDataPairsToDictionaryStringObjectJsonConverter : JsonConverter<D
                 {
                     return date;
                 }
-                return reader.GetString();
+                return ReadString(ref reader);
             case JsonTokenType.False:
                 return false;
             case JsonTokenType.True:
@@ -101,11 +113,11 @@ public class KeyDataPairsToDictionaryStringObjectJsonConverter : JsonConverter<D
             case JsonTokenType.Number:
                 if (reader.TryGetInt64(out var result))
                 {
-                    return result.ToString();
+                    return result;
                 }
-                return reader.GetDecimal().ToString();
+                return reader.GetDecimal();
             case JsonTokenType.StartObject:
-                return Read(ref reader, null!, options).ToString();
+                return Read(ref reader, null!, options);
             case JsonTokenType.StartArray:
                 var list = new List<object?>();
                 while (reader.Read() && reader.TokenType != JsonTokenType.EndArray)
