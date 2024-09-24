@@ -10,28 +10,31 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.VehicleMovement;
 
     /// <summary>
     /// 
     /// </summary>
-public partial class Declarations  {
+public partial class Declarations  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// A list of declaration ids.
         /// </summary>
         [Attr]
         [JsonPropertyName("transits")]
-        public Transits[]? Transits { get; set; }
+		public  Transits[]? Transits { get; set; }
     
-        /// <summary>
+		/// <summary>
         /// A list of declaration ids.
         /// </summary>
         [Attr]
         [JsonPropertyName("customs")]
-        public Customs[]? Customs { get; set; }
+		public  Customs[]? Customs { get; set; }
     
 }
 

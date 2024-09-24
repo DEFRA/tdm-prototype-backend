@@ -10,21 +10,24 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.VehicleMovement;
 
     /// <summary>
     /// 
     /// </summary>
-public partial class Transits  {
+public partial class Transits  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// 
         /// </summary>
         [Attr]
         [JsonPropertyName("id")]
-        public string? Id { get; set; }
+		public  string? Id { get; set; }
     
 }
 

@@ -84,7 +84,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                         movement.ClearanceRequests.First(),
                         BuildNormalizedAlvsPath(item.Name),
                         movement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(), 
-                        movement.LastUpdated.ToString(),
+                        movement.LastUpdated,
                         existingMovement.ClearanceRequests.First().Header.DeclarantName);
 
                     movement.AuditEntries.Add(auditEntry);
@@ -106,7 +106,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                     movement.ClearanceRequests.First(),
                     BuildNormalizedAlvsPath(item.Name),
                     movement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(),
-                    movement.LastUpdated.ToString(),
+                    movement.LastUpdated,
                     movement.ClearanceRequests.First().Header.DeclarantName);
                 movement.AuditEntries.Add(auditEntry);
                 await movementService.Upsert(movement);

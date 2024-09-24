@@ -1,3 +1,4 @@
+using System.Buffers;
 using System.Dynamic;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -5,6 +6,7 @@ using System.Text.Json.Serialization;
 using FluentAssertions;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
+using TdmPrototypeBackend.Types.Extensions;
 using TdmPrototypeBackend.Types.Ipaffs;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Models.Test;
@@ -18,6 +20,18 @@ public static class AssertExtensions
 
         var actualNode = JsonNode.Parse(json);
         var expectedNode = JsonNode.Parse(element.ToString());
+
+        var same = JsonNode.DeepEquals(actualNode, expectedNode);
+        same.Should().BeTrue($"{typeof(T).Name} is not the same - expected: {expectedNode} | actual: {actualNode}");
+    }
+
+    public static void ShouldBe<T>(this T item, string expectedString)
+    {
+
+        var json = JsonSerializer.Serialize(item, new JsonSerializerOptions() { DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull });
+
+        var actualNode = JsonNode.Parse(json);
+        var expectedNode = JsonNode.Parse(expectedString);
 
         var same = JsonNode.DeepEquals(actualNode, expectedNode);
         same.Should().BeTrue($"{typeof(T).Name} is not the same - expected: {expectedNode} | actual: {actualNode}");
@@ -40,14 +54,14 @@ public static class AssertExtensions
         act.Should().NotThrow("failed to serialize to Bson");
     }
 
-    public static void ShouldBeEqualTo(this Notification notification, IpaffsIpaffsNotificationTypeEnum notificationType, IpaffsIpaffsNotificationStatusEnum status, string expectedJson)
+    public static void ShouldBeEqualTo(this Notification notification, IpaffsNotificationTypeEnum notificationType, IpaffsNotificationStatusEnum status, string expectedJson)
     {
         IDictionary<string, object> dictionary = JsonSerializer.Deserialize<ExpandoObject>(expectedJson) as IDictionary<string, object>;
 
         notification.IpaffsId.Should().Be(Convert.ToInt32(dictionary["id"].ToString()));
         notification.ReferenceNumber.Should().Be(dictionary["referenceNumber"].ToString());
         notification.Version.Should().Be(Convert.ToInt32(dictionary["version"].ToString()));
-        notification.LastUpdated.Should().Be(dictionary["lastUpdated"].ToString());
+        notification.LastUpdated.Should().Be(((JsonElement)dictionary["lastUpdated"]).GetDateTime());
         notification.LastUpdatedBy.ShouldBe((JsonElement)dictionary["lastUpdatedBy"]);
 
         notification.IpaffsType.Should().Be(notificationType);
@@ -72,7 +86,7 @@ public static class AssertExtensions
 
         if (notification.PartOne is not null)
         {
-            notification.PartOne.ShouldBe((JsonElement)dictionary["partOne"]);
+            notification.PartOne.ShouldBe(((JsonElement)dictionary["partOne"]).Deserialize<IpaffsPartOne>().ToJsonString());
         }
 
         if (notification.PartTwo is not null)
@@ -91,10 +105,11 @@ public static class AssertExtensions
         }
 
         notification.Etag.Should().Be(dictionary["etag"].ToString());
-        notification.RiskDecisionLockingTime.Should().Be(dictionary["riskDecisionLockingTime"].ToString());
+        notification.RiskDecisionLockingTime.Should().Be(((JsonElement)dictionary["riskDecisionLockingTime"]).GetDateTime());
         notification.IsRiskDecisionLocked.Should().Be(Convert.ToBoolean(dictionary["isRiskDecisionLocked"].ToString()));
         notification.ChedTypeVersion.Should().Be(Convert.ToInt32(dictionary["chedTypeVersion"].ToString()));
 
         notification.ShouldSerializeToBson();
     }
+
 }

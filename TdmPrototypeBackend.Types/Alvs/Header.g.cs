@@ -26,91 +26,91 @@ public partial class Header  //
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("EntryReference")]
+        [JsonPropertyName("entryReference")]
 		public  string? EntryReference { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("EntryVersionNumber")]
+        [JsonPropertyName("entryVersionNumber")]
 		public  int? EntryVersionNumber { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("PreviousVersionNumber")]
+        [JsonPropertyName("previousVersionNumber")]
 		public  int? PreviousVersionNumber { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("DeclarationUCR")]
+        [JsonPropertyName("declarationUCR")]
 		public  string? DeclarationUCR { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("DeclarationPartNumber")]
+        [JsonPropertyName("declarationPartNumber")]
 		public  string? DeclarationPartNumber { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("DeclarationType")]
+        [JsonPropertyName("declarationType")]
 		public  string? DeclarationType { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("ArrivalDateTime")]
-		public  string? ArrivalDateTime { get; set; }
+        [JsonPropertyName("arrivalDateTime")]
+		public  DateTime? ArrivalDateTime { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("SubmitterTURN")]
+        [JsonPropertyName("submitterTURN")]
 		public  string? SubmitterTURN { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("DeclarantId")]
+        [JsonPropertyName("declarantId")]
 		public  string? DeclarantId { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("DeclarantName")]
+        [JsonPropertyName("declarantName")]
 		public  string? DeclarantName { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("DispatchCountryCode")]
+        [JsonPropertyName("dispatchCountryCode")]
 		public  string? DispatchCountryCode { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("GoodsLocationCode")]
+        [JsonPropertyName("goodsLocationCode")]
 		public  string? GoodsLocationCode { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("MasterUCR")]
+        [JsonPropertyName("masterUCR")]
 		public  string? MasterUCR { get; set; }
     
 }

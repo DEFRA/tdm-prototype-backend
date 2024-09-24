@@ -82,7 +82,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
     public void CreateChedPNotification()
     {
         JsonApiConsumer.Response<Notification> response = JsonApiConsumer.JsonApiConsumer.Create<Notification, Notification>(
-            model: CreateChedANotification(notificationType: IpaffsIpaffsNotificationTypeEnum.Cvedp),
+            model: CreateChedANotification(notificationType: IpaffsNotificationTypeEnum.Cvedp),
             baseURI: apiHost,
             path: "api/notifications"
         );
@@ -159,21 +159,21 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         Assert.Equal(201, (int)response.HttpStatusCode);
     }
 
-    private Dictionary<IpaffsIpaffsNotificationTypeEnum, string> notificationTypes = new Dictionary<IpaffsIpaffsNotificationTypeEnum, string>()
+    private Dictionary<IpaffsNotificationTypeEnum, string> notificationTypes = new Dictionary<IpaffsNotificationTypeEnum, string>()
     {
         // TODO : clarify these
-        { IpaffsIpaffsNotificationTypeEnum.Cveda, "A" },
+        { IpaffsNotificationTypeEnum.Cveda, "A" },
         // { NotificationType.Ced, "C" },
-        { IpaffsIpaffsNotificationTypeEnum.Chedpp, "PP" },
-        { IpaffsIpaffsNotificationTypeEnum.Cvedp, "P" }
+        { IpaffsNotificationTypeEnum.Chedpp, "PP" },
+        { IpaffsNotificationTypeEnum.Cvedp, "P" }
     };
 
-    private string GetNotificationTypeIdSuffix(IpaffsIpaffsNotificationTypeEnum notificationType)
+    private string GetNotificationTypeIdSuffix(IpaffsNotificationTypeEnum notificationType)
     {
         return notificationTypes.ContainsKey(notificationType) ? notificationTypes[notificationType]  : "?";
     }
     
-    private string GenerateChedID(IpaffsIpaffsNotificationTypeEnum notificationType = IpaffsIpaffsNotificationTypeEnum.Cveda, string id = null)
+    private string GenerateChedID(IpaffsNotificationTypeEnum notificationType = IpaffsNotificationTypeEnum.Cveda, string id = null)
     {
         id = id ?? testId;
         return string.Format("CHED{0}.GB.2024.MOCK.{1}", GetNotificationTypeIdSuffix(notificationType), id);
@@ -184,7 +184,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         id = id ?? testId;
         return string.Format("DEC_GB_2024_{0}", id);
     }
-    private Notification CreateChedANotification(String id = null, IpaffsIpaffsNotificationTypeEnum notificationType = IpaffsIpaffsNotificationTypeEnum.Cveda)
+    private Notification CreateChedANotification(String id = null, IpaffsNotificationTypeEnum notificationType = IpaffsNotificationTypeEnum.Cveda)
     {
         id = id ?? GenerateChedID(notificationType, testId);
             

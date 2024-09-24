@@ -26,36 +26,36 @@ public partial class ALVSClearanceRequestPost  //
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("XMLSchemaVersion")]
-		public  string? XMLSchemaVersion { get; set; }
+        [JsonPropertyName("xmlSchemaVersion")]
+		public  string? XmlSchemaVersion { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("UserIdentification")]
+        [JsonPropertyName("userIdentification")]
 		public  string? UserIdentification { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("UserPassword")]
+        [JsonPropertyName("userPassword")]
 		public  string? UserPassword { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("SendingDate")]
+        [JsonPropertyName("sendingDate")]
 		public  string? SendingDate { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("ALVSClearanceRequest")]
-		public  ALVSClearanceRequest? ALVSClearanceRequest { get; set; }
+        [JsonPropertyName("alvsClearanceRequest")]
+		public  ALVSClearanceRequest? AlvsClearanceRequest { get; set; }
     
 }
 

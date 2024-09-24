@@ -1,6 +1,7 @@
 using System.Xml;
 using System.Xml.Schema;
 using CommandLine;
+using Humanizer;
 using MediatR;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
@@ -47,6 +48,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateAlvsModel.Comm
                 {
                     name = ((XmlSchemaElement)complexType.Parent).Name;
                 }
+
                 Console.WriteLine($"Class Name: {name}");
                 var classDescriptor = new ClassDescriptor(name, Namespace, ClassNamePrefix);
 
@@ -66,9 +68,10 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateAlvsModel.Comm
                         }
 
                         var schemaElement = sequenceItem as XmlSchemaElement;
-                        Console.WriteLine($"     Property Name: {schemaElement.Name} - Type: {schemaElement.GetSchemaType()}");
+                        Console.WriteLine($"Property Name: {schemaElement.Name} - Type: {schemaElement.GetSchemaType()}");
+                        var propertyName = System.Text.Json.JsonNamingPolicy.CamelCase.ConvertName(schemaElement.Name);
                         var propertyDescriptor = new PropertyDescriptor(
-                            name: schemaElement.Name,
+                            name: propertyName,
                             type: schemaElement.GetSchemaType(),
                             description: "",
                             isReferenceType: false,

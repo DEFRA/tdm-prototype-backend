@@ -10,21 +10,24 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.VehicleMovement;
 
     /// <summary>
     /// Information about an inspection that is required
     /// </summary>
-public partial class ReportToLocations  {
+public partial class ReportToLocations  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// An inspectionTypeId from GVMS Reference Data denoting the type of inspection that needs to be performed on the vehicle.
         /// </summary>
         [Attr]
         [JsonPropertyName("inspectionTypeId")]
-        public string? InspectionTypeId { get; set; }
+		public  string? InspectionTypeId { get; set; }
     
 }
 

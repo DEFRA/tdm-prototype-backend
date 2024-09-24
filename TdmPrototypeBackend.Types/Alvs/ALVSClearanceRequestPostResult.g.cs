@@ -26,28 +26,28 @@ public partial class ALVSClearanceRequestPostResult  //
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("XMLSchemaVersion")]
-		public  string? XMLSchemaVersion { get; set; }
+        [JsonPropertyName("xmlSchemaVersion")]
+		public  string? XmlSchemaVersion { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("SendingDate")]
+        [JsonPropertyName("sendingDate")]
 		public  string? SendingDate { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("OperationCode")]
+        [JsonPropertyName("operationCode")]
 		public  int? OperationCode { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("RequestIdentifier")]
+        [JsonPropertyName("requestIdentifier")]
 		public  string? RequestIdentifier { get; set; }
     
 }

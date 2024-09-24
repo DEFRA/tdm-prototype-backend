@@ -26,84 +26,84 @@ public partial class Items  //
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("ItemNumber")]
+        [JsonPropertyName("itemNumber")]
 		public  int? ItemNumber { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("CustomsProcedureCode")]
+        [JsonPropertyName("customsProcedureCode")]
 		public  string? CustomsProcedureCode { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("TaricCommodityCode")]
+        [JsonPropertyName("taricCommodityCode")]
 		public  string? TaricCommodityCode { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("GoodsDescription")]
+        [JsonPropertyName("goodsDescription")]
 		public  string? GoodsDescription { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("ConsigneeId")]
+        [JsonPropertyName("consigneeId")]
 		public  string? ConsigneeId { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("ConsigneeName")]
+        [JsonPropertyName("consigneeName")]
 		public  string? ConsigneeName { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("ItemNetMass")]
+        [JsonPropertyName("itemNetMass")]
 		public  decimal? ItemNetMass { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("ItemSupplementaryUnits")]
+        [JsonPropertyName("itemSupplementaryUnits")]
 		public  decimal? ItemSupplementaryUnits { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("ItemThirdQuantity")]
+        [JsonPropertyName("itemThirdQuantity")]
 		public  decimal? ItemThirdQuantity { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("ItemOriginCountryCode")]
+        [JsonPropertyName("itemOriginCountryCode")]
 		public  string? ItemOriginCountryCode { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("Document")]
+        [JsonPropertyName("document")]
 		public  Document[]? Documents { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("Check")]
+        [JsonPropertyName("check")]
 		public  Check[]? Checks { get; set; }
     
 }

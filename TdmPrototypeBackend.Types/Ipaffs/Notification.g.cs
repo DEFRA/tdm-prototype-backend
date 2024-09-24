@@ -63,7 +63,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
         /// </summary>
         [Attr]
         [JsonPropertyName("lastUpdated")]
-		public  string? LastUpdated { get; set; }
+		public  DateTime? LastUpdated { get; set; }
     
 		/// <summary>
         /// User entity whose update was last
@@ -77,7 +77,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
         /// </summary>
         [Attr]
         [JsonPropertyName("type")]
-		public  IpaffsIpaffsNotificationTypeEnum? IpaffsType { get; set; }
+		public  IpaffsNotificationTypeEnum? IpaffsType { get; set; }
     
 		/// <summary>
         /// Reference number of notification that was replaced by this one
@@ -98,7 +98,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
         /// </summary>
         [Attr]
         [JsonPropertyName("status")]
-		public  IpaffsIpaffsNotificationStatusEnum? Status { get; set; }
+		public  IpaffsNotificationStatusEnum? Status { get; set; }
     
 		/// <summary>
         /// Present if the consignment has been split
@@ -154,7 +154,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
         /// </summary>
         [Attr]
         [JsonPropertyName("decisionDate")]
-		public  string? DecisionDate { get; set; }
+		public  DateTime? DecisionDate { get; set; }
     
 		/// <summary>
         /// Part of the notification which contains information filled by inspector at BIP/DPE
@@ -196,7 +196,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
         /// </summary>
         [Attr]
         [JsonPropertyName("riskDecisionLockingTime")]
-		public  string? RiskDecisionLockingTime { get; set; }
+		public  DateTime? RiskDecisionLockingTime { get; set; }
     
 		/// <summary>
         /// is the risk decision locked?

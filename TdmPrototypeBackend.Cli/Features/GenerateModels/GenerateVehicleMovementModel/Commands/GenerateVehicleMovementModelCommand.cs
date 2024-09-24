@@ -20,7 +20,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateVehicleMovemen
            
             protected override async Task Handle(GenerateVehicleMovementModelCommand request, CancellationToken cancellationToken)
             {
-                using var streamReader = new StreamReader("D:\\repos\\esynergy\\tdm-prototype-backend\\TdmPrototypeBackend.Cli\\Features\\GenerateVehicleMovementModel\\Goods-Vehicle-Movement-Search-1.0-Open-API-Spec.yaml");
+                using var streamReader = new StreamReader("D:\\repos\\esynergy\\tdm-prototype-backend\\TdmPrototypeBackend.Cli\\Features\\GenerateModels\\GenerateVehicleMovementModel\\Goods-Vehicle-Movement-Search-1.0-Open-API-Spec.yaml");
                 var reader = new OpenApiStreamReader();
                 var document = reader.Read(streamReader.BaseStream, out var diagnostic);
 
@@ -103,7 +103,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateVehicleMovemen
                     {
                         var propertyDescriptor = new PropertyDescriptor(
                             name: property.Key,
-                            type: property.Value.Type.ToCSharpType(),
+                            type: property.ToCSharpType(),
                             description: property.Value.Description,
                             isReferenceType: false,
                             isArray: property.Value.IsArray(),
