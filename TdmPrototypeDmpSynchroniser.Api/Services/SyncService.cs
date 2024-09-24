@@ -83,7 +83,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                     var auditEntry = AuditEntry.Create(existingMovement.ClearanceRequests.First(),
                         movement.ClearanceRequests.First(),
                         BuildNormalizedAlvsPath(item.Name),
-                        existingMovement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(), 
+                        movement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(), 
                         movement.LastUpdated.ToString(),
                         existingMovement.ClearanceRequests.First().Header.DeclarantName);
 
