@@ -97,10 +97,10 @@ public class SyncNotificationTests
         
         var n = NotificationExtensions.FromBlob(s);
 
-        // n.PartOne.Commodities.CommodityComplements[0].AdditionalData["number_animal"].Should().Be(1);
-        // n.PartOne.Commodities.CommodityComplements[0].AdditionalData["number_package"].Should().Be(1);
-        //
-        // n.PartOne.Commodities.CommodityComplements[0].RiskAssesment.RiskDecision.Should().Be(IpaffsCommodityRiskResultRiskDecisionEnum.Inconclusive);
+        n.PartOne.Commodities.CommodityComplements[0].AdditionalData["number_animal"].Should().Be(1);
+        n.PartOne.Commodities.CommodityComplements[0].AdditionalData["number_package"].Should().Be(1);
+        
+        n.PartOne.Commodities.CommodityComplements[0].RiskAssesment.RiskDecision.Should().Be(IpaffsCommodityRiskResultRiskDecisionEnum.Inconclusive);
     }
 
     [Fact]
