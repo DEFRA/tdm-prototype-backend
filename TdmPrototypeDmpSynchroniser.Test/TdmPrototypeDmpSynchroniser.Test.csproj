@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\tdm-prototype-backend\TdmPrototypeBackend.Types\TdmPrototypeBackend.Types.csproj" />
+    <ProjectReference Include="..\TdmPrototypeBackend.Api\TdmPrototypeBackend.Api.csproj" />
     <ProjectReference Include="..\TdmPrototypeDmpSynchroniser.Api\TdmPrototypeDmpSynchroniser.Api.csproj" />
   </ItemGroup>
 </Project>
