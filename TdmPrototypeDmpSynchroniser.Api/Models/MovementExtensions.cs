@@ -51,6 +51,16 @@ public static class MovementExtensions
             writer.WriteStringValue(value.ToString());
         }
     }
+
+    // public static int? ConvertInt(string? s)
+    // {
+    //     
+    // }
+    //
+    // public static int? ConvertDate(string? s)
+    // {
+    //     
+    // }
     
     public static Movement FromClearanceRequest(string s)
     {
@@ -64,12 +74,20 @@ public static class MovementExtensions
         
         var r = JsonSerializer.Deserialize<ALVSClearanceRequest>(s, options)!;
         var cr = r.Header;
-       // cr.Items = r.Items;
-       
         
         return new Movement() {
-            Id = r.Header.EntryReference,
+            Id = r.Header!.EntryReference,
             LastUpdated = r.ServiceHeader?.ServiceCallTimestamp,
+            EntryReference = r.Header.EntryReference,
+            MasterUCR = r.Header.MasterUCR,
+            // DeclarationPartNumber = ConvertInt(r.Header.DeclarationPartNumber),
+            DeclarationType = r.Header.DeclarationType,
+            // ArrivalDateTime = r.Header.ArrivalDateTime,
+            SubmitterTURN = r.Header.SubmitterTURN,
+            DeclarantId = r.Header.DeclarantId,
+            DeclarantName = r.Header.DeclarantName,
+            DispatchCountryCode = r.Header.DispatchCountryCode,
+            GoodsLocationCode = r.Header.GoodsLocationCode,
             ClearanceRequests = new List<ALVSClearanceRequest>()
             {
                 r
