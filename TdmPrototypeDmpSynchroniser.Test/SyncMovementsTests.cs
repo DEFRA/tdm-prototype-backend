@@ -109,7 +109,7 @@ public class SyncMovementsTests
         await syncService.SyncMovements(SyncPeriod.All);
 
         movementService.Verify(x => x.Upsert(It.Is<Movement>(
-            x => x.AuditEntries.Count == 0)));
+            x => x.AuditEntries.Count == 1)));
 
 
         
