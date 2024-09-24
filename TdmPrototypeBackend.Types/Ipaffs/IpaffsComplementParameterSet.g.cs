@@ -15,9 +15,9 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
-    /// <summary>
-    /// 
-    /// </summary>
+/// <summary>
+/// 
+/// </summary>
 public partial class IpaffsComplementParameterSet  //
 {
 
@@ -48,12 +48,13 @@ public partial class IpaffsComplementParameterSet  //
         /// </summary>
         [Attr]
         [JsonPropertyName("keyDataPair")]
-		public  IpaffsKeyDataPair[]? KeyDataPairs { get; set; }
-    
-		/// <summary>
-        /// Catch certificate details
-        /// </summary>
-        [Attr]
+        [JsonConverter(typeof(KeyDataPairsToDictionaryStringObjectJsonConverter))]
+        public IDictionary<string, object>? KeyDataPairs { get; set; }
+
+    /// <summary>
+    /// Catch certificate details
+    /// </summary>
+    [Attr]
         [JsonPropertyName("catchCertificates")]
 		public  IpaffsCatchCertificates[]? CatchCertificates { get; set; }
     
