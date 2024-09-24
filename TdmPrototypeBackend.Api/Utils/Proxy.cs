@@ -28,7 +28,7 @@ public static class Proxy
      *  2. Use the IHttpClientFactory to create a named instance of HttpClient:
      *     `clientFactory.CreateClient(Proxy.ProxyClient);`
      */
-    public static void AddHttpProxyServices(this IServiceCollection services, Logger logger, IConfigurationManager configuration)
+    public static void AddHttpProxyServices(this IServiceCollection services, Logger logger, IConfiguration configuration)
     {
         var proxyUri = configuration["CDP_HTTPS_PROXY"];
         var proxy = new WebProxy

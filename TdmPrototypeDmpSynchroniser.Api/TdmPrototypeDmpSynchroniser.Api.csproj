@@ -36,5 +36,8 @@
     <ProjectReference Include="..\libs\jsonapi-consumer\jsonapi-consumer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="TdmPrototypeDmpSynchroniser.Test" />
+  </ItemGroup>
 
 </Project>

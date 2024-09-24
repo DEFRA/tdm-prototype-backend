@@ -1,4 +1,5 @@
 using System.Dynamic;
+using System.Runtime.CompilerServices;
 using System.Text.Json.JsonDiffPatch;
 using System.Text.Json.Nodes;
 using Json.Patch;
@@ -42,48 +43,16 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
             var erroredCount = 0;
             foreach (IBlobItem item in result) //.Take(5)) //
             {
-                try
-                {
-                    var movement = await ConvertMovement(item);
-                    var existingMovement = await movementService.Find(movement.Id);
+               var success = await SyncMovement(item);
 
-                    if (existingMovement is not null)
-                    {
-                        if (movement.ClearanceRequests.First().Header.EntryVersionNumber > existingMovement.ClearanceRequests.First().Header.EntryVersionNumber)
-                        {
-                            movement.AuditEntries = existingMovement.AuditEntries;
-                            var auditEntry = AuditEntry.Create(existingMovement.ClearanceRequests.First(),
-                                movement.ClearanceRequests.First(),
-                                BuildNormalizedAlvsPath(item.Name),
-                                existingMovement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(), 
-                                movement.LastUpdated.ToString(),
-                                string.Empty);
-
-                            movement.AuditEntries.Add(auditEntry);
-                            existingMovement.ClearanceRequests.AddRange(movement.ClearanceRequests);
-                            existingMovement.Items.RemoveAll(x =>
-                                x.ClearanceRequestReference ==
-                                movement.ClearanceRequests.First().Header.EntryReference);
-                            existingMovement.Items.AddRange(movement.Items);
-
-                            await movementService.Upsert(existingMovement);
-                            itemCount++;
-                        }
-                    }
-                    else
-                    {
-                        await movementService.Upsert(movement);
-                        itemCount++;
-                    }
-
-                   
-                }
-                catch (Exception ex)
-                {
-                    Logger.LogError($"Failed to upsert movement from file {item.Name}. {ex.ToString()}.");
-                    
-                    erroredCount++;
-                }
+               if (success)
+               {
+                   itemCount++;
+               }
+               else
+               {
+                   erroredCount++;
+               }
             }
             
             return new Status()
@@ -96,6 +65,62 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
             Logger.LogError(ex.ToString());
             
             return new Status() { Success = false, Description = ex.Message };
+        }
+    }
+
+    internal async Task<bool> SyncMovement(IBlobItem item)
+    {
+        try
+        {
+            var movement = await ConvertMovement(item);
+            var existingMovement = await movementService.Find(movement.Id);
+
+            if (existingMovement is not null)
+            {
+                if (movement.ClearanceRequests.First().Header.EntryVersionNumber > existingMovement.ClearanceRequests.First().Header.EntryVersionNumber)
+                {
+                    movement.AuditEntries = existingMovement.AuditEntries;
+                    var auditEntry = AuditEntry.Create(existingMovement.ClearanceRequests.First(),
+                        movement.ClearanceRequests.First(),
+                        BuildNormalizedAlvsPath(item.Name),
+                        movement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(), 
+                        movement.LastUpdated.ToString(),
+                        existingMovement.ClearanceRequests.First().Header.DeclarantName);
+
+                    movement.AuditEntries.Add(auditEntry);
+                    existingMovement.ClearanceRequests.RemoveAll(x =>
+                        x.Header.EntryReference ==
+                        movement.ClearanceRequests.First().Header.EntryReference);
+                    existingMovement.ClearanceRequests.AddRange(movement.ClearanceRequests);
+                    existingMovement.Items.RemoveAll(x =>
+                        x.ClearanceRequestReference ==
+                        movement.ClearanceRequests.First().Header.EntryReference);
+                    existingMovement.Items.AddRange(movement.Items);
+
+                    await movementService.Upsert(existingMovement);
+                }
+            }
+            else
+            {
+                var auditEntry = AuditEntry.CreateCreatedEntry(
+                    movement.ClearanceRequests.First(),
+                    BuildNormalizedAlvsPath(item.Name),
+                    movement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(),
+                    movement.LastUpdated.ToString(),
+                    movement.ClearanceRequests.First().Header.DeclarantName);
+                movement.AuditEntries.Add(auditEntry);
+                await movementService.Upsert(movement);
+            }
+
+            return true;
+
+
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError($"Failed to upsert movement from file {item.Name}. {ex.ToString()}.");
+
+            return false;
         }
     }
 
@@ -182,7 +207,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                                 var auditEntry = AuditEntry.Create(existingNotification,
                                     n,
                                     BuildNormalizedIpaffsPath(item.Name),
-                                    existingNotification.Version.GetValueOrDefault(),
+                                    n.Version.GetValueOrDefault(),
                                     n.LastUpdated,
                                     n.LastUpdatedBy?.DisplayName);
                                 n.AuditEntries.Add(auditEntry);
@@ -192,19 +217,25 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                                 var auditEntry = AuditEntry.CreateSkippedVersion(
                                     n,
                                     BuildNormalizedIpaffsPath(item.Name),
-                                    existingNotification.Version.GetValueOrDefault(),
+                                    n.Version.GetValueOrDefault(),
                                     n.LastUpdated,
                                     n.LastUpdatedBy?.DisplayName);
                                 n.AuditEntries.Add(auditEntry);
                             }
-
-                            var s = n.AuditEntries.ToJsonString();
+                            
                             await notificationService.Upsert(n);
                             itemCount++;
                         }
                     }
                     else
                     {
+                        var auditEntry = AuditEntry.CreateCreatedEntry(
+                            n,
+                            BuildNormalizedIpaffsPath(item.Name),
+                            n.Version.GetValueOrDefault(),
+                            n.LastUpdated,
+                            n.LastUpdatedBy?.DisplayName);
+                        n.AuditEntries.Add(auditEntry);
                         await notificationService.Upsert(n);
                         itemCount++;
                     }

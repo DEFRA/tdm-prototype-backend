@@ -11,9 +11,11 @@ public class AuditEntry
 {    public string Id { get; set; }
     public int Version { get; set; }
 
-    public string LastUpdatedBy { get; set; }
+    public string CreatedBy { get; set; }
 
-    public string DateTime { get; set; }
+    public DateTime CreatedSource { get; set; }
+
+    public DateTime CreatedLocal { get; set;} = System.DateTime.UtcNow;
 
     public string Status { get; set; }
 
@@ -31,9 +33,10 @@ public class AuditEntry
         {
             Id = id,
             Version = version,
-            DateTime = lastUpdated,
-            LastUpdatedBy = lastUpdatedBy,
-            Status = "DiffCreated"
+            CreatedSource = System.DateTime.Parse(lastUpdated),
+            CreatedBy = lastUpdatedBy,
+            CreatedLocal = DateTime.UtcNow,
+            Status = "Updated"
 
         };
 
@@ -45,15 +48,30 @@ public class AuditEntry
         return auditEntry;
     }
 
+    public static AuditEntry CreateCreatedEntry<T>(T current, string id, int version, string lastUpdated, string lastUpdatedBy)
+    {
+        return new AuditEntry()
+        {
+            Id = id,
+            Version = version,
+            CreatedSource = System.DateTime.Parse(lastUpdated),
+            CreatedBy = lastUpdatedBy,
+            CreatedLocal = DateTime.UtcNow,
+            Status = "Created"
+
+        };
+    }
+
     public static AuditEntry CreateSkippedVersion<T>(T current, string id, int version, string lastUpdated, string lastUpdatedBy)
     {
         return new AuditEntry()
         {
             Id = id,
             Version = version,
-            DateTime = lastUpdated,
-            LastUpdatedBy = lastUpdatedBy,
-            Status = "SkippedVersion"
+            CreatedSource = System.DateTime.Parse(lastUpdated),
+            CreatedBy = lastUpdatedBy,
+            CreatedLocal = DateTime.UtcNow,
+            Status = "Updated"
 
         };
     }
@@ -69,31 +87,34 @@ public class AuditEntry
         public static AuditDiffEntry Create(PatchOperation operation)
         {
             object value = null;
-            switch (operation.Value.GetValueKind())
+            if (operation.Value != null)
             {
-                case JsonValueKind.Undefined:
-                    value = "UNKNOWN";
-                    break;
-                case JsonValueKind.Object:
-                    value = "COMPLEXTYPE";
-                    break;
-                case JsonValueKind.Array:
-                    value = "ARRAY";
-                    break;
-                case JsonValueKind.String:
-                    value = operation.Value.GetValue<string>();
-                    break;
-                case JsonValueKind.Number:
-                    value = operation.Value.GetValue<int>();
-                    break;
-                case JsonValueKind.True:
-                case JsonValueKind.False:
-                    value = operation.Value.GetValue<bool>();
-                    break;
-                case JsonValueKind.Null:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                switch (operation.Value.GetValueKind())
+                {
+                    case JsonValueKind.Undefined:
+                        value = "UNKNOWN";
+                        break;
+                    case JsonValueKind.Object:
+                        value = "COMPLEXTYPE";
+                        break;
+                    case JsonValueKind.Array:
+                        value = "ARRAY";
+                        break;
+                    case JsonValueKind.String:
+                        value = operation.Value.GetValue<string>();
+                        break;
+                    case JsonValueKind.Number:
+                        value = operation.Value.GetValue<int>();
+                        break;
+                    case JsonValueKind.True:
+                    case JsonValueKind.False:
+                        value = operation.Value.GetValue<bool>();
+                        break;
+                    case JsonValueKind.Null:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
             }
 
             return new AuditEntry.AuditDiffEntry()

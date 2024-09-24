@@ -151,7 +151,7 @@ public class SyncIpaffsNotificationTests
 
 
         notificationService.Verify(x => x.Upsert(It.Is<Notification>(
-            x => x.AuditEntries.Count == 0)));
+            x => x.AuditEntries.Count == 1)));
 
     }
 }

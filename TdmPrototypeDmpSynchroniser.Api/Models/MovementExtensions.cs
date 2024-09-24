@@ -65,10 +65,7 @@ public static class MovementExtensions
         var r = JsonSerializer.Deserialize<ALVSClearanceRequest>(s, options)!;
         var cr = r.Header;
        // cr.Items = r.Items;
-       foreach (var rItem in r.Items)
-       {
-           
-       }
+       
         
         return new Movement() {
             Id = r.Header.EntryReference,
