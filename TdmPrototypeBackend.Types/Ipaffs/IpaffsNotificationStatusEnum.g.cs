@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
 [JsonConverter(typeof(JsonStringEnumMemberConverter))]
-public enum IpaffsIpaffsNotificationStatusEnum
+public enum IpaffsNotificationStatusEnum
 {
 
 		[EnumMember(Value = "DRAFT")]

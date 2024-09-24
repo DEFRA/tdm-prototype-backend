@@ -13,7 +13,7 @@ public class AuditEntry
 
     public string CreatedBy { get; set; }
 
-    public DateTime CreatedSource { get; set; }
+    public DateTime? CreatedSource { get; set; }
 
     public DateTime CreatedLocal { get; set;} = System.DateTime.UtcNow;
 
@@ -22,7 +22,7 @@ public class AuditEntry
     public List<AuditDiffEntry> Diff { get; set; } = new ();
 
 
-    public static AuditEntry Create<T>(T previous, T current, string id, int version, string lastUpdated, string lastUpdatedBy)
+    public static AuditEntry Create<T>(T previous, T current, string id, int version, DateTime? lastUpdated, string lastUpdatedBy)
     {
         var node1 = JsonNode.Parse(previous.ToJsonString());
         var node2 = JsonNode.Parse(current.ToJsonString());
@@ -33,7 +33,7 @@ public class AuditEntry
         {
             Id = id,
             Version = version,
-            CreatedSource = System.DateTime.Parse(lastUpdated),
+            CreatedSource = lastUpdated,
             CreatedBy = lastUpdatedBy,
             CreatedLocal = DateTime.UtcNow,
             Status = "Updated"
@@ -48,13 +48,13 @@ public class AuditEntry
         return auditEntry;
     }
 
-    public static AuditEntry CreateCreatedEntry<T>(T current, string id, int version, string lastUpdated, string lastUpdatedBy)
+    public static AuditEntry CreateCreatedEntry<T>(T current, string id, int version, DateTime? lastUpdated, string lastUpdatedBy)
     {
         return new AuditEntry()
         {
             Id = id,
             Version = version,
-            CreatedSource = System.DateTime.Parse(lastUpdated),
+            CreatedSource = lastUpdated,
             CreatedBy = lastUpdatedBy,
             CreatedLocal = DateTime.UtcNow,
             Status = "Created"
@@ -62,13 +62,13 @@ public class AuditEntry
         };
     }
 
-    public static AuditEntry CreateSkippedVersion<T>(T current, string id, int version, string lastUpdated, string lastUpdatedBy)
+    public static AuditEntry CreateSkippedVersion<T>(T current, string id, int version, DateTime? lastUpdated, string lastUpdatedBy)
     {
         return new AuditEntry()
         {
             Id = id,
             Version = version,
-            CreatedSource = System.DateTime.Parse(lastUpdated),
+            CreatedSource = lastUpdated,
             CreatedBy = lastUpdatedBy,
             CreatedLocal = DateTime.UtcNow,
             Status = "Updated"

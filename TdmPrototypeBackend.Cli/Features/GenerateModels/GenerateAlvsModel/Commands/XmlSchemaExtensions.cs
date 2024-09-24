@@ -21,6 +21,9 @@ public static class XmlSchemaExtensions
         return string.Empty;
     }
 
+
+    private static List<string> dateTimeProperties = new List<string>() { "ArrivalDateTime" };
+
     public static string GetSchemaType(this XmlSchemaElement schemaElement)
     {
 
@@ -41,7 +44,7 @@ public static class XmlSchemaExtensions
             return schemaElement.SchemaTypeName.Name;
         }
 
-        if (schemaElement.SchemaTypeName.Name == "dateTime")
+        if (schemaElement.SchemaTypeName.Name == "dateTime" || dateTimeProperties.Contains(schemaElement.Name))
         {
             return "DateTime";
         }

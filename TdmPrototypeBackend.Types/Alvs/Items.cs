@@ -23,7 +23,7 @@ public partial class Items  //
     /// 
     /// </summary>
     [Attr]
-    [JsonPropertyName("ClearanceRequestReference")]
+    [JsonPropertyName("clearanceRequestReference")]
     public string? ClearanceRequestReference { get; set; }
 
    

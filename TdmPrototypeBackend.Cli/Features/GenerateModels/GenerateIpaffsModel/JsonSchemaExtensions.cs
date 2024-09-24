@@ -1,4 +1,5 @@
 using Json.Schema;
+using Microsoft.OpenApi.Models;
 
 namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateIpaffsModel;
 
@@ -50,8 +51,15 @@ public static class JsonSchemaExtensions
         return typeKeyword != null;
     }
 
-    public static string ToCSharpType(this SchemaValueType schemaValueType)
+    private static List<string> dateTimeProperties = new List<string>() { "riskDecisionLockingTime", "decisionDate", "lastUpdated" };
+
+    public static string ToCSharpType(this SchemaValueType schemaValueType, string propertyName)
     {
+        if (dateTimeProperties.Contains(propertyName))
+        {
+            return "DateTime";
+        }
+
         return schemaValueType switch
         {
             SchemaValueType.Object => "IDictionary<string, string>",

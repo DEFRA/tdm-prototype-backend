@@ -10,13 +10,16 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.VehicleMovement;
 
     /// <summary>
     /// 
     /// </summary>
-public partial class SearchGmrsRequest  {
+public partial class SearchGmrsRequest  //
+{
 
 
 }

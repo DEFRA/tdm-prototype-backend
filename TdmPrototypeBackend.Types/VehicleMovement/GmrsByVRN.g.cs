@@ -10,21 +10,24 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.VehicleMovement;
 
     /// <summary>
     /// 
     /// </summary>
-public partial class GmrsByVRN  {
+public partial class GmrsByVRN  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// This is the identifier for a Vehicle Registration Number
         /// </summary>
         [Attr]
         [JsonPropertyName("vrn")]
-        public string? Vrn { get; set; }
+		public  string? Vrn { get; set; }
     
 }
 

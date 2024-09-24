@@ -13,7 +13,7 @@ public class IpaffsDescriptorBuilder(List<ISchemaVisitor> visitors)
 
         var csharpDescriptor = new CSharpDescriptor();
 
-        var mainClassDescriptor = new ClassDescriptor("IpaffsNotification", Namespace, ClassNamePrefix);
+        var mainClassDescriptor = new ClassDescriptor("Notification", Namespace, ClassNamePrefix);
         mainClassDescriptor.IsResource = true;
         csharpDescriptor.AddClassDescriptor(mainClassDescriptor);
         foreach (var property in mySchema.GetProperties())

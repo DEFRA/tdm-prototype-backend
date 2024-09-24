@@ -58,7 +58,7 @@ public class SyncMovementsIntegrationTests : IntegrationTests
         existingMovement.AuditEntries[1].Version.Should().Be(3);
         existingMovement.AuditEntries[1].CreatedBy.Should().Be("TRANSITAIR.GB");
         existingMovement.AuditEntries[1].Status.Should().Be("Updated");
-        existingMovement.AuditEntries[1].Diff.Count.Should().Be(7);
+        existingMovement.AuditEntries[1].Diff.Count.Should().Be(8);
     }
 
     private Task SyncMovement(string path)

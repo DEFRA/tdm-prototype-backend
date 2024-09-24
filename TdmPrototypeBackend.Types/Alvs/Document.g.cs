@@ -26,35 +26,35 @@ public partial class Document  //
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("DocumentCode")]
+        [JsonPropertyName("documentCode")]
 		public  string? DocumentCode { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("DocumentReference")]
+        [JsonPropertyName("documentReference")]
 		public  string? DocumentReference { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("DocumentStatus")]
+        [JsonPropertyName("documentStatus")]
 		public  string? DocumentStatus { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("DocumentControl")]
+        [JsonPropertyName("documentControl")]
 		public  string? DocumentControl { get; set; }
     
 		/// <summary>
         /// 
         /// </summary>
         [Attr]
-        [JsonPropertyName("DocumentQuantity")]
+        [JsonPropertyName("documentQuantity")]
 		public  decimal? DocumentQuantity { get; set; }
     
 }

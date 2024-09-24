@@ -10,21 +10,24 @@
 
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
+using System.Dynamic;
+
 
 namespace TdmPrototypeBackend.Types.VehicleMovement;
 
     /// <summary>
     /// 
     /// </summary>
-public partial class SearchGmrsResponse  {
+public partial class SearchGmrsResponse  //
+{
 
 
-        /// <summary>
+		/// <summary>
         /// 
         /// </summary>
         [Attr]
         [JsonPropertyName("gmrs")]
-        public Gmrs[]? Gmrs { get; set; }
+		public  Gmrs[]? Gmrs { get; set; }
     
 }
 
