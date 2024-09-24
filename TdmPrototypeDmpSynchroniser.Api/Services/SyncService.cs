@@ -207,7 +207,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                                 var auditEntry = AuditEntry.Create(existingNotification,
                                     n,
                                     BuildNormalizedIpaffsPath(item.Name),
-                                    existingNotification.Version.GetValueOrDefault(),
+                                    n.Version.GetValueOrDefault(),
                                     n.LastUpdated,
                                     n.LastUpdatedBy?.DisplayName);
                                 n.AuditEntries.Add(auditEntry);
@@ -217,7 +217,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                                 var auditEntry = AuditEntry.CreateSkippedVersion(
                                     n,
                                     BuildNormalizedIpaffsPath(item.Name),
-                                    existingNotification.Version.GetValueOrDefault(),
+                                    n.Version.GetValueOrDefault(),
                                     n.LastUpdated,
                                     n.LastUpdatedBy?.DisplayName);
                                 n.AuditEntries.Add(auditEntry);
@@ -232,7 +232,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                         var auditEntry = AuditEntry.CreateCreatedEntry(
                             n,
                             BuildNormalizedIpaffsPath(item.Name),
-                            existingNotification.Version.GetValueOrDefault(),
+                            n.Version.GetValueOrDefault(),
                             n.LastUpdated,
                             n.LastUpdatedBy?.DisplayName);
                         n.AuditEntries.Add(auditEntry);
