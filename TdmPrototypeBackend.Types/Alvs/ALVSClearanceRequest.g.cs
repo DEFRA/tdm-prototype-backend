@@ -15,34 +15,36 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.Alvs;
 
-    /// <summary>
-    /// 
-    /// </summary>
+/// <summary>
+/// 
+/// </summary>
 public partial class ALVSClearanceRequest  //
 {
 
 
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("serviceHeader")]
-		public  ServiceHeader? ServiceHeader { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("header")]
-		public  Header? Header { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("items")]
-		public  Items[]? Items { get; set; }
-    
-}
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("serviceHeader")]
+    public ServiceHeader? ServiceHeader { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("header")]
+    public Header? Header { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("items")]
+    public Items[]? Items { get; set; }
+
+	}
 
 

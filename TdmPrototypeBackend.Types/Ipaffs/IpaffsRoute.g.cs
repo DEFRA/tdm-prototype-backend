@@ -15,20 +15,20 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
-    /// <summary>
-    /// Contains countries and transfer points that consignment is going through
-    /// </summary>
+/// <summary>
+/// Contains countries and transfer points that consignment is going through
+/// </summary>
 public partial class IpaffsRoute  //
 {
 
 
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("transitingStates")]
-		public  string[]? TransitingStates { get; set; }
-    
-}
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("transitingStates")]
+    public string[]? TransitingStates { get; set; }
+
+	}
 
 

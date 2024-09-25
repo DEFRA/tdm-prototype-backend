@@ -1,5 +1,6 @@
 using System.Xml.Schema;
 using System.Linq;
+using TdmPrototypeBackend.Cli.Features.GenerateModels.ClassMaps;
 
 namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateAlvsModel.Commands;
 
@@ -22,8 +23,6 @@ public static class XmlSchemaExtensions
     }
 
 
-    private static List<string> dateTimeProperties = new List<string>() { "ArrivalDateTime" };
-
     public static string GetSchemaType(this XmlSchemaElement schemaElement)
     {
 
@@ -44,7 +43,7 @@ public static class XmlSchemaExtensions
             return schemaElement.SchemaTypeName.Name;
         }
 
-        if (schemaElement.SchemaTypeName.Name == "dateTime" || dateTimeProperties.Contains(schemaElement.Name))
+        if (schemaElement.SchemaTypeName.Name == "dateTime" )
         {
             return "DateTime";
         }

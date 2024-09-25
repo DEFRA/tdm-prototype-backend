@@ -15,55 +15,60 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
-    /// <summary>
-    /// 
-    /// </summary>
+/// <summary>
+/// 
+/// </summary>
 public partial class IpaffsInspectionCheck  //
 {
 
 
-		/// <summary>
-        /// Type of check
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("type")]
-		public  IpaffsInspectionCheckTypeEnum? IpaffsType { get; set; }
-    
-		/// <summary>
-        /// Status of the check
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("status")]
-		public  IpaffsInspectionCheckStatusEnum? Status { get; set; }
-    
-		/// <summary>
-        /// Reason for the status if applicable
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("reason")]
-		public  string? Reason { get; set; }
-    
-		/// <summary>
-        /// Other reason text when selected reason is &#x27;Other&#x27;
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("otherReason")]
-		public  string? OtherReason { get; set; }
-    
-		/// <summary>
-        /// Has commodity been selected for checks?
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("isSelectedForChecks")]
-		public  bool? IsSelectedForChecks { get; set; }
-    
-		/// <summary>
-        /// Has commodity completed this type of check
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("hasChecksComplete")]
-		public  bool? HasChecksComplete { get; set; }
-    
-}
+    /// <summary>
+    /// Type of check
+    /// </summary
+    [Attr]
+    [JsonPropertyName("type")]
+    public IpaffsInspectionCheckTypeEnum? IpaffsType { get; set; }
+
+	
+    /// <summary>
+    /// Status of the check
+    /// </summary
+    [Attr]
+    [JsonPropertyName("status")]
+    public IpaffsInspectionCheckStatusEnum? Status { get; set; }
+
+	
+    /// <summary>
+    /// Reason for the status if applicable
+    /// </summary
+    [Attr]
+    [JsonPropertyName("reason")]
+    public string? Reason { get; set; }
+
+	
+    /// <summary>
+    /// Other reason text when selected reason is &#x27;Other&#x27;
+    /// </summary
+    [Attr]
+    [JsonPropertyName("otherReason")]
+    public string? OtherReason { get; set; }
+
+	
+    /// <summary>
+    /// Has commodity been selected for checks?
+    /// </summary
+    [Attr]
+    [JsonPropertyName("isSelectedForChecks")]
+    public bool? IsSelectedForChecks { get; set; }
+
+	
+    /// <summary>
+    /// Has commodity completed this type of check
+    /// </summary
+    [Attr]
+    [JsonPropertyName("hasChecksComplete")]
+    public bool? HasChecksComplete { get; set; }
+
+	}
 
 

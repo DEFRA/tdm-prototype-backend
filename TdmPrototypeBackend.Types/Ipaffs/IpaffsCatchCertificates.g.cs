@@ -15,27 +15,28 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
-    /// <summary>
-    /// 
-    /// </summary>
+/// <summary>
+/// 
+/// </summary>
 public partial class IpaffsCatchCertificates  //
 {
 
 
-		/// <summary>
-        /// The catch certificate number
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("certificateNumber")]
-		public  string? CertificateNumber { get; set; }
-    
-		/// <summary>
-        /// The catch certificate weight number
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("weight")]
-		public  double? Weight { get; set; }
-    
-}
+    /// <summary>
+    /// The catch certificate number
+    /// </summary
+    [Attr]
+    [JsonPropertyName("certificateNumber")]
+    public string? CertificateNumber { get; set; }
+
+	
+    /// <summary>
+    /// The catch certificate weight number
+    /// </summary
+    [Attr]
+    [JsonPropertyName("weight")]
+    public double? Weight { get; set; }
+
+	}
 
 

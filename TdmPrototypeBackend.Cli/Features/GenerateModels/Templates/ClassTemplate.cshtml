@@ -19,9 +19,9 @@ using System.Dynamic;
 
 namespace @Model.Namespace;
 
-    /// <summary>
-    /// @Model.Description
-    /// </summary>
+/// <summary>
+/// @Model.Description
+/// </summary>
 @if (Model.IsResource)
 {
     <text>     [Resource] 
@@ -42,16 +42,23 @@ public partial class @Model.GetClassName()  //@if (Model.IsResource) { <text>: C
 {
 	var t = new HtmlString(property.GetPropertyType());
     <text>
-		/// <summary>
-        /// @property.Description
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("@property.Name")]
-		public  @t? @property.GetPropertyName() { get; set; }
+    /// <summary>
+    /// @property.Description
+    /// </summary
     </text>
+        @foreach (var attr in property.Attributes)
+        {
+            var htmlString = new HtmlString(attr);
+    <text>@htmlString
+    </text>
+
+        }
+    <text>public @t? @property.GetPropertyName() { get; set; }
+
+	</text>
+   
 	
 }
-
 }
 
 

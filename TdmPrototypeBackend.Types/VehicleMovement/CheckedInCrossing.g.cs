@@ -15,27 +15,28 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.VehicleMovement;
 
-    /// <summary>
-    /// 
-    /// </summary>
+/// <summary>
+/// 
+/// </summary>
 public partial class CheckedInCrossing  //
 {
 
 
-		/// <summary>
-        /// The ID of the crossing route, using a routeId from the GVMS reference data
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("routeId")]
-		public  string? RouteId { get; set; }
-    
-		/// <summary>
-        /// The planned date and time of arrival, in local time of the arrival port. Must not include seconds, time zone or UTC marker
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("localDateTimeOfArrival")]
-		public  DateTime? LocalDateTimeOfArrival { get; set; }
-    
-}
+    /// <summary>
+    /// The ID of the crossing route, using a routeId from the GVMS reference data
+    /// </summary
+    [Attr]
+    [JsonPropertyName("routeId")]
+    public string? RouteId { get; set; }
+
+	
+    /// <summary>
+    /// The planned date and time of arrival, in local time of the arrival port. Must not include seconds, time zone or UTC marker
+    /// </summary
+    [Attr]
+    [JsonPropertyName("localDateTimeOfArrival")]
+    public string? LocalDateTimeOfArrival { get; set; }
+
+	}
 
 

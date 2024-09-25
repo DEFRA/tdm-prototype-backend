@@ -15,41 +15,44 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.Alvs;
 
-    /// <summary>
-    /// Message returned by the server as answer to the ALVSClearanceRequest.
-    /// </summary>
+/// <summary>
+/// Message returned by the server as answer to the ALVSClearanceRequest.
+/// </summary>
 public partial class ALVSClearanceRequestPostResult  //
 {
 
 
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("xmlSchemaVersion")]
-		public  string? XmlSchemaVersion { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("sendingDate")]
-		public  string? SendingDate { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("operationCode")]
-		public  int? OperationCode { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("requestIdentifier")]
-		public  string? RequestIdentifier { get; set; }
-    
-}
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("xmlSchemaVersion")]
+    public string? XmlSchemaVersion { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("sendingDate")]
+    public string? SendingDate { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("operationCode")]
+    public int? OperationCode { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("requestIdentifier")]
+    public string? RequestIdentifier { get; set; }
+
+	}
 
 

@@ -15,55 +15,60 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
-    /// <summary>
-    /// Approved Establishment details
-    /// </summary>
+/// <summary>
+/// Approved Establishment details
+/// </summary>
 public partial class IpaffsApprovedEstablishment  //
 {
 
 
-		/// <summary>
-        /// ID
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("id")]
-		public  string? IpaffsId { get; set; }
-    
-		/// <summary>
-        /// Name of approved establishment
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("name")]
-		public  string? Name { get; set; }
-    
-		/// <summary>
-        /// Country of approved establishment
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("country")]
-		public  string? Country { get; set; }
-    
-		/// <summary>
-        /// Types of approved establishment
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("types")]
-		public  string[]? Types { get; set; }
-    
-		/// <summary>
-        /// Approval number
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("approvalNumber")]
-		public  string? ApprovalNumber { get; set; }
-    
-		/// <summary>
-        /// Section of approved establishment
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("section")]
-		public  string? Section { get; set; }
-    
-}
+    /// <summary>
+    /// ID
+    /// </summary
+    [Attr]
+    [JsonPropertyName("id")]
+    public string? IpaffsId { get; set; }
+
+	
+    /// <summary>
+    /// Name of approved establishment
+    /// </summary
+    [Attr]
+    [JsonPropertyName("name")]
+    public string? Name { get; set; }
+
+	
+    /// <summary>
+    /// Country of approved establishment
+    /// </summary
+    [Attr]
+    [JsonPropertyName("country")]
+    public string? Country { get; set; }
+
+	
+    /// <summary>
+    /// Types of approved establishment
+    /// </summary
+    [Attr]
+    [JsonPropertyName("types")]
+    public string[]? Types { get; set; }
+
+	
+    /// <summary>
+    /// Approval number
+    /// </summary
+    [Attr]
+    [JsonPropertyName("approvalNumber")]
+    public string? ApprovalNumber { get; set; }
+
+	
+    /// <summary>
+    /// Section of approved establishment
+    /// </summary
+    [Attr]
+    [JsonPropertyName("section")]
+    public string? Section { get; set; }
+
+	}
 
 

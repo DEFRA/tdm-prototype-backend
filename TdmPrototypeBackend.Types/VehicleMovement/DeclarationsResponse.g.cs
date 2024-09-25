@@ -15,12 +15,11 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.VehicleMovement;
 
-    /// <summary>
-    /// A list of declaration ids.
-    /// </summary>
+/// <summary>
+/// A list of declaration ids.
+/// </summary>
 public partial class DeclarationsResponse  //
 {
-
 
 }
 

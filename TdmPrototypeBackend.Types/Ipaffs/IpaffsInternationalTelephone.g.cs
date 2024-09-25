@@ -15,27 +15,28 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
-    /// <summary>
-    /// International phone number
-    /// </summary>
+/// <summary>
+/// International phone number
+/// </summary>
 public partial class IpaffsInternationalTelephone  //
 {
 
 
-		/// <summary>
-        /// Country code of phone number
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("countryCode")]
-		public  string? CountryCode { get; set; }
-    
-		/// <summary>
-        /// Phone number
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("subscriberNumber")]
-		public  string? SubscriberNumber { get; set; }
-    
-}
+    /// <summary>
+    /// Country code of phone number
+    /// </summary
+    [Attr]
+    [JsonPropertyName("countryCode")]
+    public string? CountryCode { get; set; }
+
+	
+    /// <summary>
+    /// Phone number
+    /// </summary
+    [Attr]
+    [JsonPropertyName("subscriberNumber")]
+    public string? SubscriberNumber { get; set; }
+
+	}
 
 

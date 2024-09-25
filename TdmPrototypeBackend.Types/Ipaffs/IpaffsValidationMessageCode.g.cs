@@ -15,27 +15,28 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
-    /// <summary>
-    /// Validation field code-message representation
-    /// </summary>
+/// <summary>
+/// Validation field code-message representation
+/// </summary>
 public partial class IpaffsValidationMessageCode  //
 {
 
 
-		/// <summary>
-        /// Field
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("field")]
-		public  string? Field { get; set; }
-    
-		/// <summary>
-        /// Code
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("code")]
-		public  string? Code { get; set; }
-    
-}
+    /// <summary>
+    /// Field
+    /// </summary
+    [Attr]
+    [JsonPropertyName("field")]
+    public string? Field { get; set; }
+
+	
+    /// <summary>
+    /// Code
+    /// </summary
+    [Attr]
+    [JsonPropertyName("code")]
+    public string? Code { get; set; }
+
+	}
 
 
