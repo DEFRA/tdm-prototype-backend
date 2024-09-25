@@ -1,4 +1,6 @@
+using System.Net;
 using MongoDB.Driver;
+using TdmPrototypeBackend.ASB;
 using TdmPrototypeBackend.Storage;
 using TdmPrototypeBackend.Storage.Mongo;
 using TdmPrototypeBackend.Types;
@@ -42,7 +44,9 @@ public static class ServiceExtensions
         services.AddSingleton<SynchroniserConfig, SynchroniserConfig>();
         services.AddKeyedSingleton<IBlobService, BlobService>("base");
         services.AddSingleton<IBlobService, CachingBlobService>();
-        services.AddSingleton<IBusService, BusService>();
+        services.AddSingleton<IBusService, BusService>(sp => new BusService(sp.GetService<ILogger<BusService>>(),
+            sp.GetService<SynchroniserConfig>(),
+            sp.GetService<IWebProxy>()));
         services.AddSingleton<IWebService, WebService>();
         services.AddSingleton<ISyncService, SyncService>();
         // services.AddSingleton<IStorageService<Movement>, JsonApiStorageService<Movement>>();
