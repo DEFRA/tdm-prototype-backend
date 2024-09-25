@@ -15,41 +15,44 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
-    /// <summary>
-    /// Details of Control (Part 3)
-    /// </summary>
+/// <summary>
+/// Details of Control (Part 3)
+/// </summary>
 public partial class IpaffsControl  //
 {
 
 
-		/// <summary>
-        /// Feedback information of Control
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("feedbackInformation")]
-		public  IpaffsFeedbackInformation? FeedbackInformation { get; set; }
-    
-		/// <summary>
-        /// Details on re-export
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("detailsOnReExport")]
-		public  IpaffsDetailsOnReExport? DetailsOnReExport { get; set; }
-    
-		/// <summary>
-        /// Official inspector
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("officialInspector")]
-		public  IpaffsOfficialInspector? OfficialInspector { get; set; }
-    
-		/// <summary>
-        /// Is the consignment leaving UK borders?
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("consignmentLeave")]
-		public  IpaffsControlConsignmentLeaveEnum? ConsignmentLeave { get; set; }
-    
-}
+    /// <summary>
+    /// Feedback information of Control
+    /// </summary
+    [Attr]
+    [JsonPropertyName("feedbackInformation")]
+    public IpaffsFeedbackInformation? FeedbackInformation { get; set; }
+
+	
+    /// <summary>
+    /// Details on re-export
+    /// </summary
+    [Attr]
+    [JsonPropertyName("detailsOnReExport")]
+    public IpaffsDetailsOnReExport? DetailsOnReExport { get; set; }
+
+	
+    /// <summary>
+    /// Official inspector
+    /// </summary
+    [Attr]
+    [JsonPropertyName("officialInspector")]
+    public IpaffsOfficialInspector? OfficialInspector { get; set; }
+
+	
+    /// <summary>
+    /// Is the consignment leaving UK borders?
+    /// </summary
+    [Attr]
+    [JsonPropertyName("consignmentLeave")]
+    public IpaffsControlConsignmentLeaveEnum? ConsignmentLeave { get; set; }
+
+	}
 
 

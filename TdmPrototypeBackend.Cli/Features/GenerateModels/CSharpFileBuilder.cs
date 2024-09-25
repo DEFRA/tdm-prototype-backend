@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using RazorLight;
+using TdmPrototypeBackend.Cli.Features.GenerateModels.ClassMaps;
 using TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel;
 
 namespace TdmPrototypeBackend.Cli.Features.GenerateModels
@@ -16,6 +17,8 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels
 
             foreach (var @class in descriptor.Classes.OrderBy(x => x.Name))
             {
+                ApplyClassMapOverrides(@class);
+
                 var contents = await engine.CompileRenderAsync("ClassTemplate", @class);
                 await File.WriteAllTextAsync(Path.Combine(outputPath, $"{@class.GetClassName()}.g.cs"), contents, cancellationToken);
                 Console.WriteLine($"Created file: {@class.GetClassName()}.cs");
@@ -27,6 +30,40 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels
                 await File.WriteAllTextAsync(Path.Combine(outputPath, $"{@enum.GetEnumName()}.g.cs"), contents, cancellationToken);
                 // File.WriteAllText($"../../../Model/{@enum.GetEnumName()}.cs", contents);
                 Console.WriteLine($"Created file: {@enum.GetEnumName()}.cs");
+            }
+        }
+
+        private static void ApplyClassMapOverrides(ClassDescriptor @class)
+        {
+            var classMap = GeneratorClassMap.LookupClassMap(@class.Name);
+
+            if (classMap is not null)
+            {
+                foreach (var propertyMap in classMap.Properties)
+                {
+                    var propertyDescriptor = @class.Properties.FirstOrDefault(x => x.Name.Equals(propertyMap.Name, StringComparison.InvariantCultureIgnoreCase));
+
+                    if (propertyDescriptor is not null)
+                    {
+                        if (propertyMap.TypeOverwritten)
+                        {
+                            propertyDescriptor.Type = propertyMap.Type;
+                        }
+
+                        if (propertyMap.AttributesOverwritten)
+                        {
+                            if (propertyMap.NoAttributes)
+                            {
+                                propertyDescriptor.Attributes.Clear();
+                            }
+                            else
+                            {
+                                propertyDescriptor.Attributes.AddRange(propertyMap.Attributes);
+                            }
+                                
+                        }
+                    }
+                }
             }
         }
     }

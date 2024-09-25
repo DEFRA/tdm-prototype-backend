@@ -15,41 +15,44 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.Alvs;
 
-    /// <summary>
-    /// 
-    /// </summary>
+/// <summary>
+/// 
+/// </summary>
 public partial class ServiceHeader  //
 {
 
 
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("sourceSystem")]
-		public  string? SourceSystem { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("destinationSystem")]
-		public  string? DestinationSystem { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("correlationId")]
-		public  string? CorrelationId { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("serviceCallTimestamp")]
-		public  DateTime? ServiceCallTimestamp { get; set; }
-    
-}
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("sourceSystem")]
+    public string? SourceSystem { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("destinationSystem")]
+    public string? DestinationSystem { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("correlationId")]
+    public string? CorrelationId { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("serviceCallTimestamp")]
+    public DateTime? ServiceCallTimestamp { get; set; }
+
+	}
 
 

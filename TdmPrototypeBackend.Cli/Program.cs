@@ -5,9 +5,9 @@ using Microsoft.Extensions.Hosting;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using TdmPrototypeBackend.Cli.Features.GenerateModels.ClassMaps;
 
-
-
+Bootstrap.GeneratorClassMaps();
 var builder = Host.CreateDefaultBuilder(args)
     .ConfigureServices((hostContext, services) =>
     {

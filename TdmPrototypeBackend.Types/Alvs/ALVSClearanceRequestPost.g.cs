@@ -15,48 +15,52 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.Alvs;
 
-    /// <summary>
-    /// Message sent to the server to send an ALVSClearanceRequest.
-    /// </summary>
+/// <summary>
+/// Message sent to the server to send an ALVSClearanceRequest.
+/// </summary>
 public partial class ALVSClearanceRequestPost  //
 {
 
 
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("xmlSchemaVersion")]
-		public  string? XmlSchemaVersion { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("userIdentification")]
-		public  string? UserIdentification { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("userPassword")]
-		public  string? UserPassword { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("sendingDate")]
-		public  string? SendingDate { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("alvsClearanceRequest")]
-		public  ALVSClearanceRequest? AlvsClearanceRequest { get; set; }
-    
-}
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("xmlSchemaVersion")]
+    public string? XmlSchemaVersion { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("userIdentification")]
+    public string? UserIdentification { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("userPassword")]
+    public string? UserPassword { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("sendingDate")]
+    public string? SendingDate { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("alvsClearanceRequest")]
+    public ALVSClearanceRequest? AlvsClearanceRequest { get; set; }
+
+	}
 
 

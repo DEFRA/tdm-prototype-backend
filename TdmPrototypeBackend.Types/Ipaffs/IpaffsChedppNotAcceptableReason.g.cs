@@ -15,27 +15,28 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
-    /// <summary>
-    /// Information about not acceptable reason
-    /// </summary>
+/// <summary>
+/// Information about not acceptable reason
+/// </summary>
 public partial class IpaffsChedppNotAcceptableReason  //
 {
 
 
-		/// <summary>
-        /// reason for refusal
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("reason")]
-		public  IpaffsChedppNotAcceptableReasonReasonEnum? Reason { get; set; }
-    
-		/// <summary>
-        /// commodity or package
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("commodityOrPackage")]
-		public  IpaffsChedppNotAcceptableReasonCommodityOrPackageEnum? CommodityOrPackage { get; set; }
-    
-}
+    /// <summary>
+    /// reason for refusal
+    /// </summary
+    [Attr]
+    [JsonPropertyName("reason")]
+    public IpaffsChedppNotAcceptableReasonReasonEnum? Reason { get; set; }
+
+	
+    /// <summary>
+    /// commodity or package
+    /// </summary
+    [Attr]
+    [JsonPropertyName("commodityOrPackage")]
+    public IpaffsChedppNotAcceptableReasonCommodityOrPackageEnum? CommodityOrPackage { get; set; }
+
+	}
 
 

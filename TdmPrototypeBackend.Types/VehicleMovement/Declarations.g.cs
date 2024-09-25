@@ -15,27 +15,28 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.VehicleMovement;
 
-    /// <summary>
-    /// 
-    /// </summary>
+/// <summary>
+/// 
+/// </summary>
 public partial class Declarations  //
 {
 
 
-		/// <summary>
-        /// A list of declaration ids.
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("transits")]
-		public  Transits[]? Transits { get; set; }
-    
-		/// <summary>
-        /// A list of declaration ids.
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("customs")]
-		public  Customs[]? Customs { get; set; }
-    
-}
+    /// <summary>
+    /// A list of declaration ids.
+    /// </summary
+    [Attr]
+    [JsonPropertyName("transits")]
+    public Transits[]? Transits { get; set; }
+
+	
+    /// <summary>
+    /// A list of declaration ids.
+    /// </summary
+    [Attr]
+    [JsonPropertyName("customs")]
+    public Customs[]? Customs { get; set; }
+
+	}
 
 

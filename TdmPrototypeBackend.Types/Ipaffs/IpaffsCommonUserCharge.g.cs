@@ -15,20 +15,20 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
-    /// <summary>
-    /// 
-    /// </summary>
+/// <summary>
+/// 
+/// </summary>
 public partial class IpaffsCommonUserCharge  //
 {
 
 
-		/// <summary>
-        /// Indicates whether the last applicable change was successfully send over the interface to Trade Charge
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("wasSentToTradeCharge")]
-		public  bool? WasSentToTradeCharge { get; set; }
-    
-}
+    /// <summary>
+    /// Indicates whether the last applicable change was successfully send over the interface to Trade Charge
+    /// </summary
+    [Attr]
+    [JsonPropertyName("wasSentToTradeCharge")]
+    public bool? WasSentToTradeCharge { get; set; }
+
+	}
 
 

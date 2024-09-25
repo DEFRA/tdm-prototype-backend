@@ -15,34 +15,36 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
-    /// <summary>
-    /// Details of transport
-    /// </summary>
+/// <summary>
+/// Details of transport
+/// </summary>
 public partial class IpaffsMeansOfTransport  //
 {
 
 
-		/// <summary>
-        /// Type of transport
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("type")]
-		public  IpaffsMeansOfTransportTypeEnum? IpaffsType { get; set; }
-    
-		/// <summary>
-        /// Document for transport
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("document")]
-		public  string? Document { get; set; }
-    
-		/// <summary>
-        /// ID of transport
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("id")]
-		public  string? IpaffsId { get; set; }
-    
-}
+    /// <summary>
+    /// Type of transport
+    /// </summary
+    [Attr]
+    [JsonPropertyName("type")]
+    public IpaffsMeansOfTransportTypeEnum? IpaffsType { get; set; }
+
+	
+    /// <summary>
+    /// Document for transport
+    /// </summary
+    [Attr]
+    [JsonPropertyName("document")]
+    public string? Document { get; set; }
+
+	
+    /// <summary>
+    /// ID of transport
+    /// </summary
+    [Attr]
+    [JsonPropertyName("id")]
+    public string? IpaffsId { get; set; }
+
+	}
 
 

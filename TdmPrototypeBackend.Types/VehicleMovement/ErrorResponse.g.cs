@@ -15,20 +15,20 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.VehicleMovement;
 
-    /// <summary>
-    /// 
-    /// </summary>
+/// <summary>
+/// 
+/// </summary>
 public partial class ErrorResponse  //
 {
 
 
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("code")]
-		public  string? Code { get; set; }
-    
-}
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("code")]
+    public string? Code { get; set; }
+
+	}
 
 

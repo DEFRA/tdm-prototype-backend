@@ -15,20 +15,20 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.VehicleMovement;
 
-    /// <summary>
-    /// 
-    /// </summary>
+/// <summary>
+/// 
+/// </summary>
 public partial class GmrsByVRN  //
 {
 
 
-		/// <summary>
-        /// This is the identifier for a Vehicle Registration Number
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("vrn")]
-		public  string? Vrn { get; set; }
-    
-}
+    /// <summary>
+    /// This is the identifier for a Vehicle Registration Number
+    /// </summary
+    [Attr]
+    [JsonPropertyName("vrn")]
+    public string? Vrn { get; set; }
+
+	}
 
 

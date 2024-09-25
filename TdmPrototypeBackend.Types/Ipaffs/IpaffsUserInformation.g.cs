@@ -15,34 +15,36 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
-    /// <summary>
-    /// Information about logged-in user
-    /// </summary>
+/// <summary>
+/// Information about logged-in user
+/// </summary>
 public partial class IpaffsUserInformation  //
 {
 
 
-		/// <summary>
-        /// Display name
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("displayName")]
-		public  string? DisplayName { get; set; }
-    
-		/// <summary>
-        /// User ID
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("userId")]
-		public  string? UserId { get; set; }
-    
-		/// <summary>
-        /// Is this user a control
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("isControlUser")]
-		public  bool? IsControlUser { get; set; }
-    
-}
+    /// <summary>
+    /// Display name
+    /// </summary
+    [Attr]
+    [JsonPropertyName("displayName")]
+    public string? DisplayName { get; set; }
+
+	
+    /// <summary>
+    /// User ID
+    /// </summary
+    [Attr]
+    [JsonPropertyName("userId")]
+    public string? UserId { get; set; }
+
+	
+    /// <summary>
+    /// Is this user a control
+    /// </summary
+    [Attr]
+    [JsonPropertyName("isControlUser")]
+    public bool? IsControlUser { get; set; }
+
+	}
 
 

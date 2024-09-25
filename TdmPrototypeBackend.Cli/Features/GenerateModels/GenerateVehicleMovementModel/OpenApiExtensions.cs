@@ -20,15 +20,8 @@ public static class OpenApiExtensions
         return schema.Items.Type;
     }
 
-    private static List<string> dateTimeProperties = new List<string>() { "localDateTimeOfArrival", "localDateTimeOfDeparture", "updatedDateTime" };
-
     public static string ToCSharpType(this KeyValuePair<string, OpenApiSchema> openApiSchema)
     {
-        if (dateTimeProperties.Contains(openApiSchema.Key))
-        {
-            return "DateTime";
-        }
-
         var openApiType = openApiSchema.Value.Type;
 
         return openApiType switch

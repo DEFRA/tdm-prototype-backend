@@ -4,32 +4,55 @@ using Humanizer;
 namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel
 {
     [DebuggerDisplay("{Name}")]
-    public class PropertyDescriptor(string name, string type, string description, bool isReferenceType, bool isArray, string classNamePrefix)
+    public class PropertyDescriptor
     {
+        private readonly string _name;
+
+        private readonly bool _isReferenceType;
+
+        private readonly bool _isArray;
+
+        private readonly string _classNamePrefix;
+
+        public PropertyDescriptor(string name, string type, string description, bool isReferenceType, bool isArray, string classNamePrefix)
+        {
+            _name = name;
+            _isReferenceType = isReferenceType;
+            _isArray = isArray;
+            _classNamePrefix = classNamePrefix;
+            Name = name;
+            Type = type;
+            Description = description;
+            IsReferenceType = isReferenceType;
+            IsArray = isArray;
+            Attributes = new List<string>() { "[Attr]", $"[JsonPropertyName(\"{Name}\")]" };
+        }
         // private const string prefix = "Ipaffs";
 
-        public string Name { get; set; } = name;
+        public string Name { get; set; }
 
-        public string Type { get; set; } = type;
+        public string Type { get; set; }
 
-        public string Description { get; set; } = description;
+        public string Description { get; set; }
 
-        public bool IsReferenceType { get; set; } = isReferenceType;
+        public List<string> Attributes { get; set; } = new();
+
+        public bool IsReferenceType { get; set; }
 
         public bool IsNullable { get; set; }
 
-        public bool IsArray { get; set; } = isArray;
+        public bool IsArray { get; set; }
 
         public string GetPropertyName()
         {
             var n = Name.Dehumanize();
-            if (name.Equals("type", StringComparison.InvariantCultureIgnoreCase) || name.Equals("id", StringComparison.InvariantCultureIgnoreCase))
+            if (_name.Equals("type", StringComparison.InvariantCultureIgnoreCase) || _name.Equals("id", StringComparison.InvariantCultureIgnoreCase))
             {
-                return $"{classNamePrefix}{name.Dehumanize()}";
+                return $"{_classNamePrefix}{_name.Dehumanize()}";
             }
 
 
-            if (isArray)
+            if (_isArray)
             {
                 n = n.Pluralize();
             }
@@ -42,9 +65,9 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel
             var t = Type;
 
 
-            if (isReferenceType && !Type.Equals("Result") && !Type.Equals("Unit") && !Type.Equals("string") && !Type.Equals("InspectionRequired"))
+            if (_isReferenceType && !Type.Equals("Result") && !Type.Equals("Unit") && !Type.Equals("string") && !Type.Equals("InspectionRequired"))
             {
-                t = ClassDescriptor.BuildClassName(Type, classNamePrefix);
+                t = ClassDescriptor.BuildClassName(Type, _classNamePrefix);
             }
 
             if (IsArray && !t.Contains("[]"))
@@ -53,6 +76,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel
             }
             return t;
         }
+
     }
 
 

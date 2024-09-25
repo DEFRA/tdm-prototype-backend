@@ -15,20 +15,20 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.VehicleMovement;
 
-    /// <summary>
-    /// 
-    /// </summary>
+/// <summary>
+/// 
+/// </summary>
 public partial class SearchGmrsResponse  //
 {
 
 
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("gmrs")]
-		public  Gmrs[]? Gmrs { get; set; }
-    
-}
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("gmrs")]
+    public Gmrs[]? Gmrs { get; set; }
+
+	}
 
 

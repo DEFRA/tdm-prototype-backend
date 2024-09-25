@@ -15,104 +15,116 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.Alvs;
 
-    /// <summary>
-    /// 
-    /// </summary>
+/// <summary>
+/// 
+/// </summary>
 public partial class Header  //
 {
 
 
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("entryReference")]
-		public  string? EntryReference { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("entryVersionNumber")]
-		public  int? EntryVersionNumber { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("previousVersionNumber")]
-		public  int? PreviousVersionNumber { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("declarationUCR")]
-		public  string? DeclarationUCR { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("declarationPartNumber")]
-		public  string? DeclarationPartNumber { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("declarationType")]
-		public  string? DeclarationType { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("arrivalDateTime")]
-		public  DateTime? ArrivalDateTime { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("submitterTURN")]
-		public  string? SubmitterTURN { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("declarantId")]
-		public  string? DeclarantId { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("declarantName")]
-		public  string? DeclarantName { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("dispatchCountryCode")]
-		public  string? DispatchCountryCode { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("goodsLocationCode")]
-		public  string? GoodsLocationCode { get; set; }
-    
-		/// <summary>
-        /// 
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("masterUCR")]
-		public  string? MasterUCR { get; set; }
-    
-}
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("entryReference")]
+    public string? EntryReference { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("entryVersionNumber")]
+    public int? EntryVersionNumber { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("previousVersionNumber")]
+    public int? PreviousVersionNumber { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("declarationUCR")]
+    public string? DeclarationUCR { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("declarationPartNumber")]
+    public string? DeclarationPartNumber { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("declarationType")]
+    public string? DeclarationType { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("arrivalDateTime")]
+    public DateTime? ArrivalDateTime { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("submitterTURN")]
+    public string? SubmitterTURN { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("declarantId")]
+    public string? DeclarantId { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("declarantName")]
+    public string? DeclarantName { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("dispatchCountryCode")]
+    public string? DispatchCountryCode { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("goodsLocationCode")]
+    public string? GoodsLocationCode { get; set; }
+
+	
+    /// <summary>
+    /// 
+    /// </summary
+    [Attr]
+    [JsonPropertyName("masterUCR")]
+    public string? MasterUCR { get; set; }
+
+	}
 
 

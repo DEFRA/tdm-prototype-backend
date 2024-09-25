@@ -15,34 +15,36 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
-    /// <summary>
-    /// Details about the manual inspection override
-    /// </summary>
+/// <summary>
+/// Details about the manual inspection override
+/// </summary>
 public partial class IpaffsInspectionOverride  //
 {
 
 
-		/// <summary>
-        /// Original inspection decision
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("originalDecision")]
-		public  string? OriginalDecision { get; set; }
-    
-		/// <summary>
-        /// The time the risk decision is overridden
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("overriddenOn")]
-		public  string? OverriddenOn { get; set; }
-    
-		/// <summary>
-        /// User entity who has manually overridden the inspection
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("overriddenBy")]
-		public  IpaffsUserInformation? OverriddenBy { get; set; }
-    
-}
+    /// <summary>
+    /// Original inspection decision
+    /// </summary
+    [Attr]
+    [JsonPropertyName("originalDecision")]
+    public string? OriginalDecision { get; set; }
+
+	
+    /// <summary>
+    /// The time the risk decision is overridden
+    /// </summary
+    [Attr]
+    [JsonPropertyName("overriddenOn")]
+    public string? OverriddenOn { get; set; }
+
+	
+    /// <summary>
+    /// User entity who has manually overridden the inspection
+    /// </summary
+    [Attr]
+    [JsonPropertyName("overriddenBy")]
+    public IpaffsUserInformation? OverriddenBy { get; set; }
+
+	}
 
 

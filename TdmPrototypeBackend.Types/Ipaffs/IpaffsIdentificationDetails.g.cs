@@ -15,27 +15,28 @@ using System.Dynamic;
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
-    /// <summary>
-    /// 
-    /// </summary>
+/// <summary>
+/// 
+/// </summary>
 public partial class IpaffsIdentificationDetails  //
 {
 
 
-		/// <summary>
-        /// Identification detail
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("identificationDetail")]
-		public  string? IdentificationDetail { get; set; }
-    
-		/// <summary>
-        /// Identification description
-        /// </summary>
-        [Attr]
-        [JsonPropertyName("identificationDescription")]
-		public  string? IdentificationDescription { get; set; }
-    
-}
+    /// <summary>
+    /// Identification detail
+    /// </summary
+    [Attr]
+    [JsonPropertyName("identificationDetail")]
+    public string? IdentificationDetail { get; set; }
+
+	
+    /// <summary>
+    /// Identification description
+    /// </summary
+    [Attr]
+    [JsonPropertyName("identificationDescription")]
+    public string? IdentificationDescription { get; set; }
+
+	}
 
 

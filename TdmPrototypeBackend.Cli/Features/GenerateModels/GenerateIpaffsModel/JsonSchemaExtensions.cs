@@ -51,15 +51,8 @@ public static class JsonSchemaExtensions
         return typeKeyword != null;
     }
 
-    private static List<string> dateTimeProperties = new List<string>() { "riskDecisionLockingTime", "decisionDate", "lastUpdated" };
-
     public static string ToCSharpType(this SchemaValueType schemaValueType, string propertyName)
     {
-        if (dateTimeProperties.Contains(propertyName))
-        {
-            return "DateTime";
-        }
-
         return schemaValueType switch
         {
             SchemaValueType.Object => "IDictionary<string, string>",
