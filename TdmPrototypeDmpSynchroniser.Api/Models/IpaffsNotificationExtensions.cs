@@ -23,15 +23,36 @@ public static class NotificationExtensions
         
         return r;
     }
+
+    public static string FromSnakeCase(this string input)
+    {
+        if (input == "netweight")
+        {
+            return "netWeight";
+        }
+        var pascal = input.Split(new [] {"_"}, StringSplitOptions.RemoveEmptyEntries).Select(s => char.ToUpperInvariant(s[0]) + s.Substring(1, s.Length - 1)).Aggregate(string.Empty, (s1, s2) => s1 + s2);
+        return char.ToLower(pascal[0]) + pascal[1..];
+    }
+
+    public static IDictionary<string, object> FromSnakeCase(this IDictionary<string, object> input)
+    {
+        // var output = from pair in input
+        //     select pair.Key;
+
+        return input.ToDictionary(mc => mc.Key.FromSnakeCase(),
+            mc => mc.Value);
+        
+        // return output;
+    }
     
     private static void Transform(this Notification n)
     {
-        if (n.PartOne!.Commodities!.CommodityComplements.Length == 1)
+        if (n.PartOne!.Commodities!.CommodityComplements!.Length == 1)
         {
-            n.PartOne!.Commodities!.CommodityComplements[0].AdditionalData = n.PartOne!.Commodities!.ComplementParameterSets![0].KeyDataPairs;
+            n.PartOne!.Commodities!.CommodityComplements[0].AdditionalData = n.PartOne!.Commodities!.ComplementParameterSets![0].KeyDataPairs!.FromSnakeCase();
             if (n.RiskAssessment != null)
             {
-                n.PartOne!.Commodities!.CommodityComplements[0].RiskAssesment = n.RiskAssessment.CommodityResults[0];    
+                n.PartOne!.Commodities!.CommodityComplements[0].RiskAssesment = n.RiskAssessment.CommodityResults![0];    
             }
         }
         else
@@ -55,7 +76,7 @@ public static class NotificationExtensions
             foreach (var commodity in n.PartOne!.Commodities!.CommodityComplements)
             {
                 var parameters = complementParameters[commodity.UniqueComplementID!];
-                commodity.AdditionalData = parameters.KeyDataPairs;
+                commodity.AdditionalData = parameters.KeyDataPairs.FromSnakeCase();
                 commodity.RiskAssesment = complementRiskAssesments[commodity.UniqueComplementID!];
             }
         
