@@ -51,7 +51,8 @@ public partial class IpaffsComplementParameterSet  //
     /// </summary
     [Attr]
     [JsonPropertyName("keyDataPair")]
-    public IpaffsKeyDataPair[]? KeyDataPairs { get; set; }
+    [JsonConverter(typeof(KeyDataPairsToDictionaryStringObjectJsonConverter))]
+    public IDictionary<string, object>? KeyDataPairs { get; set; }
 
 	
     /// <summary>

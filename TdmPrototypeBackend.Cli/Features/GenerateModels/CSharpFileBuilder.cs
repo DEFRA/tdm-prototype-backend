@@ -47,7 +47,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels
                     {
                         if (propertyMap.TypeOverwritten)
                         {
-                            propertyDescriptor.Type = propertyMap.Type;
+                            propertyDescriptor.OverrideType(propertyMap.Type);
                         }
 
                         if (propertyMap.AttributesOverwritten)

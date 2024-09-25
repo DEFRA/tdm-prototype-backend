@@ -107,6 +107,7 @@ public partial class IpaffsCommodities  //
     /// </summary
     [Attr]
     [JsonPropertyName("complementParameterSet")]
+    [MongoDB.Bson.Serialization.Attributes.BsonIgnore]
     public IpaffsComplementParameterSet[]? ComplementParameterSets { get; set; }
 
 	

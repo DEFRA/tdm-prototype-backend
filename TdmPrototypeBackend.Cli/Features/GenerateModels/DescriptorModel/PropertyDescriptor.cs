@@ -13,6 +13,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel
         private readonly bool _isArray;
 
         private readonly string _classNamePrefix;
+        private bool _typeOverridden;
 
         public PropertyDescriptor(string name, string type, string description, bool isReferenceType, bool isArray, string classNamePrefix)
         {
@@ -43,6 +44,12 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel
 
         public bool IsArray { get; set; }
 
+        public void OverrideType(string type)
+        {
+            Type = type;
+            _typeOverridden = true;
+        }
+
         public string GetPropertyName()
         {
             var n = Name.Dehumanize();
@@ -63,6 +70,11 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel
         public string GetPropertyType()
         {
             var t = Type;
+
+            if (_typeOverridden)
+            {
+                return t;
+            }
 
 
             if (_isReferenceType && !Type.Equals("Result") && !Type.Equals("Unit") && !Type.Equals("string") && !Type.Equals("InspectionRequired"))

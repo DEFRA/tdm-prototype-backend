@@ -25,6 +25,18 @@ static class Bootstrap
             map.MapProperty("decisionDate").SetType("DateTime");
             map.MapProperty("lastUpdated").SetType("DateTime");
         });
+
+        GeneratorClassMap.RegisterClassMap("Commodities", map =>
+        {
+            map.MapProperty("complementParameterSet").AddAttribute("[MongoDB.Bson.Serialization.Attributes.BsonIgnore]");
+        });
+
+        GeneratorClassMap.RegisterClassMap("ComplementParameterSet", map =>
+        {
+            map.MapProperty("KeyDataPair")
+                .SetType("IDictionary<string, object>")
+                .AddAttribute("[JsonConverter(typeof(KeyDataPairsToDictionaryStringObjectJsonConverter))]");
+        });
     }
 
     public static void RegisterVehicleMovementsClassMaps()
