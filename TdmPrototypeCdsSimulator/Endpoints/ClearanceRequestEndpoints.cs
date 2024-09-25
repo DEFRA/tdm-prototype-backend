@@ -47,6 +47,11 @@ public static class ClearanceRequestEndpoints
             CorrelationId = "000"
         };
 
+        clearanceRequest.Items = new Items[1]
+        {
+            new() { ItemNumber = 1, Checks = new Check[1] { new() { CheckCode = "H2019", DepartmentCode = "GB" } } }
+        };
+
         await busService.SendMessageAsync(clearanceRequest);
 
 
