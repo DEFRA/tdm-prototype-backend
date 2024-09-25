@@ -1,0 +1,19 @@
+
+using JsonApiDotNetCore.Resources.Annotations;
+
+namespace TdmPrototypeBackend.Types.Ipaffs;
+
+/// <summary>
+/// Holder for additional parameters of a commodity line item
+/// </summary>
+public partial class IpaffsCommodityComplement  //
+{
+    [Attr] public IDictionary<string, object>? AdditionalData { get; set; } = new Dictionary<string, object>();
+	
+    [Attr]
+    public IpaffsCommodityRiskResult? RiskAssesment { get; set; }
+    
+    
+}
+
+
