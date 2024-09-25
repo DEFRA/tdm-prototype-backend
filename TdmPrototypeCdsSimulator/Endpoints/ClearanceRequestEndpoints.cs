@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using TdmPrototypeBackend.ASB;
 using TdmPrototypeBackend.Storage;
 using TdmPrototypeBackend.Types.Alvs;
 using TdmPrototypeBackend.Types.Ipaffs;
@@ -21,6 +22,7 @@ public static class ClearanceRequestEndpoints
 
     private static async Task<IResult> CreateClearanceRequestsAsync(
         IStorageService<Notification> notificationService,
+        IBusService busService,
         string notificationId)
     {
         var notification = await notificationService.Find(notificationId);
@@ -44,6 +46,8 @@ public static class ClearanceRequestEndpoints
             DestinationSystem = "ALVS",
             CorrelationId = "000"
         };
+
+        await busService.SendMessageAsync(clearanceRequest);
 
 
         return Results.Ok(clearanceRequest);

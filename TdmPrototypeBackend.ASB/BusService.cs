@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using Azure.Messaging.ServiceBus;
 using Microsoft.Extensions.Logging;
@@ -32,6 +33,13 @@ public class BusService(
     public async Task<Status> CheckBusAsync()
     {
         return await CheckBusAsync(config.DmpBusNamespace);
+    }
+
+    public async Task SendMessageAsync<T>(T message)
+    {
+        await using var client = CreateBusClient(config.DmpBusNamespace, 0, 5);
+        await using var sender = client.CreateSender(config.DmpBusTopic);
+        await sender.SendMessageAsync(new ServiceBusMessage(BinaryData.FromObjectAsJson(message)));
     }
 
     public async Task<Status> CheckBusAsync(string uri)
