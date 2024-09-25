@@ -32,6 +32,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TdmPrototypeBackend.Storage.Mongo\TdmPrototypeBackend.Storage.Mongo.csproj" />
+    <ProjectReference Include="..\TdmPrototypeBackend.Storage\TdmPrototypeBackend.Storage.csproj" />
     <ProjectReference Include="..\TdmPrototypeBackend.Types\TdmPrototypeBackend.Types.csproj" />
     <ProjectReference Include="..\libs\jsonapi-consumer\jsonapi-consumer.csproj" />
   </ItemGroup>
