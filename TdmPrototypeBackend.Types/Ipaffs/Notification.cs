@@ -12,9 +12,11 @@ public partial class Notification : IMongoIdentifiable
 {
 
     //// This field is used by the jsonapi-consumer to control the correct casing in the type field
+     [JsonIgnore]
     public string Type { get; set; } = "notifications";
 
     //[BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
+    [JsonIgnore]
     public virtual string? Id
     {
         get => ReferenceNumber;

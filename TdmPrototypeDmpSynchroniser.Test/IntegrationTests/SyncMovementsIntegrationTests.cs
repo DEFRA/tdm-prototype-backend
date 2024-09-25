@@ -5,9 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using TdmPrototypeBackend.Storage;
 using TdmPrototypeBackend.Types;
-using TdmPrototypeDmpSynchroniser.Api.Config;
-using TdmPrototypeDmpSynchroniser.Api.Data;
 using TdmPrototypeDmpSynchroniser.Api.Models;
 using TdmPrototypeDmpSynchroniser.Api.Services;
 

@@ -1,18 +1,15 @@
-using JsonApiConsumer;
 using JsonApiDotNetCore.MongoDb.Resources;
+using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using TdmPrototypeBackend.Types;
-using TdmPrototypeDmpSynchroniser.Api.Config;
-using TdmPrototypeDmpSynchroniser.Api.Data;
 
-namespace TdmPrototypeDmpSynchroniser.Api.Services;
+namespace TdmPrototypeBackend.Storage.Mongo;
 
 public class MongoStorageService<T> : MongoService<T>, IStorageService<T> where T : class, IMongoIdentifiable
 {   
     
-    public MongoStorageService(IMongoDbClientFactory connectionFactory, ILoggerFactory loggerFactory, SynchroniserConfig config, MongoDbOptions<T> options)
-        : base(connectionFactory, options.CollectionName, loggerFactory, config)
+    public MongoStorageService(IMongoDbClientFactory connectionFactory, ILoggerFactory loggerFactory,  MongoDbOptions<T> options)
+        : base(connectionFactory, options.CollectionName, loggerFactory)
     {
         Logger.LogInformation($"Connecting {options.CollectionName} to MongoDB");
     }

@@ -1,16 +1,15 @@
-﻿using MongoDB.Driver;
-using TdmPrototypeDmpSynchroniser.Api.Config;
-using TdmPrototypeDmpSynchroniser.Api.Services;
+using Microsoft.Extensions.Logging;
+using MongoDB.Driver;
 
-namespace TdmPrototypeDmpSynchroniser.Api.Data;
+namespace TdmPrototypeBackend.Storage.Mongo;
 
-public abstract class MongoService<T> : BaseService
+public abstract class MongoService<T> 
 {
     protected readonly IMongoCollection<T> Collection;
 
     protected readonly ILogger Logger;
 
-    protected MongoService(IMongoDbClientFactory connectionFactory, string collectionName, ILoggerFactory loggerFactory, SynchroniserConfig config) : base(loggerFactory, config)
+    protected MongoService(IMongoDbClientFactory connectionFactory, string collectionName, ILoggerFactory loggerFactory)
     {
         Collection = connectionFactory.GetCollection<T>(collectionName);
         var loggerName = GetType().FullName ?? GetType().Name;
