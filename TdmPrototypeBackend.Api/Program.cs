@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Api.Config;
 using TdmPrototypeBackend.Api.Data;
 using TdmPrototypeBackend.Api.Utils;
+using TdmPrototypeBackend.Api.Extensions;
 using FluentValidation;
 using HealthChecks.UI.Client;
 using JsonApiDotNetCore.Configuration;
@@ -114,6 +115,9 @@ builder.Services.AddSingleton<IMongoDatabase>(_ => factory.CreateClient().GetDat
 builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.AddAssembly(Assembly.Load("TdmPrototypeBackend.Types")));
 
 builder.Services.AddJsonApiMongoDb();
+
+builder.AddTdmAuthentication();
+builder.AddTdmAuthorisation(new BackendConfig(builder.Configuration));
 
 // Expose the synchroniser project
 builder.AddSynchroniserDatabase();

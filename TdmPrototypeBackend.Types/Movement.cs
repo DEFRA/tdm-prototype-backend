@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using JsonApiDotNetCore.MongoDb.Resources;
 using JsonApiDotNetCore.Resources.Annotations;
+using Microsoft.AspNetCore.Authorization;
 using MongoDB.Bson.Serialization.Attributes;
 using TdmPrototypeBackend.Types.Alvs;
 // using JsonApiSerializer.JsonApi;
@@ -10,6 +11,7 @@ namespace TdmPrototypeBackend.Types;
 
 // Recreation of ClearanceRequest schema from
 // https://eaflood.atlassian.net/wiki/spaces/TRADE/pages/5104664583/PHA+Port+Health+Authority+Integration+Data+Schema
+
 
 public partial class Item
 {

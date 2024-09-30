@@ -4,12 +4,11 @@ using JsonApiDotNetCore.MongoDb.Resources;
 using JsonApiDotNetCore.Resources.Annotations;
 using MongoDB.Bson.Serialization.Attributes;
 
+using Microsoft.AspNetCore.Authorization;
+
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
 public partial class Notification : IMongoIdentifiable
-
-
-
 {
 
     //// This field is used by the jsonapi-consumer to control the correct casing in the type field

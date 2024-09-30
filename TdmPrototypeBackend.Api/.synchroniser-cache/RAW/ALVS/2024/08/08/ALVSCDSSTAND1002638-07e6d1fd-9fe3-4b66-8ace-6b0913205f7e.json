@@ -1,1 +1,44 @@
-{"ServiceHeader":{"SourceSystem":"IPAFFS","DestinationSystem":"ALVS","CorrelationId":"773207816","ServiceCallTimestamp":"1723127971"},"Header":{"EntryReference":"ALVSCDSSTAND1002638","EntryVersionNumber":1,"PreviousVersionNumber":0,"DeclarationUCR":"DeclarationUcr80c72b91-63c8-4023-bc58-276a555f3b52","DeclarationPartNumber":"DeclarationPartNumber3fd2250f-ef01-43b6-a73c-0e34b0ba4663","DeclarationType":"DeclarationType2e967272-2d05-4f5b-9cf1-525edb9f442b","ArrivalDateTime":"8/8/2024 4:39:31 PM","SubmitterTURN":"SubmitterTurn5572d475-edd2-49f2-b72e-cd7d5a9657d9","DeclarantId":"DeclarantId3935f9a2-5d58-4bcb-b3ec-914299b05de6","DeclarantName":"DeclarantNamead59869d-4298-4da3-9a73-6af4c7feb75e","DispatchCountryCode":"DispatchCountryCode327b3fc3-0e49-43d7-9b59-4e79abb20ba5","GoodsLocationCode":"ABDABDABDGVM","MasterUCR":"MasterUcr32130933-0c4e-4c26-9ea5-f9e1234a0ca8"},"Items":[{"ItemNumber":3459627,"CustomsProcedureCode":"CustomsProcedureCode43df3778-976d-47c9-81f2-e5e7d821077a","TaricCommodityCode":"123456789","GoodsDescription":"GoodsDescriptiondb604fe2-a44a-41ba-adf4-4045f4d36287","ConsigneeId":"ConsigneeId7cb13944-98c5-4b40-9e11-e6e1650e34d0","ConsigneeName":"ConsigneeNamefe47e7fe-8156-4a31-aee4-1cd03547bbe3","ItemNetMass":"ItemNetMass36290110-5d32-4c8b-82f4-4c12ed2a1298","ItemSupplementaryUnits":"ItemSupplementaryUnits62e73bbc-6d1b-49ab-8b4e-efb661097336","ItemThirdQuantity":"ItemThirdQuantitye2e044eb-9d1b-43f4-adca-5294caa2cbc3","ItemOriginCountryCode":"ItemOriginCountryCode84e794b2-96d9-4baf-bf41-c25ef8555b69","Documents":[{"DocumentCode":"N853","DocumentReference":"GBCVD2024.1002638"}],"AlvsRequestCheck":[]}]}
+{
+  "ServiceHeader": {
+    "SourceSystem": "IPAFFS",
+    "DestinationSystem": "ALVS",
+    "CorrelationId": "773207816",
+    "ServiceCallTimestamp": "1723127971"
+  },
+  "Header": {
+    "EntryReference": "ALVSCDSSTAND1002638",
+    "EntryVersionNumber": 1,
+    "PreviousVersionNumber": 0,
+    "DeclarationUCR": "DeclarationUcr80c72b91-63c8-4023-bc58-276a555f3b52",
+    "DeclarationPartNumber": "DeclarationPartNumber3fd2250f-ef01-43b6-a73c-0e34b0ba4663",
+    "DeclarationType": "DeclarationType2e967272-2d05-4f5b-9cf1-525edb9f442b",
+    "ArrivalDateTime": "8/8/2024 4:39:31 PM",
+    "SubmitterTURN": "SubmitterTurn5572d475-edd2-49f2-b72e-cd7d5a9657d9",
+    "DeclarantId": "DeclarantId3935f9a2-5d58-4bcb-b3ec-914299b05de6",
+    "DeclarantName": "DeclarantNamead59869d-4298-4da3-9a73-6af4c7feb75e",
+    "DispatchCountryCode": "DispatchCountryCode327b3fc3-0e49-43d7-9b59-4e79abb20ba5",
+    "GoodsLocationCode": "ABDABDABDGVM",
+    "MasterUCR": "MasterUcr32130933-0c4e-4c26-9ea5-f9e1234a0ca8"
+  },
+  "Items": [
+    {
+      "ItemNumber": 3459627,
+      "CustomsProcedureCode": "CustomsProcedureCode43df3778-976d-47c9-81f2-e5e7d821077a",
+      "TaricCommodityCode": "123456789",
+      "GoodsDescription": "GoodsDescriptiondb604fe2-a44a-41ba-adf4-4045f4d36287",
+      "ConsigneeId": "ConsigneeId7cb13944-98c5-4b40-9e11-e6e1650e34d0",
+      "ConsigneeName": "ConsigneeNamefe47e7fe-8156-4a31-aee4-1cd03547bbe3",
+      "ItemNetMass": "ItemNetMass36290110-5d32-4c8b-82f4-4c12ed2a1298",
+      "ItemSupplementaryUnits": "ItemSupplementaryUnits62e73bbc-6d1b-49ab-8b4e-efb661097336",
+      "ItemThirdQuantity": "ItemThirdQuantitye2e044eb-9d1b-43f4-adca-5294caa2cbc3",
+      "ItemOriginCountryCode": "ItemOriginCountryCode84e794b2-96d9-4baf-bf41-c25ef8555b69",
+      "Documents": [
+        {
+          "DocumentCode": "N853",
+          "DocumentReference": "GBCVD2024.1002638"
+        }
+      ],
+      "AlvsRequestCheck": []
+    }
+  ]
+}

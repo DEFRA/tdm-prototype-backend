@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Microsoft.AspNetCore.Authorization;
 using TdmPrototypeBackend.Api.Data;
 using TdmPrototypeDmpSynchroniser.Api.Config;
 using TdmPrototypeDmpSynchroniser.Api.Services;
@@ -16,7 +17,7 @@ public static class ManagementEndpoints
     {
         if (config.EnableMongoManagement)
         {
-            app.MapGet(BaseRoute + "/collections", GetCollectionsAsync);
+            app.MapGet(BaseRoute + "/collections", GetCollectionsAsync).AllowAnonymous();
             app.MapGet(BaseRoute + "/collections/drop", DropCollectionsAsync);  
             app.MapGet(BaseRoute + "/environment", GetEnvironment);
             app.MapGet(BaseRoute + "/proxy/set", SetProxy);
@@ -52,7 +53,8 @@ public static class ManagementEndpoints
         System.Environment.SetEnvironmentVariable("HTTP_PROXY", "");
         return Results.Ok();
     }
-
+    
+    [AllowAnonymous]
     private static async Task<IResult> GetCollectionsAsync(
         IMongoDbClientFactory clientFactory)
     {
