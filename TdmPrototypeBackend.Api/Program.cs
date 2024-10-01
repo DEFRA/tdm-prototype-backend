@@ -10,6 +10,7 @@ using JsonApiDotNetCore.Configuration;
 using JsonApiDotNetCore.MongoDb.Configuration;
 using JsonApiDotNetCore.MongoDb.Repositories;
 using JsonApiDotNetCore.Repositories;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.VisualBasic.CompilerServices;
@@ -17,6 +18,7 @@ using MongoDB.Driver;
 using Serilog;
 using TdmPrototypeBackend.Api.Endpoints;
 using TdmPrototypeBackend.Api.HealthChecks;
+using TdmPrototypeBackend.Api.JsonApi;
 using TdmPrototypeDmpSynchroniser.Api.Endpoints;
 using TdmPrototypeBackend.Api.Utils;
 using TdmPrototypeBackend.Types;
@@ -115,8 +117,12 @@ builder.Services.AddSingleton<IMongoDatabase>(_ => factory.CreateClient().GetDat
 builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.AddAssembly(Assembly.Load("TdmPrototypeBackend.Types")));
 
 builder.Services.AddJsonApiMongoDb();
+builder.Services.AddResourceDefinition<NotificationResource>();
+builder.Services.AddResourceDefinition<MovementResource>();
+builder.Services.AddScoped<ITdmClaimsProvider, TdmClaimsPrincipalProvider>();
+builder.Services.AddTransient<IClaimsTransformation, TdmClaimsTransformer>();
 
-builder.AddTdmAuthentication();
+builder.AddTdmAuthentication(new BackendConfig(builder.Configuration));
 builder.AddTdmAuthorisation(new BackendConfig(builder.Configuration));
 
 // Expose the synchroniser project
@@ -148,6 +154,8 @@ if (builder.IsSwaggerEnabled())
 
 app.UseRouting();
 app.UseJsonApi();
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 app.UseDiagnosticEndpoints();
 app.UseManagementEndpoints(new BackendConfig(builder.Configuration));

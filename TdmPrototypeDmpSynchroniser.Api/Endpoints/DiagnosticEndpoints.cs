@@ -11,13 +11,13 @@ public static class DiagnosticEndpoints
 
     public static void UseDiagnosticEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet(BaseRoute + "/bus", GetBusDiagnosticAsync);
-        app.MapGet(BaseRoute + "/blob", GetBlobDiagnosticAsync);
-        app.MapGet(BaseRoute + "/bus-internal", GetBusInternalDiagnosticAsync);
-        app.MapGet(BaseRoute + "/blob-internal", GetBlobInternalDiagnosticAsync);
-        app.MapGet(BaseRoute + "/tradeapi", GetTradeApiDiagnosticAsync);
-        app.MapGet(BaseRoute + "/tradeapi-internal", GetTradeApiInternalDiagnosticAsync);
-        app.MapGet(BaseRoute + "/google", GetTradeApiDiagnosticAsync);
+        app.MapGet(BaseRoute + "/bus", GetBusDiagnosticAsync).AllowAnonymous();
+        app.MapGet(BaseRoute + "/blob", GetBlobDiagnosticAsync).AllowAnonymous();
+        app.MapGet(BaseRoute + "/bus-internal", GetBusInternalDiagnosticAsync).AllowAnonymous();
+        app.MapGet(BaseRoute + "/blob-internal", GetBlobInternalDiagnosticAsync).AllowAnonymous();
+        app.MapGet(BaseRoute + "/tradeapi", GetTradeApiDiagnosticAsync).AllowAnonymous();
+        app.MapGet(BaseRoute + "/tradeapi-internal", GetTradeApiInternalDiagnosticAsync).AllowAnonymous();
+        app.MapGet(BaseRoute + "/google", GetTradeApiDiagnosticAsync).AllowAnonymous();
     }
 
     private static async Task<IResult> GetBusDiagnosticAsync(

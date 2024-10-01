@@ -45,5 +45,37 @@ public partial class Notification : IMongoIdentifiable
 
     [Attr]
     public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
+    
+    // Filter fields...
+    // These fields are added to the model solely for use by the filtering
+    // Mechanism in JSON API as a short term solution until we implement the more complex nested filtering
+    // https://github.com/json-api-dotnet/JsonApiDotNetCore.MongoDb/issues/76
+    // They are removed from the document that is sent to the client by the JsonApiResourceDefinition OnApplySparseFieldSet
+    // mechanism
+    
+    [Attr]
+    public string _PointOfEntry
+    {
+        get => PartOne.PointOfEntry;
+        set
+        {
+            if (PartOne != null)
+            {
+                PartOne.PointOfEntry = value;
+            }
+        }
+    }
 
+    [Attr]
+    public string _PointOfEntryControlPoint
+    {
+        get => PartOne.PointOfEntryControlPoint;
+        set
+        {
+            if (PartOne != null)
+            {
+                PartOne.PointOfEntryControlPoint = value;
+            }
+        }
+    }
 }

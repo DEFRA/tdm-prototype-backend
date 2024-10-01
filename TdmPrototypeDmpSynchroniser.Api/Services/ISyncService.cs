@@ -5,6 +5,7 @@ namespace TdmPrototypeDmpSynchroniser.Api.Services;
 public enum SyncPeriod
 {
     Today,
+    LastMonth,
     ThisMonth,
     All
 }

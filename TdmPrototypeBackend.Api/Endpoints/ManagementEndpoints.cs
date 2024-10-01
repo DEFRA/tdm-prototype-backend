@@ -1,4 +1,7 @@
 ﻿using System.Collections;
+using System.Security.Claims;
+using Azure.Core;
+using Json.More;
 using Microsoft.AspNetCore.Authorization;
 using TdmPrototypeBackend.Api.Data;
 using TdmPrototypeDmpSynchroniser.Api.Config;
@@ -18,10 +21,11 @@ public static class ManagementEndpoints
         if (config.EnableMongoManagement)
         {
             app.MapGet(BaseRoute + "/collections", GetCollectionsAsync).AllowAnonymous();
-            app.MapGet(BaseRoute + "/collections/drop", DropCollectionsAsync);  
-            app.MapGet(BaseRoute + "/environment", GetEnvironment);
-            app.MapGet(BaseRoute + "/proxy/set", SetProxy);
-            app.MapGet(BaseRoute + "/proxy/unset", UnsetProxy);   
+            app.MapGet(BaseRoute + "/collections/drop", DropCollectionsAsync).RequireAuthorization("tdm-technical");  
+            app.MapGet(BaseRoute + "/environment", GetEnvironment).RequireAuthorization("tdm-technical");  
+            app.MapGet(BaseRoute + "/auth/status", GetAuth).AllowAnonymous();
+            // app.MapGet(BaseRoute + "/proxy/set", SetProxy).RequireAuthorization("technical");
+            // app.MapGet(BaseRoute + "/proxy/unset", UnsetProxy).RequireAuthorization("technical");   
         }
     }
 
@@ -34,10 +38,20 @@ public static class ManagementEndpoints
     }
     private static IResult GetEnvironment(IConfiguration configuration)
     {
-        
         var dict = System.Environment.GetEnvironmentVariables();
         var filtered = dict.Cast<DictionaryEntry>().Where(FilterEnvKeys).ToArray();
         return Results.Ok(filtered); //(Dictionary)dict.Where(i => i.Value.BooleanProperty));
+    }
+
+    private static IResult GetAuth(IConfiguration configuration, HttpRequest request, ClaimsPrincipal user)
+    {
+
+        var dict = new Dictionary<string, object>
+        {
+            { "user", user.Identity.ToJsonDocument() },
+            { "claims", user.Claims.ToList().Select(c => new { key= c.Type,  value = c.Value }).ToJsonDocument() }
+        };
+        return Results.Ok(dict);
     }
     
     private static IResult SetProxy(IConfiguration configuration)

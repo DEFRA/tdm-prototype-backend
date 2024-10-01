@@ -19,7 +19,11 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
 
     private static string GetPeriodPath(SyncPeriod period)
     {
-        if (period == SyncPeriod.ThisMonth)
+        if (period == SyncPeriod.LastMonth)
+        {
+            return DateTime.Today.AddMonths(-1).ToString("/yyyy/MM/");
+        }
+        else if (period == SyncPeriod.ThisMonth)
         {
             return DateTime.Today.ToString("/yyyy/MM/");
         }
@@ -27,7 +31,14 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
         {
             return DateTime.Today.ToString("/yyyy/MM/dd/");
         }
-        return "/";
+        else if (period == SyncPeriod.All)
+        {
+            return "/";
+        }
+        else
+        {
+            throw new Exception($"Unexpected SyncPeriod {period}");
+        }
     }
     
     public async Task<Status> SyncMovements(SyncPeriod period)

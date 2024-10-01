@@ -14,44 +14,55 @@ public static class ServiceExtensions
 
     public static void AddTdmAuthorisation(this WebApplicationBuilder builder, BackendConfig config)
     {
-        // builder.AddAuthorization();
+        // builder.Services.AddAuthorization();
 
-        if (!config.DisableAuthorisation)
+        // if (!config.DisableAuthorisation)
+        // {
+        builder.Services.AddAuthorization(options =>
         {
-            builder.Services.AddAuthorization(options =>
+            options.AddPolicy("tdm-technical", p =>
             {
-                options.DefaultPolicy = new AuthorizationPolicyBuilder()
-                    .RequireAuthenticatedUser()
-                    .AddAuthenticationSchemes("DefraId")
-                    .Build();
-            
-                options.FallbackPolicy = new AuthorizationPolicyBuilder()
-                    .RequireAuthenticatedUser()
-                    .AddAuthenticationSchemes("DefraId")
-                    .Build();
+                p.RequireClaim("tdm-technical");
+                p.AuthenticationSchemes = new List<string>() { "DefraId" };
+                // return p;
             });
-        }
+            // options.AddPolicy("tdm-team", p => p.RequireClaim("tdm-team"));
+            
+            options.DefaultPolicy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .AddAuthenticationSchemes("DefraId")
+                .Build();
+        
+            options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .AddAuthenticationSchemes("DefraId")
+                .Build();
+        });
+            
+        // }
         
     }
 
-    public static void AddTdmAuthentication(this WebApplicationBuilder builder)
+    public static void AddTdmAuthentication(this WebApplicationBuilder builder, BackendConfig config)
     {
         
-        // builder.us
+       // if (!config.DisableAuthorisation)
+       // {
+
         // TODO : Remove this once working
         IdentityModelEventSource.ShowPII = true;
         IdentityModelEventSource.LogCompleteSecurityArtifact = true;
-        
+
         builder.Services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            
-        }).AddJwtBearer("DefraId",o =>
+
+        }).AddJwtBearer("DefraId", o =>
         {
             o.IncludeErrorDetails = true;
-            
+
             o.TokenValidationParameters = new TokenValidationParameters
             {
                 // ValidIssuer = builder.Configuration["Jwt:Issuer"],
@@ -66,9 +77,14 @@ public static class ServiceExtensions
                 RequireSignedTokens = false,
                 // TODO : Don't want to fail when the JWT doesn't include a kid
                 // https://github.com/dotnet/aspnetcore/issues/52075
-                SignatureValidator = (token, _) => new JsonWebToken(token)
+                SignatureValidator = (token, _) => new JsonWebToken(token),
+                IssuerSigningKeyValidator = (key, token, parameters) =>
+                {
+                    Console.WriteLine($"IssuerSigningKeyValidator {key}, {token}, {parameters}");
+                    return true;
+                }
             };
-            
+
             o.Events = new JwtBearerEvents
             {
                 OnMessageReceived = context =>
@@ -95,7 +111,7 @@ public static class ServiceExtensions
                 {
                     Console.WriteLine($"OnChallenge");
                     return Task.CompletedTask;
-                }, 
+                },
                 OnAuthenticationFailed = context =>
                 {
                     if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
@@ -126,6 +142,7 @@ public static class ServiceExtensions
                 }
             };
         });
-        
     }
+
+    // }
 }

@@ -14,16 +14,23 @@ public static class SyncEndpoints
 
     private static SyncPeriod Parse(string? period)
     {
-        if (Enum.TryParse<SyncPeriod>(period, true, out SyncPeriod typed))
+        if (string.IsNullOrEmpty(period))
         {
-            return typed;
+            return SyncPeriod.All;
         }
-        return SyncPeriod.All;
+
+        return Enum.Parse<SyncPeriod>(period, true);
+        
+        // if (Enum.TryParse<SyncPeriod>(period, true, out SyncPeriod typed))
+        // {
+        //     return typed;
+        // }
+        // return SyncPeriod.All;
     }
     public static void UseSyncEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet(BaseRoute + "/clearance-requests/{period}", SyncClearanceRequestsAsync);
-        app.MapGet(BaseRoute + "/notifications/{period}", SyncNotificationsAsync);
+        app.MapGet(BaseRoute + "/clearance-requests/{period}", SyncClearanceRequestsAsync).AllowAnonymous();
+        app.MapGet(BaseRoute + "/notifications/{period}", SyncNotificationsAsync).AllowAnonymous();
     }
 
     private static async Task<IResult> SyncClearanceRequestsAsync(
