@@ -157,7 +157,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         var notification = CreateChedANotification(notificationId);
         notification.Movements = new List<MatchingStatus>() { new MatchingStatus()
         {
-            Matched = true, Reference = declarationId, Item = 1,
+            Matched = true, Reference = declarationId, Item = "1",
             AdditionalInformation = new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("matchLevel", "1")}
         }};
 
