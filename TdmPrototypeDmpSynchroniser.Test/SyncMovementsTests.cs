@@ -28,7 +28,7 @@ public class SyncMovementsTests
         Mock<IStorageService<Movement>> movementService = new Mock<IStorageService<Movement>>();
         Mock<IStorageService<Notification>> notificationService = new Mock<IStorageService<Notification>>();
         var syncService = new SyncService(new NullLoggerFactory(), new SynchroniserConfig(config), blobService.Object,
-            movementService.Object, notificationService.Object);
+            movementService.Object, notificationService.Object, null);
 
         string path = "RAW/ALVS/";
 
@@ -64,7 +64,7 @@ public class SyncMovementsTests
         Mock<IStorageService<Movement>> movementService = new Mock<IStorageService<Movement>>();
         Mock<IStorageService<Notification>> notificationService = new Mock<IStorageService<Notification>>();
         var syncService = new SyncService(new NullLoggerFactory(), new SynchroniserConfig(config), blobService.Object,
-            movementService.Object, notificationService.Object);
+            movementService.Object, notificationService.Object, null);
 
         string path = "RAW/ALVS/";
 
@@ -97,7 +97,7 @@ public class SyncMovementsTests
         Mock<IStorageService<Movement>> movementService = new Mock<IStorageService<Movement>>();
         Mock<IStorageService<Notification>> notificationService = new Mock<IStorageService<Notification>>();
         var syncService = new SyncService(new NullLoggerFactory(), new SynchroniserConfig(config), blobService.Object,
-            movementService.Object, notificationService.Object);
+            movementService.Object, notificationService.Object, null);
 
         string path = "RAW/ALVS/";
 

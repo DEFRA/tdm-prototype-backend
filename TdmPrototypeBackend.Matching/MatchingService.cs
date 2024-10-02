@@ -14,6 +14,11 @@ namespace TdmPrototypeBackend.Matching
             var movements =
                 await movementService.Filter(Builders<Movement>.Filter.AnyStringIn(x => x._MatchReferences, matchReference));
             var movement = movements.FirstOrDefault();
+
+            if (movement == null)
+            {
+                return new MatchResult(false);
+            }
            
             
            
@@ -28,6 +33,7 @@ namespace TdmPrototypeBackend.Matching
             {
                 if (!notification.Movements.Any(x => x.Reference == movement.Id))
                 {
+                    notification.Movements.RemoveAll(x => !x.Matched);
                     notification.Movements.Add(new MatchingStatus()
                     {
                         AdditionalInformation =
@@ -43,7 +49,6 @@ namespace TdmPrototypeBackend.Matching
                     await notificationService.Upsert(notification);
                 }
 
-                await MatchCds(notification.ReferenceNumber);
             }
 
             return new MatchResult(items.Any());
@@ -73,7 +78,6 @@ namespace TdmPrototypeBackend.Matching
                     Item = notification.PartOne?.Commodities?.CommodityComplements?.FirstOrDefault()?.UniqueComplementID 
                 });
                 await movementService.Upsert(movement);
-                await MatchNotification(matchReference);
             }
 
             return new MatchResult(items.Any());

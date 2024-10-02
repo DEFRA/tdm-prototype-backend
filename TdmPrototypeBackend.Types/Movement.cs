@@ -43,8 +43,8 @@ public class Movement : CustomStringMongoIdentifiable
     public string Type { get; set; } = "movements";
     
     [Attr]
-    public List<MatchingStatus> Notifications { get; set; } = new List<MatchingStatus>();
-    
+    public List<MatchingStatus> Notifications { get; set; } = [new() { Matched = false }];
+
     [Attr]
     public List<Alvs.ALVSClearanceRequest> ClearanceRequests { get; set; } = default!;
     

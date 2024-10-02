@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Text.Json.JsonDiffPatch;
 using System.Text.Json.Nodes;
 using Json.Patch;
+using TdmPrototypeBackend.Matching;
 using TdmPrototypeBackend.Storage;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Alvs;
@@ -14,7 +15,7 @@ using Status = TdmPrototypeDmpSynchroniser.Api.Models.Status;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Services;
 
-public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config, IBlobService blobService, IStorageService<Movement> movementService, IStorageService<Notification> notificationService)
+public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config, IBlobService blobService, IStorageService<Movement> movementService, IStorageService<Notification> notificationService, IMatchingService matchingService)
     : BaseService(loggerFactory, config), ISyncService
 {
 
@@ -127,6 +128,8 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                 movement.AuditEntries.Add(auditEntry);
                 await movementService.Upsert(movement);
             }
+
+            await matchingService.Match(MatchingReferenceNumber.FromCds(movement.Items?.FirstOrDefault()?.Documents?.FirstOrDefault()?.DocumentReference));
 
             return true;
 
@@ -256,8 +259,8 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                         itemCount++;
                     }
 
+                    await matchingService.Match(MatchingReferenceNumber.FromIpaffs(n.ReferenceNumber));
 
-                    
                 }
                 catch (Exception ex)
                 {
