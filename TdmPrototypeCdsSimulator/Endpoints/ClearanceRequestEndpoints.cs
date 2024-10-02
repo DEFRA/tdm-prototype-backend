@@ -28,18 +28,23 @@ public static class ClearanceRequestEndpoints
 
     private static async Task<IResult> MatchNotification(
         IMatchingService matchingService,
+        IStorageService<Notification> notificationService,
         string notificationId)
     {
-        var matchResult = await matchingService.Match(MatchingReferenceNumber.FromIpaffs(notificationId));
+        var notification = await notificationService.Find(notificationId);
+        var matchResult = await matchingService.Match(MatchingReferenceNumber.FromIpaffs(notificationId, notification.IpaffsType.Value));
 
         return Results.Ok(matchResult);
     }
 
     private static async Task<IResult> MatchCds(
         IMatchingService matchingService,
-        string documentReference)
+        IStorageService<Movement> movementService,
+        string movementId)
     {
-        var matchResult = await matchingService.Match(MatchingReferenceNumber.FromCds(null));
+        var movement = await movementService.Find(movementId);
+        var document = movement.Items.First().Documents.First();
+        var matchResult = await matchingService.Match(MatchingReferenceNumber.FromCds(document.DocumentReference, document.DocumentCode));
 
         return Results.Ok(matchResult);
     }
@@ -82,7 +87,7 @@ public static class ClearanceRequestEndpoints
                 {
                     new Document()
                     {
-                        DocumentReference = MatchingReferenceNumber.FromIpaffs(notificationId).AsCdsDocumentReference(),
+                        DocumentReference = MatchingReferenceNumber.FromIpaffs(notificationId, notification.IpaffsType.Value).AsCdsDocumentReference(),
                         DocumentCode = "H219",
                         DocumentQuantity = 3,
                         DocumentStatus = "P"

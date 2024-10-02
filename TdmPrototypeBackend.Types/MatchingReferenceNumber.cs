@@ -1,10 +1,11 @@
 using TdmPrototypeBackend.Types.Alvs;
+using TdmPrototypeBackend.Types.Ipaffs;
 
 namespace TdmPrototypeBackend.Types;
 
 public class MatchingReferenceNumber
 {
-    private MatchingReferenceNumber(string countryCode, string chedType, string licenceType, int year, int identifier, char? splitIdentifier)
+    private MatchingReferenceNumber(string countryCode, IpaffsNotificationTypeEnum chedType, string licenceType, int year, int identifier, char? splitIdentifier)
     {
         CountryCode = countryCode;
         ChedType = chedType;
@@ -19,7 +20,7 @@ public class MatchingReferenceNumber
      */
     public string CountryCode { get; }
 
-    public string ChedType { get; }
+    public IpaffsNotificationTypeEnum ChedType { get; }
 
     public string LicenceType { get; }
 
@@ -36,14 +37,14 @@ public class MatchingReferenceNumber
 
     public string AsIpaffsReference()
     {
-        return $"{ChedType}.{CountryCode}.{Year}.{Identifier}{SplitIdentifier}";
+        return $"{ChedType.ToString().ToUpper()}.{CountryCode}.{Year}.{Identifier}{SplitIdentifier}";
     }
 
     public string AsYearIdentifier()
     {
         return $"{Year}.{Identifier}";
     }
-    public static MatchingReferenceNumber FromCds(string reference)
+    public static MatchingReferenceNumber FromCds(string reference, string documentCode)
     {
        // var reference = document.DocumentReference;
 
@@ -69,15 +70,14 @@ public class MatchingReferenceNumber
         }
         return new MatchingReferenceNumber(
             new string(countryCode.ToArray()),
-            null,
-            //MapToChedType(new string(licenceType.ToArray()), document.DocumentCode),
+            MapToChedType(documentCode),
             new string(licenceType.ToArray()),
             int.Parse(new string(year.ToArray())),
             identifier, 
             splitIdentifier);
     }
 
-    public static MatchingReferenceNumber FromIpaffs(string reference)
+    public static MatchingReferenceNumber FromIpaffs(string reference, IpaffsNotificationTypeEnum type)
     {
         var parts = reference.Split(".");
         int identifier;
@@ -94,7 +94,7 @@ public class MatchingReferenceNumber
 
         return new MatchingReferenceNumber(
             parts[1],
-            parts[0],
+            type,
             MapToLicenceType(parts[0]),
             int.Parse(parts[2]), 
             identifier,
@@ -112,14 +112,14 @@ public class MatchingReferenceNumber
         return chedType;
     }
 
-    private static string MapToChedType(string licenceType, string documentCode)
+    private static IpaffsNotificationTypeEnum MapToChedType(string documentCode)
     {
         return documentCode switch
         {
-            "N002" or "N851" or "9115" => "CHEDPP",
-            "N852" or "C678" => "CHEDD",
-            "C640" => "CHEDA",
-            "C641" or "C673"  => "CHEDP"
+            "N002" or "N851" or "9115" => IpaffsNotificationTypeEnum.Chedpp,
+            "N852" or "C678" => IpaffsNotificationTypeEnum.Ced,
+            "C640" => IpaffsNotificationTypeEnum.Cveda,
+            "C641" or "C673"  => IpaffsNotificationTypeEnum.Cvedp
         };
 
 

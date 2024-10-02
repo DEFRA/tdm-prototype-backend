@@ -129,7 +129,8 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                 await movementService.Upsert(movement);
             }
 
-            await matchingService.Match(MatchingReferenceNumber.FromCds(movement.Items?.FirstOrDefault()?.Documents?.FirstOrDefault()?.DocumentReference));
+            var document = movement.Items?.FirstOrDefault()?.Documents?.FirstOrDefault();
+            await matchingService.Match(MatchingReferenceNumber.FromCds(document?.DocumentReference, document?.DocumentCode));
 
             return true;
 
@@ -259,7 +260,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                         itemCount++;
                     }
 
-                    await matchingService.Match(MatchingReferenceNumber.FromIpaffs(n.ReferenceNumber));
+                    await matchingService.Match(MatchingReferenceNumber.FromIpaffs(n.ReferenceNumber, n.IpaffsType.Value));
 
                 }
                 catch (Exception ex)

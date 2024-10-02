@@ -37,7 +37,7 @@ public partial class Item
 [Resource]
 public class Movement : CustomStringMongoIdentifiable
 {
-    private List<string> matchReferences;
+    private List<int> matchReferences;
 
     // This field is used by the jsonapi-consumer to control the correct casing in the type field
     public string Type { get; set; } = "movements";
@@ -90,16 +90,16 @@ public class Movement : CustomStringMongoIdentifiable
     [Attr]
     public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
 
-    public List<string> _MatchReferences
+    public List<int> _MatchReferences
     {
         get
         {
-            var list = new HashSet<string>();
+            var list = new HashSet<int>();
             foreach (var item in Items)
             {
                 foreach (var itemDocument in item.Documents)
                 {
-                    list.Add(MatchingReferenceNumber.FromCds(itemDocument.DocumentReference).AsYearIdentifier());
+                    list.Add(MatchingReferenceNumber.FromCds(itemDocument.DocumentReference, itemDocument.DocumentCode).Identifier);
                 }
             }
 

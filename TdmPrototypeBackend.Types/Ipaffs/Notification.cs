@@ -8,7 +8,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
 
 public partial class Notification : IMongoIdentifiable
 {
-    private string matchReference;
+    private int? matchReference;
 
     //// This field is used by the jsonapi-consumer to control the correct casing in the type field
      [JsonIgnore]
@@ -82,15 +82,15 @@ public partial class Notification : IMongoIdentifiable
     }
 
     
-    public string _MatchReference
+    public int _MatchReference
     {
         get
         {
-            if (string.IsNullOrEmpty(matchReference))
+            if (matchReference is null)
             {
-                matchReference = MatchingReferenceNumber.FromIpaffs(ReferenceNumber).AsYearIdentifier();
+                matchReference = MatchingReferenceNumber.FromIpaffs(ReferenceNumber, IpaffsType.Value).Identifier;
             }
-            return matchReference;
+            return matchReference.Value;
         }
         set => matchReference = value;
     }

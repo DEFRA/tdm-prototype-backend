@@ -9,10 +9,10 @@ namespace TdmPrototypeBackend.Matching
         MatchingStorageService<Notification> notificationService,
         MatchingStorageService<Movement> movementService) : IMatchingService
     {
-        public async Task<MatchResult> MatchNotification(string matchReference)
+        public async Task<MatchResult> MatchNotification(int matchReference)
         {
             var movements =
-                await movementService.Filter(Builders<Movement>.Filter.AnyStringIn(x => x._MatchReferences, matchReference));
+                await movementService.Filter(Builders<Movement>.Filter.AnyIn(x => x._MatchReferences, [matchReference]));
             var movement = movements.FirstOrDefault();
 
             if (movement == null)
@@ -24,7 +24,7 @@ namespace TdmPrototypeBackend.Matching
            
             var builder = Builders<Notification>.Filter;
 
-            var filter = builder.Regex(x => x._MatchReference, matchReference);
+            var filter = builder.Eq(x => x._MatchReference, matchReference);
 
             
             var items = await notificationService.Filter(filter);
@@ -43,7 +43,7 @@ namespace TdmPrototypeBackend.Matching
                         Matched = true,
                         Reference = movement.Id,
                         Item = movement.Items
-                            .FirstOrDefault(x => x.Documents.Any(d => d.DocumentReference.Contains(matchReference)))
+                            .FirstOrDefault(x => x.Documents.Any(d => d.DocumentReference.Contains(matchReference.ToString())))
                             ?.ItemNumber.ToString()
                     });
                     await notificationService.Upsert(notification);
@@ -55,14 +55,14 @@ namespace TdmPrototypeBackend.Matching
         }
 
 
-        public async Task<MatchResult> MatchCds(string matchReference)
+        public async Task<MatchResult> MatchCds(int matchReference)
         {
             var notifications =
                 await notificationService.Filter(Builders<Notification>.Filter.Eq(x => x._MatchReference,
                     matchReference));
                 var notification = notifications.FirstOrDefault();
 
-            var filter = Builders<Movement>.Filter.AnyStringIn(x => x._MatchReferences, matchReference);
+            var filter = Builders<Movement>.Filter.AnyIn(x => x._MatchReferences, [matchReference]);
 
             var items = await movementService.Filter(filter);
 
@@ -86,8 +86,8 @@ namespace TdmPrototypeBackend.Matching
 
         public async Task<MatchResult> Match(MatchingReferenceNumber matchingReferenceNumber)
         {
-            var cdsResult = await MatchCds(matchingReferenceNumber.AsYearIdentifier());
-            var notificationResult = await MatchNotification(matchingReferenceNumber.AsYearIdentifier());
+            var cdsResult = await MatchCds(matchingReferenceNumber.Identifier);
+            var notificationResult = await MatchNotification(matchingReferenceNumber.Identifier);
 
             return new MatchResult(cdsResult.Matched || notificationResult.Matched);
         }
