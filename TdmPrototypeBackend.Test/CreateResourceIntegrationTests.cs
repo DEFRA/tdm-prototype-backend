@@ -129,7 +129,19 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         var movement = CreateChedAMovement(declarationId);
         
         // var cr = CreateChedAClearanceRequest(declarationId);
-        movement.Notification = new MatchingStatus() { Matched = true, Reference = notificationId, AdditionalInformation = new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("matchLevel", "1"),}};
+        movement.Notifications = new List<MatchingStatus>()
+        {
+            new MatchingStatus()
+            {
+                Matched = true,
+                Reference = notificationId,
+                AdditionalInformation =
+                    new List<KeyValuePair<string, string>>()
+                    {
+                        new KeyValuePair<string, string>("matchLevel", "1"),
+                    }
+            }
+        };
         
         // var crResponse = Send<Movement>(ref movement, "api/movements");
         JsonApiConsumer.Response<Movement> crResponse = JsonApiConsumer.JsonApiConsumer.Create<Movement, Movement>(
@@ -143,11 +155,11 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         Assert.Equal(201, (int)crResponse.HttpStatusCode);
         
         var notification = CreateChedANotification(notificationId);
-        notification.Movement = new MatchingStatus()
+        notification.Movements = new List<MatchingStatus>() { new MatchingStatus()
         {
-            Matched = true, Reference = declarationId, Item = 1,
+            Matched = true, Reference = declarationId, Item = "1",
             AdditionalInformation = new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("matchLevel", "1")}
-        };
+        }};
 
         JsonApiConsumer.Response<Notification> response = JsonApiConsumer.JsonApiConsumer.Create<Notification, Notification>(
             model: notification,

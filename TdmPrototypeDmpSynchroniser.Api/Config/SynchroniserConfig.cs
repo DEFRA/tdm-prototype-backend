@@ -1,6 +1,9 @@
+using TdmPrototypeBackend.ASB;
+using TdmPrototypeBackend.Azure;
+
 namespace TdmPrototypeDmpSynchroniser.Api.Config;
 
-public class SynchroniserConfig
+public class SynchroniserConfig : IBusConfig
 {
     public string DmpEnvironment { get; set; } = default!;
     public string DmpBusNamespace { get; set; } = default!;

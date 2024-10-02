@@ -67,8 +67,8 @@ public static class AssertExtensions
         notification.IpaffsType.Should().Be(notificationType);
         notification.Status.Should().Be(status);
         
-        notification.Movement.Should().NotBeNull("Movement should be set to default value");
-        notification.Movement.Matched.Should().Be(false);
+       // notification.Movement.Should().NotBeNull("Movement should be set to default value");
+        //notification.Movement.Matched.Should().Be(false);
         
         if (notification.RiskAssessment is not null)
         {

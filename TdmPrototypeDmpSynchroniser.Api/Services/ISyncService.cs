@@ -1,4 +1,4 @@
-﻿using TdmPrototypeDmpSynchroniser.Api.Models;
+using TdmPrototypeDmpSynchroniser.Api.Models;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Services;
 

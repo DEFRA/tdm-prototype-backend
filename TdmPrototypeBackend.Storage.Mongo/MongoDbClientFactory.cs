@@ -1,7 +1,7 @@
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;
 
-namespace TdmPrototypeDmpSynchroniser.Api.Data;
+namespace TdmPrototypeBackend.Storage.Mongo;
 
 public class MongoDbClientFactory : IMongoDbClientFactory
 {

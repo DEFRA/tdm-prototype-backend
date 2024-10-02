@@ -1,8 +1,8 @@
 using JsonApiDotNetCore.MongoDb.Resources;
 using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
+using TdmPrototypeBackend.Storage.Mongo;
 using TdmPrototypeDmpSynchroniser.Api.Config;
-using TdmPrototypeDmpSynchroniser.Api.Data;
 
 namespace TdmPrototypeDmpSynchroniser.Test.IntegrationTests;
 
@@ -10,7 +10,7 @@ public class MongoHelperService<T> : MongoService<T> where T : class, IMongoIden
 {
 
     public MongoHelperService(IMongoDbClientFactory connectionFactory, ILoggerFactory loggerFactory, SynchroniserConfig config, MongoDbOptions<T> options)
-        : base(connectionFactory, options.CollectionName, loggerFactory, config)
+        : base(connectionFactory, options.CollectionName, loggerFactory)
     {
         Logger.LogInformation($"Connecting {options.CollectionName} to MongoDB");
     }

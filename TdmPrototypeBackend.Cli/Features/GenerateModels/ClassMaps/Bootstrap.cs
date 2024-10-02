@@ -15,6 +15,8 @@ static class Bootstrap
         {
             map.MapProperty("ArrivalDateTime").SetType("DateTime");
         });
+
+       ;
     }
 
     public static void RegisterIpaffsClassMaps()

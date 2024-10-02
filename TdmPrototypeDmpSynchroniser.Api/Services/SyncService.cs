@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Text.Json.JsonDiffPatch;
 using System.Text.Json.Nodes;
 using Json.Patch;
+using TdmPrototypeBackend.Storage;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Alvs;
 using TdmPrototypeBackend.Types.Extensions;
@@ -26,6 +27,10 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
         else if (period == SyncPeriod.ThisMonth)
         {
             return DateTime.Today.ToString("/yyyy/MM/");
+        }
+        else if (period == SyncPeriod.LastMonth)
+        {
+            return DateTime.Today.AddMonths(-1).ToString("/yyyy/MM/");
         }
         else if (period == SyncPeriod.Today)
         {
