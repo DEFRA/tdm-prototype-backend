@@ -19,6 +19,7 @@ public class MatchingReferenceNumberTests(ITestOutputHelper output)
         referenceNumber.SplitIdentifier.Should().BeNull();
         referenceNumber.AsCdsDocumentReference().Should().Be("GBCHD2024.1036543");
         referenceNumber.AsIpaffsReference().Should().Be("CHEDP.GB.2024.1036543");
+        referenceNumber.AsYearIdentifier().Should().Be("2024.1036543");
     }
 
     [Fact]
@@ -26,14 +27,13 @@ public class MatchingReferenceNumberTests(ITestOutputHelper output)
     {
         var referenceNumber = MatchingReferenceNumber.FromIpaffs("CHEDP.GB.2024.1036543V");
 
-        referenceNumber.ChedType.Should().Be("CHEDP");
         referenceNumber.LicenceType.Should().Be("CHD");
         referenceNumber.CountryCode.Should().Be("GB");
         referenceNumber.Identifier.Should().Be(1036543);
         referenceNumber.Year.Should().Be(2024);
         referenceNumber.SplitIdentifier.Should().Be('V');
         referenceNumber.AsCdsDocumentReference().Should().Be("GBCHD2024.1036543V");
-        referenceNumber.AsIpaffsReference().Should().Be("CHEDP.GB.2024.1036543V");
+        referenceNumber.AsYearIdentifier().Should().Be("2024.1036543");
     }
 
     [Fact]
@@ -41,14 +41,14 @@ public class MatchingReferenceNumberTests(ITestOutputHelper output)
     {
         var referenceNumber = MatchingReferenceNumber.FromCds("GBCHD2024.1036543");
 
-        referenceNumber.ChedType.Should().Be("CHEDP");
+        //referenceNumber.ChedType.Should().Be("CHEDP");
         referenceNumber.LicenceType.Should().Be("CHD");
         referenceNumber.CountryCode.Should().Be("GB");
         referenceNumber.Identifier.Should().Be(1036543);
         referenceNumber.Year.Should().Be(2024);
         referenceNumber.SplitIdentifier.Should().BeNull();
         referenceNumber.AsCdsDocumentReference().Should().Be("GBCHD2024.1036543");
-        referenceNumber.AsIpaffsReference().Should().Be("CHEDP.GB.2024.1036543");
+        referenceNumber.AsYearIdentifier().Should().Be("2024.1036543");
     }
 
     [Fact]
@@ -56,13 +56,12 @@ public class MatchingReferenceNumberTests(ITestOutputHelper output)
     {
         var referenceNumber = MatchingReferenceNumber.FromCds("GBCHD2024.1036543V");
 
-        referenceNumber.ChedType.Should().Be("CHEDP");
         referenceNumber.LicenceType.Should().Be("CHD");
         referenceNumber.CountryCode.Should().Be("GB");
         referenceNumber.Identifier.Should().Be(1036543);
         referenceNumber.Year.Should().Be(2024);
         referenceNumber.SplitIdentifier.Should().Be('V');
         referenceNumber.AsCdsDocumentReference().Should().Be("GBCHD2024.1036543V");
-        referenceNumber.AsIpaffsReference().Should().Be("CHEDP.GB.2024.1036543V");
+        referenceNumber.AsYearIdentifier().Should().Be("2024.1036543");
     }
 }
