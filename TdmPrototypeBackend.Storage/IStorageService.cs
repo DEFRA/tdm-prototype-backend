@@ -5,5 +5,6 @@ namespace TdmPrototypeBackend.Storage
         public Task Upsert(T item);
 
         public Task<T> Find(string id);
+
     }
 }

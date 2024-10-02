@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -15,7 +15,7 @@
     <PackageReference Include="JsonApiDotNetCore.MongoDb" Version="5.6.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="9.0.0-rc.1.24452.1" />
-    <PackageReference Include="MongoDB.Driver" Version="2.22.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.29.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
     <PackageReference Include="Serilog.Enrichers.Environment" Version="2.3.0" />
     <PackageReference Include="Serilog.Enrichers.Thread" Version="3.1.0" />
@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TdmPrototypeBackend.Matching\TdmPrototypeBackend.Matching.csproj" />
     <ProjectReference Include="..\TdmPrototypeBackend.Types\TdmPrototypeBackend.Types.csproj" />
     <ProjectReference Include="..\TdmPrototypeCdsSimulator\TdmPrototypeCdsSimulator.csproj" />
     <ProjectReference Include="..\TdmPrototypeDmpSynchroniser.Api\TdmPrototypeDmpSynchroniser.Api.csproj" />

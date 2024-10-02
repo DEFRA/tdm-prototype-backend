@@ -1,4 +1,4 @@
-﻿using TdmPrototypeDmpSynchroniser.Api.Models;
+using TdmPrototypeDmpSynchroniser.Api.Models;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Services;
 
@@ -7,6 +7,7 @@ public enum SyncPeriod
     Today,
     LastMonth,
     ThisMonth,
+    LastMonth,
     All
 }
 public interface ISyncService

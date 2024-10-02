@@ -28,6 +28,10 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
         {
             return DateTime.Today.ToString("/yyyy/MM/");
         }
+        else if (period == SyncPeriod.LastMonth)
+        {
+            return DateTime.Today.AddMonths(-1).ToString("/yyyy/MM/");
+        }
         else if (period == SyncPeriod.Today)
         {
             return DateTime.Today.ToString("/yyyy/MM/dd/");
