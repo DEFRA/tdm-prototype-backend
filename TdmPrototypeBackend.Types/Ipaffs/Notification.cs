@@ -49,4 +49,8 @@ public partial class Notification : IMongoIdentifiable
     [Attr]
     public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
 
+
+    [JsonIgnore]
+    [BsonIgnore]
+    public MatchingReferenceNumber MatchingReferenceNumber => MatchingReferenceNumber.FromIpaffs(ReferenceNumber);
 }

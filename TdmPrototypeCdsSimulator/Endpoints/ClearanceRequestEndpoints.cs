@@ -1,29 +1,55 @@
+using Json.Patch;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using MongoDB.Driver;
 using TdmPrototypeBackend.ASB;
+using TdmPrototypeBackend.Matching;
 using TdmPrototypeBackend.Storage;
+using TdmPrototypeBackend.Storage.Mongo;
+using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Alvs;
 using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeCdsSimulator.Config;
-using TdmPrototypeDmpSynchroniser.Api.Services;
 
 namespace TdmPrototypeCdsSimulator.Endpoints;
 
 public static class ClearanceRequestEndpoints
 {
     private const string BaseRoute = "simulator";
-    
+
     public static void UseClearanceRequestEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapGet(BaseRoute + "/create-clearance-request/{notificationId}", CreateClearanceRequestsAsync);
+        app.MapGet(BaseRoute + "/notification-received/{notificationId}", MatchNotification);
+        app.MapGet(BaseRoute + "/cds-received/{documentReference}", MatchCds);
+    }
+
+    private static async Task<IResult> MatchNotification(
+        IMatchingService matchingService,
+        string notificationId)
+    {
+        var matchResult = await matchingService.Match(MatchingReferenceNumber.FromIpaffs(notificationId));
+
+        return Results.Ok(matchResult);
+    }
+
+    private static async Task<IResult> MatchCds(
+        IMatchingService matchingService,
+        string documentReference)
+    {
+        var matchResult = await matchingService.Match(MatchingReferenceNumber.FromCds(documentReference));
+
+        return Results.Ok(matchResult);
     }
 
     private static async Task<IResult> CreateClearanceRequestsAsync(
         IStorageService<Notification> notificationService,
+        IStorageService<Movement> movementService,
         IBusService busService,
-        string notificationId)
+        string notificationId,
+        bool byPassServiceBus)
     {
         var notification = await notificationService.Find(notificationId);
 
@@ -49,12 +75,55 @@ public static class ClearanceRequestEndpoints
 
         clearanceRequest.Items = new Items[1]
         {
-            new() { ItemNumber = 1, Checks = new Check[1] { new() { CheckCode = "H2019", DepartmentCode = "GB" } } }
+            new()
+            {
+                ItemNumber = 1,
+                Documents = new[]
+                {
+                    new Document()
+                    {
+                        DocumentReference = notification.MatchingReferenceNumber.AsCdsDocumentReference(),
+                        DocumentCode = "H219",
+                        DocumentQuantity = 3,
+                        DocumentStatus = "P"
+                    }
+                },
+                Checks = new Check[1] { new() { CheckCode = "H2019", DepartmentCode = "GB" } }
+            }
         };
 
-        await busService.SendMessageAsync(clearanceRequest);
+        if (byPassServiceBus)
+        {
+            var movement = new Movement()
+            {
+                Id = clearanceRequest.Header!.EntryReference,
+                LastUpdated = clearanceRequest.ServiceHeader?.ServiceCallTimestamp,
+                EntryReference = clearanceRequest.Header.EntryReference,
+                MasterUCR = clearanceRequest.Header.MasterUCR,
+                // DeclarationPartNumber = ConvertInt(r.Header.DeclarationPartNumber),
+                DeclarationType = clearanceRequest.Header.DeclarationType,
+                // ArrivalDateTime = r.Header.ArrivalDateTime,
+                SubmitterTURN = clearanceRequest.Header.SubmitterTURN,
+                DeclarantId = clearanceRequest.Header.DeclarantId,
+                DeclarantName = clearanceRequest.Header.DeclarantName,
+                DispatchCountryCode = clearanceRequest.Header.DispatchCountryCode,
+                GoodsLocationCode = clearanceRequest.Header.GoodsLocationCode,
+                ClearanceRequests = new List<ALVSClearanceRequest>() { clearanceRequest },
+                Items = clearanceRequest.Items?.Select(x =>
+                {
+                    x.ClearanceRequestReference = clearanceRequest.Header.EntryReference;
+                    return x;
+                }).ToList(),
+            };
 
+            await movementService.Upsert(movement);
+        }
+        else
+        {
+            await busService.SendMessageAsync(clearanceRequest);
+        }
 
         return Results.Ok(clearanceRequest);
     }
+
 }

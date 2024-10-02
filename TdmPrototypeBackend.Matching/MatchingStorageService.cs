@@ -1,14 +1,16 @@
-using JsonApiDotNetCore.MongoDb.Resources;
+﻿using JsonApiDotNetCore.MongoDb.Resources;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using TdmPrototypeBackend.Storage;
+using TdmPrototypeBackend.Storage.Mongo;
 
-namespace TdmPrototypeBackend.Storage.Mongo;
+namespace TdmPrototypeBackend.Matching;
 
-public class MongoStorageService<T> : MongoService<T>, IStorageService<T> where T : class, IMongoIdentifiable
-{   
-    
-    public MongoStorageService(IMongoDbClientFactory connectionFactory, ILoggerFactory loggerFactory,  MongoDbOptions<T> options)
+public class MatchingStorageService<T> : MongoService<T>, IStorageService<T> where T : class, IMongoIdentifiable
+{
+
+    public MatchingStorageService(IMongoDbClientFactory connectionFactory, ILoggerFactory loggerFactory, MongoDbOptions<T> options)
         : base(connectionFactory, options.CollectionName, loggerFactory)
     {
         Logger.LogInformation($"Connecting {options.CollectionName} to MongoDB");
@@ -19,10 +21,10 @@ public class MongoStorageService<T> : MongoService<T>, IStorageService<T> where 
         try
         {
             Logger.LogInformation("Upsert to MongoDB");
-            
-            await Collection.ReplaceOneAsync( 
+
+            await Collection.ReplaceOneAsync(
                 filter: new BsonDocument("_id", item.Id),
-                options: new ReplaceOptions() {IsUpsert = true},
+                options: new ReplaceOptions() { IsUpsert = true },
                 replacement: item);
         }
         catch (Exception ex)

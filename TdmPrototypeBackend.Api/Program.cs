@@ -18,6 +18,8 @@ using TdmPrototypeBackend.Api.Endpoints;
 using TdmPrototypeBackend.Api.HealthChecks;
 using TdmPrototypeDmpSynchroniser.Api.Endpoints;
 using TdmPrototypeBackend.Api.Utils;
+using TdmPrototypeBackend.Matching;
+using TdmPrototypeBackend.Matching.Extensions;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeCdsSimulator.Extensions;
 using TdmPrototypeDmpSynchroniser.Api.Extensions;
@@ -130,6 +132,9 @@ builder.Services.AddHealthChecks()
 //Add CDS Simulator
 builder.Services.AddCdsSimulator();
 
+//Add Matching Service
+builder.Services.AddMatchingService();
+
 // swagger endpoints
 if (builder.IsSwaggerEnabled())
 {
@@ -137,6 +142,8 @@ if (builder.IsSwaggerEnabled())
     builder.Services.AddSwaggerGen();
 }
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+
+
 
 var app = builder.Build();
 

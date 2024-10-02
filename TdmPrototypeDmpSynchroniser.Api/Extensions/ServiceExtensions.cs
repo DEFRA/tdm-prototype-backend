@@ -3,6 +3,7 @@ using MongoDB.Driver;
 using TdmPrototypeBackend.ASB;
 using TdmPrototypeBackend.Storage;
 using TdmPrototypeBackend.Storage.Mongo;
+using TdmPrototypeBackend.Storage.Mongo.Extensions;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeDmpSynchroniser.Api.Config;
@@ -16,26 +17,7 @@ public static class ServiceExtensions
     // TODO at the moment synchroniser is using it's own DB to retain portability back to a seperate service if desired
     public static void AddSynchroniserDatabase(this WebApplicationBuilder builder)
     {
-        
-        // TODO - at the moment there's two different 
-        var mongoUri = builder.Configuration.GetValue<string>("Mongo:DatabaseUri")!;
-        var mongoDatabaseName = builder.Configuration.GetValue<string>("Mongo:DatabaseName")!;
-        
-        // if (builder.IsDevMode())
-        // {
-        //     logger.Information("MongoDB Connection mongoUri={mongoUri}, mongoDatabaseName={mongoDatabaseName}",
-        //         mongoUri, mongoDatabaseName);
-        // }
-
-        // Mongo
-        var factory = new MongoDbClientFactory(mongoUri,
-            mongoDatabaseName);
-
-        builder.Services.AddSingleton<IMongoDbClientFactory>(_ =>
-        factory);
-        
-        
-        builder.Services.AddSingleton<IMongoDatabase>(_ => factory.CreateClient().GetDatabase(mongoDatabaseName));
+        builder.Services.AddMongoDb(builder.Configuration);
     }
     public static void AddSynchroniserServices(this IServiceCollection services)
     {

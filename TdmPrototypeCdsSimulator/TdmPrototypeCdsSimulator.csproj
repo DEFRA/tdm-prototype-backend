@@ -11,7 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TdmPrototypeDmpSynchroniser.Api\TdmPrototypeDmpSynchroniser.Api.csproj" />
+    <ProjectReference Include="..\TdmPrototypeBackend.ASB\TdmPrototypeBackend.ASB.csproj" />
+    <ProjectReference Include="..\TdmPrototypeBackend.Matching\TdmPrototypeBackend.Matching.csproj" />
   </ItemGroup>
 
   
