@@ -14,7 +14,7 @@ public class BusService(
 
     private ServiceBusClient CreateBusClient(string uri, int retries = 3, int timeout = 10)
     {
-        logger.LogInformation(
+        Logger.LogInformation(
             $"Connecting to bus {uri} : {config.DmpBusTopic}/{config.DmpBusSubscription}");
 
         var clientOptions = new ServiceBusClientOptions()
@@ -69,7 +69,7 @@ public class BusService(
         }
         catch (Exception ex)
         {
-            logger.LogError(ex.ToString());
+            Logger.LogError(ex.ToString());
             return new Status() { Success = false, Description = ex.Message };
         }
     }
