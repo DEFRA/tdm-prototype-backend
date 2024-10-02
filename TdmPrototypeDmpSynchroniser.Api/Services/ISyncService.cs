@@ -7,6 +7,7 @@ public enum SyncPeriod
     Today,
     LastMonth,
     ThisMonth,
+    LastMonth,
     All
 }
 public interface ISyncService
