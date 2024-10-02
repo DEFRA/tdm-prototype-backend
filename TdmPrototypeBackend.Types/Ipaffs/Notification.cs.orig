@@ -4,11 +4,12 @@ using JsonApiDotNetCore.MongoDb.Resources;
 using JsonApiDotNetCore.Resources.Annotations;
 using MongoDB.Bson.Serialization.Attributes;
 
+using Microsoft.AspNetCore.Authorization;
+
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
 public partial class Notification : IMongoIdentifiable
 {
-    private string matchReference;
 
     //// This field is used by the jsonapi-consumer to control the correct casing in the type field
      [JsonIgnore]
@@ -41,9 +42,8 @@ public partial class Notification : IMongoIdentifiable
     // [Attr]
     public string? LocalId { get; set; }
     
-    //change to an array, because its matching at item level - ask Matt to if an item can have multiple documents related to different cheds
     [Attr]
-    public List<MatchingStatus> Movements { get; set; } = new List<MatchingStatus>();
+    public MatchingStatus Movement { get; set; } = new MatchingStatus() { Matched = false };
 
     [Attr]
     public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
@@ -68,6 +68,7 @@ public partial class Notification : IMongoIdentifiable
         }
     }
 
+<<<<<<< HEAD
     [Attr]
     public string _PointOfEntryControlPoint
     {
@@ -80,18 +81,10 @@ public partial class Notification : IMongoIdentifiable
             }
         }
     }
+=======
 
-    
-    public string _MatchReference
-    {
-        get
-        {
-            if (string.IsNullOrEmpty(matchReference))
-            {
-                matchReference = MatchingReferenceNumber.FromIpaffs(ReferenceNumber).AsYearIdentifier();
-            }
-            return matchReference;
-        }
-        set => matchReference = value;
-    }
+    [JsonIgnore]
+    [BsonIgnore]
+    public MatchingReferenceNumber MatchingReferenceNumber => MatchingReferenceNumber.FromIpaffs(ReferenceNumber);
+>>>>>>> d439ec7 (added matching service)
 }

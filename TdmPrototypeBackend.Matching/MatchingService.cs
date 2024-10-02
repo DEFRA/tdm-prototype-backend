@@ -9,38 +9,40 @@ namespace TdmPrototypeBackend.Matching
         MatchingStorageService<Notification> notificationService,
         MatchingStorageService<Movement> movementService) : IMatchingService
     {
-        public async Task<MatchResult> MatchNotification(string documentReference)
+        public async Task<MatchResult> MatchNotification(string matchReference)
         {
-            var referenceNumber = MatchingReferenceNumber.FromCds(new Document() {DocumentReference = documentReference, DocumentCode = });
-
-
+            var movements =
+                await movementService.Filter(Builders<Movement>.Filter.AnyStringIn(x => x._MatchReferences, matchReference));
+            var movement = movements.FirstOrDefault();
+           
+            
+           
             var builder = Builders<Notification>.Filter;
 
-            var filter = builder.Regex(x => x.ReferenceNumber, referenceNumber.AsYearIdentifier())
-                         & builder.Eq(x => x.Movement.Matched, false);
+            var filter = builder.Regex(x => x._MatchReference, matchReference);
 
-            var setFieldDefinitions =
-                new SetFieldDefinitionsBuilder<Notification>().Set(x => x.Movement,
-                    new MatchingStatus() {
+            
+            var items = await notificationService.Filter(filter);
+
+            foreach (var notification in items)
+            {
+                if (!notification.Movements.Any(x => x.Reference == movement.Id))
+                {
+                    notification.Movements.Add(new MatchingStatus()
+                    {
                         AdditionalInformation =
                         [
                             new("matchingLevel", "1")
                         ],
                         Matched = true,
-                        Reference = documentReference
+                        Reference = movement.Id,
+                        Item = movement.Items
+                            .FirstOrDefault(x => x.Documents.Any(d => d.DocumentReference.Contains(matchReference)))
+                            ?.ItemNumber.ToString()
                     });
+                    await notificationService.Upsert(notification);
+                }
 
-
-            var pipeline = new EmptyPipelineDefinition<Notification>()
-                .Match(filter)
-                .Set(setFieldDefinitions);
-
-            
-            var items = await notificationService.Pipeline(pipeline);
-
-            foreach (var notification in items)
-            {
-                await notificationService.Upsert(notification);
                 await MatchCds(notification.ReferenceNumber);
             }
 
@@ -48,44 +50,30 @@ namespace TdmPrototypeBackend.Matching
         }
 
 
-        public async Task<MatchResult> MatchCds(string notificationId)
+        public async Task<MatchResult> MatchCds(string matchReference)
         {
-            //var notification = await notificationService.Find(notificationId);
-            var referenceNumber = MatchingReferenceNumber.FromIpaffs(notificationId);
+            var notifications =
+                await notificationService.Filter(Builders<Notification>.Filter.Eq(x => x._MatchReference,
+                    matchReference));
+                var notification = notifications.FirstOrDefault();
 
+            var filter = Builders<Movement>.Filter.AnyStringIn(x => x._MatchReferences, matchReference);
 
-            var builder = Builders<Movement>.Filter;
-
-            var documentReferenceFieldDefinition = new StringFieldDefinition<Movement, string>(
-                $"{nameof(Movement.Items)}.{nameof(Items.Documents)}.{nameof(Document.DocumentReference)}");
-
-            var filter = builder.Eq(documentReferenceFieldDefinition, referenceNumber.AsCdsDocumentReference())
-                         & builder.Eq(x => x.Notification.Matched, false);
-
-            var setFieldDefinitions =
-                new SetFieldDefinitionsBuilder<Movement>().Set(x => x.Notification,
-                    new MatchingStatus()
-                    {
-                        AdditionalInformation =
-                        [
-                            new("matchingLevel", "1")
-                        ],
-                        Matched = true,
-                        Reference = notificationId
-                    });
-
-
-            var pipeline = new EmptyPipelineDefinition<Movement>()
-                .Match(filter)
-                .Set(setFieldDefinitions);
-
-
-            var items = await movementService.Pipeline(pipeline);
+            var items = await movementService.Filter(filter);
 
             foreach (var movement in items)
             {
+                movement.Notifications.Add(new MatchingStatus() {
+                    AdditionalInformation =
+                    [
+                        new("matchingLevel", "1")
+                    ],
+                    Matched = true,
+                    Reference = notification.Id,
+                    Item = notification.PartOne?.Commodities?.CommodityComplements?.FirstOrDefault()?.UniqueComplementID 
+                });
                 await movementService.Upsert(movement);
-                await MatchNotification(referenceNumber.AsCdsDocumentReference());
+                await MatchNotification(matchReference);
             }
 
             return new MatchResult(items.Any());
@@ -94,8 +82,8 @@ namespace TdmPrototypeBackend.Matching
 
         public async Task<MatchResult> Match(MatchingReferenceNumber matchingReferenceNumber)
         {
-            var cdsResult = await MatchCds(matchingReferenceNumber.AsIpaffsReference());
-            var notificationResult = await MatchNotification(matchingReferenceNumber.AsCdsDocumentReference());
+            var cdsResult = await MatchCds(matchingReferenceNumber.AsYearIdentifier());
+            var notificationResult = await MatchNotification(matchingReferenceNumber.AsYearIdentifier());
 
             return new MatchResult(cdsResult.Matched || notificationResult.Matched);
         }

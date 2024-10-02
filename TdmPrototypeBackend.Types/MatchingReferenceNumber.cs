@@ -43,9 +43,9 @@ public class MatchingReferenceNumber
     {
         return $"{Year}.{Identifier}";
     }
-    public static MatchingReferenceNumber FromCds(Document document)
+    public static MatchingReferenceNumber FromCds(string reference)
     {
-        var reference = document.DocumentReference;
+       // var reference = document.DocumentReference;
 
         int identifier;
         char? splitIdentifier = null;
@@ -69,7 +69,8 @@ public class MatchingReferenceNumber
         }
         return new MatchingReferenceNumber(
             new string(countryCode.ToArray()),
-            MapToChedType(new string(licenceType.ToArray()), document.DocumentCode),
+            null,
+            //MapToChedType(new string(licenceType.ToArray()), document.DocumentCode),
             new string(licenceType.ToArray()),
             int.Parse(new string(year.ToArray())),
             identifier, 

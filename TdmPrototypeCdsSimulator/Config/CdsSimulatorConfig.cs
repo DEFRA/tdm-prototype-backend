@@ -13,6 +13,8 @@ public class CdsSimulatorConfig //: IBusConfig
     public string? AzureTenantId { get; set; } = default!;
     public string? AzureClientSecret { get; set; } = default!;
 
+    public bool BypassAsb { get; set; } = default!;
+
     public CdsSimulatorConfig(IConfiguration configuration)
     {
         // CdsHttpsProxy = configuration["CDP_HTTPS_PROXY"];
@@ -27,6 +29,8 @@ public class CdsSimulatorConfig //: IBusConfig
         DmpBusNamespace = $"{configuration["DMP_SERVICE_BUS_NAME"]!}.servicebus.windows.net";
         DmpBusTopic = $"defra.trade.dmp.ingestipaffs.{DmpEnvironment}.{dmpSlot}.topic";
         DmpBusSubscription = $"defra.trade.dmp.{DmpEnvironment}.{dmpSlot}.subscription";
-        
+
+        BypassAsb = configuration["BYPASS_ASB"] == "true";
+
     }
 }

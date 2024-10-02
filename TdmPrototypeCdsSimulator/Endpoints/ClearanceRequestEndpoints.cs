@@ -21,9 +21,9 @@ public static class ClearanceRequestEndpoints
 
     public static void UseClearanceRequestEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet(BaseRoute + "/create-clearance-request/{notificationId}", CreateClearanceRequestsAsync);
-        app.MapGet(BaseRoute + "/notification-received/{notificationId}", MatchNotification);
-        app.MapGet(BaseRoute + "/cds-received/{documentReference}", MatchCds);
+        app.MapGet(BaseRoute + "/create-clearance-request/{notificationId}", CreateClearanceRequestsAsync).AllowAnonymous();
+        app.MapGet(BaseRoute + "/notification-received/{notificationId}", MatchNotification).AllowAnonymous();
+        app.MapGet(BaseRoute + "/cds-received/{documentReference}", MatchCds).AllowAnonymous();
     }
 
     private static async Task<IResult> MatchNotification(
@@ -39,7 +39,7 @@ public static class ClearanceRequestEndpoints
         IMatchingService matchingService,
         string documentReference)
     {
-        var matchResult = await matchingService.Match(MatchingReferenceNumber.FromCds(documentReference));
+        var matchResult = await matchingService.Match(MatchingReferenceNumber.FromCds(null));
 
         return Results.Ok(matchResult);
     }
@@ -48,8 +48,8 @@ public static class ClearanceRequestEndpoints
         IStorageService<Notification> notificationService,
         IStorageService<Movement> movementService,
         IBusService busService,
-        string notificationId,
-        bool byPassServiceBus)
+        CdsSimulatorConfig config,
+        string notificationId)
     {
         var notification = await notificationService.Find(notificationId);
 
@@ -82,7 +82,7 @@ public static class ClearanceRequestEndpoints
                 {
                     new Document()
                     {
-                        DocumentReference = notification.MatchingReferenceNumber.AsCdsDocumentReference(),
+                        DocumentReference = MatchingReferenceNumber.FromIpaffs(notificationId).AsCdsDocumentReference(),
                         DocumentCode = "H219",
                         DocumentQuantity = 3,
                         DocumentStatus = "P"
@@ -92,7 +92,7 @@ public static class ClearanceRequestEndpoints
             }
         };
 
-        if (byPassServiceBus)
+        if (config.BypassAsb)
         {
             var movement = new Movement()
             {
