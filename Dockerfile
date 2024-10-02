@@ -32,5 +32,9 @@ ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-EXPOSE 8085
+
+ARG PORT=8085
+ENV PORT ${PORT}
+ENV ASPNETCORE_HTTP_PORTS=${PORT}
+EXPOSE ${PORT}
 ENTRYPOINT ["dotnet", "TdmPrototypeBackend.Api.dll"]

@@ -18,11 +18,11 @@ public static class ManagementEndpoints
 
     public static void UseManagementEndpoints(this IEndpointRouteBuilder app, BackendConfig config)
     {
-        if (config.EnableMongoManagement)
+        if (config.EnableManagement)
         {
             app.MapGet(BaseRoute + "/collections", GetCollectionsAsync).AllowAnonymous();
             app.MapGet(BaseRoute + "/collections/drop", DropCollectionsAsync).RequireAuthorization("tdm-technical");  
-            app.MapGet(BaseRoute + "/environment", GetEnvironment).RequireAuthorization("tdm-technical");  
+            app.MapGet(BaseRoute + "/environment", GetEnvironment).AllowAnonymous(); 
             app.MapGet(BaseRoute + "/auth/status", GetAuth).AllowAnonymous();
             // app.MapGet(BaseRoute + "/proxy/set", SetProxy).RequireAuthorization("technical");
             // app.MapGet(BaseRoute + "/proxy/unset", UnsetProxy).RequireAuthorization("technical");   
