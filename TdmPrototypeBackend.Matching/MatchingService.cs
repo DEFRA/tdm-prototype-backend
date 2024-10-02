@@ -11,12 +11,12 @@ namespace TdmPrototypeBackend.Matching
     {
         public async Task<MatchResult> MatchNotification(string documentReference)
         {
-            var referenceNumber = MatchingReferenceNumber.FromCds(documentReference);
+            var referenceNumber = MatchingReferenceNumber.FromCds(new Document() {DocumentReference = documentReference, DocumentCode = });
 
 
             var builder = Builders<Notification>.Filter;
 
-            var filter = builder.Eq(x => x.ReferenceNumber, referenceNumber.AsIpaffsReference())
+            var filter = builder.Regex(x => x.ReferenceNumber, referenceNumber.AsYearIdentifier())
                          & builder.Eq(x => x.Movement.Matched, false);
 
             var setFieldDefinitions =

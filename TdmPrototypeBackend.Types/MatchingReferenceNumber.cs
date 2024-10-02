@@ -1,3 +1,5 @@
+using TdmPrototypeBackend.Types.Alvs;
+
 namespace TdmPrototypeBackend.Types;
 
 public class MatchingReferenceNumber
@@ -36,8 +38,15 @@ public class MatchingReferenceNumber
     {
         return $"{ChedType}.{CountryCode}.{Year}.{Identifier}{SplitIdentifier}";
     }
-    public static MatchingReferenceNumber FromCds(string reference)
+
+    public string AsYearIdentifier()
     {
+        return $"{Year}.{Identifier}";
+    }
+    public static MatchingReferenceNumber FromCds(Document document)
+    {
+        var reference = document.DocumentReference;
+
         int identifier;
         char? splitIdentifier = null;
         var parts = reference.Split(".");
@@ -60,7 +69,7 @@ public class MatchingReferenceNumber
         }
         return new MatchingReferenceNumber(
             new string(countryCode.ToArray()),
-            MapToChedType(new string(licenceType.ToArray())),
+            MapToChedType(new string(licenceType.ToArray()), document.DocumentCode),
             new string(licenceType.ToArray()),
             int.Parse(new string(year.ToArray())),
             identifier, 
@@ -102,13 +111,16 @@ public class MatchingReferenceNumber
         return chedType;
     }
 
-    private static string MapToChedType(string licenceType)
+    private static string MapToChedType(string licenceType, string documentCode)
     {
-        switch (licenceType)
+        return documentCode switch
         {
-            case "CHD": return "CHEDP";
-        }
+            "N002" or "N851" or "9115" => "CHEDPP",
+            "N852" or "C678" => "CHEDD",
+            "C640" => "CHEDA",
+            "C641" or "C673"  => "CHEDP"
+        };
 
-        return licenceType;
+
     }
 }

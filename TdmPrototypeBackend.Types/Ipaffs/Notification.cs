@@ -42,8 +42,9 @@ public partial class Notification : IMongoIdentifiable
     // [Attr]
     public string? LocalId { get; set; }
     
+    //change to an array, because its matching at item level - ask Matt to if an item can have multiple documents related to different cheds
     [Attr]
-    public MatchingStatus Movement { get; set; } = new MatchingStatus() { Matched = false };
+    public List<MatchingStatus> Movement { get; set; } = new List<MatchingStatus>();
 
     [Attr]
     public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
