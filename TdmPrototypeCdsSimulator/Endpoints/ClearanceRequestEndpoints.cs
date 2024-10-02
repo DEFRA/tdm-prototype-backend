@@ -88,7 +88,7 @@ public static class ClearanceRequestEndpoints
                     new Document()
                     {
                         DocumentReference = MatchingReferenceNumber.FromIpaffs(notificationId, notification.IpaffsType.Value).AsCdsDocumentReference(),
-                        DocumentCode = "H219",
+                        DocumentCode = "C640",
                         DocumentQuantity = 3,
                         DocumentStatus = "P"
                     }
