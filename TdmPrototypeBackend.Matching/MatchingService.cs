@@ -33,19 +33,49 @@ namespace TdmPrototypeBackend.Matching
             {
                 if (!notification.Movements.Any(x => x.Reference == movement.Id))
                 {
+                    var doc = (from item in movement.Items
+                        from itemDocument in item.Documents
+                        where itemDocument.DocumentReference.Contains(matchReference.ToString())
+                        select itemDocument).FirstOrDefault();
+
+
+                    var referenceNumber = MatchingReferenceNumber.FromCds(doc.DocumentReference, doc.DocumentCode);
+
                     notification.Movements.RemoveAll(x => !x.Matched);
-                    notification.Movements.Add(new MatchingStatus()
+                    if (notification.IpaffsType != referenceNumber.ChedType)
                     {
-                        AdditionalInformation =
-                        [
-                            new("matchingLevel", "1")
-                        ],
-                        Matched = true,
-                        Reference = movement.Id,
-                        Item = movement.Items
-                            .FirstOrDefault(x => x.Documents.Any(d => d.DocumentReference.Contains(matchReference.ToString())))
-                            ?.ItemNumber.ToString()
-                    });
+                        notification.Movements.Add(new MatchingStatus()
+                        {
+                            AdditionalInformation =
+                            [
+                                new("matchingLevel", "1"),
+                                new("reason", "ChedType does not match")
+                            ],
+                            Matched = false,
+                            Reference = movement.Id,
+                            Item = movement.Items
+                                .FirstOrDefault(x => x.Documents.Any(d => d.DocumentReference.Contains(matchReference.ToString())))
+                                ?.ItemNumber.ToString()
+                        });
+                    }
+                    else
+                    {
+                        notification.Movements.Add(new MatchingStatus()
+                        {
+                            AdditionalInformation =
+                            [
+                                new("matchingLevel", "1")
+                            ],
+                            Matched = true,
+                            Reference = movement.Id,
+                            Item = movement.Items
+                                .FirstOrDefault(x => x.Documents.Any(d => d.DocumentReference.Contains(matchReference.ToString())))
+                                ?.ItemNumber.ToString()
+                        });
+                    }
+
+                    
+                  
                     await notificationService.Upsert(notification);
                 }
 
