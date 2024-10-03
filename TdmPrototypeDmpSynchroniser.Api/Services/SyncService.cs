@@ -130,10 +130,12 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
             }
 
             var document = movement.Items?.FirstOrDefault()?.Documents?.FirstOrDefault();
-            await matchingService.Match(MatchingReferenceNumber.FromCds(document?.DocumentReference, document?.DocumentCode));
+            if (document != null)
+            {
+                await matchingService.Match(MatchingReferenceNumber.FromCds(document?.DocumentReference, document?.DocumentCode));    
+            }
 
             return true;
-
 
         }
         catch (Exception ex)

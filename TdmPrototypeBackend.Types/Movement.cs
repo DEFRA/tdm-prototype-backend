@@ -97,9 +97,13 @@ public class Movement : CustomStringMongoIdentifiable
             var list = new HashSet<int>();
             foreach (var item in Items)
             {
-                foreach (var itemDocument in item.Documents!)
+                if (item.Documents != null)
                 {
-                    list.Add(MatchingReferenceNumber.FromCds(itemDocument.DocumentReference, itemDocument.DocumentCode).Identifier);
+                    foreach (var itemDocument in item.Documents)
+                    {
+                        list.Add(MatchingReferenceNumber
+                            .FromCds(itemDocument.DocumentReference, itemDocument.DocumentCode).Identifier);
+                    }
                 }
             }
 
