@@ -80,7 +80,7 @@ public class SyncMovementsIntegrationTests : IntegrationTests
 
         var config = new SynchroniserConfig(new ConfigurationBuilder().Build());
         config.CachingReadEnabled = true;
-        config.CachingRootFolder = $"{projectPath}Fixtures/SimpleMovementsFolder";
+        config.CachingRootFolder = $"{projectPath}/Fixtures/SimpleMovementsFolder";
         var logger = new NullLoggerFactory();
 
         IBlobService cachingBlobService = new CachingBlobService(logger, config, new Mock<IBlobService>().Object);
