@@ -58,7 +58,7 @@ public partial class Notification : IMongoIdentifiable
     [Attr]
     public string _PointOfEntry
     {
-        get => PartOne.PointOfEntry;
+        get => PartOne?.PointOfEntry;
         set
         {
             if (PartOne != null)
@@ -71,7 +71,7 @@ public partial class Notification : IMongoIdentifiable
     [Attr]
     public string _PointOfEntryControlPoint
     {
-        get => PartOne.PointOfEntryControlPoint;
+        get => PartOne?.PointOfEntryControlPoint;
         set
         {
             if (PartOne != null)
