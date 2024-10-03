@@ -1,12 +1,16 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Moq;
 using Serilog;
 using TdmPrototypeBackend.Api.Utils;
 using TdmPrototypeBackend.Matching.Extensions;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Ipaffs;
+using TdmPrototypeDmpSynchroniser.Api.Config;
 using TdmPrototypeDmpSynchroniser.Api.Extensions;
+using TdmPrototypeDmpSynchroniser.Api.Services;
 
 namespace TdmPrototypeDmpSynchroniser.Test.IntegrationTests;
 
@@ -14,7 +18,7 @@ public class IntegrationTestDependenciesBuilder
 {
     private string configPath = Path.Combine(Directory.GetCurrentDirectory(), @"../../../../TdmPrototypeBackend.Api/Properties/local.env");
     private string mongoDbName = "tdm-prototype-backend-integration";
-    private Action<IServiceCollection> testServices;
+    private List<Action<IServiceCollection>> testServices = new List<Action<IServiceCollection>>();
 
     public IntegrationTestDependenciesBuilder SetConfig(string path)
     {
@@ -30,7 +34,21 @@ public class IntegrationTestDependenciesBuilder
 
     public IntegrationTestDependenciesBuilder AddTestServices(Action<IServiceCollection> testServices)
     {
-        this.testServices = testServices;
+        this.testServices.Add(testServices);
+        return this;
+    }
+
+    public IntegrationTestDependenciesBuilder UseLocalPathBlobStorage(string relativeLocalPath)
+    {
+        var projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+        var config = new SynchroniserConfig(new ConfigurationBuilder().Build());
+        config.CachingReadEnabled = true;
+        config.CachingRootFolder = $"{projectPath}/{relativeLocalPath}";
+        this.AddTestServices(services =>
+        {
+            services.AddSingleton<IBlobService>(sp =>
+                new CachingBlobService(sp.GetService<ILoggerFactory>(), config, new Mock<IBlobService>().Object));
+        });
         return this;
     }
 
@@ -59,12 +77,7 @@ public class IntegrationTestDependenciesBuilder
         builder.AddSynchroniserDatabase();
         builder.Services.AddSynchroniserServices();
 
-        if (testServices is not null)
-        {
-            testServices(builder.Services);
-        }
-
-        //AddTestServices(builder.Services);
+        testServices?.ForEach(x => x(builder.Services));
 
         var serviceProvider = builder.Services.BuildServiceProvider();
         return new IntegrationTestDependencies(serviceProvider);

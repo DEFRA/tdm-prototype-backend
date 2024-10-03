@@ -18,6 +18,7 @@ using TdmPrototypeDmpSynchroniser.Api.Services;
 
 namespace TdmPrototypeDmpSynchroniser.Test.IntegrationTests;
 
+
 [Trait("Category", "Integration")]
 public class SyncMovementsIntegrationTests : IntegrationTests
 {
@@ -76,19 +77,12 @@ public class SyncMovementsIntegrationTests : IntegrationTests
     [Fact]
     public async Task FromLocalSimpleFolder_ShouldCreateSuccessfully()
     {
-        var projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-        var config = new SynchroniserConfig(new ConfigurationBuilder().Build());
-        config.CachingReadEnabled = true;
-        config.CachingRootFolder = $"{projectPath}/Fixtures/SimpleMovementsFolder";
-        
         Dependencies = new IntegrationTestDependenciesBuilder()
             .SetConfig(Path.Combine(Directory.GetCurrentDirectory(),
                 @"../../../../TdmPrototypeBackend.Api/Properties/local.env"))
-            .SetMongoDbName("tdm-prototype-backend-integration")
+            .UseLocalPathBlobStorage("Fixtures/SimpleMovementsFolder")
             .AddTestServices(services =>
             {
-                services.AddSingleton<SynchroniserConfig>(config);
-                services.AddSingleton<IBlobService>(sp => new CachingBlobService(sp.GetService<ILoggerFactory>(), config, new Mock<IBlobService>().Object));
                 services.AddSingleton<IStorageService<Notification>>(new Mock<IStorageService<Notification>>().Object);
             })
             .Build();
