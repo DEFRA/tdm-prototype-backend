@@ -22,8 +22,9 @@ public abstract class IntegrationTests
         var logger = loggerConfiguration.CreateLogger();
 
         //This will look for your local.env file
-        var path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(),
-            @"..\..\..\..\TdmPrototypeBackend.Api/Properties/local.env"));
+        var path = new Uri(Path.Combine(Directory.GetCurrentDirectory(),
+                @"../../../../TdmPrototypeBackend.Api/Properties/local.env")).LocalPath;
+        
         builder.Configuration.AddIniFile(path, false);
 
         var config = new List<KeyValuePair<string, string>>

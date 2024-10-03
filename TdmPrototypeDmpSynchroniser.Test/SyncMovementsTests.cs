@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
@@ -112,10 +113,32 @@ public class SyncMovementsTests
 
         movementService.Verify(x => x.Upsert(It.Is<Movement>(
             x => x.AuditEntries.Count == 1)));
-
-
         
-
     }
 
+    [Fact]
+    public async Task SyncMovements_FromSimpleFolder_ShouldCreateSuccessfully()
+    {
+        var projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+
+        var config = new SynchroniserConfig(new ConfigurationBuilder().Build());
+        config.CachingReadEnabled = true;
+        config.CachingRootFolder = $"{projectPath}/Fixtures/SimpleMovementsFolder";
+        var logger = new NullLoggerFactory();
+
+        Mock<IBlobService> blobService = new Mock<IBlobService>();
+
+        IBlobService cachingBlobService = new CachingBlobService(logger, config, blobService.Object);
+        Mock<IStorageService<Movement>> movementService = new Mock<IStorageService<Movement>>();
+        Mock<IStorageService<Notification>> notificationService = new Mock<IStorageService<Notification>>();
+
+        var syncService = new SyncService(logger, config, cachingBlobService,
+            movementService.Object, notificationService.Object, null);
+
+        var result = await syncService.SyncMovements(SyncPeriod.All);
+
+        result.Success.Should().Be(true);
+        
+        movementService.Verify(x => x.Upsert(It.IsAny<Movement>()), Times.Once);
+    }
 }

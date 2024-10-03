@@ -32,8 +32,4 @@
     <ProjectReference Include="..\TdmPrototypeBackend.Api\TdmPrototypeBackend.Api.csproj" />
     <ProjectReference Include="..\TdmPrototypeDmpSynchroniser.Api\TdmPrototypeDmpSynchroniser.Api.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Fixtures\SimpleNotificationFolder\" />
-  </ItemGroup>
 </Project>

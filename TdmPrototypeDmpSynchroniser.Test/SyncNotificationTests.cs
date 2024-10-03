@@ -187,29 +187,4 @@ public class SyncNotificationTests(ITestOutputHelper output)
             x => x.AuditEntries.Count == 1)));
 
     }
-
-    [Fact]
-    public async Task SyncNotification_FromSimpleFolder_ShouldCreateSuccessfully()
-    {
-        var projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
-        
-        var config = new SynchroniserConfig(new ConfigurationBuilder().Build());
-        config.CachingReadEnabled = true;
-        config.CachingRootFolder = $"{projectPath}/Fixtures/SimpleNotificationFolder";
-        var logger = new NullLoggerFactory();
-        
-        Mock<IBlobService> blobService = new Mock<IBlobService>();
-        
-        IBlobService cachingBlobService = new CachingBlobService(logger, config, blobService.Object);
-        Mock<IStorageService<Movement>> movementService = new Mock<IStorageService<Movement>>();
-        Mock<IStorageService<Notification>> notificationService = new Mock<IStorageService<Notification>>();
-        
-        var syncService = new SyncService(logger, config, cachingBlobService,
-            movementService.Object, notificationService.Object, null);
-
-        var (erroredCount, itemCount) = await syncService.SyncIpaffsNotifications("");
-
-        erroredCount.Should().Be(0);
-        itemCount.Should().Be(1);
-    }
 }
