@@ -1,12 +1,18 @@
 using FluentAssertions;
 using FluentAssertions.Common;
 using JsonApiDotNetCore.MongoDb.Resources;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Moq;
 using TdmPrototypeBackend.Storage;
+using TdmPrototypeBackend.Storage.Mongo;
 using TdmPrototypeBackend.Types;
+using TdmPrototypeBackend.Types.Ipaffs;
+using TdmPrototypeDmpSynchroniser.Api.Config;
 using TdmPrototypeDmpSynchroniser.Api.Models;
 using TdmPrototypeDmpSynchroniser.Api.Services;
 
@@ -66,6 +72,34 @@ public class SyncMovementsIntegrationTests : IntegrationTests
         existingMovement.AuditEntries[1].CreatedBy.Should().Be("TRANSITAIR.GB");
         existingMovement.AuditEntries[1].Status.Should().Be("Updated");
         existingMovement.AuditEntries[1].Diff.Count.Should().Be(8);
+    }
+    
+    [Fact]
+    public async Task FromLocalSimpleFolder_ShouldCreateSuccessfully()
+    {
+        // var projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+
+        var config = new SynchroniserConfig(new ConfigurationBuilder().Build());
+        config.CachingReadEnabled = true;
+        config.CachingRootFolder = $"{ProjectPath}Fixtures/SimpleMovementsFolder";
+        var logger = new NullLoggerFactory();
+
+        IBlobService cachingBlobService = new CachingBlobService(logger, config, new Mock<IBlobService>().Object);
+        // Mock<IStorageService<Movement>> movementService = new Mock<IStorageService<Movement>>();
+        // IStorageService<Movement> movementService = new MongoStorageService<Movement>();
+        var movementService = ServiceProvider.GetService<IStorageService<Movement>>()!;
+        Mock<IStorageService<Notification>> notificationService = new Mock<IStorageService<Notification>>();
+
+        var syncService = new SyncService(logger, config, cachingBlobService,
+            movementService, notificationService.Object, null);
+
+        var result = await syncService.SyncMovements(SyncPeriod.All);
+
+        result.Success.Should().Be(true);
+        
+        var existingMovement = await movementService.Find("CHEDPGB20241039875A5");
+
+        existingMovement.Should().NotBeNull();
     }
 
     private Task SyncMovement(string path)

@@ -21,8 +21,6 @@ public static class ServiceExtensions
     }
     public static void AddSynchroniserServices(this IServiceCollection services)
     {
-        
-        
         services.AddSingleton<SynchroniserConfig, SynchroniserConfig>();
         services.AddKeyedSingleton<IBlobService, BlobService>("base");
         services.AddSingleton<IBlobService, CachingBlobService>();

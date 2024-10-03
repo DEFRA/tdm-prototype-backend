@@ -14,13 +14,17 @@ namespace TdmPrototypeDmpSynchroniser.Test.IntegrationTests;
 public abstract class IntegrationTests
 {
     protected IServiceProvider ServiceProvider;
-
+    protected Uri ProjectPath;
+    
     protected IntegrationTests()
     {
         var builder = WebApplication.CreateBuilder();
         var loggerConfiguration = new LoggerConfiguration();
         var logger = loggerConfiguration.CreateLogger();
-
+        
+        ProjectPath = new Uri(Path.Combine(Directory.GetCurrentDirectory(),
+            @"../../../"));
+        
         //This will look for your local.env file
         var path = new Uri(Path.Combine(Directory.GetCurrentDirectory(),
                 @"../../../../TdmPrototypeBackend.Api/Properties/local.env")).LocalPath;
