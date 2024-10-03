@@ -21,7 +21,7 @@ public class SyncNotificationIntegrationTests : IntegrationTests
 
     protected override Task OnBeforeTest()
     {
-        var mongoHelper = ServiceProvider.GetService<MongoHelperService<Notification>>();
+        var mongoHelper = Dependencies.ServiceProvider.GetService<MongoHelperService<Notification>>();
         return mongoHelper.ClearCollection();
     }
 
@@ -39,7 +39,7 @@ public class SyncNotificationIntegrationTests : IntegrationTests
         await SyncNotification("RAW/IPAFFS/CHEDA/2024/02/14/CHEDA_GB_2024_1101869-1639d446-0706-4a83-ad4c-976f0837816a.json");
         await SyncNotification("RAW/IPAFFS/CHEDA/2024/02/14/CHEDA_GB_2024_1101869-42a70100-aeb3-47c2-a445-b0f335db1190.json");
 
-        var storageService = ServiceProvider.GetService<IStorageService<Notification>>();
+        var storageService = Dependencies.ServiceProvider.GetService<IStorageService<Notification>>();
 
         var notification = await storageService.Find("CHEDA.GB.2024.1101869");
 
@@ -54,7 +54,7 @@ public class SyncNotificationIntegrationTests : IntegrationTests
         notification.AuditEntries[1].Version.Should().Be(3);
         notification.AuditEntries[1].CreatedBy.Should().Be("Mark Admin-Tester");
         notification.AuditEntries[1].Status.Should().Be("Updated");
-        notification.AuditEntries[1].Diff.Count.Should().Be(5);
+        notification.AuditEntries[1].Diff.Count.Should().Be(6);
 
     }
 

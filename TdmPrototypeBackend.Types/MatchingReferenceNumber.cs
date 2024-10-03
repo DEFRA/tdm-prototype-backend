@@ -79,6 +79,11 @@ public class MatchingReferenceNumber
 
     public static MatchingReferenceNumber FromIpaffs(string reference, IpaffsNotificationTypeEnum type)
     {
+        if (reference == null)
+        {
+            throw new ArgumentNullException(nameof(reference));
+        }
+
         var parts = reference.Split(".");
         int identifier;
         char? splitIdentifier = null;

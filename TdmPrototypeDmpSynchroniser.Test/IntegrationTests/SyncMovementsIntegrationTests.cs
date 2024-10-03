@@ -31,15 +31,19 @@ public class SyncMovementsIntegrationTests : IntegrationTests
         services.AddSingleton<MongoHelperService<Movement>>();
     }
 
-    protected override Task OnBeforeTest()
-    {
-        var mongoHelper = ServiceProvider.GetService<MongoHelperService<Movement>>();
-        return mongoHelper.ClearCollection();
-    }
+    //protected override Task OnBeforeTest()
+    //{
+    //    var mongoHelper = Dependencies ServiceProvider.GetService<MongoHelperService<Movement>>();
+    //    return mongoHelper.ClearCollection();
+    //}
 
     [Fact]
     public async Task SyncMovements_LastMonth()
     {
+        var testDependencies = new IntegrationTestDependenciesBuilder()
+            .Build();
+
+        testDependencies.MongoClearCollection<Movement>();
         //These files exist in the SND env
         await SyncMovements(SyncPeriod.LastMonth);
        
@@ -52,7 +56,7 @@ public class SyncMovementsIntegrationTests : IntegrationTests
         await SyncMovement("RAW/ALVS/2024/02/14/ALVSCDSTEST0000314-361456c1-5369-4359-bb78-929121c618a6.json");
         await SyncMovement("RAW/ALVS/2024/02/14/ALVSCDSTEST0000314-a078fe92-de45-4477-a3c1-9d068669d905.json");
 
-        var movementService = ServiceProvider.GetService<IStorageService<Movement>>();
+        var movementService = Dependencies.ServiceProvider.GetService<IStorageService<Movement>>();
 
         var existingMovement = await movementService.Find("ALVSCDSTEST0000314");
 
@@ -77,17 +81,17 @@ public class SyncMovementsIntegrationTests : IntegrationTests
     [Fact]
     public async Task FromLocalSimpleFolder_ShouldCreateSuccessfully()
     {
-        // var projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+         var projectPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
 
         var config = new SynchroniserConfig(new ConfigurationBuilder().Build());
         config.CachingReadEnabled = true;
-        config.CachingRootFolder = $"{ProjectPath}Fixtures/SimpleMovementsFolder";
+        config.CachingRootFolder = $"{projectPath}Fixtures/SimpleMovementsFolder";
         var logger = new NullLoggerFactory();
 
         IBlobService cachingBlobService = new CachingBlobService(logger, config, new Mock<IBlobService>().Object);
         // Mock<IStorageService<Movement>> movementService = new Mock<IStorageService<Movement>>();
         // IStorageService<Movement> movementService = new MongoStorageService<Movement>();
-        var movementService = ServiceProvider.GetService<IStorageService<Movement>>()!;
+        var movementService = Dependencies.ServiceProvider.GetService<IStorageService<Movement>>()!;
         Mock<IStorageService<Notification>> notificationService = new Mock<IStorageService<Notification>>();
 
         var syncService = new SyncService(logger, config, cachingBlobService,
@@ -114,6 +118,6 @@ public class SyncMovementsIntegrationTests : IntegrationTests
 
     private SyncService GetSynService()
     {
-        return ServiceProvider.GetService<ISyncService>() as SyncService;
+        return Dependencies.ServiceProvider.GetService<ISyncService>() as SyncService;
     }
 }
