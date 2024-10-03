@@ -1,7 +1,10 @@
 using System.Text.Json.Serialization;
+using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
+using TdmPrototypeBackend.Storage;
+using TdmPrototypeBackend.Storage.Mongo;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeDmpSynchroniser.Api.Config;
@@ -27,7 +30,7 @@ public class SyncMovementsTests
         Mock<IStorageService<Movement>> movementService = new Mock<IStorageService<Movement>>();
         Mock<IStorageService<Notification>> notificationService = new Mock<IStorageService<Notification>>();
         var syncService = new SyncService(new NullLoggerFactory(), new SynchroniserConfig(config), blobService.Object,
-            movementService.Object, notificationService.Object);
+            movementService.Object, notificationService.Object, null);
 
         string path = "RAW/ALVS/";
 
@@ -63,7 +66,7 @@ public class SyncMovementsTests
         Mock<IStorageService<Movement>> movementService = new Mock<IStorageService<Movement>>();
         Mock<IStorageService<Notification>> notificationService = new Mock<IStorageService<Notification>>();
         var syncService = new SyncService(new NullLoggerFactory(), new SynchroniserConfig(config), blobService.Object,
-            movementService.Object, notificationService.Object);
+            movementService.Object, notificationService.Object, null);
 
         string path = "RAW/ALVS/";
 
@@ -96,7 +99,7 @@ public class SyncMovementsTests
         Mock<IStorageService<Movement>> movementService = new Mock<IStorageService<Movement>>();
         Mock<IStorageService<Notification>> notificationService = new Mock<IStorageService<Notification>>();
         var syncService = new SyncService(new NullLoggerFactory(), new SynchroniserConfig(config), blobService.Object,
-            movementService.Object, notificationService.Object);
+            movementService.Object, notificationService.Object, null);
 
         string path = "RAW/ALVS/";
 
@@ -111,10 +114,6 @@ public class SyncMovementsTests
 
         movementService.Verify(x => x.Upsert(It.Is<Movement>(
             x => x.AuditEntries.Count == 1)));
-
-
         
-
     }
-
 }

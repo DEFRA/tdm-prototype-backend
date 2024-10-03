@@ -3,6 +3,8 @@ using System.Runtime.CompilerServices;
 using System.Text.Json.JsonDiffPatch;
 using System.Text.Json.Nodes;
 using Json.Patch;
+using TdmPrototypeBackend.Matching;
+using TdmPrototypeBackend.Storage;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Alvs;
 using TdmPrototypeBackend.Types.Extensions;
@@ -13,7 +15,7 @@ using Status = TdmPrototypeDmpSynchroniser.Api.Models.Status;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Services;
 
-public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config, IBlobService blobService, IStorageService<Movement> movementService, IStorageService<Notification> notificationService)
+public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config, IBlobService blobService, IStorageService<Movement> movementService, IStorageService<Notification> notificationService, IMatchingService matchingService)
     : BaseService(loggerFactory, config), ISyncService
 {
 
@@ -26,6 +28,10 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
         else if (period == SyncPeriod.ThisMonth)
         {
             return DateTime.Today.ToString("/yyyy/MM/");
+        }
+        else if (period == SyncPeriod.LastMonth)
+        {
+            return DateTime.Today.AddMonths(-1).ToString("/yyyy/MM/");
         }
         else if (period == SyncPeriod.Today)
         {
@@ -123,8 +129,13 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                 await movementService.Upsert(movement);
             }
 
-            return true;
+            var document = movement.Items?.FirstOrDefault()?.Documents?.FirstOrDefault();
+            if (document != null)
+            {
+                await matchingService.Match(MatchingReferenceNumber.FromCds(document?.DocumentReference, document?.DocumentCode));    
+            }
 
+            return true;
 
         }
         catch (Exception ex)
@@ -251,8 +262,8 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                         itemCount++;
                     }
 
+                    await matchingService.Match(MatchingReferenceNumber.FromIpaffs(n.ReferenceNumber, n.IpaffsType.Value));
 
-                    
                 }
                 catch (Exception ex)
                 {

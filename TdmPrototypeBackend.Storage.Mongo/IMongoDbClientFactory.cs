@@ -1,6 +1,6 @@
 using MongoDB.Driver;
 
-namespace TdmPrototypeDmpSynchroniser.Api.Data;
+namespace TdmPrototypeBackend.Storage.Mongo;
 
 public interface IMongoDbClientFactory
 {

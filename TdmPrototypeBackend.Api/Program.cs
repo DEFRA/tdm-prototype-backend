@@ -21,7 +21,10 @@ using TdmPrototypeBackend.Api.HealthChecks;
 using TdmPrototypeBackend.Api.JsonApi;
 using TdmPrototypeDmpSynchroniser.Api.Endpoints;
 using TdmPrototypeBackend.Api.Utils;
+using TdmPrototypeBackend.Matching;
+using TdmPrototypeBackend.Matching.Extensions;
 using TdmPrototypeBackend.Types;
+using TdmPrototypeCdsSimulator.Extensions;
 using TdmPrototypeDmpSynchroniser.Api.Extensions;
 
 // using TdmPrototypeBackend.Models;
@@ -136,6 +139,12 @@ builder.Services.AddScoped(typeof(IResourceRepository<,>), typeof(MongoRepositor
 builder.Services.AddHealthChecks()
     .AddCheck<SampleHealthCheck>("Sample");
 
+//Add CDS Simulator
+builder.Services.AddCdsSimulator();
+
+//Add Matching Service
+builder.Services.AddMatchingService();
+
 // swagger endpoints
 if (builder.IsSwaggerEnabled())
 {
@@ -143,6 +152,8 @@ if (builder.IsSwaggerEnabled())
     builder.Services.AddSwaggerGen();
 }
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+
+
 
 var app = builder.Build();
 
@@ -160,6 +171,8 @@ app.MapControllers();
 app.UseDiagnosticEndpoints();
 app.UseManagementEndpoints(new BackendConfig(builder.Configuration));
 app.UseSyncEndpoints();
+
+app.UseCdsSimulator();
 // app.MapHealthChecks("/health")
 
 app.MapHealthChecks("/health", new HealthCheckOptions()

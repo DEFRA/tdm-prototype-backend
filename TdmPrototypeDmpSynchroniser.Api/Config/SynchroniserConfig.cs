@@ -1,6 +1,9 @@
+using TdmPrototypeBackend.ASB;
+using TdmPrototypeBackend.Azure;
+
 namespace TdmPrototypeDmpSynchroniser.Api.Config;
 
-public class SynchroniserConfig
+public class SynchroniserConfig : IBusConfig
 {
     public string DmpEnvironment { get; set; } = default!;
     public string DmpBusNamespace { get; set; } = default!;
@@ -20,6 +23,7 @@ public class SynchroniserConfig
     public string? AzureClientSecret { get; set; } = default!;
     public bool CachingStoreEnabled  { get; set; } = default!;
     public bool CachingReadEnabled  { get; set; } = default!;
+    public string CachingRootFolder { get; set; }
     public int RecordsToIngest  { get; set; } = default!;
     
     public SynchroniserConfig(IConfiguration configuration)
@@ -50,5 +54,7 @@ public class SynchroniserConfig
         CachingReadEnabled = configuration["SYNCHRONISER_CACHE_READ_ENABLED"] == "true";
 
         RecordsToIngest = configuration.GetValue<int>("SYNCHRONISER_RECORDS", 0);
+        
+        CachingRootFolder = configuration["SYNCHRONISER_CACHE_ROOT_FOLDER"] ?? $"{System.Environment.CurrentDirectory}/.synchroniser-cache/";
     }
 }

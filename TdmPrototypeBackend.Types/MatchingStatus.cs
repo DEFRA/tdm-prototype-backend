@@ -11,7 +11,7 @@ public class MatchingStatus
     public string Reference { get; set; } = default!;
     
     [Attr]
-    public int Item { get; set; } = default!;
+    public string Item { get; set; } = default!;
     
     [Attr]
     public List<KeyValuePair<string, string>>? AdditionalInformation { get; set; }

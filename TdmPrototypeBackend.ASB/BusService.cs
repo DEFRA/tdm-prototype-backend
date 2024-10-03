@@ -1,20 +1,21 @@
-﻿using System.Net;
+using System;
+using System.Net;
 using Azure.Messaging.ServiceBus;
-using TdmPrototypeDmpSynchroniser.Api.Config;
-using TdmPrototypeDmpSynchroniser.Api.Models;
+using Microsoft.Extensions.Logging;
+using TdmPrototypeBackend.Azure;
 
-namespace TdmPrototypeDmpSynchroniser.Api.Services;
+namespace TdmPrototypeBackend.ASB;
 
 public class BusService(
-    ILoggerFactory loggerFactory,
-    SynchroniserConfig config,
-    IWebProxy proxy) : AzureService(loggerFactory, config), IBusService
+    ILogger<BusService> logger,
+    IBusConfig config,
+    IWebProxy proxy) : AzureService<BusService>(logger, config), IBusService
 {
 
     private ServiceBusClient CreateBusClient(string uri, int retries = 3, int timeout = 10)
     {
         Logger.LogInformation(
-            $"Connecting to bus {uri} : {Config.DmpBusTopic}/{Config.DmpBusSubscription}");
+            $"Connecting to bus {uri} : {config.DmpBusTopic}/{config.DmpBusSubscription}");
 
         var clientOptions = new ServiceBusClientOptions()
         {
@@ -31,19 +32,29 @@ public class BusService(
 
     public async Task<Status> CheckBusAsync()
     {
-        return await CheckBusAsync(Config.DmpBusNamespace);
+        return await CheckBusAsync(config.DmpBusNamespace);
+    }
+
+    public async Task SendMessageAsync<T>(T message)
+    {
+        await using var client = CreateBusClient(config.DmpBusNamespace, 0, 5);
+        await using var sender = client.CreateSender(config.DmpBusTopic);
+        await sender.SendMessageAsync(new ServiceBusMessage(BinaryData.FromObjectAsJson(message)));
     }
 
     public async Task<Status> CheckBusAsync(string uri)
     {   
         try
         {
-            Extensions.AssertIsNotNull(uri);
+            if (uri == null)
+            {
+                throw new ArgumentNullException(nameof(uri));
+            }
 
             await using (var client = CreateBusClient(uri, 0, 5))
             {
                 await using (var processor =
-                             client.CreateReceiver(Config.DmpBusTopic, Config.DmpBusSubscription))
+                             client.CreateReceiver(config.DmpBusTopic, config.DmpBusSubscription))
                 {
                     var messages = await processor.PeekMessagesAsync(100);
 

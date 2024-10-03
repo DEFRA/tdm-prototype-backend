@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using TdmPrototypeBackend.Api.Utils;
+using TdmPrototypeBackend.Matching.Extensions;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeDmpSynchroniser.Api.Extensions;
 using TdmPrototypeDmpSynchroniser.Api.Models;
@@ -13,16 +14,21 @@ namespace TdmPrototypeDmpSynchroniser.Test.IntegrationTests;
 public abstract class IntegrationTests
 {
     protected IServiceProvider ServiceProvider;
-
+    protected Uri ProjectPath;
+    
     protected IntegrationTests()
     {
         var builder = WebApplication.CreateBuilder();
         var loggerConfiguration = new LoggerConfiguration();
         var logger = loggerConfiguration.CreateLogger();
-
+        
+        ProjectPath = new Uri(Path.Combine(Directory.GetCurrentDirectory(),
+            @"../../../"));
+        
         //This will look for your local.env file
-        var path = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(),
-            @"..\..\..\..\TdmPrototypeBackend.Api/Properties/local.env"));
+        var path = new Uri(Path.Combine(Directory.GetCurrentDirectory(),
+                @"../../../../TdmPrototypeBackend.Api/Properties/local.env")).LocalPath;
+        
         builder.Configuration.AddIniFile(path, false);
 
         var config = new List<KeyValuePair<string, string>>
@@ -31,7 +37,7 @@ public abstract class IntegrationTests
             new ("AZURE_TENANT_ID", "c9d74090-b4e6-4b04-981d-e6757a160812")
         };
         builder.Configuration.AddInMemoryCollection(config);
-
+        builder.Services.AddMatchingService();
         builder.Services.AddHttpProxyServices(logger, builder.Configuration);
         builder.Services.AddSingleton<MongoHelperService<Movement>>();
         builder.AddSynchroniserDatabase();
@@ -63,6 +69,11 @@ public abstract class IntegrationTests
     protected Task SyncNotification(string path)
     {
         return GetSynService().SyncIpaffsNotifications(path);
+    }
+
+    protected Task SyncNotifications(SyncPeriod syncPeriod)
+    {
+        return GetSynService().SyncNotifications(syncPeriod);
     }
 
     protected SyncService GetSynService()

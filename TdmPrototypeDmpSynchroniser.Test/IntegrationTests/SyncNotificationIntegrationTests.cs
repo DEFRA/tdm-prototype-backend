@@ -1,5 +1,6 @@
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
+using TdmPrototypeBackend.Storage;
 using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeDmpSynchroniser.Api.Services;
 
@@ -22,6 +23,13 @@ public class SyncNotificationIntegrationTests : IntegrationTests
     {
         var mongoHelper = ServiceProvider.GetService<MongoHelperService<Notification>>();
         return mongoHelper.ClearCollection();
+    }
+
+    [Fact]
+    public async Task NotificationSync_ThisMonth()
+    {
+        //These files exist in the SND env
+        await SyncNotifications(SyncPeriod.ThisMonth);
     }
 
     [Fact]

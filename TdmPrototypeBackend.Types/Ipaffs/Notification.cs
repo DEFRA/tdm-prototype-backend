@@ -4,17 +4,18 @@ using JsonApiDotNetCore.MongoDb.Resources;
 using JsonApiDotNetCore.Resources.Annotations;
 using MongoDB.Bson.Serialization.Attributes;
 
-using Microsoft.AspNetCore.Authorization;
-
 namespace TdmPrototypeBackend.Types.Ipaffs;
 
 public partial class Notification : IMongoIdentifiable
 {
+    private int? matchReference;
 
     //// This field is used by the jsonapi-consumer to control the correct casing in the type field
+     [JsonIgnore]
     public string Type { get; set; } = "notifications";
 
     //[BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
+    [JsonIgnore]
     public virtual string? Id
     {
         get => ReferenceNumber;
@@ -40,8 +41,9 @@ public partial class Notification : IMongoIdentifiable
     // [Attr]
     public string? LocalId { get; set; }
     
+    //change to an array, because its matching at item level - ask Matt to if an item can have multiple documents related to different cheds
     [Attr]
-    public MatchingStatus Movement { get; set; } = new MatchingStatus() { Matched = false };
+    public List<MatchingStatus> Movements { get; set; } = [new() { Matched = false }];
 
     [Attr]
     public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
@@ -77,5 +79,19 @@ public partial class Notification : IMongoIdentifiable
                 PartOne.PointOfEntryControlPoint = value;
             }
         }
+    }
+
+    
+    public int _MatchReference
+    {
+        get
+        {
+            if (matchReference is null)
+            {
+                matchReference = MatchingReferenceNumber.FromIpaffs(ReferenceNumber, IpaffsType.Value).Identifier;
+            }
+            return matchReference.Value;
+        }
+        set => matchReference = value;
     }
 }
