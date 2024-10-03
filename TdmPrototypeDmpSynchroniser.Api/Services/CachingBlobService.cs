@@ -8,7 +8,6 @@ namespace TdmPrototypeDmpSynchroniser.Api.Services;
 public class CachingBlobService(ILoggerFactory loggerFactory, SynchroniserConfig config, [FromKeyedServices("base")] IBlobService blobService)
     : BaseService(loggerFactory, config), IBlobService
 {
-    
     public async Task<Status> CheckBlobAsync()
     {
         return await blobService.CheckBlobAsync();
@@ -44,7 +43,7 @@ public class CachingBlobService(ILoggerFactory loggerFactory, SynchroniserConfig
         {
             Logger.LogInformation("CachingBlobService scanning disk");
             var items = new List<IBlobItem>();
-            ScanFolder(items, $"{System.Environment.CurrentDirectory}/.synchroniser-cache/{prefix}");
+            ScanFolder(items, $"{config.CachingRootFolder}/{prefix}");
             return items;
         }
         else
@@ -66,12 +65,11 @@ public class CachingBlobService(ILoggerFactory loggerFactory, SynchroniserConfig
             
             if (blob != null && config.CachingStoreEnabled)
             {
-                var fullPath = $"{System.Environment.CurrentDirectory}/.synchroniser-cache/{blob.Name}";
+                var fullPath = $"{config.CachingRootFolder}/{blob.Name}";
                 
                 Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
                 File.WriteAllText(fullPath, blob.Content);
             }
-
 
             return blob;    
         }
