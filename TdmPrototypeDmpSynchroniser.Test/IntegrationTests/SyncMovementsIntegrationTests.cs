@@ -26,16 +26,11 @@ public class SyncMovementsIntegrationTests : IntegrationTests
 
     }
 
-    protected override void AddTestServices(IServiceCollection services)
-    {
-        services.AddSingleton<MongoHelperService<Movement>>();
-    }
 
-    //protected override Task OnBeforeTest()
-    //{
-    //    var mongoHelper = Dependencies ServiceProvider.GetService<MongoHelperService<Movement>>();
-    //    return mongoHelper.ClearCollection();
-    //}
+    protected override Task OnBeforeTest()
+    {
+        return Dependencies.MongoClearCollection<Movement>();
+    }
 
     [Fact]
     public async Task SyncMovements_LastMonth()

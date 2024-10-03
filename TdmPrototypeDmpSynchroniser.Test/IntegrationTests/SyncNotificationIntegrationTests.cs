@@ -21,8 +21,7 @@ public class SyncNotificationIntegrationTests : IntegrationTests
 
     protected override Task OnBeforeTest()
     {
-        var mongoHelper = Dependencies.ServiceProvider.GetService<MongoHelperService<Notification>>();
-        return mongoHelper.ClearCollection();
+        return Dependencies.MongoClearCollection<Notification>();
     }
 
     [Fact]
