@@ -18,6 +18,8 @@ public static class ManagementEndpoints
 
     public static void UseManagementEndpoints(this IEndpointRouteBuilder app, BackendConfig config)
     {
+        app.MapGet("health", GetAuth).AllowAnonymous();
+
         if (config.EnableManagement)
         {
             app.MapGet(BaseRoute + "/collections", GetCollectionsAsync).AllowAnonymous();
