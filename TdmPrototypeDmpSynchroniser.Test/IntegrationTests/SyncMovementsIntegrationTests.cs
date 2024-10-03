@@ -32,6 +32,14 @@ public class SyncMovementsIntegrationTests : IntegrationTests
     }
 
     [Fact]
+    public async Task SyncMovements_LastMonth()
+    {
+        //These files exist in the SND env
+        await SyncMovements(SyncPeriod.LastMonth);
+       
+    }
+
+    [Fact]
     public async Task CreateALVS_Integration()
     {
         //These files exist in the SND env
@@ -63,6 +71,11 @@ public class SyncMovementsIntegrationTests : IntegrationTests
     private Task SyncMovement(string path)
     {
         return GetSynService().SyncMovement(new SynchroniserBlobItem() { Name = path });
+    }
+
+    private Task SyncMovements(SyncPeriod syncPeriod)
+    {
+        return GetSynService().SyncMovements(syncPeriod);
     }
 
     private SyncService GetSynService()

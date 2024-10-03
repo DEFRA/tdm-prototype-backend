@@ -26,6 +26,13 @@ public class SyncNotificationIntegrationTests : IntegrationTests
     }
 
     [Fact]
+    public async Task NotificationSync_ThisMonth()
+    {
+        //These files exist in the SND env
+        await SyncNotifications(SyncPeriod.ThisMonth);
+    }
+
+    [Fact]
     public async Task Notification_IntegrationTest()
     {
         //These files exist in the SND env
