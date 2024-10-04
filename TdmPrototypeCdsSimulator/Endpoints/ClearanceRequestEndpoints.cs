@@ -61,12 +61,13 @@ public static class ClearanceRequestEndpoints
         ALVSClearanceRequest clearanceRequest = new ALVSClearanceRequest();
         clearanceRequest.Header = new Header()
         {
-            EntryReference = notificationId,
+            EntryReference = notificationId.Replace(".", ""),
             EntryVersionNumber = 2,
             DeclarationUCR = $"Sim{notificationId}",
             MasterUCR = $"Sim{notificationId}",
             DeclarantName = "CDS_Simulator",
             PreviousVersionNumber = 1,
+            GoodsLocationCode = "BELBELGVM",
 
         };
 

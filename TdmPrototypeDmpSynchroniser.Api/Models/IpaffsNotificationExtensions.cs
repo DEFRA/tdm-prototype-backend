@@ -20,7 +20,6 @@ public static class NotificationExtensions
         };
         
         var r = JsonSerializer.Deserialize<Notification>(s, options)!;
-        Validator.ValidateObject(r, new ValidationContext(r), true);
         r.Transform();
         
         return r;
@@ -80,7 +79,9 @@ public static class NotificationExtensions
                 var parameters = complementParameters[commodity.ComplementID.Value!];
                 commodity.AdditionalData = parameters.KeyDataPairs.FromSnakeCase();
 
-                if (complementRiskAssesments.Any())
+                if (complementRiskAssesments.Any() && 
+                    parameters.UniqueComplementID is not null && 
+                    complementRiskAssesments.ContainsKey(parameters.UniqueComplementID))
                 {
                     commodity.RiskAssesment = complementRiskAssesments[parameters.UniqueComplementID!];
                 }

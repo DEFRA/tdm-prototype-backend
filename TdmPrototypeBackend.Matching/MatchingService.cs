@@ -92,6 +92,11 @@ namespace TdmPrototypeBackend.Matching
                     matchReference));
                 var notification = notifications.FirstOrDefault();
 
+                if (notification == null)
+                {
+                    return new MatchResult(false);
+                }
+
             var filter = Builders<Movement>.Filter.AnyIn(x => x._MatchReferences, [matchReference]);
 
             var items = await movementService.Filter(filter);
