@@ -11,10 +11,11 @@ using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeDmpSynchroniser.Api.Config;
 using TdmPrototypeDmpSynchroniser.Api.Extensions;
 using TdmPrototypeDmpSynchroniser.Api.Services;
+using Xunit.Abstractions;
 
 namespace TdmPrototypeDmpSynchroniser.Test.IntegrationTests;
 
-public class IntegrationTestDependenciesBuilder
+public class IntegrationTestDependenciesBuilder(ITestOutputHelper outputHelper)
 {
     private string configPath = Path.Combine(Directory.GetCurrentDirectory(), @"../../../../TdmPrototypeBackend.Api/Properties/local.env");
     private string mongoDbName = "tdm-prototype-backend-integration";
@@ -56,6 +57,7 @@ public class IntegrationTestDependenciesBuilder
     public IntegrationTestDependencies Build()
     {
         var builder = WebApplication.CreateBuilder();
+        builder.Services.AddLogging((builder) => builder.AddXUnit(outputHelper));
         var loggerConfiguration = new LoggerConfiguration();
         var logger = loggerConfiguration.CreateLogger();
 

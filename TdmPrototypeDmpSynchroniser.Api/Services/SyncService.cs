@@ -189,7 +189,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
             
             return new Status()
             {
-                Success = true, Description = String.Format($"Connected. {itemCount} items upserted. {erroredCount} errors.")
+                Success = true, Description = $"Connected. {itemCount} items upserted. {erroredCount} errors."
             };
         }
         catch (Exception ex)

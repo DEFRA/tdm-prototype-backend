@@ -15,19 +15,14 @@ using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeDmpSynchroniser.Api.Config;
 using TdmPrototypeDmpSynchroniser.Api.Models;
 using TdmPrototypeDmpSynchroniser.Api.Services;
+using Xunit.Abstractions;
 
 namespace TdmPrototypeDmpSynchroniser.Test.IntegrationTests;
 
 
 [Trait("Category", "Integration")]
-public class SyncMovementsIntegrationTests : IntegrationTests
+public class SyncMovementsIntegrationTests(ITestOutputHelper outputHelper) : IntegrationTests(outputHelper)
 {
-    public SyncMovementsIntegrationTests() : base()
-    {
-
-    }
-
-
     protected override Task OnBeforeTest()
     {
         return Dependencies.MongoClearCollection<Movement>();
@@ -36,10 +31,6 @@ public class SyncMovementsIntegrationTests : IntegrationTests
     [Fact]
     public async Task SyncMovements_LastMonth()
     {
-        var testDependencies = new IntegrationTestDependenciesBuilder()
-            .Build();
-
-        testDependencies.MongoClearCollection<Movement>();
         //These files exist in the SND env
         await SyncMovements(SyncPeriod.LastMonth);
        
@@ -77,9 +68,7 @@ public class SyncMovementsIntegrationTests : IntegrationTests
     [Fact]
     public async Task FromLocalSimpleFolder_ShouldCreateSuccessfully()
     {
-        Dependencies = new IntegrationTestDependenciesBuilder()
-            .SetConfig(Path.Combine(Directory.GetCurrentDirectory(),
-                @"../../../../TdmPrototypeBackend.Api/Properties/local.env"))
+        Dependencies = new IntegrationTestDependenciesBuilder(OutputHelper)
             .UseLocalPathBlobStorage("Fixtures/SimpleMovementsFolder")
             .AddTestServices(services =>
             {

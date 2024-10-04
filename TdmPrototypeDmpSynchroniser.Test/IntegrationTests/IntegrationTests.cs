@@ -11,16 +11,19 @@ using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeDmpSynchroniser.Api.Extensions;
 using TdmPrototypeDmpSynchroniser.Api.Models;
 using TdmPrototypeDmpSynchroniser.Api.Services;
+using Xunit.Abstractions;
 
 namespace TdmPrototypeDmpSynchroniser.Test.IntegrationTests;
 
 public abstract class IntegrationTests 
 {
     protected IntegrationTestDependencies Dependencies;
+    protected ITestOutputHelper OutputHelper;
 
-    protected IntegrationTests()
+    protected IntegrationTests(ITestOutputHelper outputHelper)
     {
-        Dependencies = new IntegrationTestDependenciesBuilder()
+        OutputHelper = outputHelper;
+        Dependencies = new IntegrationTestDependenciesBuilder(outputHelper)
             .SetConfig(Path.Combine(Directory.GetCurrentDirectory(),
                 @"../../../../TdmPrototypeBackend.Api/Properties/local.env"))
             .SetMongoDbName("tdm-prototype-backend-integration")
