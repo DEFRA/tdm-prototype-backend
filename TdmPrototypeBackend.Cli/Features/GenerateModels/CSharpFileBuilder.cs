@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using RazorLight;
+using System.Security.Claims;
 using TdmPrototypeBackend.Cli.Features.GenerateModels.ClassMaps;
 using TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel;
 
@@ -26,6 +27,8 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels
             
             foreach (var @enum in descriptor.Enums.OrderBy(x => x.Name))
             {
+                ApplyEnumMapOverrides(@enum);
+
                 var contents = await engine.CompileRenderAsync("EnumTemplate", @enum);
                 await File.WriteAllTextAsync(Path.Combine(outputPath, $"{@enum.GetEnumName()}.g.cs"), contents, cancellationToken);
                 // File.WriteAllText($"../../../Model/{@enum.GetEnumName()}.cs", contents);
@@ -64,6 +67,17 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels
                         }
                     }
                 }
+            }
+        }
+
+        private static void ApplyEnumMapOverrides(EnumDescriptor @enum)
+        {
+            var classMap = GeneratorEnumMap.LookupEnumMap(@enum.Name);
+
+            if (classMap is not null)
+            {
+               
+                @enum.Values.AddRange(classMap.EnumValues);
             }
         }
     }
