@@ -111,4 +111,12 @@ public class Movement : CustomStringMongoIdentifiable
         }
         set => matchReferences = value;
     }
+
+    public void AddMatchingStatus(MatchingStatus matchingStatus)
+    {
+        if (!Notifications.Exists(x => x.Reference == matchingStatus.Reference))
+        {
+            Notifications.Add(matchingStatus);
+        }
+    }
 }

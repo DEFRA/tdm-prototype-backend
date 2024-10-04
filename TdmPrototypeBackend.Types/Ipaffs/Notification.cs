@@ -94,4 +94,12 @@ public partial class Notification : IMongoIdentifiable
         }
         set => matchReference = value;
     }
+
+    public void AddMatchingStatus(MatchingStatus matchingStatus)
+    {
+        if (!Movements.Exists(x => x.Reference == matchingStatus.Reference))
+        {
+            Movements.Add(matchingStatus);
+        }
+    }
 }
