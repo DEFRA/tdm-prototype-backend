@@ -1,7 +1,10 @@
+using System.Collections.Immutable;
+using System.Linq.Expressions;
 using Azure;
 using JsonApiDotNetCore.Configuration;
 using JsonApiDotNetCore.Queries.Expressions;
 using JsonApiDotNetCore.Resources;
+using JsonApiDotNetCore.Resources.Annotations;
 using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeBackend.Api.Extensions;
 
@@ -26,8 +29,8 @@ public class NotificationResource(IResourceGraph resourceGraph, ITdmClaimsProvid
             // them exposed to end users
             // TODO : hopefully there's a ey to exclude these by looking for the underscore prefix
             existingSparseFieldSet = existingSparseFieldSet
-                    .Excluding<Notification>(n => n._PointOfEntry, ResourceGraph)
-                    .Excluding<Notification>(n => n._PointOfEntryControlPoint, ResourceGraph);
+                .ExcludeFieldsThatBeginWithUnderscore<Notification>(ResourceGraph);
+
 
             // Then, we remove fields based on the user
             // For example only exposing the audit log to internal users
@@ -40,7 +43,6 @@ public class NotificationResource(IResourceGraph resourceGraph, ITdmClaimsProvid
         
         return existingSparseFieldSet;
     }
-    
     public override FilterExpression? OnApplyFilter(FilterExpression? existingFilter)
     {
         if (_principal.OrgType == OrgType.Pha)
@@ -65,5 +67,24 @@ public class NotificationResource(IResourceGraph resourceGraph, ITdmClaimsProvid
         {
             return existingFilter;
         }
+    }
+}
+
+
+public static class SparseFieldSetExpressionExtensions
+{
+    public static SparseFieldSetExpression ExcludeFieldsThatBeginWithUnderscore<TResource>(this SparseFieldSetExpression sparseFieldSetExpression, IResourceGraph resourceGraph) where TResource : class, IIdentifiable
+    {
+        var fields = resourceGraph.GetResourceType<TResource>().Fields;
+
+        foreach (var field in fields)
+        {
+            if (field.PublicName.StartsWith("_"))
+            {
+                sparseFieldSetExpression.Fields.Remove(field);
+            }
+        }
+
+        return sparseFieldSetExpression;
     }
 }
