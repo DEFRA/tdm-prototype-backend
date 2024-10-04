@@ -103,6 +103,7 @@ namespace TdmPrototypeBackend.Matching
 
             foreach (var movement in items)
             {
+                movement.Notifications.RemoveAll(x => !x.Matched);
                 movement.Notifications.Add(new MatchingStatus() {
                     AdditionalInformation =
                     [
@@ -110,7 +111,7 @@ namespace TdmPrototypeBackend.Matching
                     ],
                     Matched = true,
                     Reference = notification.Id,
-                    Item = notification.PartOne?.Commodities?.CommodityComplements?.FirstOrDefault()?.UniqueComplementID 
+                    Item = notification.PartOne?.Commodities?.CommodityComplements?.FirstOrDefault()?.CommodityID 
                 });
                 await movementService.Upsert(movement);
             }
