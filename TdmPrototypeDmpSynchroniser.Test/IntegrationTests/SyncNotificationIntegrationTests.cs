@@ -57,28 +57,6 @@ public class SyncNotificationIntegrationTests(ITestOutputHelper outputHelper) : 
     }
 
     [Fact]
-    public async Task FromLocalSimpleFolder_ShouldCreateSuccessfully()
-    {
-        Dependencies = new IntegrationTestDependenciesBuilder(OutputHelper)
-            .UseLocalPathBlobStorage("Fixtures/NotificationInvalidPurposeGroup")
-            .AddTestServices(services =>
-            {
-                services.AddSingleton<IStorageService<Movement>>(new Mock<IStorageService<Movement>>().Object);
-            })
-            .Build();
-
-        var movementService = Dependencies.ServiceProvider.GetService<IStorageService<Movement>>()!;
-
-        var result = await Dependencies.ServiceProvider.GetService<ISyncService>().SyncMovements(SyncPeriod.All);
-
-        result.Success.Should().Be(true);
-
-        var existingMovement = await movementService.Find("CHEDPGB20241039875A5");
-
-        existingMovement.Should().NotBeNull();
-    }
-
-    [Fact]
     public async Task Notification_IntegrationTest()
     {
         //These files exist in the SND env

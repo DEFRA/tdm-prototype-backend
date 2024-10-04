@@ -84,6 +84,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("type")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsNotificationTypeEnum? IpaffsType { get; set; }
 
 	
@@ -108,6 +109,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("status")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsNotificationStatusEnum? Status { get; set; }
 
 	

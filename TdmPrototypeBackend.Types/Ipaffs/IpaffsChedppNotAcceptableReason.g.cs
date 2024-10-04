@@ -27,6 +27,7 @@ public partial class IpaffsChedppNotAcceptableReason  //
     /// </summary
     [Attr]
     [JsonPropertyName("reason")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsChedppNotAcceptableReasonReasonEnum? Reason { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsChedppNotAcceptableReason  //
     /// </summary
     [Attr]
     [JsonPropertyName("commodityOrPackage")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsChedppNotAcceptableReasonCommodityOrPackageEnum? CommodityOrPackage { get; set; }
 
 	}

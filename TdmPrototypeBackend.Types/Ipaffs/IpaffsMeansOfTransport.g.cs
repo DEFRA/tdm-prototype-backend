@@ -27,6 +27,7 @@ public partial class IpaffsMeansOfTransport  //
     /// </summary
     [Attr]
     [JsonPropertyName("type")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsMeansOfTransportTypeEnum? IpaffsType { get; set; }
 
 	

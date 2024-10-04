@@ -51,6 +51,7 @@ public partial class IpaffsControl  //
     /// </summary
     [Attr]
     [JsonPropertyName("consignmentLeave")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsControlConsignmentLeaveEnum? ConsignmentLeave { get; set; }
 
 	}

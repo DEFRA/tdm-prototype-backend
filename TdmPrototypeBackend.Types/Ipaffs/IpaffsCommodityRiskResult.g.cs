@@ -27,6 +27,7 @@ public partial class IpaffsCommodityRiskResult  //
     /// </summary
     [Attr]
     [JsonPropertyName("riskDecision")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsCommodityRiskResultRiskDecisionEnum? RiskDecision { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsCommodityRiskResult  //
     /// </summary
     [Attr]
     [JsonPropertyName("exitRiskDecision")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsCommodityRiskResultExitRiskDecisionEnum? ExitRiskDecision { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsCommodityRiskResult  //
     /// </summary
     [Attr]
     [JsonPropertyName("hmiDecision")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsCommodityRiskResultHmiDecisionEnum? HmiDecision { get; set; }
 
 	
@@ -51,6 +54,7 @@ public partial class IpaffsCommodityRiskResult  //
     /// </summary
     [Attr]
     [JsonPropertyName("phsiDecision")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsCommodityRiskResultPhsiDecisionEnum? PhsiDecision { get; set; }
 
 	
@@ -59,6 +63,7 @@ public partial class IpaffsCommodityRiskResult  //
     /// </summary
     [Attr]
     [JsonPropertyName("phsiClassification")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsCommodityRiskResultPhsiClassificationEnum? PhsiClassification { get; set; }
 
 	

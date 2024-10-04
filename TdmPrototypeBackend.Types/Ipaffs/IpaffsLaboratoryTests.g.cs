@@ -35,6 +35,7 @@ public partial class IpaffsLaboratoryTests  //
     /// </summary
     [Attr]
     [JsonPropertyName("testReason")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsLaboratoryTestsTestReasonEnum? TestReason { get; set; }
 
 	

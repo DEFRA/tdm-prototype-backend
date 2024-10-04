@@ -75,6 +75,7 @@ public partial class IpaffsApplicant  //
     /// </summary
     [Attr]
     [JsonPropertyName("analysisType")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsApplicantAnalysisTypeEnum? AnalysisType { get; set; }
 
 	
@@ -99,6 +100,7 @@ public partial class IpaffsApplicant  //
     /// </summary
     [Attr]
     [JsonPropertyName("conservationOfSample")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsApplicantConservationOfSampleEnum? ConservationOfSample { get; set; }
 
 	

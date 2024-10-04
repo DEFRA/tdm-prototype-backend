@@ -115,6 +115,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("type")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsPartyTypeEnum? IpaffsType { get; set; }
 
 	

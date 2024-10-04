@@ -35,6 +35,7 @@ public partial class IpaffsPurpose  //
     /// </summary
     [Attr]
     [JsonPropertyName("internalMarketPurpose")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsPurposeInternalMarketPurposeEnum? InternalMarketPurpose { get; set; }
 
 	
@@ -51,6 +52,7 @@ public partial class IpaffsPurpose  //
     /// </summary
     [Attr]
     [JsonPropertyName("forNonConforming")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsPurposeForNonConformingEnum? ForNonConforming { get; set; }
 
 	
@@ -107,6 +109,7 @@ public partial class IpaffsPurpose  //
     /// </summary
     [Attr]
     [JsonPropertyName("forImportOrAdmission")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsPurposeForImportOrAdmissionEnum? ForImportOrAdmission { get; set; }
 
 	
@@ -131,6 +134,7 @@ public partial class IpaffsPurpose  //
     /// </summary
     [Attr]
     [JsonPropertyName("purposeGroup")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsPurposePurposeGroupEnum? PurposeGroup { get; set; }
 
 	
