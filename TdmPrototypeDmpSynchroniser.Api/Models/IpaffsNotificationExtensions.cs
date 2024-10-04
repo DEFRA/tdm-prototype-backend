@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Security.Cryptography.Xml;
 using System.Text.Json;
@@ -19,6 +20,7 @@ public static class NotificationExtensions
         };
         
         var r = JsonSerializer.Deserialize<Notification>(s, options)!;
+        Validator.ValidateObject(r, new ValidationContext(r), true);
         r.Transform();
         
         return r;
@@ -57,12 +59,12 @@ public static class NotificationExtensions
         }
         else
         {
-            var complementParameters = new Dictionary<string, IpaffsComplementParameterSet>();
+            var complementParameters = new Dictionary<int, IpaffsComplementParameterSet>();
             var complementRiskAssesments = new Dictionary<string, IpaffsCommodityRiskResult>();
         
             foreach (var commoditiesCommodityComplement in n.PartOne!.Commodities!.ComplementParameterSets!)
             {
-                complementParameters[commoditiesCommodityComplement.UniqueComplementID!] = commoditiesCommodityComplement;
+                complementParameters[commoditiesCommodityComplement.ComplementID.Value!] = commoditiesCommodityComplement;
             }
 
             if (n.RiskAssessment != null)
@@ -75,9 +77,13 @@ public static class NotificationExtensions
             
             foreach (var commodity in n.PartOne!.Commodities!.CommodityComplements)
             {
-                var parameters = complementParameters[commodity.UniqueComplementID!];
+                var parameters = complementParameters[commodity.ComplementID.Value!];
                 commodity.AdditionalData = parameters.KeyDataPairs.FromSnakeCase();
-                commodity.RiskAssesment = complementRiskAssesments[commodity.UniqueComplementID!];
+
+                if (complementRiskAssesments.Any())
+                {
+                    commodity.RiskAssesment = complementRiskAssesments[parameters.UniqueComplementID!];
+                }
             }
         
         }
