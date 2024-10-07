@@ -43,6 +43,7 @@ public partial class Gmrs  //
     /// </summary
     [Attr]
     [JsonPropertyName("state")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public StateEnum? State { get; set; }
 
 	
@@ -75,6 +76,7 @@ public partial class Gmrs  //
     /// </summary
     [Attr]
     [JsonPropertyName("direction")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public DirectionEnum? Direction { get; set; }
 
 	
@@ -83,6 +85,7 @@ public partial class Gmrs  //
     /// </summary
     [Attr]
     [JsonPropertyName("haulierType")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public HaulierTypeEnum? HaulierType { get; set; }
 
 	

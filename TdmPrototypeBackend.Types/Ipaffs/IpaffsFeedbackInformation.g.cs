@@ -27,6 +27,7 @@ public partial class IpaffsFeedbackInformation  //
     /// </summary
     [Attr]
     [JsonPropertyName("authorityType")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsFeedbackInformationAuthorityTypeEnum? AuthorityType { get; set; }
 
 	

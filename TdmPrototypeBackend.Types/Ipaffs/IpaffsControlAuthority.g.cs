@@ -75,6 +75,7 @@ public partial class IpaffsControlAuthority  //
     /// </summary
     [Attr]
     [JsonPropertyName("iuuOption")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsControlAuthorityIuuOptionEnum? IuuOption { get; set; }
 
 	}

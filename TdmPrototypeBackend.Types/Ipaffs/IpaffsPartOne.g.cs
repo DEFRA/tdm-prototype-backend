@@ -27,6 +27,7 @@ public partial class IpaffsPartOne  //
     /// </summary
     [Attr]
     [JsonPropertyName("typeOfImp")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsPartOneTypeOfImpEnum? TypeOfImp { get; set; }
 
 	
@@ -435,6 +436,7 @@ public partial class IpaffsPartOne  //
     /// </summary
     [Attr]
     [JsonPropertyName("provideCtcMrn")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsPartOneProvideCtcMrnEnum? ProvideCtcMrn { get; set; }
 
 	}

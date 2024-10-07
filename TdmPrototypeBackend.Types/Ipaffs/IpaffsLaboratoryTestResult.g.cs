@@ -59,6 +59,7 @@ public partial class IpaffsLaboratoryTestResult  //
     /// </summary
     [Attr]
     [JsonPropertyName("conclusion")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsLaboratoryTestResultConclusionEnum? Conclusion { get; set; }
 
 	

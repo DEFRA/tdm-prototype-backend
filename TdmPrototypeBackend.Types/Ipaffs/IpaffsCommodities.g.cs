@@ -172,6 +172,7 @@ public partial class IpaffsCommodities  //
     /// </summary
     [Attr]
     [JsonPropertyName("commodityIntendedFor")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsCommoditiesCommodityIntendedForEnum? CommodityIntendedFor { get; set; }
 
 	}

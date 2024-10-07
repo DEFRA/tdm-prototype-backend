@@ -1,0 +1,353 @@
+{
+  "id": 110138,
+  "referenceNumber": "CHEDPP.GB.2024.1110138",
+  "version": 1,
+  "lastUpdated": "2024-03-21T13:26:06.34Z",
+  "lastUpdatedBy": {
+    "displayName": "B2B Inspector",
+    "userId": "79f6dc68-2144-e911-a96a-000d3a29ba60"
+  },
+  "type": "CHEDPP",
+  "status": "IN_PROGRESS",
+  "riskAssessment": {
+    "commodityResults": [
+      {
+        "hmiDecision": "NOTREQUIRED",
+        "phsiDecision": "REQUIRED",
+        "phsiClassification": "Mandatory",
+        "phsi": {
+          "documentCheck": true,
+          "identityCheck": true,
+          "physicalCheck": true
+        },
+        "uniqueId": "9f08a4a6-eb57-4ae7-a160-49b01b6960d9",
+        "isWoody": true,
+        "indoorOutdoor": "Outdoor",
+        "propagation": "Plant",
+        "phsiRuleType": "Consignment"
+      },
+      {
+        "hmiDecision": "NOTREQUIRED",
+        "phsiDecision": "REQUIRED",
+        "phsiClassification": "Reduced",
+        "phsi": {
+          "documentCheck": true,
+          "identityCheck": true,
+          "physicalCheck": true
+        },
+        "uniqueId": "141a8f26-921b-493b-b25f-77eaf605b1e3",
+        "isWoody": true,
+        "indoorOutdoor": "None",
+        "propagation": "None",
+        "phsiRuleType": "Commodity"
+      }
+    ],
+    "assessmentDateTime": "2024-03-20T14:07:54.361682333"
+  },
+  "partOne": {
+    "personResponsible": {
+      "name": "Mark Admin-Tester",
+      "companyId": "767ceb6a-2144-e911-a96c-000d3a29b5de",
+      "companyName": "Defra Test BIP",
+      "address": [
+        "Animal and Plant Health Agency",
+        "Woodham Lane",
+        "New Haw",
+        "Surrey",
+        "Addlestone",
+        "KT15 3NB",
+        "GB"
+      ],
+      "country": "GB",
+      "tracesID": 1001,
+      "phone": "020 8225 7295",
+      "email": "DefraTestBIP@anthunt3.33mail.com",
+      "contactId": "79f6dc68-2144-e911-a96a-000d3a29ba60"
+    },
+    "consignor": {
+      "id": "651870f5-350b-4061-b578-5094776f451f",
+      "type": "exporter",
+      "status": "nonapproved",
+      "companyName": "perf-consignor-company-name",
+      "address": {
+        "addressLine1": "perf-consignor-address-line-1",
+        "city": "perf-consignor-city",
+        "postalZipCode": "AB1 1AB",
+        "countryISOCode": "AF",
+        "telephone": "0123456789",
+        "email": "perf@test.com"
+      },
+      "tracesId": 10000000
+    },
+    "packer": {
+      "id": "5587d03d-ea54-46e7-8bfc-59c5015926ce",
+      "type": "packer",
+      "status": "nonapproved",
+      "companyName": "perf-packer-company-name",
+      "address": {
+        "addressLine1": "perf-packer-address-line-1",
+        "city": "perf-packer-city",
+        "postalZipCode": "AB1 1AB",
+        "countryISOCode": "AF",
+        "telephone": "0123456789",
+        "email": "perf@test.com"
+      },
+      "tracesId": 10000010
+    },
+    "consignee": {
+      "id": "767ceb6a-2144-e911-a96c-000d3a29b5de",
+      "type": "consignee",
+      "companyName": "Defra Test BIP",
+      "address": {
+        "addressLine1": "Animal and Plant Health Agency",
+        "addressLine2": "Woodham Lane",
+        "addressLine3": "New Haw",
+        "city": "Addlestone",
+        "postalZipCode": "KT15 3NB",
+        "countryISOCode": "GB",
+        "telephone": "020 8225 7295",
+        "email": "DefraTestBIP@anthunt3.33mail.com"
+      },
+      "tracesId": 10000008
+    },
+    "importer": {
+      "id": "767ceb6a-2144-e911-a96c-000d3a29b5de",
+      "type": "importer",
+      "companyName": "Defra Test BIP",
+      "address": {
+        "addressLine1": "Animal and Plant Health Agency",
+        "addressLine2": "Woodham Lane",
+        "addressLine3": "New Haw",
+        "city": "Addlestone",
+        "postalZipCode": "KT15 3NB",
+        "countryISOCode": "GB",
+        "telephone": "020 8225 7295",
+        "email": "DefraTestBIP@anthunt3.33mail.com"
+      },
+      "tracesId": 10000008
+    },
+    "placeOfDestination": {
+      "id": "219189ff-88a6-45d3-97c4-3f2cacb94d6c",
+      "type": "importer",
+      "status": "nonapproved",
+      "companyName": "company-name",
+      "address": {
+        "addressLine1": "address-line-1",
+        "city": "city-or-town",
+        "postalZipCode": "postcode",
+        "countryISOCode": "PR",
+        "telephone": "078471727271",
+        "email": "test@test.com"
+      },
+      "tracesId": 10000013
+    },
+    "commodities": {
+      "totalGrossWeight": 2600,
+      "totalNetWeight": 400,
+      "numberOfPackages": 40,
+      "complementParameterSet": [
+        {
+          "uniqueComplementID": "9f08a4a6-eb57-4ae7-a160-49b01b6960d9",
+          "complementID": 1,
+          "speciesID": "1345651",
+          "keyDataPair": [
+            {
+              "key": "regulatory_authority",
+              "data": "PHSI"
+            },
+            {
+              "key": "requires_finished_or_propagated_data",
+              "data": "true"
+            },
+            {
+              "key": "type_package",
+              "data": "Tray"
+            },
+            {
+              "key": "netweight",
+              "data": "200"
+            },
+            {
+              "key": "number_package",
+              "data": "20"
+            },
+            {
+              "key": "quantity",
+              "data": "25"
+            },
+            {
+              "key": "type_quantity",
+              "data": "Corms and rhizomes"
+            },
+            {
+              "key": "container",
+              "data": "1345651"
+            },
+            {
+              "key": "commodity_group",
+              "data": "Plants for Planting"
+            }
+          ]
+        },
+        {
+          "uniqueComplementID": "141a8f26-921b-493b-b25f-77eaf605b1e3",
+          "complementID": 2,
+          "speciesID": "1374971",
+          "keyDataPair": [
+            {
+              "key": "regulatory_authority",
+              "data": "JOINT"
+            },
+            {
+              "key": "marketing_standard",
+              "data": "GMS"
+            },
+            {
+              "key": "validity_period",
+              "data": "2"
+            },
+            {
+              "key": "type_package",
+              "data": "Tray"
+            },
+            {
+              "key": "netweight",
+              "data": "200"
+            },
+            {
+              "key": "number_package",
+              "data": "20"
+            },
+            {
+              "key": "quantity",
+              "data": "25"
+            },
+            {
+              "key": "type_quantity",
+              "data": "Corms and rhizomes"
+            },
+            {
+              "key": "container",
+              "data": "1374971"
+            },
+            {
+              "key": "commodity_group",
+              "data": "Fruit and nuts"
+            }
+          ]
+        }
+      ],
+      "includeNonAblactedAnimals": false,
+      "countryOfOrigin": "AT",
+      "countryOfOriginIsPodCountry": true,
+      "isLowRiskArticle72Country": true,
+      "consignedCountry": "AT",
+      "consignedCountryInChargeGroup": true
+    },
+    "purpose": {
+      "purposeGroup": "For Import"
+    },
+    "pointOfEntry": "GBGRP4PP",
+    "pointOfEntryControlPoint": "INSPGRP1",
+    "arrivalDate": "2024-03-20",
+    "arrivalTime": "15:00:00",
+    "meansOfTransport": {},
+    "meansOfTransportFromEntryPoint": {
+      "id": "1234abc",
+      "type": "Railway Wagon",
+      "document": "Waybill"
+    },
+    "veterinaryInformation": {
+      "accompanyingDocuments": [
+        {
+          "documentType": "airWaybill",
+          "documentReference": "12345",
+          "documentIssueDate": "2024-03-20"
+        },
+        {
+          "documentType": "phytosanitaryCertificate",
+          "documentReference": "12345",
+          "documentIssueDate": "2024-03-20",
+          "attachmentId": "021ffcc9-f01d-4636-b9d9-de9e08121780",
+          "attachmentFilename": "vet-cert.xls",
+          "attachmentContentType": "application/vnd.ms-excel",
+          "uploadUserId": "79f6dc68-2144-e911-a96a-000d3a29ba60",
+          "uploadOrganisationId": "767ceb6a-2144-e911-a96c-000d3a29b5de"
+        }
+      ]
+    },
+    "submissionDate": "2024-03-20T14:07:53.563718499Z",
+    "submittedBy": {
+      "displayName": "Mark Admin-Tester",
+      "userId": "79f6dc68-2144-e911-a96a-000d3a29ba60"
+    },
+    "complexCommoditySelected": true,
+    "contactDetails": {
+      "name": "MA Tester",
+      "telephone": "07440311981",
+      "email": "m.askary@kainos.com"
+    }
+  },
+  "partTwo": {
+    "controlAuthority": {
+      "officialVeterinarian": {
+        "firstName": "Auto",
+        "lastName": "Cleared",
+        "email": "PlantHealth.Info@apha.gov.uk",
+        "phone": "0300 1000 313",
+        "signed": "2024-03-21T13:30:00.163631305"
+      }
+    },
+    "commodityChecks": [
+      {
+        "uniqueComplementId": "9f08a4a6-eb57-4ae7-a160-49b01b6960d9",
+        "checks": [
+          {
+            "type": "PHSI_DOCUMENT",
+            "status": "To do"
+          },
+          {
+            "type": "PHSI_IDENTITY",
+            "status": "To do"
+          },
+          {
+            "type": "PHSI_PHYSICAL",
+            "status": "To do"
+          }
+        ]
+      },
+      {
+        "uniqueComplementId": "141a8f26-921b-493b-b25f-77eaf605b1e3",
+        "checks": [
+          {
+            "type": "PHSI_DOCUMENT",
+            "status": "Auto cleared",
+            "hasChecksComplete": true
+          },
+          {
+            "type": "PHSI_IDENTITY",
+            "status": "Auto cleared",
+            "hasChecksComplete": true
+          },
+          {
+            "type": "PHSI_PHYSICAL",
+            "status": "Auto cleared",
+            "hasChecksComplete": true
+          },
+          {
+            "type": "HMI",
+            "status": "Auto cleared",
+            "hasChecksComplete": true
+          }
+        ]
+      }
+    ],
+    "phsiAutoCleared": true,
+    "inspectionRequired": "Required"
+  },
+  "partThree": {},
+  "etag": "0000000000273DF7",
+  "riskDecisionLockingTime": "2024-03-20T13:00:00Z",
+  "isRiskDecisionLocked": true,
+  "isCdsFullMatched": false
+}

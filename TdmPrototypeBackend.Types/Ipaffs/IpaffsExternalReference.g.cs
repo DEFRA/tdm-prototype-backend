@@ -27,6 +27,7 @@ public partial class IpaffsExternalReference  //
     /// </summary
     [Attr]
     [JsonPropertyName("system")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsExternalReferenceSystemEnum? System { get; set; }
 
 	

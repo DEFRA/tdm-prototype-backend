@@ -1,12 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Security.Claims;
 using Azure.Core;
 using Json.More;
 using Microsoft.AspNetCore.Authorization;
-using TdmPrototypeBackend.Api.Data;
-using TdmPrototypeDmpSynchroniser.Api.Config;
-using TdmPrototypeDmpSynchroniser.Api.Services;
 using TdmPrototypeBackend.Api.Config;
+using TdmPrototypeBackend.Storage.Mongo;
 
 // using MongoDB.Bson;
 
@@ -18,6 +16,8 @@ public static class ManagementEndpoints
 
     public static void UseManagementEndpoints(this IEndpointRouteBuilder app, BackendConfig config)
     {
+        app.MapGet("health", GetAuth).AllowAnonymous();
+
         if (config.EnableManagement)
         {
             app.MapGet(BaseRoute + "/collections", GetCollectionsAsync).AllowAnonymous();
@@ -70,15 +70,16 @@ public static class ManagementEndpoints
     
     [AllowAnonymous]
     private static async Task<IResult> GetCollectionsAsync(
-        IMongoDbClientFactory clientFactory)
+        IMongoDbManagementClientFactory clientFactory)
     {
-        return Results.Ok(clientFactory.GetCollections().ToArray());
+        var collections = await clientFactory.GetCollections();
+        return Results.Ok(collections);
     }
     
     private static async Task<IResult> DropCollectionsAsync(
-        IMongoDbClientFactory clientFactory)
+        IMongoDbManagementClientFactory clientFactory)
     {
-        clientFactory.DropCollections();
+        await clientFactory.DropCollections();
 
         return Results.Ok("Dropped");
     }

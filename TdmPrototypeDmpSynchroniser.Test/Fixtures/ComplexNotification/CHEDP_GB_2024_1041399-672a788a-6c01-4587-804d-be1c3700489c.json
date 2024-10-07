@@ -1,0 +1,446 @@
+{
+  "id": 41400,
+  "referenceNumber": "CHEDP.GB.2024.1041399",
+  "version": 2,
+  "lastUpdated": "2024-10-04T08:39:42.655491853Z",
+  "lastUpdatedBy": {
+    "displayName": "Mark Admin-Tester",
+    "userId": "79f6dc68-2144-e911-a96a-000d3a29ba60"
+  },
+  "type": "CVEDP",
+  "status": "AMEND",
+    "riskAssessment": {
+    "commodityResults": [
+      {
+        "riskDecision": "INCONCLUSIVE",
+        "uniqueId": "de6f2541-7733-4835-857e-59494e9ad529"
+      },
+      {
+        "riskDecision": "INCONCLUSIVE",
+        "uniqueId": "34f71690-d2f3-46f5-9952-3cd4a40e02d3"
+      },
+      {
+        "riskDecision": "INCONCLUSIVE",
+        "uniqueId": "8201ed30-51ee-4489-af1d-75688e981f65"
+      },
+      {
+        "riskDecision": "INCONCLUSIVE",
+        "uniqueId": "a498b032-d58a-4308-b643-f1fc475dcc6b"
+      },
+      {
+        "riskDecision": "INCONCLUSIVE",
+        "uniqueId": "c5ceec55-8f05-4b2a-9509-9799c4fd2ed4"
+      },
+      {
+        "riskDecision": "INCONCLUSIVE",
+        "uniqueId": "ab1cc822-020d-4886-a7e0-5f280710d010"
+      }
+    ],
+    "assessmentDateTime": "2024-10-04T09:38:53.668430977"
+  },
+  "journeyRiskCategorisation": {
+    "riskLevel": "Low",
+    "riskLevelMethod": "User",
+    "riskLevelDateTime": "2024-10-04T08:34:35.81"
+  },
+  "isHighRiskEuImport": false,
+  "commodities": [
+    {
+      "commodityID": "02044310",
+      "commodityDescription": "Of lamb",
+      "complementID": 1,
+      "complementName": "Ovis aries",
+      "speciesID": "167408",
+      "speciesName": "Ovis aries",
+      "speciesTypeName": "Domestic",
+      "speciesType": "16",
+      "speciesClass": "290521",
+      "speciesNomination": "Ovis aries"
+    },
+    {
+      "commodityID": "02044310",
+      "commodityDescription": "Of lamb",
+      "complementID": 1,
+      "complementName": "Ovis spp.",
+      "speciesID": "290521",
+      "speciesName": "Ovis spp.",
+      "speciesTypeName": "Domestic",
+      "speciesType": "16",
+      "speciesClass": "290521",
+      "speciesNomination": "Ovis spp."
+    },
+    {
+      "commodityID": "03019110",
+      "commodityDescription": "Of the species Oncorhynchus apache or Oncorhynchus chrysogaster",
+      "complementID": 2,
+      "complementName": "Oncorhynchus apache",
+      "speciesID": "219571",
+      "speciesName": "Oncorhynchus apache",
+      "speciesTypeName": "Farmed stock",
+      "speciesType": "20",
+      "speciesClass": "183714",
+      "speciesNomination": "Oncorhynchus apache"
+    },
+    {
+      "commodityID": "03019110",
+      "commodityDescription": "Of the species Oncorhynchus apache or Oncorhynchus chrysogaster",
+      "complementID": 2,
+      "complementName": "Oncorhynchus chrysogaster",
+      "speciesID": "183714",
+      "speciesName": "Oncorhynchus chrysogaster",
+      "speciesTypeName": "Farmed stock",
+      "speciesType": "20",
+      "speciesClass": "183714",
+      "speciesNomination": "Oncorhynchus chrysogaster"
+    },
+    {
+      "commodityID": "03019110",
+      "commodityDescription": "Of the species Oncorhynchus apache or Oncorhynchus chrysogaster",
+      "complementID": 3,
+      "complementName": "Oncorhynchus apache",
+      "speciesID": "219504",
+      "speciesName": "Oncorhynchus apache",
+      "speciesTypeName": "Wild stock",
+      "speciesType": "61",
+      "speciesClass": "219504",
+      "speciesNomination": "Oncorhynchus apache"
+    },
+    {
+      "commodityID": "03019110",
+      "commodityDescription": "Of the species Oncorhynchus apache or Oncorhynchus chrysogaster",
+      "complementID": 3,
+      "complementName": "Oncorhynchus chrysogaster",
+      "speciesID": "183771",
+      "speciesName": "Oncorhynchus chrysogaster",
+      "speciesTypeName": "Wild stock",
+      "speciesType": "61",
+      "speciesClass": "219504",
+      "speciesNomination": "Oncorhynchus chrysogaster"
+    }
+  ],
+  "commoditySummary": {
+    "totalGrossWeight": 3000,
+    "totalNetWeight": 210,
+    "numberOfPackages": 21,
+    "temperature": "Ambient",
+    
+    "complementParameterSet": [
+      {
+        "uniqueComplementID": "de6f2541-7733-4835-857e-59494e9ad529",
+        "complementID": 1,
+        "speciesID": "167408",
+        "keyDataPair": [
+          {
+            "key": "netweight",
+            "data": "10"
+          },
+          {
+            "key": "number_package",
+            "data": "1"
+          },
+          {
+            "key": "type_package",
+            "data": "Bag"
+          }
+        ]
+      },
+      {
+        "uniqueComplementID": "34f71690-d2f3-46f5-9952-3cd4a40e02d3",
+        "complementID": 1,
+        "speciesID": "290521",
+        "keyDataPair": [
+          {
+            "key": "netweight",
+            "data": "20"
+          },
+          {
+            "key": "number_package",
+            "data": "2"
+          },
+          {
+            "key": "type_package",
+            "data": "Bag"
+          }
+        ]
+      },
+      {
+        "uniqueComplementID": "8201ed30-51ee-4489-af1d-75688e981f65",
+        "complementID": 2,
+        "speciesID": "219571",
+        "keyDataPair": [
+          {
+            "key": "netweight",
+            "data": "30"
+          },
+          {
+            "key": "number_package",
+            "data": "3"
+          },
+          {
+            "key": "type_package",
+            "data": "Bale"
+          },
+          {
+            "key": "is_catch_certificate_required",
+            "data": "false"
+          }
+        ]
+      },
+      {
+        "uniqueComplementID": "a498b032-d58a-4308-b643-f1fc475dcc6b",
+        "complementID": 2,
+        "speciesID": "183714",
+        "keyDataPair": [
+          {
+            "key": "netweight",
+            "data": "40"
+          },
+          {
+            "key": "number_package",
+            "data": "4"
+          },
+          {
+            "key": "type_package",
+            "data": "Bale"
+          },
+          {
+            "key": "is_catch_certificate_required",
+            "data": "false"
+          }
+        ]
+      },
+      {
+        "uniqueComplementID": "c5ceec55-8f05-4b2a-9509-9799c4fd2ed4",
+        "complementID": 3,
+        "speciesID": "219504",
+        "keyDataPair": [
+          {
+            "key": "netweight",
+            "data": "50"
+          },
+          {
+            "key": "number_package",
+            "data": "5"
+          },
+          {
+            "key": "type_package",
+            "data": "Balloon Protected"
+          },
+          {
+            "key": "is_catch_certificate_required",
+            "data": "false"
+          }
+        ]
+      },
+      {
+        "uniqueComplementID": "ab1cc822-020d-4886-a7e0-5f280710d010",
+        "complementID": 3,
+        "speciesID": "183771",
+        "keyDataPair": [
+          {
+            "key": "netweight",
+            "data": "60"
+          },
+          {
+            "key": "number_package",
+            "data": "6"
+          },
+          {
+            "key": "type_package",
+            "data": "Balloon Protected"
+          },
+          {
+            "key": "is_catch_certificate_required",
+            "data": "false"
+          }
+        ]
+      }
+    ],
+    "includeNonAblactedAnimals": false,
+    "countryOfOrigin": "AX",
+    "consignedCountry": "AX"
+  },
+  "partOne": {
+    "personResponsible": {
+      "name": "Mark Admin-Tester",
+      "companyId": "767ceb6a-2144-e911-a96c-000d3a29b5de",
+      "companyName": "Defra Test BIP",
+      "address": [
+        "Animal and Plant Health Agency",
+        "Woodham Lane",
+        "New Haw",
+        "Surrey",
+        "Addlestone",
+        "KT15 3NB"
+      ],
+      "country": "GB",
+      "tracesID": 1001,
+      "phone": "020 8225 7295",
+      "email": "DefraTestBIP@anthunt3.33mail.com",
+      "contactId": "79f6dc68-2144-e911-a96a-000d3a29ba60"
+    },
+    "consignor": {
+      "id": "2ab17df9-e875-4bb9-a5e9-4c9ce6c5695c",
+      "type": "exporter",
+      "status": "nonapproved",
+      "companyName": "f10888e8744d402c963c13352b53e736",
+      "address": {
+        "addressLine1": "53096 Murphy Station",
+        "addressLine2": "Suite 555",
+        "addressLine3": "Kansas",
+        "city": "South Ryleyview",
+        "postalZipCode": "12674",
+        "countryISOCode": "PL",
+        "telephone": "01615555555",
+        "email": "ukoperator@email.com"
+      },
+      "tracesId": 10005792
+    },
+    "consignee": {
+      "id": "6d8f4fa7-594a-462f-9008-9a39276225ea",
+      "type": "consignee",
+      "status": "nonapproved",
+      "companyName": "4b1a8571489f43368438ffe5c148fc2a",
+      "address": {
+        "addressLine1": "610 Arthur Roads",
+        "addressLine2": "Suite 843",
+        "addressLine3": "Maryland",
+        "city": "Port Alvinaside",
+        "postalZipCode": "91444",
+        "countryISOCode": "GB",
+        "telephone": "01615555555",
+        "email": "ukoperator@email.com"
+      },
+      "tracesId": 10008612
+    },
+    "importer": {
+      "id": "6e57e543-18ce-4f9f-90a9-fcca62ac4415",
+      "type": "consignee",
+      "status": "nonapproved",
+      "companyName": "9721e1e260244285a3252daf681970f4",
+      "address": {
+        "addressLine1": "34909 Ali Drive",
+        "addressLine2": "Apt. 154",
+        "addressLine3": "Washington",
+        "city": "Muellerhaven",
+        "postalZipCode": "56086-6",
+        "countryISOCode": "GB",
+        "telephone": "01615555555",
+        "email": "ukoperator@email.com"
+      },
+      "tracesId": 10005711
+    },
+    "placeOfDestination": {
+      "id": "6d8f4fa7-594a-462f-9008-9a39276225ea",
+      "type": "destination",
+      "status": "nonapproved",
+      "companyName": "4b1a8571489f43368438ffe5c148fc2a",
+      "address": {
+        "addressLine1": "610 Arthur Roads",
+        "addressLine2": "Suite 843",
+        "addressLine3": "Maryland",
+        "city": "Port Alvinaside",
+        "postalZipCode": "91444",
+        "countryISOCode": "GB",
+        "telephone": "01615555555",
+        "email": "ukoperator@email.com"
+      },
+      "tracesId": 10008612
+    },
+    
+    "purpose": {
+      "conformsToEU": true,
+      "internalMarketPurpose": "Animal Feeding Stuff",
+      "purposeGroup": "For Import"
+    },
+    "pointOfEntry": "GBLHR1P",
+    "arrivalDate": "2024-10-09",
+    "arrivalTime": "11:11:00",
+    "transporterDetailsRequired": false,
+    "meansOfTransport": {},
+    "meansOfTransportFromEntryPoint": {
+      "id": "afdsd",
+      "type": "Railway Wagon",
+      "document": "asdsd"
+    },
+    "veterinaryInformation": {},
+    "submissionDate": "2024-10-04T08:38:50.639725081Z",
+    "submittedBy": {
+      "displayName": "Mark Admin-Tester",
+      "userId": "79f6dc68-2144-e911-a96a-000d3a29ba60"
+    },
+    "complexCommoditySelected": true,
+    "portOfEntry": "GBLHRA",
+    "contactDetails": {
+      "name": "Mark Admin-Tester",
+      "telephone": "020 8225 7295",
+      "email": "defratestbip@anthunt3.33mail.com"
+    },
+    "isCatchCertificateRequired": false,
+    "isGVMSRoute": false,
+    "provideCtcMrn": "NO"
+  },
+  "partTwo": {
+    "decision": {
+      "decision": "Acceptable for Internal Market",
+      "freeCirculationPurpose": "Animal Feeding Stuff"
+    },
+    "consignmentCheck": {},
+    "consignmentValidation": [
+      {
+        "field": "uk/gov/defra/tracesx/notificationschema/representation/parttwo/decision/consignmentacceptable",
+        "message": "What is the decision for this consignment"
+      },
+      {
+        "field": "uk/gov/defra/tracesx/notificationschema/representation/parttwo/consignmentcheck/documentcheckresult",
+        "message": "Documentary check"
+      },
+      {
+        "field": "uk/gov/defra/tracesx/notificationschema/representation/parttwo/consignmentcheck/physicalcheckdone",
+        "message": "Physical check"
+      },
+      {
+        "field": "uk/gov/defra/tracesx/notificationschema/representation/parttwo/consignmentcheck/identitycheckdone",
+        "message": "Identity check"
+      },
+      {
+        "field": "uk/gov/defra/tracesx/notificationschema/representation/parttwo/laboratorytestsrequired",
+        "message": "Are laboratory tests required"
+      },
+      {
+        "field": "uk/gov/defra/tracesx/notificationschema/representation/partone/veterinaryinformation/establishmentsoforigin",
+        "message": "Approved establishment"
+      }
+    ],
+    "inspectionRequired": "Inconclusive"
+  },
+  "partThree": {
+    "sealCheckRequired": false
+  },
+  "consignmentValidation": [
+    {
+      "field": "uk/gov/defra/tracesx/notificationschema/representation/notification/parttwo/consignmentcheck/identitycheckdone",
+      "message": "Identity check"
+    },
+    {
+      "field": "uk/gov/defra/tracesx/notificationschema/representation/notification/parttwo/consignmentcheck/documentcheckresult",
+      "message": "Documentary check"
+    },
+    {
+      "field": "uk/gov/defra/tracesx/notificationschema/representation/notification/parttwo/consignmentcheck/physicalcheckdone",
+      "message": "Physical check"
+    },
+    {
+      "field": "uk/gov/defra/tracesx/notificationschema/representation/notification/parttwo/laboratorytestsrequired",
+      "message": "Are laboratory tests required"
+    },
+    {
+      "field": "uk/gov/defra/tracesx/notificationschema/representation/notification/parttwo/decision/consignmentacceptable",
+      "message": "What is the decision for this consignment"
+    }
+  ],
+  "etag": "00000000000915EF",
+  "riskDecisionLockingTime": "2024-10-09T08:11:00Z",
+  "isRiskDecisionLocked": false,
+  "chedTypeVersion": 1
+}

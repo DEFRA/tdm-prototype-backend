@@ -1,0 +1,603 @@
+{
+  "id": 41046,
+  "referenceNumber": "CHEDPP.GB.2024.1041046",
+  "agencyOrganisationId": "f2c3967d-cb72-eb11-a812-000d3a274bb9",
+  "version": 1,
+  "lastUpdated": "2024-10-03T05:53:23.706588623Z",
+  "lastUpdatedBy": {
+    "displayName": "Brittany Baker",
+    "userId": "e4c3967d-cb72-eb11-a812-000d3a274bb9"
+  },
+  "type": "CHEDPP",
+  "status": "IN_PROGRESS",
+  "riskAssessment": {
+    "commodityResults": [
+      {
+        "hmiDecision": "NOTREQUIRED",
+        "phsiClassification": "Controlled",
+        "phsi": {
+          "documentCheck": false,
+          "identityCheck": false,
+          "physicalCheck": false
+        },
+        "uniqueId": "82fb2697-5a11-485e-91f2-1ef193122eb5",
+        "eppoCode": "MABSD",
+        "indoorOutdoor": "None",
+        "propagation": "None",
+        "phsiRuleType": "None"
+      },
+      {
+        "hmiDecision": "REQUIRED",
+        "uniqueId": "cc9babb9-c4de-48b0-8006-257a34e59107",
+        "eppoCode": "CIDAF",
+        "indoorOutdoor": "None",
+        "propagation": "None",
+        "phsiRuleType": "None"
+      },
+      {
+        "hmiDecision": "REQUIRED",
+        "phsiClassification": "Controlled",
+        "phsi": {
+          "documentCheck": false,
+          "identityCheck": false,
+          "physicalCheck": false
+        },
+        "uniqueId": "19526730-f7b7-43d2-a228-cca89a8189c1",
+        "eppoCode": "VITVI",
+        "indoorOutdoor": "None",
+        "propagation": "None",
+        "phsiRuleType": "None"
+      },
+      {
+        "hmiDecision": "NOTREQUIRED",
+        "uniqueId": "1a60d87d-cadc-47a4-b35b-9347a1918c58",
+        "eppoCode": "PAQAA",
+        "indoorOutdoor": "None",
+        "propagation": "None",
+        "phsiRuleType": "None"
+      },
+      {
+        "hmiDecision": "NOTREQUIRED",
+        "phsiClassification": "Controlled",
+        "phsi": {
+          "documentCheck": false,
+          "identityCheck": false,
+          "physicalCheck": false
+        },
+        "uniqueId": "8dc56578-854e-4ac3-b227-412702438ccb",
+        "eppoCode": "PRNPN",
+        "indoorOutdoor": "None",
+        "propagation": "None",
+        "phsiRuleType": "None"
+      }
+    ],
+    "assessmentDateTime": "2024-10-03T06:52:23.731488243"
+  },
+  "partOne": {
+    "personResponsible": {
+      "name": "Julia Jones",
+      "companyId": "0e96ec84-c672-eb11-a812-000d3a22983f",
+      "companyName": "IPAFFS Plant Organisation 2",
+      "address": [
+        "KAINOS SOFTWARE LTD, 4-6",
+        "UPPER CRESCENT",
+        "BELFAST",
+        "BT7 1NT",
+        "GB"
+      ],
+      "country": "GB",
+      "tracesID": 1001,
+      "phone": "0123456789",
+      "email": "ipaffs-plant-org-2-julia@mailinator.com",
+      "contactId": "0296ec84-c672-eb11-a812-000d3a22983f"
+    },
+    "consignor": {
+      "id": "d37a64ee-f00e-4797-9b8b-2208031edf86",
+      "type": "exporter",
+      "status": "nonapproved",
+      "companyName": "perf-consignor-company-name",
+      "address": {
+        "addressLine1": "perf-consignor-address-line-1",
+        "city": "perf-consignor-city",
+        "postalZipCode": "AB1 1AB",
+        "countryISOCode": "AF",
+        "telephone": "0123456789",
+        "email": "perf@test.com"
+      },
+      "tracesId": 10147586
+    },
+    "packer": {
+      "id": "af0935c3-3b12-4696-9d33-7aae81b9b703",
+      "type": "packer",
+      "status": "nonapproved",
+      "companyName": "perf-packer-company-name",
+      "address": {
+        "addressLine1": "perf-packer-address-line-1",
+        "city": "perf-packer-city",
+        "postalZipCode": "AB1 1AB",
+        "countryISOCode": "AF",
+        "telephone": "0123456789",
+        "email": "perf@test.com"
+      },
+      "tracesId": 10147587
+    },
+    "consignee": {
+      "id": "0e96ec84-c672-eb11-a812-000d3a22983f",
+      "type": "consignee",
+      "companyName": "IPAFFS Plant Organisation 2",
+      "address": {
+        "addressLine1": "KAINOS SOFTWARE LTD, 4-6",
+        "addressLine2": "UPPER CRESCENT",
+        "city": "BELFAST",
+        "postalZipCode": "BT7 1NT",
+        "countryISOCode": "GB",
+        "telephone": "0123456789",
+        "email": "test@example.com"
+      }
+    },
+    "importer": {
+      "id": "0e96ec84-c672-eb11-a812-000d3a22983f",
+      "type": "importer",
+      "companyName": "IPAFFS Plant Organisation 2",
+      "address": {
+        "addressLine1": "KAINOS SOFTWARE LTD, 4-6",
+        "addressLine2": "UPPER CRESCENT",
+        "city": "BELFAST",
+        "postalZipCode": "BT7 1NT",
+        "countryISOCode": "GB",
+        "telephone": "0123456789",
+        "email": "test@example.com"
+      }
+    },
+    "placeOfDestination": {
+      "id": "2bdcb0af-4000-4cdf-8dfb-edc6ab074670",
+      "type": "destination",
+      "status": "nonapproved",
+      "companyName": "perf-consignee-company-name",
+      "address": {
+        "addressLine1": "perf-consignor-address-line-1",
+        "city": "perf-consignee-city",
+        "postalZipCode": "AB1 1AB",
+        "countryISOCode": "AF",
+        "telephone": "0123456789",
+        "email": "perf@test.com"
+      },
+      "tracesId": 10147588
+    },
+    "commodities": {
+      "totalGrossWeight": 100,
+      "totalNetWeight": 21,
+      "numberOfPackages": 22,
+      "commodityComplement": [
+        {
+          "commodityID": "0808108090",
+          "commodityDescription": "Other",
+          "complementID": 1,
+          "complementName": "Malus domestica",
+          "eppoCode": "MABSD",
+          "speciesID": "1391442",
+          "speciesName": "Malus domestica",
+          "speciesNomination": "Malus domestica"
+        },
+        {
+          "commodityID": "0805509010",
+          "commodityDescription": "Fresh",
+          "complementID": 2,
+          "complementName": "Citrus aurantiifolia",
+          "eppoCode": "CIDAF",
+          "speciesID": "135571",
+          "speciesName": "Citrus aurantiifolia",
+          "speciesClass": "135571",
+          "speciesNomination": "Citrus aurantiifolia"
+        },
+        {
+          "commodityID": "0806101090",
+          "commodityDescription": "Other",
+          "complementID": 3,
+          "complementName": "Vitis vinifera",
+          "eppoCode": "VITVI",
+          "speciesID": "352369",
+          "speciesName": "Vitis vinifera",
+          "speciesClass": "352369",
+          "speciesNomination": "Vitis vinifera"
+        },
+        {
+          "commodityID": "0810902090",
+          "commodityDescription": "Other",
+          "complementID": 4,
+          "complementName": "Passiflora alata",
+          "eppoCode": "PAQAA",
+          "speciesID": "1357062",
+          "speciesName": "Passiflora alata",
+          "speciesNomination": "Passiflora alata"
+        },
+        {
+          "commodityID": "0809302090",
+          "commodityDescription": "Flat nectarines (Prunus persica var. platerina)",
+          "complementID": 5,
+          "complementName": "Prunus persica var. nucipersica",
+          "eppoCode": "PRNPN",
+          "speciesID": "210434",
+          "speciesName": "Prunus persica var. nucipersica",
+          "speciesClass": "93220",
+          "speciesNomination": "Prunus persica var. nucipersica"
+        }
+      ],
+      "complementParameterSet": [
+        {
+          "uniqueComplementID": "82fb2697-5a11-485e-91f2-1ef193122eb5",
+          "complementID": 1,
+          "speciesID": "1391442",
+          "keyDataPair": [
+            {
+              "key": "marketing_standard",
+              "data": "SMS"
+            },
+            {
+              "key": "validity_period",
+              "data": "7"
+            },
+            {
+              "key": "regulatory_authority",
+              "data": "JOINT"
+            },
+            {
+              "key": "variety",
+              "data": "Altess"
+            },
+            {
+              "key": "class",
+              "data": "Class I"
+            },
+            {
+              "key": "type_package",
+              "data": "Pail"
+            },
+            {
+              "key": "netweight",
+              "data": "1"
+            },
+            {
+              "key": "number_package",
+              "data": "6"
+            },
+            {
+              "key": "quantity",
+              "data": "10"
+            },
+            {
+              "key": "type_quantity",
+              "data": "Kilograms"
+            },
+            {
+              "key": "container",
+              "data": "128435"
+            },
+            {
+              "key": "commodity_group",
+              "data": "Fruit and nuts"
+            },
+            {
+              "key": "low_risk_article72_commodity",
+              "data": "true"
+            }
+          ]
+        },
+        {
+          "uniqueComplementID": "cc9babb9-c4de-48b0-8006-257a34e59107",
+          "complementID": 2,
+          "speciesID": "135571",
+          "keyDataPair": [
+            {
+              "key": "regulatory_authority",
+              "data": "HMI"
+            },
+            {
+              "key": "marketing_standard",
+              "data": "GMS"
+            },
+            {
+              "key": "validity_period",
+              "data": "2"
+            },
+            {
+              "key": "type_package",
+              "data": "Bag"
+            },
+            {
+              "key": "netweight",
+              "data": "1"
+            },
+            {
+              "key": "number_package",
+              "data": "4"
+            },
+            {
+              "key": "quantity",
+              "data": "9"
+            },
+            {
+              "key": "type_quantity",
+              "data": "Bulbs"
+            },
+            {
+              "key": "container",
+              "data": "443346"
+            },
+            {
+              "key": "commodity_group",
+              "data": "Fruit and nuts"
+            }
+          ]
+        },
+        {
+          "uniqueComplementID": "19526730-f7b7-43d2-a228-cca89a8189c1",
+          "complementID": 3,
+          "speciesID": "352369",
+          "keyDataPair": [
+            {
+              "key": "marketing_standard",
+              "data": "SMS"
+            },
+            {
+              "key": "validity_period",
+              "data": "5"
+            },
+            {
+              "key": "regulatory_authority",
+              "data": "JOINT"
+            },
+            {
+              "key": "variety",
+              "data": "None"
+            },
+            {
+              "key": "class",
+              "data": "Class I"
+            },
+            {
+              "key": "type_package",
+              "data": "Tote"
+            },
+            {
+              "key": "netweight",
+              "data": "5"
+            },
+            {
+              "key": "number_package",
+              "data": "2"
+            },
+            {
+              "key": "quantity",
+              "data": "1"
+            },
+            {
+              "key": "type_quantity",
+              "data": "Seeds"
+            },
+            {
+              "key": "commodity_group",
+              "data": "Fruit and nuts"
+            },
+            {
+              "key": "low_risk_article72_commodity",
+              "data": "true"
+            }
+          ]
+        },
+        {
+          "uniqueComplementID": "1a60d87d-cadc-47a4-b35b-9347a1918c58",
+          "complementID": 4,
+          "speciesID": "1357062",
+          "keyDataPair": [
+            {
+              "key": "regulatory_authority",
+              "data": "HMI"
+            },
+            {
+              "key": "marketing_standard",
+              "data": "GMS"
+            },
+            {
+              "key": "validity_period",
+              "data": "2"
+            },
+            {
+              "key": "type_package",
+              "data": "Coffer"
+            },
+            {
+              "key": "netweight",
+              "data": "5"
+            },
+            {
+              "key": "number_package",
+              "data": "9"
+            },
+            {
+              "key": "quantity",
+              "data": "1"
+            },
+            {
+              "key": "type_quantity",
+              "data": "Bulbs"
+            },
+            {
+              "key": "commodity_group",
+              "data": "Fruit and nuts"
+            }
+          ]
+        },
+        {
+          "uniqueComplementID": "8dc56578-854e-4ac3-b227-412702438ccb",
+          "complementID": 5,
+          "speciesID": "210434",
+          "keyDataPair": [
+            {
+              "key": "marketing_standard",
+              "data": "SMS"
+            },
+            {
+              "key": "validity_period",
+              "data": "7"
+            },
+            {
+              "key": "regulatory_authority",
+              "data": "JOINT"
+            },
+            {
+              "key": "variety",
+              "data": "None"
+            },
+            {
+              "key": "class",
+              "data": "Class I"
+            },
+            {
+              "key": "type_package",
+              "data": "Coffer"
+            },
+            {
+              "key": "netweight",
+              "data": "9"
+            },
+            {
+              "key": "number_package",
+              "data": "1"
+            },
+            {
+              "key": "quantity",
+              "data": "1"
+            },
+            {
+              "key": "type_quantity",
+              "data": "Bulbs"
+            },
+            {
+              "key": "commodity_group",
+              "data": "Fruit and nuts"
+            }
+          ]
+        }
+      ],
+      "includeNonAblactedAnimals": false,
+      "countryOfOrigin": "AT",
+      "countryOfOriginIsPodCountry": true,
+      "consignedCountry": "AF",
+      "totalGrossVolume": 15,
+      "totalGrossVolumeUnit": "litres",
+      "gmsDeclarationAccepted": true,
+      "consignedCountryInChargeGroup": false
+    },
+    "purpose": {
+      "purposeGroup": "For Re-Import"
+    },
+    "pointOfEntry": "GBFXT1PP",
+    "pointOfEntryControlPoint": "IPGBFXT1",
+    "arrivalDate": "2024-10-03",
+    "arrivalTime": "06:19:00",
+    "meansOfTransport": {},
+    "meansOfTransportFromEntryPoint": {
+      "id": "perf-identification",
+      "type": "Aeroplane",
+      "document": "perf-document"
+    },
+    "veterinaryInformation": {
+      "accompanyingDocuments": [
+        {
+          "documentType": "phytosanitaryCertificate",
+          "documentReference": "perf-document-number",
+          "documentIssueDate": "2024-01-01",
+          "attachmentId": "ecfe8298-873d-4127-9109-bd4b012de4f1",
+          "attachmentFilename": "example.pdf",
+          "attachmentContentType": "application/pdf",
+          "uploadUserId": "e4c3967d-cb72-eb11-a812-000d3a274bb9",
+          "uploadOrganisationId": "f2c3967d-cb72-eb11-a812-000d3a274bb9"
+        }
+      ]
+    },
+    "importerLocalReferenceNumber": "local-reference-number",
+    "submissionDate": "2024-10-03T05:52:22.181356097Z",
+    "submittedBy": {
+      "displayName": "Brittany Baker",
+      "userId": "e4c3967d-cb72-eb11-a812-000d3a274bb9"
+    },
+    "complexCommoditySelected": true,
+    "contactDetails": {
+      "name": "percy inspector",
+      "telephone": "020 8225 7295",
+      "email": "defratestbip@anthunt3.33mail.com",
+      "agent": "Performance agent"
+    },
+    "nominatedContacts": [
+      {
+        "name": "mo green",
+        "telephone": "0207 555 9675",
+        "email": "mo@green.com"
+      }
+    ],
+    "isGVMSRoute": false,
+    "provideCtcMrn": "NO"
+  },
+  "partTwo": {
+    "commodityChecks": [
+      {
+        "uniqueComplementId": "82fb2697-5a11-485e-91f2-1ef193122eb5",
+        "checks": [
+          {
+            "type": "PHSI_DOCUMENT",
+            "status": "Auto cleared"
+          },
+          {
+            "type": "PHSI_IDENTITY",
+            "status": "Auto cleared"
+          },
+          {
+            "type": "PHSI_PHYSICAL",
+            "status": "Auto cleared"
+          }
+        ]
+      },
+      {
+        "uniqueComplementId": "19526730-f7b7-43d2-a228-cca89a8189c1",
+        "checks": [
+          {
+            "type": "PHSI_DOCUMENT",
+            "status": "Auto cleared"
+          },
+          {
+            "type": "PHSI_IDENTITY",
+            "status": "Auto cleared"
+          },
+          {
+            "type": "PHSI_PHYSICAL",
+            "status": "Auto cleared"
+          }
+        ]
+      },
+      {
+        "uniqueComplementId": "8dc56578-854e-4ac3-b227-412702438ccb",
+        "checks": [
+          {
+            "type": "PHSI_DOCUMENT",
+            "status": "Auto cleared"
+          },
+          {
+            "type": "PHSI_IDENTITY",
+            "status": "Auto cleared"
+          },
+          {
+            "type": "PHSI_PHYSICAL",
+            "status": "Auto cleared"
+          }
+        ]
+      }
+    ],
+    "inspectionRequired": "Required"
+  },
+  "partThree": {},
+  "etag": "0000000000090BAE",
+  "riskDecisionLockingTime": "2024-10-03T03:19:00Z",
+  "isRiskDecisionLocked": true,
+  "chedTypeVersion": 1
+}

@@ -27,6 +27,7 @@ public partial class IpaffsPartThree  //
     /// </summary
     [Attr]
     [JsonPropertyName("controlStatus")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsPartThreeControlStatusEnum? ControlStatus { get; set; }
 
 	
