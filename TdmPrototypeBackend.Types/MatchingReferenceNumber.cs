@@ -5,6 +5,7 @@ namespace TdmPrototypeBackend.Types;
 
 public class MatchingReferenceNumber
 {
+    
     private MatchingReferenceNumber(string countryCode, IpaffsNotificationTypeEnum chedType, string licenceType, int year, int identifier, char? splitIdentifier)
     {
         CountryCode = countryCode;
