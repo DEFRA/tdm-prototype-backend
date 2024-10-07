@@ -68,7 +68,7 @@ public partial class Gmrs  //
     /// </summary
     [Attr]
     [JsonPropertyName("updatedDateTime")]
-    public string? UpdatedDateTime { get; set; }
+    public DateTime? UpdatedDateTime { get; set; }
 
 	
     /// <summary>
