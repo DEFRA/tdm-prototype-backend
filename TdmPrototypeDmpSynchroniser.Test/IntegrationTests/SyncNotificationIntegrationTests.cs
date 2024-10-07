@@ -23,11 +23,11 @@ public class SyncNotificationIntegrationTests(ITestOutputHelper outputHelper) : 
     }
 
     [Theory]
-    [InlineData("Invalid Purpose Group Value", "InvalidPurposeGroup", "CHEDD.GB.2024.1004768")]
-    [InlineData("Missing Unique Ids", "MissingUniqueIDs", "CHEDPP.GB.2024.1041046")]
-    [InlineData("Missing Unique Complement Id", "MissingUniqueComplementId", "CHEDP.GB.2024.1001439")]
-    [InlineData("No Commodity Complements", "NoCommodityComplements", "CHEDPP.GB.2024.1110138")]
-    public async Task SyncNotification_FromLocationFolder(string reason, string folder, string id)
+    [InlineData("Invalid Purpose Group Value", "InvalidPurposeGroup", "CHEDD.GB.2024.1004768", true)]
+    [InlineData("Missing Unique Ids", "MissingUniqueIDs", "CHEDPP.GB.2024.1041046", true)]
+    [InlineData("Missing Unique Complement Id", "MissingUniqueComplementId", "CHEDP.GB.2024.1001439", true)]
+    [InlineData("No Commodity Complements", "NoCommodityComplements", "CHEDPP.GB.2024.1110138", false)]
+    public async Task SyncNotification_FromLocationFolder(string reason, string folder, string id, bool valid)
     {
         Dependencies = new IntegrationTestDependenciesBuilder(OutputHelper)
             .UseLocalPathBlobStorage($"Fixtures/Notification/{folder}")
@@ -42,11 +42,14 @@ public class SyncNotificationIntegrationTests(ITestOutputHelper outputHelper) : 
         var result = await Dependencies.ServiceProvider.GetService<ISyncService>().SyncNotifications(SyncPeriod.All);
 
         result.Success.Should().Be(true, reason);
-        result.Description.Should().Be($"Connected. 1 items upserted. 0 errors.", reason);
+        result.Description.Should().Be($"Connected. {(valid ? 1 : 0)} items upserted. {(valid ? 0 : 1)} errors.", reason);
 
-        var existingMovement = await storageService.Find(id);
+        if (valid)
+        {
+            var existingMovement = await storageService.Find(id);
 
-        existingMovement.Should().NotBeNull(reason);
+            existingMovement.Should().NotBeNull(reason);
+        }
     }
 
     [Fact]
@@ -80,30 +83,6 @@ public class SyncNotificationIntegrationTests(ITestOutputHelper outputHelper) : 
         notification.AuditEntries[1].Status.Should().Be("Updated");
         notification.AuditEntries[1].Diff.Count.Should().Be(6);
 
-    }
-
-
-
-    private async Task ProcessNotificationFromLocalFolder(string path, string id)
-    {
-        Dependencies = new IntegrationTestDependenciesBuilder(OutputHelper)
-            .UseLocalPathBlobStorage(path)
-            .AddTestServices(services =>
-            {
-                services.AddSingleton(new Mock<IStorageService<Movement>>().Object);
-            })
-            .Build();
-
-        var storageService = Dependencies.ServiceProvider.GetService<IStorageService<Notification>>()!;
-
-        var result = await Dependencies.ServiceProvider.GetService<ISyncService>().SyncNotifications(SyncPeriod.All);
-
-        result.Success.Should().Be(true);
-        result.Description.Should().Be($"Connected. 1 items upserted. 0 errors.");
-
-        var existingMovement = await storageService.Find(id);
-
-        existingMovement.Should().NotBeNull();
     }
 
 
