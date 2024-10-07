@@ -17,10 +17,6 @@ using Status = TdmPrototypeDmpSynchroniser.Api.Models.Status;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Services;
 
-public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config, 
-    IBlobService blobService, IStorageService<Movement> movementService, 
-    IStorageService<Notification> notificationService, IStorageService<Gmrs> gmrsService, IMatchingService matchingService)
-
 public enum SyncStatus
 {
 
