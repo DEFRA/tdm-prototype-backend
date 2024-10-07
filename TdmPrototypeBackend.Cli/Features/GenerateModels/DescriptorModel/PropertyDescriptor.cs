@@ -27,6 +27,12 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel
             IsReferenceType = isReferenceType;
             IsArray = isArray;
             Attributes = new List<string>() { "[Attr]", $"[JsonPropertyName(\"{Name}\")]" };
+
+            if (type.EndsWith("Enum"))
+            {
+                Attributes.Add("[MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]");
+            }
+
         }
         // private const string prefix = "Ipaffs";
 

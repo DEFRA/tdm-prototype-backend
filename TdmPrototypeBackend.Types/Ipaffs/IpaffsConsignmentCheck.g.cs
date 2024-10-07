@@ -67,6 +67,7 @@ public partial class IpaffsConsignmentCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("identityCheckType")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsConsignmentCheckIdentityCheckTypeEnum? IdentityCheckType { get; set; }
 
 	
@@ -83,6 +84,7 @@ public partial class IpaffsConsignmentCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("identityCheckNotDoneReason")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsConsignmentCheckIdentityCheckNotDoneReasonEnum? IdentityCheckNotDoneReason { get; set; }
 
 	
@@ -107,6 +109,7 @@ public partial class IpaffsConsignmentCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("physicalCheckNotDoneReason")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsConsignmentCheckPhysicalCheckNotDoneReasonEnum? PhysicalCheckNotDoneReason { get; set; }
 
 	

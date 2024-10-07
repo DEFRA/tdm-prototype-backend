@@ -27,6 +27,7 @@ public partial class IpaffsAccompanyingDocument  //
     /// </summary
     [Attr]
     [JsonPropertyName("documentType")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsAccompanyingDocumentDocumentTypeEnum? DocumentType { get; set; }
 
 	

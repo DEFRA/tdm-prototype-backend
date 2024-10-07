@@ -15,6 +15,13 @@ using Status = TdmPrototypeDmpSynchroniser.Api.Models.Status;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Services;
 
+
+public enum SyncStatus
+{
+    Failed,
+    Success,
+    SuccessAndMatched
+}
 public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config, IBlobService blobService, IStorageService<Movement> movementService, IStorageService<Notification> notificationService, IMatchingService matchingService)
     : BaseService(loggerFactory, config), ISyncService
 {
@@ -58,13 +65,19 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
             
             var itemCount = 0;
             var erroredCount = 0;
+            var matchedCount = 0;
             foreach (IBlobItem item in result) //.Take(5)) //
             {
                var success = await SyncMovement(item);
 
-               if (success)
+               if (success == SyncStatus.Success)
                {
                    itemCount++;
+               }
+               else if (success == SyncStatus.SuccessAndMatched)
+               {
+                    itemCount++;
+                    matchedCount++;
                }
                else
                {
@@ -74,7 +87,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
             
             return new Status()
             {
-                Success = true, Description = String.Format($"Connected. {itemCount} items upserted. {erroredCount} errors.")
+                Success = true, Description = String.Format($"Connected. {itemCount} items upserted. {erroredCount} errors.  {matchedCount} items matched")
             };
         }
         catch (Exception ex)
@@ -85,7 +98,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
         }
     }
 
-    internal async Task<bool> SyncMovement(IBlobItem item)
+    internal async Task<SyncStatus> SyncMovement(IBlobItem item)
     {
         try
         {
@@ -132,17 +145,21 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
             var document = movement.Items?.FirstOrDefault()?.Documents?.FirstOrDefault();
             if (document != null)
             {
-                await matchingService.Match(MatchingReferenceNumber.FromCds(document?.DocumentReference, document?.DocumentCode));    
+                var matchResult = await matchingService.Match(MatchingReferenceNumber.FromCds(document?.DocumentReference, document?.DocumentCode));
+                if (matchResult.Matched)
+                {
+                    return SyncStatus.SuccessAndMatched;
+                }
             }
 
-            return true;
+            return SyncStatus.Success;
 
         }
         catch (Exception ex)
         {
             Logger.LogError($"Failed to upsert movement from file {item.Name}. {ex.ToString()}.");
 
-            return false;
+            return SyncStatus.Failed;
         }
     }
 
@@ -189,7 +206,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
             
             return new Status()
             {
-                Success = true, Description = String.Format($"Connected. {itemCount} items upserted. {erroredCount} errors.")
+                Success = true, Description = $"Connected. {itemCount} items upserted. {erroredCount} errors."
             };
         }
         catch (Exception ex)

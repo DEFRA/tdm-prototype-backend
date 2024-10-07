@@ -43,6 +43,7 @@ public partial class IpaffsDetailsOnReExport  //
     /// </summary
     [Attr]
     [JsonPropertyName("transportType")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsDetailsOnReExportTransportTypeEnum? TransportType { get; set; }
 
 	

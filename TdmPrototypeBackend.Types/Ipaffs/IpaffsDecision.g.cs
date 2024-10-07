@@ -35,6 +35,7 @@ public partial class IpaffsDecision  //
     /// </summary
     [Attr]
     [JsonPropertyName("notAcceptableAction")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsDecisionNotAcceptableActionEnum? NotAcceptableAction { get; set; }
 
 	
@@ -43,6 +44,7 @@ public partial class IpaffsDecision  //
     /// </summary
     [Attr]
     [JsonPropertyName("notAcceptableActionDestructionReason")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsDecisionNotAcceptableActionDestructionReasonEnum? NotAcceptableActionDestructionReason { get; set; }
 
 	
@@ -51,6 +53,7 @@ public partial class IpaffsDecision  //
     /// </summary
     [Attr]
     [JsonPropertyName("notAcceptableActionEntryRefusalReason")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsDecisionNotAcceptableActionEntryRefusalReasonEnum? NotAcceptableActionEntryRefusalReason { get; set; }
 
 	
@@ -59,6 +62,7 @@ public partial class IpaffsDecision  //
     /// </summary
     [Attr]
     [JsonPropertyName("notAcceptableActionQuarantineImposedReason")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsDecisionNotAcceptableActionQuarantineImposedReasonEnum? NotAcceptableActionQuarantineImposedReason { get; set; }
 
 	
@@ -67,6 +71,7 @@ public partial class IpaffsDecision  //
     /// </summary
     [Attr]
     [JsonPropertyName("notAcceptableActionSpecialTreatmentReason")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsDecisionNotAcceptableActionSpecialTreatmentReasonEnum? NotAcceptableActionSpecialTreatmentReason { get; set; }
 
 	
@@ -75,6 +80,7 @@ public partial class IpaffsDecision  //
     /// </summary
     [Attr]
     [JsonPropertyName("notAcceptableActionIndustrialProcessingReason")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsDecisionNotAcceptableActionIndustrialProcessingReasonEnum? NotAcceptableActionIndustrialProcessingReason { get; set; }
 
 	
@@ -83,6 +89,7 @@ public partial class IpaffsDecision  //
     /// </summary
     [Attr]
     [JsonPropertyName("notAcceptableActionReDispatchReason")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsDecisionNotAcceptableActionReDispatchReasonEnum? NotAcceptableActionReDispatchReason { get; set; }
 
 	
@@ -91,6 +98,7 @@ public partial class IpaffsDecision  //
     /// </summary
     [Attr]
     [JsonPropertyName("notAcceptableActionUseForOtherPurposesReason")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsDecisionNotAcceptableActionUseForOtherPurposesReasonEnum? NotAcceptableActionUseForOtherPurposesReason { get; set; }
 
 	
@@ -171,6 +179,7 @@ public partial class IpaffsDecision  //
     /// </summary
     [Attr]
     [JsonPropertyName("specificWarehouseNonConformingConsignment")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsDecisionSpecificWarehouseNonConformingConsignmentEnum? SpecificWarehouseNonConformingConsignment { get; set; }
 
 	
@@ -187,6 +196,7 @@ public partial class IpaffsDecision  //
     /// </summary
     [Attr]
     [JsonPropertyName("decision")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsDecisionDecisionEnum? Decision { get; set; }
 
 	
@@ -195,6 +205,7 @@ public partial class IpaffsDecision  //
     /// </summary
     [Attr]
     [JsonPropertyName("freeCirculationPurpose")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsDecisionFreeCirculationPurposeEnum? FreeCirculationPurpose { get; set; }
 
 	
@@ -203,6 +214,7 @@ public partial class IpaffsDecision  //
     /// </summary
     [Attr]
     [JsonPropertyName("definitiveImportPurpose")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsDecisionDefinitiveImportPurposeEnum? DefinitiveImportPurpose { get; set; }
 
 	
@@ -211,6 +223,7 @@ public partial class IpaffsDecision  //
     /// </summary
     [Attr]
     [JsonPropertyName("ifChanneledOption")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsDecisionIfChanneledOptionEnum? IfChanneledOption { get; set; }
 
 	

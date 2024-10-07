@@ -1,0 +1,368 @@
+{
+  "id": 1442,
+  "referenceNumber": "CHEDP.GB.2024.1001439",
+  "version": 2,
+  "lastUpdated": "2024-04-16T14:57:58.84809835Z",
+  "lastUpdatedBy": {
+    "displayName": "Andrew Inspector-Tester",
+    "userId": "79f6dc68-2144-e911-a96a-000d3a29ba60"
+  },
+  "type": "CVEDP",
+  "status": "AMEND",
+  "journeyRiskCategorisation": {
+    "riskLevel": "Low",
+    "riskLevelMethod": "User",
+    "riskLevelDateTime": "2024-04-16T14:43:18.141"
+  },
+  "isHighRiskEuImport": false,
+  "partOne": {
+    "personResponsible": {
+      "name": "Andrew Inspector-Tester",
+      "companyId": "767ceb6a-2144-e911-a96c-000d3a29b5de",
+      "companyName": "Defra Test BIP",
+      "address": [
+        "Animal and Plant Health Agency",
+        "Woodham Lane",
+        "New Haw",
+        "Surrey",
+        "Addlestone",
+        "KT15 3NB"
+      ],
+      "country": "GB",
+      "tracesID": 1001,
+      "phone": "020 8225 7295",
+      "email": "DefraTestBIP@anthunt3.33mail.com",
+      "contactId": "79f6dc68-2144-e911-a96a-000d3a29ba60"
+    },
+    "consignor": {
+      "id": "97038bbe-97da-487d-8221-6ff1989b4c27",
+      "type": "exporter",
+      "status": "nonapproved",
+      "companyName": "c36d664cd4314a969533988bc8e50d09",
+      "address": {
+        "addressLine1": "5210 Lafayette River",
+        "addressLine2": "Apt. 577",
+        "addressLine3": "Maryland",
+        "city": "Lianaport",
+        "postalZipCode": "62189-0",
+        "countryISOCode": "FR",
+        "telephone": "01615555555",
+        "email": "ukoperator@email.com"
+      },
+      "tracesId": 10004752
+    },
+    "consignee": {
+      "id": "b5334368-3a09-4d70-a553-6be7ea6b2f4d",
+      "type": "consignee",
+      "status": "nonapproved",
+      "companyName": "e698637ab263481a95195cc9dacb5d98",
+      "address": {
+        "addressLine1": "285 Angelita Fort",
+        "addressLine2": "Suite 873",
+        "addressLine3": "North Dakota",
+        "city": "North Amos",
+        "postalZipCode": "88272",
+        "countryISOCode": "GB",
+        "telephone": "01615555555",
+        "email": "ukoperator@email.com"
+      },
+      "tracesId": 10002842
+    },
+    "importer": {
+      "id": "b5334368-3a09-4d70-a553-6be7ea6b2f4d",
+      "type": "consignee",
+      "status": "nonapproved",
+      "companyName": "e698637ab263481a95195cc9dacb5d98",
+      "address": {
+        "addressLine1": "285 Angelita Fort",
+        "addressLine2": "Suite 873",
+        "addressLine3": "North Dakota",
+        "city": "North Amos",
+        "postalZipCode": "88272",
+        "countryISOCode": "GB",
+        "telephone": "01615555555",
+        "email": "ukoperator@email.com"
+      },
+      "tracesId": 10002842
+    },
+    "placeOfDestination": {
+      "id": "b5334368-3a09-4d70-a553-6be7ea6b2f4d",
+      "type": "consignee",
+      "status": "nonapproved",
+      "companyName": "e698637ab263481a95195cc9dacb5d98",
+      "address": {
+        "addressLine1": "285 Angelita Fort",
+        "addressLine2": "Suite 873",
+        "addressLine3": "North Dakota",
+        "city": "North Amos",
+        "postalZipCode": "88272",
+        "countryISOCode": "GB",
+        "telephone": "01615555555",
+        "email": "ukoperator@email.com"
+      },
+      "tracesId": 10002842
+    },
+    "commodities": {
+      "totalGrossWeight": 2000,
+      "totalNetWeight": 160,
+      "numberOfPackages": 70,
+      "temperature": "Ambient",
+      "commodityComplement": [
+        {
+          "commodityID": "020130",
+          "commodityDescription": "Boneless",
+          "complementID": 1,
+          "complementName": "Bison bison",
+          "speciesID": "69125",
+          "speciesName": "Bison bison",
+          "speciesTypeName": "Domestic",
+          "speciesType": "16",
+          "speciesClass": "69125",
+          "speciesNomination": "Bison bison"
+        },
+        {
+          "commodityID": "0506",
+          "commodityDescription": "Bones and horn-cores, unworked, defatted, simply prepared (but not cut to shape), treated with acid or degelatinised; powder and waste of these products",
+          "complementID": 2,
+          "complementName": "Aves",
+          "speciesID": "17905",
+          "speciesName": "Aves",
+          "speciesTypeName": "Bone",
+          "speciesType": "6",
+          "speciesClass": "193490",
+          "speciesNomination": "Aves"
+        },
+        {
+          "commodityID": "0506",
+          "commodityDescription": "Bones and horn-cores, unworked, defatted, simply prepared (but not cut to shape), treated with acid or degelatinised; powder and waste of these products",
+          "complementID": 2,
+          "complementName": "Pesca",
+          "speciesID": "193490",
+          "speciesName": "Pesca",
+          "speciesTypeName": "Bone",
+          "speciesType": "6",
+          "speciesClass": "193490",
+          "speciesNomination": "Pesca"
+        },
+        {
+          "commodityID": "151610",
+          "commodityDescription": "Animal fats and oils and their fractions",
+          "complementID": 3,
+          "complementName": "By-products / feedingstuff",
+          "speciesTypeName": "By-products / feedingstuff",
+          "speciesType": "8",
+          "speciesClass": "37399"
+        },
+        {
+          "commodityID": "97052200",
+          "commodityDescription": "Extinct or endangered species and parts thereof",
+          "complementID": 4,
+          "complementName": "Antilocaparidae",
+          "speciesID": "69103",
+          "speciesName": "Antilocaparidae",
+          "speciesTypeName": "Game trophies",
+          "speciesType": "25",
+          "speciesClass": "69103",
+          "speciesNomination": "Antilocaparidae"
+        },
+        {
+          "commodityID": "97052200",
+          "commodityDescription": "Extinct or endangered species and parts thereof",
+          "complementID": 4,
+          "complementName": "Aves",
+          "speciesID": "18041",
+          "speciesName": "Aves",
+          "speciesTypeName": "Game trophies",
+          "speciesType": "25",
+          "speciesClass": "69103",
+          "speciesNomination": "Aves"
+        },
+        {
+          "commodityID": "97052200",
+          "commodityDescription": "Extinct or endangered species and parts thereof",
+          "complementID": 4,
+          "complementName": "Bovidae",
+          "speciesID": "72435",
+          "speciesName": "Bovidae",
+          "speciesTypeName": "Game trophies",
+          "speciesType": "25",
+          "speciesClass": "69103",
+          "speciesNomination": "Bovidae"
+        }
+      ],
+      "complementParameterSet": [
+        {
+          "complementID": 1,
+          "speciesID": "69125",
+          "keyDataPair": [
+            {
+              "key": "netweight",
+              "data": "10"
+            },
+            {
+              "key": "number_package",
+              "data": "10"
+            },
+            {
+              "key": "type_package",
+              "data": "Bale"
+            }
+          ]
+        },
+        {
+          "complementID": 2,
+          "speciesID": "17905",
+          "keyDataPair": [
+            {
+              "key": "netweight",
+              "data": "10"
+            },
+            {
+              "key": "number_package",
+              "data": "10"
+            },
+            {
+              "key": "type_package",
+              "data": "Bag"
+            }
+          ]
+        },
+        {
+          "complementID": 2,
+          "speciesID": "193490",
+          "keyDataPair": [
+            {
+              "key": "netweight",
+              "data": "10"
+            },
+            {
+              "key": "number_package",
+              "data": "10"
+            },
+            {
+              "key": "type_package",
+              "data": "Bale"
+            }
+          ]
+        },
+        {
+          "complementID": 3,
+          "keyDataPair": [
+            {
+              "key": "netweight",
+              "data": "100"
+            },
+            {
+              "key": "number_package",
+              "data": "10"
+            },
+            {
+              "key": "type_package",
+              "data": "Bale"
+            }
+          ]
+        },
+        {
+          "complementID": 4,
+          "speciesID": "69103",
+          "keyDataPair": [
+            {
+              "key": "netweight",
+              "data": "10"
+            },
+            {
+              "key": "number_package",
+              "data": "10"
+            },
+            {
+              "key": "type_package",
+              "data": "Block"
+            }
+          ]
+        },
+        {
+          "complementID": 4,
+          "speciesID": "18041",
+          "keyDataPair": [
+            {
+              "key": "netweight",
+              "data": "10"
+            },
+            {
+              "key": "number_package",
+              "data": "10"
+            },
+            {
+              "key": "type_package",
+              "data": "Bale"
+            }
+          ]
+        },
+        {
+          "complementID": 4,
+          "speciesID": "72435",
+          "keyDataPair": [
+            {
+              "key": "netweight",
+              "data": "10"
+            },
+            {
+              "key": "number_package",
+              "data": "10"
+            },
+            {
+              "key": "type_package",
+              "data": "Bale"
+            }
+          ]
+        }
+      ],
+      "includeNonAblactedAnimals": false,
+      "countryOfOrigin": "AF",
+      "consignedCountry": "AF"
+    },
+    "purpose": {
+      "conformsToEU": true,
+      "internalMarketPurpose": "Animal Feeding Stuff",
+      "purposeGroup": "For Import"
+    },
+    "pointOfEntry": "GBEMA4",
+    "arrivalDate": "2024-04-17",
+    "arrivalTime": "12:20:00",
+    "transporterDetailsRequired": false,
+    "meansOfTransport": {},
+    "meansOfTransportFromEntryPoint": {
+      "id": "BE.ID",
+      "type": "Aeroplane",
+      "document": "BE.DOC"
+    },
+    "veterinaryInformation": {
+      "establishmentsOfOrigin": [
+        {
+          "id": "386bec95-9b85-970a-641a-74bd6c1d05ce",
+          "name": "SUDAIS SAUD CO. LTD.",
+          "country": "AF",
+          "types": [
+            "Category 3"
+          ],
+          "approvalNumber": "003",
+          "section": "Other facility for the collection or handling of animal by-products(unprocessed or untreated materials)"
+        }
+      ]
+    },
+    "submissionDate": "2024-04-16T14:44:24.443392543Z",
+    "submittedBy": {
+      "displayName": "Andrew Inspector-Tester",
+      "userId": "79f6dc68-2144-e911-a96a-000d3a29ba60"
+    },
+    "complexCommoditySelected": true,
+    "portOfEntry": "GBEMA",
+    "contactDetails": {
+      "name": "Andrew Inspector-Tester",
+      "telephone": "020 8225 7295",
+      "email": "defratestbip@anthunt3.33mail.com"
+    },
+    "isGVMSRoute": false
+  },
+  "etag": "0000000000004F9B"
+}

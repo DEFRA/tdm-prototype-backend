@@ -1,7 +1,6 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Api.Config;
-using TdmPrototypeBackend.Api.Data;
 using TdmPrototypeBackend.Api.Utils;
 using TdmPrototypeBackend.Api.Extensions;
 using FluentValidation;
@@ -81,12 +80,6 @@ if (builder.IsDevMode())
         mongoUri, mongoDatabaseName);
 }
 
-// Mongo
-var factory = new MongoDbClientFactory(loggerFactory.CreateLogger<MongoDbClientFactory>(), mongoUri,
-    mongoDatabaseName);
-
-builder.Services.AddSingleton<IMongoDbClientFactory>(_ =>
-    factory);
 
 // health checks
 builder.Services.AddHealthChecks();
@@ -115,7 +108,6 @@ static void ConfigureJsonApiOptions(JsonApiOptions options)
 
 builder.Services.AddSingleton<BackendConfig, BackendConfig>();
 
-builder.Services.AddSingleton<IMongoDatabase>(_ => factory.CreateClient().GetDatabase(mongoDatabaseName));
 
 builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.AddAssembly(Assembly.Load("TdmPrototypeBackend.Types")));
 

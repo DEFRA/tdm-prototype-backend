@@ -21,6 +21,11 @@ static class Bootstrap
 
     public static void RegisterIpaffsClassMaps()
     {
+        GeneratorEnumMap.RegisterEnumMap("purposeGroup", map =>
+        {
+            map.AddEnumValue("For Import Non-Internal Market");
+        });
+
         GeneratorClassMap.RegisterClassMap("Notification", map =>
         {
             map.MapProperty("riskDecisionLockingTime").SetType("DateTime");

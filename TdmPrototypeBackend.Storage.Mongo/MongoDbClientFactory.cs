@@ -6,7 +6,7 @@ namespace TdmPrototypeBackend.Storage.Mongo;
 public class MongoDbClientFactory : IMongoDbClientFactory
 {
     private readonly string _connectionString;
-    private readonly IMongoDatabase _mongoDatabase;
+    protected readonly IMongoDatabase MongoDatabase;
     private IMongoClient _client;
 
     public MongoDbClientFactory(string? connectionString, string databaseName)
@@ -15,7 +15,7 @@ public class MongoDbClientFactory : IMongoDbClientFactory
             throw new ArgumentException("MongoDB connection string cannot be empty");
         _connectionString = connectionString;
         _client = CreateClient();
-        _mongoDatabase = _client.GetDatabase(databaseName); // change me
+        MongoDatabase = _client.GetDatabase(databaseName); // change me
     }
 
     public IMongoClient CreateClient()
@@ -30,6 +30,6 @@ public class MongoDbClientFactory : IMongoDbClientFactory
 
     public IMongoCollection<T> GetCollection<T>(string collection)
     {
-        return _mongoDatabase.GetCollection<T>(collection);
+        return MongoDatabase.GetCollection<T>(collection);
     }
 }

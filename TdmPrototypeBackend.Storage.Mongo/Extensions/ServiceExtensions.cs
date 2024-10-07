@@ -1,6 +1,7 @@
 using System.Net;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 
 namespace TdmPrototypeBackend.Storage.Mongo.Extensions;
@@ -26,10 +27,12 @@ public static class ServiceExtensions
         var factory = new MongoDbClientFactory(mongoUri,
             mongoDatabaseName);
 
-        services.AddSingleton<IMongoDbClientFactory>(_ =>
-        factory);
-        
-        
+        services.AddSingleton<IMongoDbClientFactory>(_ => factory);
+        services.AddSingleton<IMongoDbManagementClientFactory>(sp =>
+            new MongoDbManagementClientFactory(sp.GetService<ILogger<MongoDbManagementClientFactory>>(), mongoUri,
+                mongoDatabaseName));
+
+
         services.AddSingleton<IMongoDatabase>(_ => factory.CreateClient().GetDatabase(mongoDatabaseName));
     }
 }

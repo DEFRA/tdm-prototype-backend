@@ -27,6 +27,7 @@ public partial class IpaffsJourneyRiskCategorisationResult  //
     /// </summary
     [Attr]
     [JsonPropertyName("riskLevel")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsJourneyRiskCategorisationResultRiskLevelEnum? RiskLevel { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsJourneyRiskCategorisationResult  //
     /// </summary
     [Attr]
     [JsonPropertyName("riskLevelMethod")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsJourneyRiskCategorisationResultRiskLevelMethodEnum? RiskLevelMethod { get; set; }
 
 	

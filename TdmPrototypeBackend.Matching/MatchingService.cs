@@ -44,7 +44,7 @@ namespace TdmPrototypeBackend.Matching
                     notification.Movements.RemoveAll(x => !x.Matched);
                     if (notification.IpaffsType != referenceNumber.ChedType)
                     {
-                        notification.Movements.Add(new MatchingStatus()
+                        notification.AddMatchingStatus(new MatchingStatus()
                         {
                             AdditionalInformation =
                             [
@@ -60,7 +60,7 @@ namespace TdmPrototypeBackend.Matching
                     }
                     else
                     {
-                        notification.Movements.Add(new MatchingStatus()
+                        notification.AddMatchingStatus(new MatchingStatus()
                         {
                             AdditionalInformation =
                             [
@@ -92,20 +92,26 @@ namespace TdmPrototypeBackend.Matching
                     matchReference));
                 var notification = notifications.FirstOrDefault();
 
+                if (notification == null)
+                {
+                    return new MatchResult(false);
+                }
+
             var filter = Builders<Movement>.Filter.AnyIn(x => x._MatchReferences, [matchReference]);
 
             var items = await movementService.Filter(filter);
 
             foreach (var movement in items)
             {
-                movement.Notifications.Add(new MatchingStatus() {
+                movement.Notifications.RemoveAll(x => !x.Matched);
+                movement.AddMatchingStatus(new MatchingStatus() {
                     AdditionalInformation =
                     [
                         new("matchingLevel", "1")
                     ],
                     Matched = true,
                     Reference = notification.Id,
-                    Item = notification.PartOne?.Commodities?.CommodityComplements?.FirstOrDefault()?.UniqueComplementID 
+                    Item = notification.PartOne?.Commodities?.CommodityComplements?.FirstOrDefault()?.CommodityID 
                 });
                 await movementService.Upsert(movement);
             }

@@ -27,6 +27,7 @@ public partial class IpaffsInspectionCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("type")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsInspectionCheckTypeEnum? IpaffsType { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsInspectionCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("status")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsInspectionCheckStatusEnum? Status { get; set; }
 
 	

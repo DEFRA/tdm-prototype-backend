@@ -16,7 +16,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
 {
     private readonly ITestOutputHelper output;
     private string testId = Guid.NewGuid().ToString();
-    private string apiHost = Environment.GetEnvironmentVariable("API_TARGET") ?? "https://localhost:7094";
+    private string apiHost = Environment.GetEnvironmentVariable("API_TARGET") ?? "https://localhost:3080";
     
     // [Fact]
     // public void CreateClearanceRequest()
@@ -30,7 +30,13 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
     //     Console.WriteLine("Response from ClearanceRequest API {0}", response.ToJson());
     //     Assert.Equal(201, (int)response.HttpStatusCode);
     // }
-    
+
+    private Dictionary<string, string> GetHeaders()
+    {
+        // This is just a correctly formed JWT for now
+        // May need updating later
+        return new Dictionary<string, string>() { { "Authorization", "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImZFTUh2NUE2a3lkd0tfak05M0xPYkVwYlpKWlRPRGdmTDdyT3R1Q2N6aTgifQ.eyJpZCI6IjNjZmNmZWIwLWMwZGEtNDVjMS1iYzQ0LTU0NTUxMjAyMzU1OSIsInN1YiI6IjNjZmNmZWIwLWMwZGEtNDVjMS1iYzQ0LTU0NTUxMjAyMzU1OSIsImlzcyI6Imh0dHA6Ly9jZHAtZGVmcmEtaWQtc3R1Yi5sb2NhbHRlc3QubWU6NzIwMC9jZHAtZGVmcmEtaWQtc3R1YiIsImNvcnJlbGF0aW9uSWQiOiIzNGE1YTIzZC1jNTBiLTQ5MWUtOWZlNy03NTU1MDBmYzBlNDMiLCJzZXNzaW9uSWQiOiJmZDlkZmM3Yy1kNDJkLTQ2MGUtYjMxMy1iZDk4YTdhMDkxOGQiLCJjb250YWN0SWQiOiI3M2FjMGRhZi1iOTk3LTQxNjEtOGNmMy05Mzg3OTMyYWVlZDUiLCJzZXJ2aWNlSWQiOiJjZHAtZGVmcmEtaWQtc3R1YiIsImZpcnN0TmFtZSI6IlBIQSIsImxhc3ROYW1lIjoiUkVMOTUiLCJlbWFpbCI6IlBIQVJFTDk1QGVxdWFsZXhwZXJ0cy5jb20iLCJ1bmlxdWVSZWZlcmVuY2UiOiJlYTA1ZGQ3OC1hOGRlLTQ3MWEtODhlYy05YTdmZTFhZGYyZGYiLCJsb2EiOiIxIiwiYWFsIjoiMSIsImVucm9sbWVudENvdW50IjoiMSIsImVucm9sbWVudFJlcXVlc3RDb3VudCI6IjEiLCJjdXJyZW50UmVsYXRpb25zaGlwSWQiOiJQSEEiLCJyZWxhdGlvbnNoaXBzIjoiUEhBOlJFTDk1OlBIQSBSRUw5NTowOnVuZGVmaW5lZDowIiwicm9sZXMiOiIiLCJpYXQiOjE3Mjc5NDk2Mzl9.lC26gOKnj9w0acjXQC_2P-u9vocgowoqUIb7fh9unoDT3c_bGxGGvmoLfRw07VUGQTFmmmF0XboN2m3LB_4HkZRw9F2O5IOR1kkAjExRGE59499rqL0hJh-afJtgaRGGWa-2KubrfjaGXXho8yxjsjw81okvPrhTAvbdOSUafLqJd4RBEtuVjCStaDL-mljcbF-U_IqYlnf802GDGDv53Smeh0K5ZSLX_FTD11xD6U6bx8w-eg6SF_PLE5dotG406--dlE4rgIfsopYdpMq-Og-_VPAyiozQrpLiXTZFdSMn9QhlKKcNTRaN-HtvbKaS8FpsdDhq__V6LstQP7zpiw" } };
+    }
     [Fact]
     public void CreateMovement()
     {
@@ -43,7 +49,8 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         JsonApiConsumer.Response<Movement> response = JsonApiConsumer.JsonApiConsumer.Create<Movement, Movement>(
             model: CreateChedAMovement(),
             baseURI: apiHost,
-            path: "api/movements"
+            path: "api/movements",
+            headers: GetHeaders()
         );
         
         Console.WriteLine("Response from Movement API {0}", response.ToJson());
@@ -58,7 +65,8 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         JsonApiConsumer.Response<GvmsGmr> response = JsonApiConsumer.JsonApiConsumer.Create<GvmsGmr, GvmsGmr>(
             model: r,
             baseURI: apiHost,
-            path: "api/gvmsgmrs"
+            path: "api/gvmsgmrs",
+            headers: GetHeaders()
         );
         
         Console.WriteLine("Response from GvmsGmr API {0}", response.ToJson());
@@ -71,7 +79,8 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         JsonApiConsumer.Response<Notification> response = JsonApiConsumer.JsonApiConsumer.Create<Notification, Notification>(
             model: CreateChedANotification(),
             baseURI: apiHost,
-            path: "api/notifications"
+            path: "api/notifications",
+            headers: GetHeaders()
         );
         
         Console.WriteLine("Response from IpaffsNotification API {0}", response.ToJson());
@@ -84,7 +93,8 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         JsonApiConsumer.Response<Notification> response = JsonApiConsumer.JsonApiConsumer.Create<Notification, Notification>(
             model: CreateChedANotification(notificationType: IpaffsNotificationTypeEnum.Cvedp),
             baseURI: apiHost,
-            path: "api/notifications"
+            path: "api/notifications",
+            headers: GetHeaders()
         );
         
         Console.WriteLine("Response from notification API {0}", response.ToJson());
@@ -99,7 +109,8 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         JsonApiConsumer.Response<GvmsGmr> gmrResponse = JsonApiConsumer.JsonApiConsumer.Create<GvmsGmr, GvmsGmr>(
             model: gmr,
             baseURI: apiHost,
-            path: "api/gvmsgmrs"
+            path: "api/gvmsgmrs",
+            headers: GetHeaders()
         );
         
         Console.WriteLine("Response from GvmsGmr API {0}", gmrResponse.ToJson());
@@ -112,7 +123,8 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         JsonApiConsumer.Response<Movement> crResponse = JsonApiConsumer.JsonApiConsumer.Create<Movement, Movement>(
             model: movement,
             baseURI: apiHost,
-            path: "api/movements"
+            path: "api/movements",
+            headers: GetHeaders()
         );
         
         Console.WriteLine("Response from Movement API {0}", crResponse.ToJson());
@@ -147,7 +159,8 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         JsonApiConsumer.Response<Movement> crResponse = JsonApiConsumer.JsonApiConsumer.Create<Movement, Movement>(
             model: movement,
             baseURI: apiHost,
-            path: "api/movements"
+            path: "api/movements",
+            headers: GetHeaders()
         );
         
         Console.WriteLine("Response from Movement API {0}", crResponse.ToJson());
@@ -164,7 +177,8 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         JsonApiConsumer.Response<Notification> response = JsonApiConsumer.JsonApiConsumer.Create<Notification, Notification>(
             model: notification,
             baseURI: apiHost,
-            path: "api/notifications"
+            path: "api/notifications",
+            headers: GetHeaders()
         );
         
         Console.WriteLine("Response from Notification API {0}", response.ToJson());

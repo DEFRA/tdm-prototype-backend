@@ -5,6 +5,7 @@ namespace TdmPrototypeBackend.Types;
 
 public class MatchingReferenceNumber
 {
+    
     private MatchingReferenceNumber(string countryCode, IpaffsNotificationTypeEnum chedType, string licenceType, int year, int identifier, char? splitIdentifier)
     {
         CountryCode = countryCode;
@@ -79,6 +80,11 @@ public class MatchingReferenceNumber
 
     public static MatchingReferenceNumber FromIpaffs(string reference, IpaffsNotificationTypeEnum type)
     {
+        if (reference == null)
+        {
+            throw new ArgumentNullException(nameof(reference));
+        }
+
         var parts = reference.Split(".");
         int identifier;
         char? splitIdentifier = null;

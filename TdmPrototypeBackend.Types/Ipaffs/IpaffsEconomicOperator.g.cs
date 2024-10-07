@@ -35,6 +35,7 @@ public partial class IpaffsEconomicOperator  //
     /// </summary
     [Attr]
     [JsonPropertyName("type")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsEconomicOperatorTypeEnum? IpaffsType { get; set; }
 
 	
@@ -43,6 +44,7 @@ public partial class IpaffsEconomicOperator  //
     /// </summary
     [Attr]
     [JsonPropertyName("status")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsEconomicOperatorStatusEnum? Status { get; set; }
 
 	
