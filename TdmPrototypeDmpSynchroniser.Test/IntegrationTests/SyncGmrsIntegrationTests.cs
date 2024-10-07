@@ -1,16 +1,18 @@
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using TdmPrototypeBackend.Storage;
+using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeBackend.Types.VehicleMovement;
 using TdmPrototypeDmpSynchroniser.Api.Services;
+using Xunit.Abstractions;
 
 namespace TdmPrototypeDmpSynchroniser.Test.IntegrationTests;
 
 [Trait("Category", "Integration")]
 public class SyncGmrsIntegrationTests : IntegrationTests
 {
-    public SyncGmrsIntegrationTests() : base()
+    public SyncGmrsIntegrationTests(ITestOutputHelper helper) : base(helper)
     {
 
     }
@@ -22,8 +24,7 @@ public class SyncGmrsIntegrationTests : IntegrationTests
 
     protected override Task OnBeforeTest()
     {
-        var mongoHelper = ServiceProvider.GetService<MongoHelperService<Gmrs>>();
-        return mongoHelper.ClearCollection();
+        return Dependencies.MongoClearCollection<Gmrs>();
     }
 
     [Fact]

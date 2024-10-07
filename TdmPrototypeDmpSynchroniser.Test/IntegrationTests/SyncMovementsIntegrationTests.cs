@@ -79,7 +79,7 @@ public class SyncMovementsIntegrationTests(ITestOutputHelper outputHelper) : Int
         Mock<IStorageService<Gmrs>> gmrsService = new Mock<IStorageService<Gmrs>>();
 
         var movementService = Dependencies.ServiceProvider.GetService<IStorageService<Movement>>()!;
-            movementService, notificationService.Object, gmrsService.Object, null);
+           // movementService, notificationService.Object, gmrsService.Object, null);
 
         var result = await Dependencies.ServiceProvider.GetService<ISyncService>().SyncMovements(SyncPeriod.All);
 
