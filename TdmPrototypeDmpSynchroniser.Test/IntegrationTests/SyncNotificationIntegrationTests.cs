@@ -54,7 +54,7 @@ public class SyncNotificationIntegrationTests : IntegrationTests
         notification.AuditEntries[1].Version.Should().Be(3);
         notification.AuditEntries[1].CreatedBy.Should().Be("Mark Admin-Tester");
         notification.AuditEntries[1].Status.Should().Be("Updated");
-        notification.AuditEntries[1].Diff.Count.Should().Be(5);
+        notification.AuditEntries[1].Diff.Count.Should().Be(6);
 
     }
 

@@ -12,6 +12,7 @@ using TdmPrototypeBackend.Storage;
 using TdmPrototypeBackend.Storage.Mongo;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Ipaffs;
+using TdmPrototypeBackend.Types.VehicleMovement;
 using TdmPrototypeDmpSynchroniser.Api.Config;
 using TdmPrototypeDmpSynchroniser.Api.Models;
 using TdmPrototypeDmpSynchroniser.Api.Services;
@@ -89,9 +90,10 @@ public class SyncMovementsIntegrationTests : IntegrationTests
         // IStorageService<Movement> movementService = new MongoStorageService<Movement>();
         var movementService = ServiceProvider.GetService<IStorageService<Movement>>()!;
         Mock<IStorageService<Notification>> notificationService = new Mock<IStorageService<Notification>>();
+        Mock<IStorageService<Gmrs>> gmrsService = new Mock<IStorageService<Gmrs>>();
 
         var syncService = new SyncService(logger, config, cachingBlobService,
-            movementService, notificationService.Object, null);
+            movementService, notificationService.Object, gmrsService.Object, null);
 
         var result = await syncService.SyncMovements(SyncPeriod.All);
 

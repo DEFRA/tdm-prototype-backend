@@ -1,4 +1,5 @@
 using System.Dynamic;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text.Json.JsonDiffPatch;
 using System.Text.Json.Nodes;
@@ -9,13 +10,16 @@ using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Alvs;
 using TdmPrototypeBackend.Types.Extensions;
 using TdmPrototypeBackend.Types.Ipaffs;
+using TdmPrototypeBackend.Types.VehicleMovement;
 using TdmPrototypeDmpSynchroniser.Api.Config;
 using TdmPrototypeDmpSynchroniser.Api.Models;
 using Status = TdmPrototypeDmpSynchroniser.Api.Models.Status;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Services;
 
-public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config, IBlobService blobService, IStorageService<Movement> movementService, IStorageService<Notification> notificationService, IMatchingService matchingService)
+public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config, 
+    IBlobService blobService, IStorageService<Movement> movementService, 
+    IStorageService<Notification> notificationService, IStorageService<Gmrs> gmrsService, IMatchingService matchingService)
     : BaseService(loggerFactory, config), ISyncService
 {
 
@@ -160,7 +164,115 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
             throw;
         }
     }
-    
+    public async Task<Status> SyncGmrs(SyncPeriod period)
+    {
+        Logger.LogDebug($"SyncGmrs period={period}");
+        try
+        {
+            var itemCount = 0;
+            var erroredCount = 0;
+
+            var result = await blobService.GetResourcesAsync($"RAW/GVMSAPIRESPONSE{GetPeriodPath(period)}");
+
+            foreach (IBlobItem item in result) 
+            {
+                var success = await SyncGmrs(item);
+
+                if (success)
+                {
+                    itemCount++;
+                }
+                else
+                {
+                    erroredCount++;
+                }
+            }
+
+            return new Status()
+            {
+                Success = true,
+                Description = String.Format($"Connected. {itemCount} items upserted. {erroredCount} errors.")
+            };
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex.ToString());
+
+            return new Status() { Success = false, Description = ex.Message };
+        }
+    }
+
+    internal async Task<bool> SyncGmrs(IBlobItem item)
+    {
+        try
+        {
+            var gmrs = await ConvertGmrs(item);
+
+            foreach (var gmr in gmrs)
+            {
+                var existingGmr = await gmrsService.Find(gmr.Id);
+
+                if (existingGmr is null)
+                {
+                    var auditEntry = AuditEntry.CreateCreatedEntry(gmr, gmr.Id, 1, gmr.UpdatedDateTime, null);
+                    gmr.AuditEntries.Add(auditEntry);
+                    await gmrsService.Upsert(gmr);
+                }
+                else
+                {
+                    if (gmr.UpdatedDateTime > existingGmr.UpdatedDateTime)
+                    {
+                        gmr.AuditEntries = gmr.AuditEntries;
+                        var auditEntry = AuditEntry.Create(existingGmr, gmr, gmr.Id, gmr.AuditEntries.Count + 1, gmr.UpdatedDateTime, null);
+                        gmr.AuditEntries.Add(auditEntry);
+                        await gmrsService.Upsert(gmr);
+                    }
+                }
+            }
+
+            return true;
+
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError($"Failed to upsert movement from file {item.Name}. {ex.ToString()}.");
+
+            return false;
+        }
+    }
+
+    private async Task<List<Gmrs>> ConvertGmrs(IBlobItem item)
+    {
+        var blob = await blobService.GetBlobAsync(item.Name);
+
+        try
+        {
+            var response =  GmrsExtensions.FromBlob(blob.Content);
+
+            foreach (var declarationId in response.GmrByDeclarationIds)
+            {
+                foreach (var gmrId in declarationId.Gmrs)
+                {
+                    var gmr = response.Gmrs.FirstOrDefault(x => x.GmrId == gmrId);
+
+                    if (gmr is not null)
+                    {
+                        gmr.DeclarationId = declarationId.Dec;
+                    }
+                }
+
+                
+            }
+
+            return response.Gmrs.ToList();
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError($"Failed to convert file {item.Name} to movement. {ex.ToString()}. {blob.Content}");
+            throw;
+        }
+    }
+
     public async Task<Status> SyncNotifications(SyncPeriod period)
     {
         Logger.LogInformation($"SyncNotifications period={period}");
@@ -199,7 +311,9 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
             return new Status() { Success = false, Description = ex.Message };
         }
     }
-    
+
+   
+
     public async Task<(int, int)> SyncIpaffsNotifications(string path)
     {
         var itemCount = 0;
