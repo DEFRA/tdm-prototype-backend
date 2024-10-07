@@ -23,6 +23,9 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
 
 public enum SyncStatus
 {
+public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config, 
+    IBlobService blobService, IStorageService<Movement> movementService, 
+    IStorageService<Notification> notificationService, IStorageService<Gmrs> gmrsService, IMatchingService matchingService)
     Failed,
     Success,
     SuccessAndMatched
