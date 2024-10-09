@@ -48,10 +48,27 @@ static class Bootstrap
 
     public static void RegisterVehicleMovementsClassMaps()
     {
-        GeneratorClassMap.RegisterClassMap("Gmrs", map =>
+        GeneratorClassMap.RegisterClassMap("gmrs", map =>
         {
-            map.MapProperty("updatedDateTime").SetType("DateTime");
+            map.SetClassName("Gmr");
+            map.MapProperty("updatedDateTime").SetName("lastUpdated").SetType("DateTime");
         });
+
+        GeneratorClassMap.RegisterClassMap("SearchGmrsForDeclarationIdsResponse", map =>
+        {
+            map.MapProperty("Gmrs").SetType("Gmr[]");
+        });
+
+        GeneratorClassMap.RegisterClassMap("SearchGmrsForVRNsresponse", map =>
+        {
+            map.MapProperty("Gmrs").SetType("Gmr[]");
+        });
+
+        GeneratorClassMap.RegisterClassMap("SearchGmrsResponse", map =>
+        {
+            map.MapProperty("Gmrs").SetType("Gmr[]");
+        });
+
 
         GeneratorClassMap.RegisterClassMap("PlannedCrossing", map =>
         {

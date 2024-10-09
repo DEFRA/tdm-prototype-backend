@@ -33,10 +33,10 @@ public static class ServiceExtensions
         // services.AddSingleton<IStorageService<Movement>, JsonApiStorageService<Movement>>();
         services.AddSingleton<MongoDbOptions<Movement>, MongoDbOptions<Movement>>(_ => new MongoDbOptions<Movement>() { CollectionName = "Movement"});
         services.AddSingleton<MongoDbOptions<Notification>, MongoDbOptions<Notification>>(_ => new MongoDbOptions<Notification>() { CollectionName = "Notification"});
-        services.AddSingleton<MongoDbOptions<Gmrs>, MongoDbOptions<Gmrs>>(_ => new MongoDbOptions<Gmrs>() { CollectionName = "Gmrs" });
+        services.AddSingleton<MongoDbOptions<Gmr>, MongoDbOptions<Gmr>>(_ => new MongoDbOptions<Gmr>() { CollectionName = "Gmr" });
         services.AddSingleton<IStorageService<Movement>, MongoStorageService<Movement>>();
         services.AddSingleton<IStorageService<Notification>, MongoStorageService<Notification>>();
-        services.AddSingleton<IStorageService<Gmrs>, MongoStorageService<Gmrs>>();
+        services.AddSingleton<IStorageService<Gmr>, MongoStorageService<Gmr>>();
         // services.AddSingleton<IStorageService<Movement>, MongoStorageService<Movement>>(x => ActivatorUtilities.CreateInstance<MongoStorageService>(x,"", ));
     }
 }

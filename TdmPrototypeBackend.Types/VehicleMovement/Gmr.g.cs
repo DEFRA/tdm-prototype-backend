@@ -18,7 +18,7 @@ namespace TdmPrototypeBackend.Types.VehicleMovement;
 /// <summary>
 /// 
 /// </summary>
-public partial class Gmrs  //
+public partial class Gmr  //
 {
 
 
@@ -68,7 +68,7 @@ public partial class Gmrs  //
     /// </summary
     [Attr]
     [JsonPropertyName("updatedDateTime")]
-    public DateTime? UpdatedDateTime { get; set; }
+    public DateTime? LastUpdated { get; set; }
 
 	
     /// <summary>

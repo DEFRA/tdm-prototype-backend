@@ -76,7 +76,7 @@ public class SyncMovementsIntegrationTests(ITestOutputHelper outputHelper) : Int
                 services.AddSingleton<IStorageService<Notification>>(new Mock<IStorageService<Notification>>().Object);
             })
             .Build();
-        Mock<IStorageService<Gmrs>> gmrsService = new Mock<IStorageService<Gmrs>>();
+        Mock<IStorageService<Gmr>> gmrsService = new Mock<IStorageService<Gmr>>();
 
         var movementService = Dependencies.ServiceProvider.GetService<IStorageService<Movement>>()!;
 

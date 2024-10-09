@@ -21,10 +21,10 @@ namespace TdmPrototypeBackend.Types.VehicleMovement;
 /// <summary>
 /// 
 /// </summary>
-public partial class Gmrs : IMongoIdentifiable
+public partial class Gmr : IMongoIdentifiable
 {
     [JsonIgnore]
-    public string Type { get; set; } = "gmrs";
+    public string Type { get; set; } = "gmr";
 
     [JsonIgnore]
     public virtual string? Id
