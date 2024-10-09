@@ -35,7 +35,7 @@ public partial class SearchGmrsForVRNsresponse  //
     /// </summary
     [Attr]
     [JsonPropertyName("gmrs")]
-    public Gmrs[]? Gmrs { get; set; }
+    public Gmr[]? Gmrs { get; set; }
 
 	}
 

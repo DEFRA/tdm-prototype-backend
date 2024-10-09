@@ -19,12 +19,12 @@ public class SyncGmrsIntegrationTests : IntegrationTests
 
     protected override void AddTestServices(IServiceCollection services)
     {
-        services.AddSingleton<MongoHelperService<Gmrs>>();
+        services.AddSingleton<MongoHelperService<Gmr>>();
     }
 
     protected override Task OnBeforeTest()
     {
-        return Dependencies.MongoClearCollection<Gmrs>();
+        return Dependencies.MongoClearCollection<Gmr>();
     }
 
     [Fact]

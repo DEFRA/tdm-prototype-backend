@@ -42,6 +42,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels
 
             if (classMap is not null)
             {
+                @class.Name = classMap.ClassName;
                 foreach (var propertyMap in classMap.Properties)
                 {
                     var propertyDescriptor = @class.Properties.FirstOrDefault(x => x.Name.Equals(propertyMap.Name, StringComparison.InvariantCultureIgnoreCase));
@@ -51,6 +52,11 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels
                         if (propertyMap.TypeOverwritten)
                         {
                             propertyDescriptor.OverrideType(propertyMap.Type);
+                        }
+
+                        if (propertyMap.NameOverwritten)
+                        {
+                            propertyDescriptor.Name = propertyMap.OverriddenName;
                         }
 
                         if (propertyMap.AttributesOverwritten)

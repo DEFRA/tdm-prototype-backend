@@ -27,7 +27,7 @@ public enum SyncStatus
 }
 public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config,
 IBlobService blobService, IStorageService<Movement> movementService,
-IStorageService<Notification> notificationService, IStorageService<Gmrs> gmrsService, IMatchingService matchingService) : BaseService(loggerFactory, config), ISyncService
+IStorageService<Notification> notificationService, IStorageService<Gmr> gmrsService, IMatchingService matchingService) : BaseService(loggerFactory, config), ISyncService
 {
 
     private static string GetPeriodPath(SyncPeriod period)
@@ -231,16 +231,16 @@ IStorageService<Notification> notificationService, IStorageService<Gmrs> gmrsSer
 
                 if (existingGmr is null)
                 {
-                    var auditEntry = AuditEntry.CreateCreatedEntry(gmr, gmr.Id, 1, gmr.UpdatedDateTime, null);
+                    var auditEntry = AuditEntry.CreateCreatedEntry(gmr, gmr.Id, 1, gmr.LastUpdated, null);
                     gmr.AuditEntries.Add(auditEntry);
                     await gmrsService.Upsert(gmr);
                 }
                 else
                 {
-                    if (gmr.UpdatedDateTime > existingGmr.UpdatedDateTime)
+                    if (gmr.LastUpdated > existingGmr.LastUpdated)
                     {
                         gmr.AuditEntries = gmr.AuditEntries;
-                        var auditEntry = AuditEntry.Create(existingGmr, gmr, gmr.Id, gmr.AuditEntries.Count + 1, gmr.UpdatedDateTime, null);
+                        var auditEntry = AuditEntry.Create(existingGmr, gmr, gmr.Id, gmr.AuditEntries.Count + 1, gmr.LastUpdated, null);
                         gmr.AuditEntries.Add(auditEntry);
                         await gmrsService.Upsert(gmr);
                     }
@@ -258,7 +258,7 @@ IStorageService<Notification> notificationService, IStorageService<Gmrs> gmrsSer
         }
     }
 
-    private async Task<List<Gmrs>> ConvertGmrs(IBlobItem item)
+    private async Task<List<Gmr>> ConvertGmrs(IBlobItem item)
     {
         var blob = await blobService.GetBlobAsync(item.Name);
 

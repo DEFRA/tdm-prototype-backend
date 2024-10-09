@@ -18,7 +18,7 @@ namespace TdmPrototypeBackend.Types.VehicleMovement;
 /// <summary>
 /// 
 /// </summary>
-public partial class Gmrs  //
+public partial class Gmr  //
 {
 
 
@@ -35,7 +35,7 @@ public partial class Gmrs  //
     /// </summary
     [Attr]
     [JsonPropertyName("haulierEORI")]
-    public string? HaulierEORI { get; set; }
+    public string? HaulierEori { get; set; }
 
 	
     /// <summary>
@@ -68,7 +68,7 @@ public partial class Gmrs  //
     /// </summary
     [Attr]
     [JsonPropertyName("updatedDateTime")]
-    public DateTime? UpdatedDateTime { get; set; }
+    public DateTime? LastUpdated { get; set; }
 
 	
     /// <summary>
@@ -102,7 +102,7 @@ public partial class Gmrs  //
     /// </summary
     [Attr]
     [JsonPropertyName("vehicleRegNum")]
-    public string? VehicleRegNum { get; set; }
+    public string? VehicleRegNumber { get; set; }
 
 	
     /// <summary>
