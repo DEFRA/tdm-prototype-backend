@@ -51,6 +51,8 @@ static class Bootstrap
         GeneratorClassMap.RegisterClassMap("gmrs", map =>
         {
             map.SetClassName("Gmr");
+            map.MapProperty("haulierEORI").SetName("haulierEori");
+            map.MapProperty("vehicleRegNum").SetName("vehicleRegNumber");
             map.MapProperty("updatedDateTime").SetName("lastUpdated").SetType("DateTime");
         });
 

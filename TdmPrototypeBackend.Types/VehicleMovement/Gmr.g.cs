@@ -35,7 +35,7 @@ public partial class Gmr  //
     /// </summary
     [Attr]
     [JsonPropertyName("haulierEORI")]
-    public string? HaulierEORI { get; set; }
+    public string? HaulierEori { get; set; }
 
 	
     /// <summary>
@@ -102,7 +102,7 @@ public partial class Gmr  //
     /// </summary
     [Attr]
     [JsonPropertyName("vehicleRegNum")]
-    public string? VehicleRegNum { get; set; }
+    public string? VehicleRegNumber { get; set; }
 
 	
     /// <summary>
