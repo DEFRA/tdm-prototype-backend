@@ -21,7 +21,7 @@ namespace TdmPrototypeBackend.Types.VehicleMovement;
 /// <summary>
 /// 
 /// </summary>
-
+[Resource]
 public partial class Gmr : IMongoIdentifiable
 {
     [JsonIgnore]
