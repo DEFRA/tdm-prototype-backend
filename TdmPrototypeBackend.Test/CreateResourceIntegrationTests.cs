@@ -186,11 +186,11 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         Assert.Equal(201, (int)crResponse.HttpStatusCode);
         
         var notification = CreateChedANotification(notificationId);
-        notification.Movements = new List<MatchingStatus>() { new MatchingStatus()
-        {
-            Matched = true, Reference = declarationId, Item = "1",
-            AdditionalInformation = new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("matchLevel", "1")}
-        }};
+        //notification.Movements = new List<MatchingStatus>() { new MatchingStatus()
+        //{
+        //    Matched = true, Reference = declarationId, Item = "1",
+        //    AdditionalInformation = new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("matchLevel", "1")}
+        //}};
 
         JsonApiConsumer.Response<Notification> response = JsonApiConsumer.JsonApiConsumer.Create<Notification, Notification>(
             model: notification,

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using JsonApiDotNetCore.Resources.Annotations;
 using JsonApiDotNetCore.Serialization.Objects;
@@ -77,24 +78,34 @@ public sealed class RelationshipDataItem
     [Attr]
     public List<KeyValuePair<string, string>>? AdditionalInformation { get; set; }
 
-    public static RelationshipDataItem CreateFromNotification(Notification notification)
+    public static RelationshipDataItem CreateFromNotification(Notification notification, bool matched = true, string reason = null)
     {
+        List<KeyValuePair<string, string>> additionalInfo = [new("matchingLevel", "1")];
+
+        if (!string.IsNullOrEmpty(reason))
+        {
+            additionalInfo.Add(new KeyValuePair<string, string>("reason", reason));
+        }
+
         return new RelationshipDataItem()
         {
-            Matched = true,
+            Matched = matched,
             Type = "notifications",
             Id = notification.Id,
             Item = notification.PartOne?.Commodities?.CommodityComplements?.FirstOrDefault()?.CommodityID,
             Links = new ResourceLink() { Self = LinksBuilder.Notification.BuildSelfLink(notification.Id) },
-            AdditionalInformation =
-            [
-                new("matchingLevel", "1")
-            ]
+            AdditionalInformation = additionalInfo
         };
     }
 
-    public static RelationshipDataItem CreateFromMovement(Movement movement, string matchReference, bool matched = true)
+    public static RelationshipDataItem CreateFromMovement(Movement movement, string matchReference, bool matched = true, string reason = null)
     {
+        List<KeyValuePair<string, string>> additionalInfo = [new("matchingLevel", "1")];
+
+        if (!string.IsNullOrEmpty(reason))
+        {
+            additionalInfo.Add(new KeyValuePair<string, string>("reason", reason));
+        }
         return new RelationshipDataItem()
         {
             Matched = matched,
@@ -107,10 +118,7 @@ public sealed class RelationshipDataItem
             {
                 Self = LinksBuilder.Movement.BuildSelfLink(movement.Id)
             },
-            AdditionalInformation =
-            [
-                new("matchingLevel", "1")
-            ]
+            AdditionalInformation = additionalInfo
         };
     }
 

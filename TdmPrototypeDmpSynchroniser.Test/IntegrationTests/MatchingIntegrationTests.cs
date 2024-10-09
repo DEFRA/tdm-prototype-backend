@@ -56,4 +56,34 @@ public class MatchingIntegrationTests(ITestOutputHelper outputHelper) : Integrat
 
 
     }
+
+    [Fact]
+    public async Task Cds_InvalidIpaffsType()
+    {
+        Dependencies = new IntegrationTestDependenciesBuilder(OutputHelper)
+            .UseLocalPathBlobStorage("Fixtures/Matching/CdsWrongIpaffsType")
+            .Build();
+
+        var syncService = Dependencies.ServiceProvider.GetService<ISyncService>();
+        var movementService = Dependencies.ServiceProvider.GetService<IStorageService<Movement>>();
+        var notificationService = Dependencies.ServiceProvider.GetService<IStorageService<Notification>>();
+
+        await syncService.SyncNotifications(SyncPeriod.All);
+        await syncService.SyncMovements(SyncPeriod.All);
+
+
+        var movement =  await movementService.Find("CHEDAGB20241041389");
+        movement.Relationships.Count.Should().Be(1);
+        movement.Relationships.First().Value.Matched.Should().BeFalse();
+        movement.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
+
+
+
+        var notification= await notificationService.Find("CHEDA.GB.2024.1041389");
+        notification.Relationships.Count.Should().Be(1);
+        notification.Relationships.First().Value.Matched.Should().BeFalse();
+        notification.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
+
+
+    }
 }
