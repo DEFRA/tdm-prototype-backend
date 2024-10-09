@@ -53,13 +53,6 @@ public partial class Gmr : IMongoIdentifiable
     // [Attr]
     public string? LocalId { get; set; }
 
-    /// <summary>
-    /// The Goods Movement Record (GMR) ID for this GMR.  Do not include when POSTing a GMR - GVMS will assign an ID.
-    /// </summary
-    [Attr]
-    [JsonPropertyName("declarationId")]
-    public string? DeclarationId { get; set; }
-
     [Attr]
     public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
 
