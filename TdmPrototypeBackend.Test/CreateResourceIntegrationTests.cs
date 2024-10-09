@@ -5,6 +5,7 @@ using Xunit.Abstractions;
 
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Alvs;
+using TdmPrototypeBackend.Types.Extensions;
 using TdmPrototypeBackend.Types.Ipaffs;
 
 namespace TdmPrototypeBackend.Test;
@@ -139,22 +140,39 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         var declarationId = GenerateDeclarationID(id: testId);
 
         var movement = CreateChedAMovement(declarationId);
-        
+
         // var cr = CreateChedAClearanceRequest(declarationId);
-        movement.Notifications = new List<MatchingStatus>()
+        //movement.Notifications = new List<MatchingStatus>()
+        //{
+        //    new MatchingStatus()
+        //    {
+        //        Matched = true,
+        //        Reference = notificationId,
+        //        AdditionalInformation =
+        //            new List<KeyValuePair<string, string>>()
+        //            {
+        //                new KeyValuePair<string, string>("matchLevel", "1"),
+        //            }
+        //    }
+        //};
+
+        movement.AddRelationship("notification", new TdmRelationshipObject()
         {
-            new MatchingStatus()
+            Matched = true,
+            Links = RelationshipLinks.CreateForMovement(movement),
+            Data = [new RelationshipDataItem()
             {
                 Matched = true,
-                Reference = notificationId,
+                Type = "notifications",
+                Id = notificationId,
+                Links = new ResourceLink() { Self = LinksBuilder.Notification.BuildSelfLink(notificationId) },
                 AdditionalInformation =
-                    new List<KeyValuePair<string, string>>()
-                    {
-                        new KeyValuePair<string, string>("matchLevel", "1"),
-                    }
-            }
-        };
-        
+                [
+                    new("matchingLevel", "1")
+                ]
+            }]
+        });
+
         // var crResponse = Send<Movement>(ref movement, "api/movements");
         JsonApiConsumer.Response<Movement> crResponse = JsonApiConsumer.JsonApiConsumer.Create<Movement, Movement>(
             model: movement,
