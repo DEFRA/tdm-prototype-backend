@@ -11,16 +11,16 @@ public enum DirectionEnum
 {
 
 		[EnumMember(Value = "UK_INBOUND")]
-		Ukinbound,
+		UkInbound,
 	
 		[EnumMember(Value = "UK_OUTBOUND")]
-		Ukoutbound,
+		UkOutbound,
 	
 		[EnumMember(Value = "GB_TO_NI")]
-		Gbtoni,
+		GbToNi,
 	
 		[EnumMember(Value = "NI_TO_GB")]
-		Nitogb,
+		NiToGb,
 	
 }
 
