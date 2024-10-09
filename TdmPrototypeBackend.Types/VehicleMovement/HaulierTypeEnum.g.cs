@@ -14,13 +14,13 @@ public enum HaulierTypeEnum
 		Standard,
 	
 		[EnumMember(Value = "FPO_ASN")]
-		Fpoasn,
+		FpoAsn,
 	
 		[EnumMember(Value = "FPO_OTHER")]
-		Fpoother,
+		FpoOther,
 	
 		[EnumMember(Value = "NATO_MOD")]
-		Natomod,
+		NatoMod,
 	
 		[EnumMember(Value = "RMG")]
 		Rmg,

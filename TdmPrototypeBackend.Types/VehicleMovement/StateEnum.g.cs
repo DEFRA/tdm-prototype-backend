@@ -11,7 +11,7 @@ public enum StateEnum
 {
 
 		[EnumMember(Value = "NOT_FINALISABLE")]
-		Notfinalisable,
+		NotFinalisable,
 	
 		[EnumMember(Value = "OPEN")]
 		Open,
@@ -20,7 +20,7 @@ public enum StateEnum
 		Finalised,
 	
 		[EnumMember(Value = "CHECKED_IN")]
-		Checkedin,
+		CheckedIn,
 	
 		[EnumMember(Value = "EMBARKED")]
 		Embarked,
