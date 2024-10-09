@@ -265,22 +265,6 @@ IStorageService<Notification> notificationService, IStorageService<Gmr> gmrsServ
         try
         {
             var response =  GmrsExtensions.FromBlob(blob.Content);
-
-            foreach (var declarationId in response.GmrByDeclarationIds)
-            {
-                foreach (var gmrId in declarationId.Gmrs)
-                {
-                    var gmr = response.Gmrs.FirstOrDefault(x => x.GmrId == gmrId);
-
-                    if (gmr is not null)
-                    {
-                        gmr.DeclarationId = declarationId.Dec;
-                    }
-                }
-
-                
-            }
-
             return response.Gmrs.ToList();
         }
         catch (Exception ex)
