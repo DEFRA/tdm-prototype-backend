@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Text;
 using Humanizer;
 
 namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel;
@@ -31,27 +32,45 @@ public class EnumDescriptor(string name, string parentName, string @namespace, s
 
         public string GetCSharpValue()
         {
-            if (Value.Contains(','))
+            if (value.Contains("_"))
             {
-                try
-                {
-                    return Value.Replace(",", "").Dehumanize();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    throw;
-                }
+                var values = value.Split("_");
 
+                var sb = new StringBuilder();
+                foreach (var s in values)
+                {
+                    var v = s.Dehumanize();
+                    if (v.All(char.IsUpper))
+                    {
+                        sb.Append(v.ToLower().Pascalize());
+                    }
+                }
+                return sb.ToString();
             }
-
-            var v = Value.Dehumanize();
-            if (v.All(char.IsUpper))
+            else
             {
-                return v.ToLower().Pascalize();
-            }
+                if (Value.Contains(','))
+                {
+                    try
+                    {
+                        return Value.Replace(",", "").Dehumanize();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        throw;
+                    }
 
-            return v;
+                }
+
+                var v = Value.Dehumanize();
+                if (v.All(char.IsUpper))
+                {
+                    return v.ToLower().Pascalize();
+                }
+
+                return v;
+            }
         }
     }
 
