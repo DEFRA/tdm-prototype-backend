@@ -1,7 +1,12 @@
+using JsonApiDotNetCore.Serialization.Objects;
+using JsonApiDotNetCore.Serialization.Response;
 using MongoDB.Driver;
+using TdmPrototypeBackend.Matching.Extensions;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Alvs;
+using TdmPrototypeBackend.Types.Extensions;
 using TdmPrototypeBackend.Types.Ipaffs;
+using RelationshipLinks = TdmPrototypeBackend.Types.RelationshipLinks;
 
 namespace TdmPrototypeBackend.Matching
 {
@@ -31,53 +36,42 @@ namespace TdmPrototypeBackend.Matching
 
             foreach (var notification in items)
             {
-                if (!notification.Movements.Any(x => x.Reference == movement.Id))
+               
+                var doc = (from item in movement.Items
+                    from itemDocument in item.Documents
+                    where itemDocument.DocumentReference.Contains(matchReference.ToString())
+                    select itemDocument).FirstOrDefault();
+
+
+                var referenceNumber = MatchingReferenceNumber.FromCds(doc.DocumentReference, doc.DocumentCode);
+
+                if (notification.IpaffsType != referenceNumber.ChedType)
                 {
-                    var doc = (from item in movement.Items
-                        from itemDocument in item.Documents
-                        where itemDocument.DocumentReference.Contains(matchReference.ToString())
-                        select itemDocument).FirstOrDefault();
-
-
-                    var referenceNumber = MatchingReferenceNumber.FromCds(doc.DocumentReference, doc.DocumentCode);
-
-                    notification.Movements.RemoveAll(x => !x.Matched);
-                    if (notification.IpaffsType != referenceNumber.ChedType)
+                    notification.AddRelationship("movements", new TdmRelationshipObject()
                     {
-                        notification.AddMatchingStatus(new MatchingStatus()
-                        {
-                            AdditionalInformation =
-                            [
-                                new("matchingLevel", "1"),
-                                new("reason", "ChedType does not match")
-                            ],
-                            Matched = false,
-                            Reference = movement.Id,
-                            Item = movement.Items
-                                .FirstOrDefault(x => x.Documents.Any(d => d.DocumentReference.Contains(matchReference.ToString())))
-                                ?.ItemNumber.ToString()
-                        });
-                    }
-                    else
-                    {
-                        notification.AddMatchingStatus(new MatchingStatus()
-                        {
-                            AdditionalInformation =
-                            [
-                                new("matchingLevel", "1")
-                            ],
-                            Matched = true,
-                            Reference = movement.Id,
-                            Item = movement.Items
-                                .FirstOrDefault(x => x.Documents.Any(d => d.DocumentReference.Contains(matchReference.ToString())))
-                                ?.ItemNumber.ToString()
-                        });
-                    }
+                        Matched = false,
+                        Links = RelationshipLinks.CreateForNotification(notification),
+                        Data = [RelationshipDataItem.CreateFromMovement(notification, movement, matchReference.ToString(), false, "ChedType does not match")]
+                    });
 
-                    
-                  
-                    await notificationService.Upsert(notification);
                 }
+                else
+                {
+                    notification.AddRelationship("movements", new TdmRelationshipObject()
+                    {
+                        Matched = true,
+                        Links = RelationshipLinks.CreateForNotification(notification),
+                        Data = [RelationshipDataItem.CreateFromMovement(notification, movement, matchReference.ToString())]
+                    });
+                }
+
+
+                var auditEntry = AuditEntry.CreateMatch(movement.Id, notification.Version.GetValueOrDefault(),
+                    notification.LastUpdated,
+                    notification.LastUpdatedBy?.DisplayName);
+                notification.Update(auditEntry);
+                await notificationService.Upsert(notification);
+                
 
             }
 
@@ -103,16 +97,37 @@ namespace TdmPrototypeBackend.Matching
 
             foreach (var movement in items)
             {
-                movement.Notifications.RemoveAll(x => !x.Matched);
-                movement.AddMatchingStatus(new MatchingStatus() {
-                    AdditionalInformation =
-                    [
-                        new("matchingLevel", "1")
-                    ],
-                    Matched = true,
-                    Reference = notification.Id,
-                    Item = notification.PartOne?.Commodities?.CommodityComplements?.FirstOrDefault()?.CommodityID 
-                });
+                var doc = (from item in movement.Items
+                    from itemDocument in item.Documents
+                    where itemDocument.DocumentReference.Contains(matchReference.ToString())
+                    select itemDocument).FirstOrDefault();
+
+                var referenceNumber = MatchingReferenceNumber.FromCds(doc.DocumentReference, doc.DocumentCode);
+                if (notification.IpaffsType != referenceNumber.ChedType)
+                {
+                    movement.AddRelationship("notifications", new TdmRelationshipObject()
+                    {
+                        Matched = false,
+                        Links = RelationshipLinks.CreateForMovement(movement),
+                        Data = [RelationshipDataItem.CreateFromNotification(notification,  movement, matchReference.ToString(),false, "ChedType does not match")]
+                    });
+                }
+                else
+                {
+                    movement.AddRelationship("notifications", new TdmRelationshipObject()
+                    {
+                        Matched = true,
+                        Links = RelationshipLinks.CreateForMovement(movement),
+                        Data = [RelationshipDataItem.CreateFromNotification(notification, movement, matchReference.ToString())]
+                    });
+                }
+               
+
+                var auditEntry = AuditEntry.CreateMatch(notification.Id, 
+                    movement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(),
+                    movement.LastUpdated,
+                    movement.ClearanceRequests.First().Header.DeclarantName);
+                movement.Update(auditEntry);
                 await movementService.Upsert(movement);
             }
 

@@ -14,13 +14,13 @@ public enum IpaffsCommodityRiskResultRiskDecisionEnum
 		Required,
 	
 		[EnumMember(Value = "NOTREQUIRED")]
-		Notrequired,
+		NotRequired,
 	
 		[EnumMember(Value = "INCONCLUSIVE")]
 		Inconclusive,
 	
 		[EnumMember(Value = "REENFORCED_CHECK")]
-		Reenforcedcheck,
+		ReenforcedCheck,
 	
 }
 

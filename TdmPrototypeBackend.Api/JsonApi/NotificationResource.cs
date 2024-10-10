@@ -1,10 +1,6 @@
-using System.Collections.Immutable;
-using System.Linq.Expressions;
-using Azure;
 using JsonApiDotNetCore.Configuration;
 using JsonApiDotNetCore.Queries.Expressions;
 using JsonApiDotNetCore.Resources;
-using JsonApiDotNetCore.Resources.Annotations;
 using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeBackend.Api.Extensions;
 
@@ -47,19 +43,19 @@ public class NotificationResource(IResourceGraph resourceGraph, ITdmClaimsProvid
     {
         if (_principal.OrgType == OrgType.Pha)
         {
-            
+
             // IF its a PHA we want to filter on just the one point of entry
             // NB, awaiting confirmation of how this is planned to work
 
             var attribute = ResourceType.Attributes.Single(n =>
                 n.Property.Name == nameof(Notification._PointOfEntry));
-        
+
             var expression = new ComparisonExpression(ComparisonOperator.Equals,
                 new ResourceFieldChainExpression(attribute),
                 new LiteralConstantExpression(_principal.OrgId));
-            
+
             return existingFilter == null
-                ? (FilterExpression) expression
+                ? (FilterExpression)expression
                 : new LogicalExpression(LogicalOperator.And,
                     new[] { expression, existingFilter });
         }
@@ -77,14 +73,15 @@ public static class SparseFieldSetExpressionExtensions
     {
         var fields = resourceGraph.GetResourceType<TResource>().Fields;
 
+        var sparseFields = sparseFieldSetExpression.Fields;
         foreach (var field in fields)
         {
             if (field.PublicName.StartsWith("_"))
             {
-                sparseFieldSetExpression.Fields.Remove(field);
+                sparseFields = sparseFields.Remove(field);
             }
         }
 
-        return sparseFieldSetExpression;
+        return new SparseFieldSetExpression(sparseFields);
     }
 }

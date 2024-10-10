@@ -14,7 +14,7 @@ public enum IpaffsEconomicOperatorStatusEnum
 		Approved,
 	
 		[EnumMember(Value = "nonapproved")]
-		Nonapproved,
+		NonApproved,
 	
 		[EnumMember(Value = "suspended")]
 		Suspended,

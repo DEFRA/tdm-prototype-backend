@@ -11,16 +11,16 @@ public enum IpaffsFeedbackInformationAuthorityTypeEnum
 {
 
 		[EnumMember(Value = "exitbip")]
-		Exitbip,
+		ExitBip,
 	
 		[EnumMember(Value = "finalbip")]
-		Finalbip,
+		FinalBip,
 	
 		[EnumMember(Value = "localvetunit")]
-		Localvetunit,
+		LocalVetUnit,
 	
 		[EnumMember(Value = "inspunit")]
-		Inspunit,
+		InspUnit,
 	
 }
 

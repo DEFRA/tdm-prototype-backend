@@ -120,8 +120,8 @@ IStorageService<Notification> notificationService, IStorageService<Gmr> gmrsServ
                         movement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(), 
                         movement.LastUpdated,
                         existingMovement.ClearanceRequests.First().Header.DeclarantName);
-
-                    movement.AuditEntries.Add(auditEntry);
+                    movement.Update(auditEntry);
+                   
                     existingMovement.ClearanceRequests.RemoveAll(x =>
                         x.Header.EntryReference ==
                         movement.ClearanceRequests.First().Header.EntryReference);
@@ -142,7 +142,7 @@ IStorageService<Notification> notificationService, IStorageService<Gmr> gmrsServ
                     movement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(),
                     movement.LastUpdated,
                     movement.ClearanceRequests.First().Header.DeclarantName);
-                movement.AuditEntries.Add(auditEntry);
+                movement.Update(auditEntry);
                 await movementService.Upsert(movement);
             }
 
@@ -372,7 +372,7 @@ IStorageService<Notification> notificationService, IStorageService<Gmr> gmrsServ
                             n.Version.GetValueOrDefault(),
                             n.LastUpdated,
                             n.LastUpdatedBy?.DisplayName);
-                        n.AuditEntries.Add(auditEntry);
+                        n.Update(auditEntry);
                         await notificationService.Upsert(n);
                         itemCount++;
                     }

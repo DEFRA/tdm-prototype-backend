@@ -17,7 +17,7 @@ public enum IpaffsControlAuthorityIuuOptionEnum
 		Iuuna,
 	
 		[EnumMember(Value = "IUUNotCompliant")]
-		IUUNotCompliant,
+		IuuNotCompliant,
 	
 }
 

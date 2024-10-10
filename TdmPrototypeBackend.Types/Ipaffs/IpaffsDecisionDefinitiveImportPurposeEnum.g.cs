@@ -14,7 +14,7 @@ public enum IpaffsDecisionDefinitiveImportPurposeEnum
 		Slaughter,
 	
 		[EnumMember(Value = "approvedbodies")]
-		Approvedbodies,
+		ApprovedBodies,
 	
 		[EnumMember(Value = "quarantine")]
 		Quarantine,

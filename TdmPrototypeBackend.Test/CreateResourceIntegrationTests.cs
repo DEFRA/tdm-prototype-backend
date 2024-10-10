@@ -5,6 +5,7 @@ using Xunit.Abstractions;
 
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Alvs;
+using TdmPrototypeBackend.Types.Extensions;
 using TdmPrototypeBackend.Types.Ipaffs;
 
 namespace TdmPrototypeBackend.Test;
@@ -139,22 +140,36 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         var declarationId = GenerateDeclarationID(id: testId);
 
         var movement = CreateChedAMovement(declarationId);
-        
+
         // var cr = CreateChedAClearanceRequest(declarationId);
-        movement.Notifications = new List<MatchingStatus>()
+        //movement.Notifications = new List<MatchingStatus>()
+        //{
+        //    new MatchingStatus()
+        //    {
+        //        Matched = true,
+        //        Reference = notificationId,
+        //        AdditionalInformation =
+        //            new List<KeyValuePair<string, string>>()
+        //            {
+        //                new KeyValuePair<string, string>("matchLevel", "1"),
+        //            }
+        //    }
+        //};
+
+        movement.AddRelationship("notification", new TdmRelationshipObject()
         {
-            new MatchingStatus()
+            Matched = true,
+            Links = RelationshipLinks.CreateForMovement(movement),
+            Data = [new RelationshipDataItem()
             {
                 Matched = true,
-                Reference = notificationId,
-                AdditionalInformation =
-                    new List<KeyValuePair<string, string>>()
-                    {
-                        new KeyValuePair<string, string>("matchLevel", "1"),
-                    }
-            }
-        };
-        
+                Type = "notifications",
+                Id = notificationId,
+                Links = new ResourceLink() { Self = LinksBuilder.Notification.BuildSelfLink(notificationId) },
+                AdditionalInformation = new Dictionary<string, string>() { { "matchingLevel", "1" } }
+            }]
+        });
+
         // var crResponse = Send<Movement>(ref movement, "api/movements");
         JsonApiConsumer.Response<Movement> crResponse = JsonApiConsumer.JsonApiConsumer.Create<Movement, Movement>(
             model: movement,
@@ -168,11 +183,11 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         Assert.Equal(201, (int)crResponse.HttpStatusCode);
         
         var notification = CreateChedANotification(notificationId);
-        notification.Movements = new List<MatchingStatus>() { new MatchingStatus()
-        {
-            Matched = true, Reference = declarationId, Item = "1",
-            AdditionalInformation = new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("matchLevel", "1")}
-        }};
+        //notification.Movements = new List<MatchingStatus>() { new MatchingStatus()
+        //{
+        //    Matched = true, Reference = declarationId, Item = "1",
+        //    AdditionalInformation = new List<KeyValuePair<string, string>>() { new KeyValuePair<string, string>("matchLevel", "1")}
+        //}};
 
         JsonApiConsumer.Response<Notification> response = JsonApiConsumer.JsonApiConsumer.Create<Notification, Notification>(
             model: notification,
