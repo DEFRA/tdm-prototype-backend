@@ -76,15 +76,15 @@ public sealed class RelationshipDataItem
     public string Item { get; set; } = default!;
 
     [Attr]
-    public List<KeyValuePair<string, string>>? AdditionalInformation { get; set; }
+    public Dictionary<string, string>? AdditionalInformation { get; set; }
 
     public static RelationshipDataItem CreateFromNotification(Notification notification, bool matched = true, string reason = null)
     {
-        List<KeyValuePair<string, string>> additionalInfo = [new("matchingLevel", "1")];
+        Dictionary<string, string> additionalInfo = new Dictionary<string, string>() { { "matchingLevel", "1" } };
 
         if (!string.IsNullOrEmpty(reason))
         {
-            additionalInfo.Add(new KeyValuePair<string, string>("reason", reason));
+            additionalInfo.Add("reason", reason);
         }
 
         return new RelationshipDataItem()
@@ -100,11 +100,11 @@ public sealed class RelationshipDataItem
 
     public static RelationshipDataItem CreateFromMovement(Movement movement, string matchReference, bool matched = true, string reason = null)
     {
-        List<KeyValuePair<string, string>> additionalInfo = [new("matchingLevel", "1")];
+        Dictionary<string, string> additionalInfo = new Dictionary<string, string>() { { "matchingLevel", "1" } };
 
         if (!string.IsNullOrEmpty(reason))
         {
-            additionalInfo.Add(new KeyValuePair<string, string>("reason", reason));
+            additionalInfo.Add("reason", reason);
         }
         return new RelationshipDataItem()
         {
