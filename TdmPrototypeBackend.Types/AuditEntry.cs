@@ -1,6 +1,5 @@
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using Json.Patch;
 using TdmPrototypeBackend.Types.Extensions;
@@ -22,21 +21,26 @@ public class AuditEntry
     public List<AuditDiffEntry> Diff { get; set; } = new ();
 
 
-    public static AuditEntry Create<T>(T previous, T current, string id, int version, DateTime? lastUpdated, string lastUpdatedBy)
+    public static AuditEntry Create<T>(T previous, T current, string id, int version, DateTime? lastUpdated, string lastUpdatedBy, string status)
     {
         var node1 = JsonNode.Parse(previous.ToJsonString());
         var node2 = JsonNode.Parse(current.ToJsonString());
 
-        var diff = node1.CreatePatch(node2);
-       
-        var auditEntry =  new AuditEntry()
+        return Create(node1, node2, id, version, lastUpdated, lastUpdatedBy, status);
+    }
+
+    public static AuditEntry Create(JsonNode previous, JsonNode current, string id, int version, DateTime? lastUpdated, string lastUpdatedBy, string status)
+    {
+        var diff = previous.CreatePatch(current);
+
+        var auditEntry = new AuditEntry()
         {
             Id = id,
             Version = version,
             CreatedSource = lastUpdated,
             CreatedBy = lastUpdatedBy,
             CreatedLocal = DateTime.UtcNow,
-            Status = "Updated"
+            Status = status
 
         };
 
@@ -46,6 +50,11 @@ public class AuditEntry
         }
 
         return auditEntry;
+    }
+
+    public static AuditEntry CreateUpdated<T>(T previous, T current, string id, int version, DateTime? lastUpdated, string lastUpdatedBy)
+    {
+        return Create(previous,current, id, version, lastUpdated, lastUpdatedBy, "Updated");
     }
 
     public static AuditEntry CreateCreatedEntry<T>(T current, string id, int version, DateTime? lastUpdated, string lastUpdatedBy)
@@ -74,6 +83,28 @@ public class AuditEntry
             Status = "Updated"
 
         };
+    }
+
+    public static AuditEntry CreateMatch(string id, int version, DateTime? lastUpdated, string lastUpdatedBy)
+    {
+        return new AuditEntry()
+        {
+            Id = id,
+            Version = version,
+            CreatedSource = lastUpdated,
+            CreatedBy = lastUpdatedBy,
+            CreatedLocal = DateTime.UtcNow,
+            Status = "Matched"
+
+        };
+    }
+
+    public static AuditEntry CreateDecision(string previous, string current, string id, int version, DateTime? lastUpdated, string lastUpdatedBy)
+    {
+        var node1 = JsonNode.Parse(previous);
+        var node2 = JsonNode.Parse(current);
+
+        return Create(node1, node2, id, version, lastUpdated, lastUpdatedBy, "Decision");
     }
 
     public class AuditDiffEntry
@@ -125,5 +156,6 @@ public class AuditEntry
             };
         }
     }
-}
 
+    
+}

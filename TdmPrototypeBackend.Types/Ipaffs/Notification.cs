@@ -1,10 +1,24 @@
+using System.Collections.Immutable;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using Amazon.Runtime.Internal;
+using Amazon.Runtime.Internal.Transform;
+using JsonApiDotNetCore.Configuration;
+using JsonApiDotNetCore.Errors;
+using JsonApiDotNetCore.Middleware;
 using JsonApiDotNetCore.MongoDb.Resources;
+using JsonApiDotNetCore.Queries;
+using JsonApiDotNetCore.Queries.Expressions;
+using JsonApiDotNetCore.QueryStrings;
+using JsonApiDotNetCore.Resources;
 using JsonApiDotNetCore.Resources.Annotations;
+using JsonApiDotNetCore.Serialization.Objects;
+using JsonApiDotNetCore.Serialization.Response;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
+
 
 public partial class Notification : IMongoIdentifiable
 {
@@ -41,21 +55,29 @@ public partial class Notification : IMongoIdentifiable
     // [Attr]
     public string? LocalId { get; set; }
     
-    //change to an array, because its matching at item level - ask Matt to if an item can have multiple documents related to different cheds
-    [Attr]
-    public List<MatchingStatus> Movements { get; set; } = [new() { Matched = false }];
-
     [Attr]
     public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
-    
+
+    [Attr]
+    public Dictionary<string, TdmRelationshipObject> Relationships { get; set; } =
+        new() { { "movements", TdmRelationshipObject.CreateDefault() } };
+
     // Filter fields...
     // These fields are added to the model solely for use by the filtering
     // Mechanism in JSON API as a short term solution until we implement the more complex nested filtering
     // https://github.com/json-api-dotnet/JsonApiDotNetCore.MongoDb/issues/76
     // They are removed from the document that is sent to the client by the JsonApiResourceDefinition OnApplySparseFieldSet
     // mechanism
-    
+
+    /// <summary>
+    /// Tracks the last time the record was changed
+    /// </summary>
     [Attr]
+    [BsonElement("_ts")]
+    public DateTime _Ts { get; set; }
+
+    [Attr]
+    [BsonElement("_pointOfEntry")]
     public string _PointOfEntry
     {
         get => PartOne?.PointOfEntry;
@@ -69,6 +91,7 @@ public partial class Notification : IMongoIdentifiable
     }
 
     [Attr]
+    [BsonElement("_pointOfEntryControlPoint")]
     public string _PointOfEntryControlPoint
     {
         get => PartOne?.PointOfEntryControlPoint;
@@ -81,7 +104,7 @@ public partial class Notification : IMongoIdentifiable
         }
     }
 
-    
+    [BsonElement("_matchReferences")]
     public int _MatchReference
     {
         get
@@ -95,11 +118,30 @@ public partial class Notification : IMongoIdentifiable
         set => matchReference = value;
     }
 
-    public void AddMatchingStatus(MatchingStatus matchingStatus)
+    public void AddRelationship(string type, TdmRelationshipObject relationship)
     {
-        if (!Movements.Exists(x => x.Reference == matchingStatus.Reference))
+        if (Relationships.TryGetValue(type, out var value))
         {
-            Movements.Add(matchingStatus);
+            value.Links ??= relationship.Links;
+            foreach (var dataItem in relationship.Data)
+            {
+                if (value.Data.All(x => x.Id != dataItem.Id))
+                {
+                    value.Data.Add(dataItem);
+                }
+            }
+
+            value.Matched = value.Data.Any(x => x.Matched);
         }
+        else
+        {
+            Relationships.Add(type, relationship);
+        }
+    }
+
+    public void Update(AuditEntry auditEntry)
+    {
+        this.AuditEntries.Add(auditEntry);
+        _Ts = DateTime.UtcNow;
     }
 }

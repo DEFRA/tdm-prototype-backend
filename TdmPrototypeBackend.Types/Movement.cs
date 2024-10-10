@@ -4,6 +4,8 @@ using JsonApiDotNetCore.Resources.Annotations;
 using Microsoft.AspNetCore.Authorization;
 using MongoDB.Bson.Serialization.Attributes;
 using TdmPrototypeBackend.Types.Alvs;
+using TdmPrototypeBackend.Types.Extensions;
+
 // using JsonApiSerializer.JsonApi;
 
 namespace TdmPrototypeBackend.Types;
@@ -42,8 +44,8 @@ public class Movement : CustomStringMongoIdentifiable
     // This field is used by the jsonapi-consumer to control the correct casing in the type field
     public string Type { get; set; } = "movements";
     
-    [Attr]
-    public List<MatchingStatus> Notifications { get; set; } = [new() { Matched = false }];
+    //[Attr]
+    //public List<MatchingStatus> Notifications { get; set; } = [new() { Matched = false }];
 
     [Attr]
     public List<Alvs.ALVSClearanceRequest> ClearanceRequests { get; set; } = default!;
@@ -90,6 +92,18 @@ public class Movement : CustomStringMongoIdentifiable
     [Attr]
     public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
 
+    [Attr]
+    public Dictionary<string, TdmRelationshipObject> Relationships { get; set; } =
+        new() { { "notifications", TdmRelationshipObject.CreateDefault() } };
+
+    /// <summary>
+    /// Tracks the last time the record was changed
+    /// </summary>
+    [Attr]
+    [BsonElement("_ts")]
+    public DateTime _Ts { get; set; }
+
+    [BsonElement("_matchReferences")]
     public List<int> _MatchReferences
     {
         get
@@ -112,11 +126,63 @@ public class Movement : CustomStringMongoIdentifiable
         set => matchReferences = value;
     }
 
-    public void AddMatchingStatus(MatchingStatus matchingStatus)
+    public void AddRelationship(string type, TdmRelationshipObject relationship)
     {
-        if (!Notifications.Exists(x => x.Reference == matchingStatus.Reference))
+        if (Relationships.TryGetValue(type, out var value))
         {
-            Notifications.Add(matchingStatus);
+            value.Links ??= relationship.Links;
+            foreach (var dataItem in relationship.Data)
+            {
+                if (value.Data.All(x => x.Id != dataItem.Id))
+                {
+                    value.Data.Add(dataItem);
+                }
+            }
+
+            value.Matched = value.Data.Any(x => x.Matched);
         }
+        else
+        {
+            Relationships.Add(type, relationship);
+        }
+    }
+
+    public void Update(AuditEntry auditEntry)
+    {
+        this.AuditEntries.Add(auditEntry);
+        _Ts = DateTime.UtcNow;
+    }
+
+    public bool MergeDecision(string path, ALVSClearanceRequest clearanceRequest)
+    {
+        var before = this.ToJsonString();
+        foreach (var item in clearanceRequest.Items)
+        {
+            var existingItem = this.Items.FirstOrDefault(x => x.ItemNumber == item.ItemNumber);
+
+            if (existingItem is not null)
+            {
+                existingItem.MergeChecks(item);
+            }
+        }
+
+        var after = this.ToJsonString();
+
+        var auditEntry = AuditEntry.CreateDecision(before, after,
+            BuildNormalizedDecisionPath(path),
+            clearanceRequest.Header.EntryVersionNumber.GetValueOrDefault(),
+            clearanceRequest.ServiceHeader.ServiceCallTimestamp,
+            clearanceRequest.Header.DeclarantName);
+        if (auditEntry.Diff.Any())
+        {
+            this.Update(auditEntry);
+        }
+
+        return auditEntry.Diff.Any();
+    }
+
+    private string BuildNormalizedDecisionPath(string fullPath)
+    {
+        return fullPath.Replace("RAW/DECISION/", "");
     }
 }

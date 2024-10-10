@@ -32,6 +32,7 @@ public static class SyncEndpoints
         app.MapGet(BaseRoute + "/clearance-requests/{period}", SyncClearanceRequestsAsync).AllowAnonymous();
         app.MapGet(BaseRoute + "/notifications/{period}", SyncNotificationsAsync).AllowAnonymous();
         app.MapGet(BaseRoute + "/gmrs/{period}", SyncGmrsAsync).AllowAnonymous();
+        app.MapGet(BaseRoute + "/decisions/{period}", SyncDecisionsAsync).AllowAnonymous();
     }
 
     private static async Task<IResult> SyncClearanceRequestsAsync(
@@ -54,6 +55,20 @@ public static class SyncEndpoints
         // 
         // Logger.LogInformation($"SyncClearanceRequestsAsync {period}");
         var result = await service.SyncGmrs(Parse(period));
+
+        if (result.Success)
+        {
+            return Results.Ok(result);
+        }
+        return Results.Conflict(result);
+    }
+
+    private static async Task<IResult> SyncDecisionsAsync(
+        ISyncService service, string? period)
+    {
+        // 
+        // Logger.LogInformation($"SyncClearanceRequestsAsync {period}");
+        var result = await service.SyncDecisions(Parse(period));
 
         if (result.Success)
         {
