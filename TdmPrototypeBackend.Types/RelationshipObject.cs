@@ -73,12 +73,15 @@ public sealed class RelationshipDataItem
     public ResourceLink? Links { get; set; }
     
     [Attr]
-    public int? ItemNumber { get; set; } = default!;
+    public int? SourceItem { get; set; } = default!;
+
+    [Attr]
+    public int? DestinationItem { get; set; } = default!;
 
     [Attr]
     public Dictionary<string, string>? AdditionalInformation { get; set; }
 
-    public static RelationshipDataItem CreateFromNotification(Notification notification, bool matched = true, string reason = null)
+    public static RelationshipDataItem CreateFromNotification(Notification notification, Movement movement, string matchReference, bool matched = true, string reason = null)
     {
         Dictionary<string, string> additionalInfo = new Dictionary<string, string>() { { "matchingLevel", "1" } };
 
@@ -92,13 +95,16 @@ public sealed class RelationshipDataItem
             Matched = matched,
             Type = "notifications",
             Id = notification.Id,
-            ItemNumber = notification.PartOne?.Commodities?.CommodityComplements?.FirstOrDefault()?.ComplementID,
+            SourceItem = movement.Items
+                .FirstOrDefault(x => x.Documents.Any(d => d.DocumentReference.Contains(matchReference)))
+                ?.ItemNumber,
+            DestinationItem = notification.PartOne?.Commodities?.CommodityComplements?.FirstOrDefault()?.ComplementID,
             Links = new ResourceLink() { Self = LinksBuilder.Notification.BuildSelfLink(notification.Id) },
             AdditionalInformation = additionalInfo
         };
     }
 
-    public static RelationshipDataItem CreateFromMovement(Movement movement, string matchReference, bool matched = true, string reason = null)
+    public static RelationshipDataItem CreateFromMovement(Notification notification, Movement movement, string matchReference, bool matched = true, string reason = null)
     {
         Dictionary<string, string> additionalInfo = new Dictionary<string, string>() { { "matchingLevel", "1" } };
 
@@ -111,7 +117,8 @@ public sealed class RelationshipDataItem
             Matched = matched,
             Type = "movements",
             Id = movement.Id,
-            ItemNumber = movement.Items
+            SourceItem = notification.PartOne?.Commodities?.CommodityComplements?.FirstOrDefault()?.ComplementID,
+            DestinationItem = movement.Items
                 .FirstOrDefault(x => x.Documents.Any(d => d.DocumentReference.Contains(matchReference)))
                 ?.ItemNumber,
             Links = new ResourceLink()

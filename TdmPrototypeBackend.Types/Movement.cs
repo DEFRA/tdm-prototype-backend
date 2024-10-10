@@ -137,7 +137,9 @@ public class Movement : CustomStringMongoIdentifiable
                 }
             }
 
-            value.Matched = value.Data.Any(x => x.Matched);
+            value.Matched = Items
+                .Select(x => x.ItemNumber)
+                .All(itemNumber => value.Data.Any(x => x.Matched && x.SourceItem == itemNumber));
         }
         else
         {

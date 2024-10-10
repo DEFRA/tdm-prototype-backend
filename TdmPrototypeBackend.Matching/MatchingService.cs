@@ -51,7 +51,7 @@ namespace TdmPrototypeBackend.Matching
                     {
                         Matched = false,
                         Links = RelationshipLinks.CreateForNotification(notification),
-                        Data = [RelationshipDataItem.CreateFromMovement(movement, matchReference.ToString(), false, "ChedType does not match")]
+                        Data = [RelationshipDataItem.CreateFromMovement(notification, movement, matchReference.ToString(), false, "ChedType does not match")]
                     });
 
                 }
@@ -61,7 +61,7 @@ namespace TdmPrototypeBackend.Matching
                     {
                         Matched = true,
                         Links = RelationshipLinks.CreateForNotification(notification),
-                        Data = [RelationshipDataItem.CreateFromMovement(movement, matchReference.ToString())]
+                        Data = [RelationshipDataItem.CreateFromMovement(notification, movement, matchReference.ToString())]
                     });
                 }
 
@@ -109,7 +109,7 @@ namespace TdmPrototypeBackend.Matching
                     {
                         Matched = false,
                         Links = RelationshipLinks.CreateForMovement(movement),
-                        Data = [RelationshipDataItem.CreateFromNotification(notification, false, "ChedType does not match")]
+                        Data = [RelationshipDataItem.CreateFromNotification(notification,  movement, matchReference.ToString(),false, "ChedType does not match")]
                     });
                 }
                 else
@@ -118,7 +118,7 @@ namespace TdmPrototypeBackend.Matching
                     {
                         Matched = true,
                         Links = RelationshipLinks.CreateForMovement(movement),
-                        Data = [RelationshipDataItem.CreateFromNotification(notification)]
+                        Data = [RelationshipDataItem.CreateFromNotification(notification, movement, matchReference.ToString())]
                     });
                 }
                
