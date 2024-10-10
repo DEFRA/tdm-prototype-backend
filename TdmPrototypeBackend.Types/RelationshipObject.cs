@@ -73,7 +73,7 @@ public sealed class RelationshipDataItem
     public ResourceLink? Links { get; set; }
     
     [Attr]
-    public string Item { get; set; } = default!;
+    public string ItemNumber { get; set; } = default!;
 
     [Attr]
     public Dictionary<string, string>? AdditionalInformation { get; set; }
@@ -92,7 +92,7 @@ public sealed class RelationshipDataItem
             Matched = matched,
             Type = "notifications",
             Id = notification.Id,
-            Item = notification.PartOne?.Commodities?.CommodityComplements?.FirstOrDefault()?.CommodityID,
+            ItemNumber = notification.PartOne?.Commodities?.CommodityComplements?.FirstOrDefault()?.CommodityID,
             Links = new ResourceLink() { Self = LinksBuilder.Notification.BuildSelfLink(notification.Id) },
             AdditionalInformation = additionalInfo
         };
@@ -111,7 +111,7 @@ public sealed class RelationshipDataItem
             Matched = matched,
             Type = "movements",
             Id = movement.Id,
-            Item = movement.Items
+            ItemNumber = movement.Items
                 .FirstOrDefault(x => x.Documents.Any(d => d.DocumentReference.Contains(matchReference)))
                 ?.ItemNumber.ToString(),
             Links = new ResourceLink()
