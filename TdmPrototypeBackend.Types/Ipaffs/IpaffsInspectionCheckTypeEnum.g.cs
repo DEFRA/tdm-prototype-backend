@@ -11,13 +11,13 @@ public enum IpaffsInspectionCheckTypeEnum
 {
 
 		[EnumMember(Value = "PHSI_DOCUMENT")]
-		Phsidocument,
+		PhsiDocument,
 	
 		[EnumMember(Value = "PHSI_IDENTITY")]
-		Phsiidentity,
+		PhsiIdentity,
 	
 		[EnumMember(Value = "PHSI_PHYSICAL")]
-		Phsiphysical,
+		PhsiPhysical,
 	
 		[EnumMember(Value = "HMI")]
 		Hmi,

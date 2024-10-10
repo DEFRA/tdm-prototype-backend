@@ -14,7 +14,7 @@ public enum IpaffsCommodityRiskResultExitRiskDecisionEnum
 		Required,
 	
 		[EnumMember(Value = "NOTREQUIRED")]
-		Notrequired,
+		NotRequired,
 	
 		[EnumMember(Value = "INCONCLUSIVE")]
 		Inconclusive,

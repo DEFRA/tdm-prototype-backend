@@ -14,7 +14,7 @@ public enum IpaffsCommoditiesCommodityIntendedForEnum
 		Human,
 	
 		[EnumMember(Value = "feedingstuff")]
-		Feedingstuff,
+		FeedingStuff,
 	
 		[EnumMember(Value = "further")]
 		Further,

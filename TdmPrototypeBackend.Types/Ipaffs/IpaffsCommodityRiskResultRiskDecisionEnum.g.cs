@@ -20,7 +20,7 @@ public enum IpaffsCommodityRiskResultRiskDecisionEnum
 		Inconclusive,
 	
 		[EnumMember(Value = "REENFORCED_CHECK")]
-		Reenforcedcheck,
+		ReenforcedCheck,
 	
 }
 
