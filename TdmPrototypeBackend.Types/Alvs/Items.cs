@@ -26,6 +26,24 @@ public partial class Items  //
     [JsonPropertyName("clearanceRequestReference")]
     public string? ClearanceRequestReference { get; set; }
 
+
+    public void MergeChecks(Items decisionItems)
+    {
+        var checks = this.Checks?.ToHashSet(new Check.CheckEqualityComparer());
+        if (checks == null)
+        {
+            checks = new HashSet<Check>();
+        }
+
+        foreach (var decisionItemsCheck in decisionItems.Checks)
+        {
+            checks.Contains(decisionItemsCheck);
+            checks.Add(decisionItemsCheck);
+        }
+
+        this.Checks = checks.ToArray();
+    }
+
    
 }
 
