@@ -3,6 +3,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Alvs;
+using TdmPrototypeDmpSynchroniser.Api.SensitiveData;
 using ALVSClearanceRequest = TdmPrototypeBackend.Types.Alvs.ALVSClearanceRequest;
 using Type = System.Type;
 
@@ -62,7 +63,7 @@ public static class MovementExtensions
     //     
     // }
     
-    public static Movement FromClearanceRequest(string s)
+    public static Movement FromClearanceRequest(string s, ISensitiveDataSerializer sensitiveDataSerializer)
     {
         JsonSerializerOptions options = new JsonSerializerOptions()
         {
@@ -72,7 +73,7 @@ public static class MovementExtensions
         
         options.Converters.Add(new DateTimeConverterUsingDateTimeParse());
         
-        var r = JsonSerializer.Deserialize<ALVSClearanceRequest>(s, options)!;
+        var r = sensitiveDataSerializer.Deserialize<ALVSClearanceRequest>(s)!;
         var cr = r.Header;
         
         return new Movement() {

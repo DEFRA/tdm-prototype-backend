@@ -50,6 +50,20 @@ static class Bootstrap
             map.MapProperty("individualName").IsSensitive();
             map.MapProperty("companyName").IsSensitive();
         });
+
+        GeneratorClassMap.RegisterClassMap("Address", map =>
+        {
+            map.MapProperty("Street").IsSensitive();
+            map.MapProperty("City").IsSensitive();
+            map.MapProperty("postalCode").IsSensitive();
+            map.MapProperty("addressLine1").IsSensitive();
+            map.MapProperty("addressLine2").IsSensitive();
+            map.MapProperty("addressLine3").IsSensitive();
+            map.MapProperty("postalZipCode").IsSensitive();
+            map.MapProperty("email").IsSensitive();
+            map.MapProperty("ukTelephone").IsSensitive();
+            map.MapProperty("telephone").IsSensitive();
+        });
     }
 
 

@@ -7,6 +7,7 @@ using TdmPrototypeBackend.Storage.Mongo.Extensions;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeDmpSynchroniser.Api.Config;
+using TdmPrototypeDmpSynchroniser.Api.SensitiveData;
 using TdmPrototypeDmpSynchroniser.Api.Services;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Extensions;
@@ -21,6 +22,11 @@ public static class ServiceExtensions
     }
     public static void AddSynchroniserServices(this IServiceCollection services)
     {
+        //ADD 
+        services.AddSingleton<ISensitiveDataSerializer, SensitiveDataSerializer>();
+        services.AddSingleton<ISensitiveDataOptions, SensitiveDataOptions>();
+
+
         services.AddSingleton<SynchroniserConfig, SynchroniserConfig>();
         services.AddKeyedSingleton<IBlobService, BlobService>("base");
         services.AddSingleton<IBlobService, CachingBlobService>();

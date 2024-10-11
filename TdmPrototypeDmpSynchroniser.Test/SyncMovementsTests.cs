@@ -8,6 +8,7 @@ using TdmPrototypeBackend.Storage.Mongo;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeDmpSynchroniser.Api.Config;
+using TdmPrototypeDmpSynchroniser.Api.SensitiveData;
 using TdmPrototypeDmpSynchroniser.Api.Services;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Models.Test;
@@ -30,7 +31,7 @@ public class SyncMovementsTests
         Mock<IStorageService<Movement>> movementService = new Mock<IStorageService<Movement>>();
         Mock<IStorageService<Notification>> notificationService = new Mock<IStorageService<Notification>>();
         var syncService = new SyncService(new NullLoggerFactory(), new SynchroniserConfig(config), blobService.Object,
-            movementService.Object, notificationService.Object, null);
+            movementService.Object, notificationService.Object, null, new SensitiveDataSerializer(SensitiveDataOptions.WithSensitiveData));
 
         string path = "RAW/ALVS/";
 
@@ -41,7 +42,7 @@ public class SyncMovementsTests
             .ReturnsAsync(new SynchroniserBlobItem() { Name = "Item1", Content = newItem });
 
         movementService.Setup(x => x.Find("21GB3U0G9F0ZAPSFR9")).ReturnsAsync(
-            MovementExtensions.FromClearanceRequest(existingItem));
+            MovementExtensions.FromClearanceRequest(existingItem, new SensitiveDataSerializer(SensitiveDataOptions.WithSensitiveData)));
         await syncService.SyncMovements(SyncPeriod.All);
 
 
@@ -66,7 +67,7 @@ public class SyncMovementsTests
         Mock<IStorageService<Movement>> movementService = new Mock<IStorageService<Movement>>();
         Mock<IStorageService<Notification>> notificationService = new Mock<IStorageService<Notification>>();
         var syncService = new SyncService(new NullLoggerFactory(), new SynchroniserConfig(config), blobService.Object,
-            movementService.Object, notificationService.Object, null);
+            movementService.Object, notificationService.Object, null, new SensitiveDataSerializer(SensitiveDataOptions.WithSensitiveData));
 
         string path = "RAW/ALVS/";
 
@@ -77,7 +78,7 @@ public class SyncMovementsTests
             .ReturnsAsync(new SynchroniserBlobItem() { Name = "Item1", Content = newItem });
 
         movementService.Setup(x => x.Find("21GB3U0G9F0ZAPSFR9")).ReturnsAsync(
-            MovementExtensions.FromClearanceRequest(existingItem));
+            MovementExtensions.FromClearanceRequest(existingItem, new SensitiveDataSerializer(SensitiveDataOptions.WithSensitiveData)));
         await syncService.SyncMovements(SyncPeriod.All);
 
         
@@ -99,7 +100,7 @@ public class SyncMovementsTests
         Mock<IStorageService<Movement>> movementService = new Mock<IStorageService<Movement>>();
         Mock<IStorageService<Notification>> notificationService = new Mock<IStorageService<Notification>>();
         var syncService = new SyncService(new NullLoggerFactory(), new SynchroniserConfig(config), blobService.Object,
-            movementService.Object, notificationService.Object, null);
+            movementService.Object, notificationService.Object, null, new SensitiveDataSerializer(SensitiveDataOptions.WithSensitiveData));
 
         string path = "RAW/ALVS/";
 
