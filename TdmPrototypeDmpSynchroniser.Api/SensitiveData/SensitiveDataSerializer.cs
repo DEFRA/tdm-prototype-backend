@@ -12,8 +12,21 @@ public class SensitiveDataSerializer(ISensitiveDataOptions options) : ISensitive
         NumberHandling = JsonNumberHandling.AllowReadingFromString
     };
 
-    public T Deserialize<T>(string json)
+    public T Deserialize<T>(string json, Action<JsonSerializerOptions> optionsOverride = null)
     {
-        return JsonSerializer.Deserialize<T>(json, jsonOptions);
+        JsonSerializerOptions newOptions = jsonOptions;
+        if (optionsOverride is not null)
+        {
+            newOptions = new JsonSerializerOptions()
+            {
+                TypeInfoResolver = new SensitiveDataTypeInfoResolver(options),
+                PropertyNameCaseInsensitive = true,
+                NumberHandling = JsonNumberHandling.AllowReadingFromString
+            };
+            optionsOverride(newOptions);
+        }
+        return JsonSerializer.Deserialize<T>(json, newOptions);
     }
+
+    
 }

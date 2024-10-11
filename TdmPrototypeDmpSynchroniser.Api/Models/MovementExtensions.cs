@@ -73,7 +73,7 @@ public static class MovementExtensions
         
         options.Converters.Add(new DateTimeConverterUsingDateTimeParse());
         
-        var r = sensitiveDataSerializer.Deserialize<ALVSClearanceRequest>(s)!;
+        var r = sensitiveDataSerializer.Deserialize<ALVSClearanceRequest>(s, options => options.Converters.Add(new DateTimeConverterUsingDateTimeParse()))!;
         var cr = r.Header;
         
         return new Movement() {

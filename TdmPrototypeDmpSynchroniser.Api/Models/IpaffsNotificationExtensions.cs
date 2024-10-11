@@ -14,7 +14,7 @@ public static class NotificationExtensions
     
     public static Notification FromBlob(string s, ISensitiveDataSerializer sensitiveDataSerializer)
     {
-        var r = sensitiveDataSerializer.Deserialize<Notification>(s)!;
+        var r = sensitiveDataSerializer.Deserialize<Notification>(s, _ => {})!;
         r.Transform();
         
         return r;
