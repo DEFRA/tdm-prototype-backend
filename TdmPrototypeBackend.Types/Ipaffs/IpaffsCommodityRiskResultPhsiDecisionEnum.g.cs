@@ -14,7 +14,7 @@ public enum IpaffsCommodityRiskResultPhsiDecisionEnum
 		Required,
 	
 		[EnumMember(Value = "NOTREQUIRED")]
-		Notrequired,
+		NotRequired,
 	
 }
 
