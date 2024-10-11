@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using MongoDB.Driver;
 using TdmPrototypeBackend.ASB;
 using TdmPrototypeBackend.Matching;
 using TdmPrototypeBackend.Storage;
@@ -17,6 +18,7 @@ public static class ClearanceRequestEndpoints
     private const string BaseRoute = "simulator";
     public static void UseClearanceRequestEndpoints(this IEndpointRouteBuilder app)
     {
+        app.MapGet(BaseRoute + "/create-dmp-decision/{notificationId}", CreateDmpDecisionAsync).AllowAnonymous();
         app.MapGet(BaseRoute + "/create-clearance-request/{notificationId}", CreateClearanceRequestsAsync).AllowAnonymous();
         app.MapGet(BaseRoute + "/notification-received/{notificationId}", MatchNotification).AllowAnonymous();
         app.MapGet(BaseRoute + "/cds-received/{documentReference}", MatchCds).AllowAnonymous();
@@ -60,6 +62,96 @@ public static class ClearanceRequestEndpoints
             return Results.NotFound(notificationId);
         }
        
+
+        ALVSClearanceRequest clearanceRequest = ALVSClearanceRequestBuilder.BuildFromNotification(notification);
+        var now = DateTime.UtcNow;
+
+        if (config.BypassAsb)
+        {
+            var movement = new Movement()
+            {
+                Id = clearanceRequest.Header!.EntryReference,
+                LastUpdated = clearanceRequest.ServiceHeader?.ServiceCallTimestamp,
+                EntryReference = clearanceRequest.Header.EntryReference,
+                MasterUCR = clearanceRequest.Header.MasterUCR,
+                // DeclarationPartNumber = ConvertInt(r.Header.DeclarationPartNumber),
+                DeclarationType = clearanceRequest.Header.DeclarationType,
+                // ArrivalDateTime = r.Header.ArrivalDateTime,
+                SubmitterTURN = clearanceRequest.Header.SubmitterTURN,
+                DeclarantId = clearanceRequest.Header.DeclarantId,
+                DeclarantName = clearanceRequest.Header.DeclarantName,
+                DispatchCountryCode = clearanceRequest.Header.DispatchCountryCode,
+                GoodsLocationCode = clearanceRequest.Header.GoodsLocationCode,
+                ClearanceRequests = new List<ALVSClearanceRequest>() { clearanceRequest },
+                Items = clearanceRequest.Items?.Select(x =>
+                {
+                    x.ClearanceRequestReference = clearanceRequest.Header.EntryReference;
+                    return x;
+                }).ToList(),
+                AuditEntries = [new AuditEntry()
+                {
+                    CreatedLocal = now,
+                    CreatedSource = now,
+                    CreatedBy = "CDS Simulator",
+                    Status = "Created",
+                    Version = 1
+                }]
+            };
+
+            var document = clearanceRequest.Items.First().Documents.First();
+            await movementService.Upsert(movement);
+            var matchResult = await matchingService.Match(MatchingReferenceNumber.FromCds(document.DocumentReference, document.DocumentCode));
+            return Results.Ok(new { clearanceRequest, matchResult });
+
+        }
+        else
+        {
+            await busService.SendMessageAsync(clearanceRequest);
+        }
+
+        return Results.Ok(clearanceRequest);
+    }
+
+    private static async Task<IResult> CreateDmpDecisionAsync(
+      IMatchingService matchingService,
+      IStorageService<Notification> notificationService,
+      MatchingStorageService<Movement> movementService,
+      IBusService busService,
+      CdsSimulatorConfig config,
+      string notificationId)
+    {
+        var notification = await notificationService.Find(notificationId);
+
+        if (notification is null)
+        {
+            return Results.NotFound(notificationId);
+        }
+
+        var movements =
+            await movementService.Filter(Builders<Movement>.Filter.AnyIn(x => x._MatchReferences, [notification._MatchReference]));
+
+        foreach (var movement in movements)
+        {
+            foreach (var request in movement.ClearanceRequests)
+            {
+                 var decision = ALVSClearanceRequestBuilder.BuildDecision(request);
+                 var existingMovement = await movementService.Find(decision.Header!.EntryReference);
+
+                 if (config.BypassAsb)
+                 {
+                     var merged = existingMovement.MergeDecision("CreatedCdsSim", decision);
+                    if (merged)
+                    {
+                        await movementService.Upsert(existingMovement);
+                    }
+                }
+                else
+                {
+                    await busService.SendMessageAsync(decision);
+                }
+            }
+        }
+
 
         ALVSClearanceRequest clearanceRequest = ALVSClearanceRequestBuilder.BuildFromNotification(notification);
         var now = DateTime.UtcNow;

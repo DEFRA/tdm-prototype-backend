@@ -456,11 +456,26 @@ IStorageService<Notification> notificationService, IStorageService<Gmr> gmrsServ
         try
         {
             var decision = await ConvertDecision(item);
+            return await SyncDecision(item.Name, decision);
+
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError($"Failed to upsert ALVSClearanceRequest from file {item.Name}. {ex.ToString()}.");
+
+            return false;
+        }
+    }
+
+    internal async Task<bool> SyncDecision(string id, ALVSClearanceRequest decision)
+    {
+        try
+        {
             var existingMovement = await movementService.Find(decision.Header!.EntryReference);
 
             if (existingMovement != null)
             {
-                var merged = existingMovement.MergeDecision(item.Name, decision);
+                var merged = existingMovement.MergeDecision(id, decision);
                 if (merged)
                 {
                     await movementService.Upsert(existingMovement);
@@ -473,7 +488,7 @@ IStorageService<Notification> notificationService, IStorageService<Gmr> gmrsServ
         }
         catch (Exception ex)
         {
-            Logger.LogError($"Failed to upsert ALVSClearanceRequest from file {item.Name}. {ex.ToString()}.");
+            Logger.LogError($"Failed to upsert ALVSClearanceRequest from file {id}. {ex.ToString()}.");
 
             return false;
         }
