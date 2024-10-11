@@ -185,6 +185,6 @@ public class Movement : CustomStringMongoIdentifiable
 
     private string BuildNormalizedDecisionPath(string fullPath)
     {
-        return fullPath.Replace("RAW/DECISION/", "");
+        return fullPath.Replace("RAW/DECISIONS/", "");
     }
 }
