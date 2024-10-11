@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using JsonApiDotNetCore.MongoDb.Resources;
 using JsonApiDotNetCore.Resources.Annotations;
 using MongoDB.Bson.Serialization.Attributes;
+using TdmPrototypeBackend.Types.Extensions;
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 

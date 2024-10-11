@@ -6,6 +6,7 @@ static class Bootstrap
     {
         RegisterAlvsClassMaps();
         RegisterIpaffsClassMaps();
+
         RegisterVehicleMovementsClassMaps();
     }
 
@@ -15,8 +16,6 @@ static class Bootstrap
         {
             map.MapProperty("ArrivalDateTime").SetType("DateTime");
         });
-
-       ;
     }
 
     public static void RegisterIpaffsClassMaps()
@@ -44,7 +43,15 @@ static class Bootstrap
                 .SetType("IDictionary<string, object>")
                 .AddAttribute("[JsonConverter(typeof(KeyDataPairsToDictionaryStringObjectJsonConverter))]");
         });
+
+
+        GeneratorClassMap.RegisterClassMap("EconomicOperator", map =>
+        {
+            map.MapProperty("individualName").IsSensitive();
+            map.MapProperty("companyName").IsSensitive();
+        });
     }
+
 
     public static void RegisterVehicleMovementsClassMaps()
     {
