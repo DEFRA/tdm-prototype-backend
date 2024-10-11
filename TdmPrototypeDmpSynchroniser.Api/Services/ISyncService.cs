@@ -16,4 +16,6 @@ public interface ISyncService
 
     public Task<Status> SyncGmrs(SyncPeriod period);
 
+    Task<Status> SyncDecisions(SyncPeriod period);
+
 }

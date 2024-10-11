@@ -8,6 +8,48 @@ public static class ALVSClearanceRequestBuilder
 {
     private static readonly char[] s_AlphaNumeric = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
+    public static ALVSClearanceRequest BuildDecision(ALVSClearanceRequest request)
+    {
+        var decision = new ALVSClearanceRequest()
+        {
+            ServiceHeader = new ServiceHeader()
+            {
+                SourceSystem = "CDSSim",
+                DestinationSystem = "ALVS",
+                CorrelationId = Guid.NewGuid().ToString(),
+                ServiceCallTimestamp = DateTime.UtcNow
+            },
+            Header = new Header()
+            {
+                EntryReference = request.Header.EntryReference,
+                EntryVersionNumber = request.Header.EntryVersionNumber,
+            }
+
+        };
+
+        var decisionItems = new List<Items>();
+        foreach (var item in request.Items)
+        {
+            var decisionItem = new Items()
+            {
+                ItemNumber = item.ItemNumber,
+                Checks = new[]
+                {
+                    new Check()
+                    {
+                        CheckCode = "H234",
+                        DepartmentCode = "PHA",
+                        DecisionReasons = new[] { "CDS Sim Reason" }
+                    }
+                }
+            };
+            decisionItems.Add(decisionItem);
+        }
+
+        decision.Items = decisionItems.ToArray();
+        return decision;
+    }
+
     public static ALVSClearanceRequest BuildFromNotification(Notification notification)
     {
         return notification.IpaffsType switch

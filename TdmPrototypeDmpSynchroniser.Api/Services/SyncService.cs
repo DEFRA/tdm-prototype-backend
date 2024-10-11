@@ -119,7 +119,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                 if (movement.ClearanceRequests.First().Header.EntryVersionNumber > existingMovement.ClearanceRequests.First().Header.EntryVersionNumber)
                 {
                     movement.AuditEntries = existingMovement.AuditEntries;
-                    var auditEntry = AuditEntry.Create(existingMovement.ClearanceRequests.First(),
+                    var auditEntry = AuditEntry.CreateUpdated(existingMovement.ClearanceRequests.First(),
                         movement.ClearanceRequests.First(),
                         BuildNormalizedAlvsPath(item.Name),
                         movement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(), 
@@ -245,7 +245,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
                     if (gmr.LastUpdated > existingGmr.LastUpdated)
                     {
                         gmr.AuditEntries = gmr.AuditEntries;
-                        var auditEntry = AuditEntry.Create(existingGmr, gmr, gmr.Id, gmr.AuditEntries.Count + 1, gmr.LastUpdated, null);
+                        var auditEntry = AuditEntry.CreateUpdated(existingGmr, gmr, gmr.Id, gmr.AuditEntries.Count + 1, gmr.LastUpdated, null);
                         gmr.AuditEntries.Add(auditEntry);
                         await gmrsService.Upsert(gmr);
                     }
@@ -346,7 +346,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
 
                             if ((n.Version - existingNotification.Version) == 1)
                             {
-                                var auditEntry = AuditEntry.Create(existingNotification,
+                                var auditEntry = AuditEntry.CreateUpdated(existingNotification,
                                     n,
                                     BuildNormalizedIpaffsPath(item.Name),
                                     n.Version.GetValueOrDefault(),
@@ -414,6 +414,102 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
         catch (Exception ex)
         {
             Logger.LogError($"Failed to convert file {item.Name} to ipaffs notification. {ex.ToString()}. {blob.Content}");
+            throw;
+        }
+    }
+
+    public async Task<Status> SyncDecisions(SyncPeriod period)
+    {
+        Logger.LogDebug($"SyncDecisions period={period}");
+        try
+        {
+            var itemCount = 0;
+            var erroredCount = 0;
+
+            var result = await blobService.GetResourcesAsync($"RAW/DECISIONS{GetPeriodPath(period)}");
+
+            foreach (IBlobItem item in result)
+            {
+                var success = await SyncDecision(item);
+
+                if (success)
+                {
+                    itemCount++;
+                }
+                else
+                {
+                    erroredCount++;
+                }
+            }
+
+            return new Status()
+            {
+                Success = true,
+                Description = String.Format($"Connected. {itemCount} decisions merged. {erroredCount} errors.")
+            };
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex.ToString());
+
+            return new Status() { Success = false, Description = ex.Message };
+        }
+    }
+
+    internal async Task<bool> SyncDecision(IBlobItem item)
+    {
+        try
+        {
+            var decision = await ConvertDecision(item);
+            return await SyncDecision(item.Name, decision);
+
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError($"Failed to upsert ALVSClearanceRequest from file {item.Name}. {ex.ToString()}.");
+
+            return false;
+        }
+    }
+
+    internal async Task<bool> SyncDecision(string id, ALVSClearanceRequest decision)
+    {
+        try
+        {
+            var existingMovement = await movementService.Find(decision.Header!.EntryReference);
+
+            if (existingMovement != null)
+            {
+                var merged = existingMovement.MergeDecision(id, decision);
+                if (merged)
+                {
+                    await movementService.Upsert(existingMovement);
+                }
+                return true;
+            }
+
+            return false;
+
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError($"Failed to upsert ALVSClearanceRequest from file {id}. {ex.ToString()}.");
+
+            return false;
+        }
+    }
+
+    private async Task<ALVSClearanceRequest> ConvertDecision(IBlobItem item)
+    {
+        var blob = await blobService.GetBlobAsync(item.Name);
+
+        try
+        {
+            return ClearanceRequestExtensions.FromBlob(blob.Content);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError($"Failed to convert file {item.Name} to ALVSClearanceRequest. {ex.ToString()}. {blob.Content}");
             throw;
         }
     }
