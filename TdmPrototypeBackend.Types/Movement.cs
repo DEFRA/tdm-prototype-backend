@@ -142,6 +142,8 @@ public class Movement : CustomStringMongoIdentifiable
             value.Matched = Items
                 .Select(x => x.ItemNumber)
                 .All(itemNumber => value.Data.Any(x => x.Matched && x.SourceItem == itemNumber));
+        }
+        else
         {
             Relationships.Add(type, relationship);
         }
