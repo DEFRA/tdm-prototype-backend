@@ -42,8 +42,8 @@ public class Movement : CustomStringMongoIdentifiable
     // This field is used by the jsonapi-consumer to control the correct casing in the type field
     public string Type { get; set; } = "movements";
     
-    [Attr]
-    public List<MatchingStatus> Notifications { get; set; } = [new() { Matched = false }];
+    //[Attr]
+    //public List<MatchingStatus> Notifications { get; set; } = [new() { Matched = false }];
 
     [Attr]
     public List<Alvs.ALVSClearanceRequest> ClearanceRequests { get; set; } = default!;
@@ -90,6 +90,18 @@ public class Movement : CustomStringMongoIdentifiable
     [Attr]
     public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
 
+    [Attr]
+    public Dictionary<string, TdmRelationshipObject> Relationships { get; set; } =
+        new() { { "notifications", TdmRelationshipObject.CreateDefault() } };
+
+    /// <summary>
+    /// Tracks the last time the record was changed
+    /// </summary>
+    [Attr]
+    [BsonElement("_ts")]
+    public DateTime _Ts { get; set; }
+
+    [BsonElement("_matchReferences")]
     public List<int> _MatchReferences
     {
         get
@@ -112,11 +124,32 @@ public class Movement : CustomStringMongoIdentifiable
         set => matchReferences = value;
     }
 
-    public void AddMatchingStatus(MatchingStatus matchingStatus)
+    public void AddRelationship(string type, TdmRelationshipObject relationship)
     {
-        if (!Notifications.Exists(x => x.Reference == matchingStatus.Reference))
+        if (Relationships.TryGetValue(type, out var value))
         {
-            Notifications.Add(matchingStatus);
+            value.Links ??= relationship.Links;
+            foreach (var dataItem in relationship.Data)
+            {
+                if (value.Data.All(x => x.Id != dataItem.Id))
+                {
+                    value.Data.Add(dataItem);
+                }
+            }
+
+            value.Matched = Items
+                .Select(x => x.ItemNumber)
+                .All(itemNumber => value.Data.Any(x => x.Matched && x.SourceItem == itemNumber));
         }
+        else
+        {
+            Relationships.Add(type, relationship);
+        }
+    }
+
+    public void Update(AuditEntry auditEntry)
+    {
+        this.AuditEntries.Add(auditEntry);
+        _Ts = DateTime.UtcNow;
     }
 }

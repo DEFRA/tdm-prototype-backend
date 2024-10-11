@@ -109,13 +109,7 @@ public class MatchingReferenceNumber
 
     private static string MapToLicenceType(string chedType)
     {
-        switch (chedType)
-        {
-            case "CHEDA": return "CHD";
-            case "CHEDP": return "CHD";
-        }
-
-        return chedType;
+        return "CHD";
     }
 
     private static IpaffsNotificationTypeEnum MapToChedType(string documentCode)

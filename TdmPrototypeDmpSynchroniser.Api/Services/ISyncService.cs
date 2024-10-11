@@ -13,5 +13,7 @@ public interface ISyncService
 {
     public Task<Status> SyncMovements(SyncPeriod period);
     public Task<Status> SyncNotifications(SyncPeriod period);
-    
+
+    public Task<Status> SyncGmrs(SyncPeriod period);
+
 }

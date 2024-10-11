@@ -6,6 +6,7 @@ using TdmPrototypeBackend.Storage.Mongo;
 using TdmPrototypeBackend.Storage.Mongo.Extensions;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Ipaffs;
+using TdmPrototypeBackend.Types.VehicleMovement;
 using TdmPrototypeDmpSynchroniser.Api.Config;
 using TdmPrototypeDmpSynchroniser.Api.SensitiveData;
 using TdmPrototypeDmpSynchroniser.Api.Services;
@@ -38,8 +39,10 @@ public static class ServiceExtensions
         // services.AddSingleton<IStorageService<Movement>, JsonApiStorageService<Movement>>();
         services.AddSingleton<MongoDbOptions<Movement>, MongoDbOptions<Movement>>(_ => new MongoDbOptions<Movement>() { CollectionName = "Movement"});
         services.AddSingleton<MongoDbOptions<Notification>, MongoDbOptions<Notification>>(_ => new MongoDbOptions<Notification>() { CollectionName = "Notification"});
+        services.AddSingleton<MongoDbOptions<Gmr>, MongoDbOptions<Gmr>>(_ => new MongoDbOptions<Gmr>() { CollectionName = "Gmr" });
         services.AddSingleton<IStorageService<Movement>, MongoStorageService<Movement>>();
         services.AddSingleton<IStorageService<Notification>, MongoStorageService<Notification>>();
+        services.AddSingleton<IStorageService<Gmr>, MongoStorageService<Gmr>>();
         // services.AddSingleton<IStorageService<Movement>, MongoStorageService<Movement>>(x => ActivatorUtilities.CreateInstance<MongoStorageService>(x,"", ));
     }
 }

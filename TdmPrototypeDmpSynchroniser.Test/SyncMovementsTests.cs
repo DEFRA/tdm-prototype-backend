@@ -7,6 +7,7 @@ using TdmPrototypeBackend.Storage;
 using TdmPrototypeBackend.Storage.Mongo;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Ipaffs;
+using TdmPrototypeBackend.Types.VehicleMovement;
 using TdmPrototypeDmpSynchroniser.Api.Config;
 using TdmPrototypeDmpSynchroniser.Api.SensitiveData;
 using TdmPrototypeDmpSynchroniser.Api.Services;
@@ -29,9 +30,10 @@ public class SyncMovementsTests
         IConfiguration config = new ConfigurationBuilder().Build();
         Mock<IBlobService> blobService = new Mock<IBlobService>();
         Mock<IStorageService<Movement>> movementService = new Mock<IStorageService<Movement>>();
+        Mock<IStorageService<Gmr>> gmrsService = new Mock<IStorageService<Gmr>>();
         Mock<IStorageService<Notification>> notificationService = new Mock<IStorageService<Notification>>();
         var syncService = new SyncService(new NullLoggerFactory(), new SynchroniserConfig(config), blobService.Object,
-            movementService.Object, notificationService.Object, null, new SensitiveDataSerializer(SensitiveDataOptions.WithSensitiveData));
+            movementService.Object, notificationService.Object, gmrsService.Object, null, new SensitiveDataSerializer(SensitiveDataOptions.WithSensitiveData));
 
         string path = "RAW/ALVS/";
 
@@ -65,9 +67,10 @@ public class SyncMovementsTests
         IConfiguration config = new ConfigurationBuilder().Build();
         Mock<IBlobService> blobService = new Mock<IBlobService>();
         Mock<IStorageService<Movement>> movementService = new Mock<IStorageService<Movement>>();
+        Mock<IStorageService<Gmr>> gmrsService = new Mock<IStorageService<Gmr>>();
         Mock<IStorageService<Notification>> notificationService = new Mock<IStorageService<Notification>>();
         var syncService = new SyncService(new NullLoggerFactory(), new SynchroniserConfig(config), blobService.Object,
-            movementService.Object, notificationService.Object, null, new SensitiveDataSerializer(SensitiveDataOptions.WithSensitiveData));
+            movementService.Object, notificationService.Object, gmrsService.Object, null, new SensitiveDataSerializer(SensitiveDataOptions.WithSensitiveData));
 
         string path = "RAW/ALVS/";
 
@@ -98,9 +101,10 @@ public class SyncMovementsTests
         IConfiguration config = new ConfigurationBuilder().Build();
         Mock<IBlobService> blobService = new Mock<IBlobService>();
         Mock<IStorageService<Movement>> movementService = new Mock<IStorageService<Movement>>();
+        Mock<IStorageService<Gmr>> gmrsService = new Mock<IStorageService<Gmr>>();
         Mock<IStorageService<Notification>> notificationService = new Mock<IStorageService<Notification>>();
         var syncService = new SyncService(new NullLoggerFactory(), new SynchroniserConfig(config), blobService.Object,
-            movementService.Object, notificationService.Object, null, new SensitiveDataSerializer(SensitiveDataOptions.WithSensitiveData));
+            movementService.Object, notificationService.Object, gmrsService.Object, null, new SensitiveDataSerializer(SensitiveDataOptions.WithSensitiveData));
 
         string path = "RAW/ALVS/";
 

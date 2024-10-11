@@ -1,6 +1,5 @@
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using Json.Patch;
 using TdmPrototypeBackend.Types.Extensions;
@@ -76,6 +75,20 @@ public class AuditEntry
         };
     }
 
+    public static AuditEntry CreateMatch(string id, int version, DateTime? lastUpdated, string lastUpdatedBy)
+    {
+        return new AuditEntry()
+        {
+            Id = id,
+            Version = version,
+            CreatedSource = lastUpdated,
+            CreatedBy = lastUpdatedBy,
+            CreatedLocal = DateTime.UtcNow,
+            Status = "Matched"
+
+        };
+    }
+
     public class AuditDiffEntry
     {
         public string Path { get; set; }
@@ -125,5 +138,6 @@ public class AuditEntry
             };
         }
     }
-}
 
+    
+}

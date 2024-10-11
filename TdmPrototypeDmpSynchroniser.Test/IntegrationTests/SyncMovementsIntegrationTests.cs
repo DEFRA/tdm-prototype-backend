@@ -12,6 +12,7 @@ using TdmPrototypeBackend.Storage;
 using TdmPrototypeBackend.Storage.Mongo;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Ipaffs;
+using TdmPrototypeBackend.Types.VehicleMovement;
 using TdmPrototypeDmpSynchroniser.Api.Config;
 using TdmPrototypeDmpSynchroniser.Api.Models;
 using TdmPrototypeDmpSynchroniser.Api.Services;
@@ -75,6 +76,7 @@ public class SyncMovementsIntegrationTests(ITestOutputHelper outputHelper) : Int
                 services.AddSingleton<IStorageService<Notification>>(new Mock<IStorageService<Notification>>().Object);
             })
             .Build();
+        Mock<IStorageService<Gmr>> gmrsService = new Mock<IStorageService<Gmr>>();
 
         var movementService = Dependencies.ServiceProvider.GetService<IStorageService<Movement>>()!;
 

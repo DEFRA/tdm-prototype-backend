@@ -12,12 +12,23 @@ internal class PropertyMap(string name)
 
     public bool AttributesOverwritten { get; set; }
 
+    public string OverriddenName { get; set; }
+
+    public bool NameOverwritten { get; set; }
+
     public bool NoAttributes { get; set; }
 
     public PropertyMap SetType(string type)
     {
         Type = type ?? throw new ArgumentNullException("type");
         TypeOverwritten = true;
+        return this;
+    }
+
+    public PropertyMap SetName(string name)
+    {
+        OverriddenName = name ?? throw new ArgumentNullException("name");
+        NameOverwritten = true;
         return this;
     }
 

@@ -7,12 +7,26 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.ClassMaps
         public GeneratorClassMap(string className, Action<GeneratorClassMap> classMapInitializer)
         {
             Name = className;
+            ClassName = className;
             classMapInitializer(this);
         }
 
         public string Name { get; set; }
 
+        public string ClassName { get; private set; }
+
         public List<PropertyMap> Properties { get; private set; } = new List<PropertyMap>();
+
+        public GeneratorClassMap SetClassName(string className)
+        {
+            if (string.IsNullOrEmpty(className))
+            {
+                throw new ArgumentNullException("className");
+            }
+
+            ClassName = className;
+            return this;
+        }
 
         public PropertyMap MapProperty(string propertyName)
         {
