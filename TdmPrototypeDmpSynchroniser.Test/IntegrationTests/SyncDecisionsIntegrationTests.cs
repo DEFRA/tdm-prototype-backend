@@ -38,7 +38,7 @@ public class SyncDecisionsIntegrationTests(ITestOutputHelper outputHelper) : Int
     }
     
     [Fact]
-    public async Task SimpleDecition_Test()
+    public async Task SimpleDecision_Test()
     {
         Dependencies = new IntegrationTestDependenciesBuilder(OutputHelper)
             .UseLocalPathBlobStorage("Fixtures/SimpleDecisionsFolder")
