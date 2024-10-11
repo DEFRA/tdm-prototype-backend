@@ -17,8 +17,6 @@ namespace TdmPrototypeBackend.Types.Alvs;
 
 public partial class Items  //
 {
-
-
     /// <summary>
     /// 
     /// </summary>
@@ -29,16 +27,26 @@ public partial class Items  //
 
     public void MergeChecks(Items decisionItems)
     {
-        var checks = this.Checks?.ToHashSet(new Check.CheckEqualityComparer());
+        var checks = this.Checks?.ToList();
         if (checks == null)
         {
-            checks = new HashSet<Check>();
+            checks = new List<Check>();
         }
 
         foreach (var decisionItemsCheck in decisionItems.Checks)
         {
-            checks.Contains(decisionItemsCheck);
-            checks.Add(decisionItemsCheck);
+            var existing = checks.Find(x => x.CheckCode == decisionItemsCheck.CheckCode);
+            if (existing != null)
+            {
+                existing.DecisionCode = decisionItemsCheck.DecisionCode;
+                existing.DecisionReasons = decisionItemsCheck.DecisionReasons;
+                existing.DecisionsValidUntil = decisionItemsCheck.DecisionsValidUntil;
+                existing.DepartmentCode = decisionItemsCheck.DepartmentCode;
+            }
+            else
+            {
+                checks.Add(decisionItemsCheck);
+            }
         }
 
         this.Checks = checks.ToArray();

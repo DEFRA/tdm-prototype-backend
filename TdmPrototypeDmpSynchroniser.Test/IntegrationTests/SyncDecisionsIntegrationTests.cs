@@ -61,7 +61,32 @@ public class SyncDecisionsIntegrationTests(ITestOutputHelper outputHelper) : Int
         existingMovement.Items[0].Checks[0].DepartmentCode.Should().Be("PHA");
     }
 
-    
+    [Fact]
+    public async Task SimpleDecisionWithExistingChecks_Test()
+    {
+        Dependencies = new IntegrationTestDependenciesBuilder(OutputHelper)
+            .UseLocalPathBlobStorage("Fixtures/SimpleDecisionsWithExistingChecksFolder")
+            .AddTestServices(services =>
+            {
+                services.AddSingleton<IStorageService<Notification>>(new Mock<IStorageService<Notification>>().Object);
+            })
+            .Build();
+
+        await SyncMovements(SyncPeriod.All);
+        await SyncDecisions(SyncPeriod.All);
+
+        var movementService = Dependencies.ServiceProvider.GetService<IStorageService<Movement>>()!;
+
+        var existingMovement = await movementService.Find("CHEDPGB20241039875A5");
+
+        existingMovement.Should().NotBeNull();
+        existingMovement.Items[0].Checks.Length.Should().Be(1);
+        existingMovement.Items[0].Checks[0].CheckCode.Should().Be("H234");
+        existingMovement.Items[0].Checks[0].DepartmentCode.Should().Be("PHA");
+        existingMovement.Items[0].Checks[0].DecisionCode.Should().Be("A02");
+    }
+
+
     private Task SyncDecisions(SyncPeriod syncPeriod)
     {
         return GetSynService().SyncDecisions(syncPeriod);

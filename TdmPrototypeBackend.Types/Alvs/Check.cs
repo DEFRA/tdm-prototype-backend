@@ -40,28 +40,6 @@ public partial class Check  //
     [JsonPropertyName("decisionReasons")]
     public string[]? DecisionReasons { get; set; }
 
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(DecisionCode, CheckCode);
-    }
-
-    public class CheckEqualityComparer : IEqualityComparer<Check>
-    {
-        public bool Equals(Check? x, Check? y)
-        {
-            if (ReferenceEquals(x, y)) return true;
-            if (x is null) return false;
-            if (y is null) return false;
-            if (x.GetType() != y.GetType()) return false;
-            return x.DecisionCode == y.DecisionCode  && x.CheckCode == y.CheckCode;
-        }
-
-        public int GetHashCode(Check obj)
-        {
-            return obj.GetHashCode();
-        }
-    }
-
 }
 
 
