@@ -101,7 +101,7 @@ public partial class Items  //
     [JsonPropertyName("itemOriginCountryCode")]
     public string? ItemOriginCountryCode { get; set; }
 
-
+	
     /// <summary>
     /// 
     /// </summary
@@ -114,7 +114,7 @@ public partial class Items  //
     /// 
     /// </summary
     [Attr]
-    [JsonPropertyName("check")]
+    [JsonPropertyName("checks")]
     public Check[]? Checks { get; set; }
 
 	}

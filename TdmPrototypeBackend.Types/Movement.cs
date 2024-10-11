@@ -4,6 +4,8 @@ using JsonApiDotNetCore.Resources.Annotations;
 using Microsoft.AspNetCore.Authorization;
 using MongoDB.Bson.Serialization.Attributes;
 using TdmPrototypeBackend.Types.Alvs;
+using TdmPrototypeBackend.Types.Extensions;
+
 // using JsonApiSerializer.JsonApi;
 
 namespace TdmPrototypeBackend.Types;
@@ -47,7 +49,10 @@ public class Movement : CustomStringMongoIdentifiable
 
     [Attr]
     public List<Alvs.ALVSClearanceRequest> ClearanceRequests { get; set; } = default!;
-    
+
+    [Attr]
+    public List<Alvs.ALVSClearanceRequest> Decisions { get; set; } = default!;
+
     [Attr]
     public List<Items> Items { get; set; } = default!;
 
@@ -151,5 +156,40 @@ public class Movement : CustomStringMongoIdentifiable
     {
         this.AuditEntries.Add(auditEntry);
         _Ts = DateTime.UtcNow;
+    }
+
+    public bool MergeDecision(string path, ALVSClearanceRequest clearanceRequest)
+    {
+        var before = this.ToJsonString();
+        foreach (var item in clearanceRequest.Items)
+        {
+            var existingItem = this.Items.FirstOrDefault(x => x.ItemNumber == item.ItemNumber);
+
+            if (existingItem is not null)
+            {
+                existingItem.MergeChecks(item);
+            }
+        }
+
+        var after = this.ToJsonString();
+
+        var auditEntry = AuditEntry.CreateDecision(before, after,
+            BuildNormalizedDecisionPath(path),
+            clearanceRequest.Header.EntryVersionNumber.GetValueOrDefault(),
+            clearanceRequest.ServiceHeader.ServiceCallTimestamp,
+            clearanceRequest.Header.DeclarantName);
+        if (auditEntry.Diff.Any())
+        {
+            Decisions ??= new List<ALVSClearanceRequest>();
+            Decisions.Add(clearanceRequest);
+            this.Update(auditEntry);
+        }
+
+        return auditEntry.Diff.Any();
+    }
+
+    private string BuildNormalizedDecisionPath(string fullPath)
+    {
+        return fullPath.Replace("RAW/DECISIONS/", "");
     }
 }
