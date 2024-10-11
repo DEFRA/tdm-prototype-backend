@@ -1,14 +1,14 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace TdmPrototypeBackend.Types.Extensions;
+namespace TdmPrototypeBackend.Api.SensitiveData;
 
-public class SensitiveDataRedactedConverter(SensitiveDataOptions sensitiveDataOptions) : JsonConverter<string>
+public class SensitiveDataRedactedConverter(Api.SensitiveData.SensitiveDataOptions sensitiveDataOptions) : JsonConverter<string>
 {
     /// <inheritdoc/>
     public override string Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        return sensitiveDataOptions.Getter();
+        return sensitiveDataOptions.Getter(reader.GetString());
     }
 
     /// <inheritdoc/>

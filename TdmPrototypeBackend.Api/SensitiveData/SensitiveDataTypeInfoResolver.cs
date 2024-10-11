@@ -1,13 +1,10 @@
-using Humanizer;
-using System.ComponentModel;
-using System.Globalization;
-using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
+using TdmPrototypeBackend.Types.Extensions;
 
-namespace TdmPrototypeBackend.Types.Extensions;
+namespace TdmPrototypeBackend.Api.SensitiveData;
 
-public class SensitiveDataTypeInfoResolver(SensitiveDataOptions sensitiveDataOptions) : DefaultJsonTypeInfoResolver
+public class SensitiveDataTypeInfoResolver(Api.SensitiveData.SensitiveDataOptions sensitiveDataOptions) : DefaultJsonTypeInfoResolver
 {
     public override JsonTypeInfo GetTypeInfo(Type type, JsonSerializerOptions options)
     {
@@ -21,7 +18,7 @@ public class SensitiveDataTypeInfoResolver(SensitiveDataOptions sensitiveDataOpt
                 {
                     if (property.AttributeProvider.GetCustomAttributes(typeof(SensitiveDataAttribute), false).Any())
                     {
-                        property.CustomConverter = new SensitiveDataRedactedConverter(sensitiveDataOptions);
+                        property.CustomConverter = new Api.SensitiveData.SensitiveDataRedactedConverter(sensitiveDataOptions);
                     }
                 }
             }
