@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types.Alvs;
+using TdmPrototypeDmpSynchroniser.Api.SensitiveData;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Models;
 
@@ -49,17 +50,9 @@ public static class ClearanceRequestExtensions
         }
     }
 
-    public static ALVSClearanceRequest FromBlob(string s)
+    public static ALVSClearanceRequest FromBlob(string s, ISensitiveDataSerializer sensitiveDataSerializer)
     {
-        JsonSerializerOptions options = new JsonSerializerOptions()
-        {
-            PropertyNameCaseInsensitive = true,
-            NumberHandling = JsonNumberHandling.AllowReadingFromString
-        };
-
-        options.Converters.Add(new DateTimeConverterUsingDateTimeParse());
-
-        return JsonSerializer.Deserialize<ALVSClearanceRequest>(s, options)!;
+        return sensitiveDataSerializer.Deserialize<ALVSClearanceRequest>(s, options => options.Converters.Add(new DateTimeConverterUsingDateTimeParse()))!;
        
     }
 }

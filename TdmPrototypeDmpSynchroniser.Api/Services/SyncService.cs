@@ -505,7 +505,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
 
         try
         {
-            return ClearanceRequestExtensions.FromBlob(blob.Content);
+            return ClearanceRequestExtensions.FromBlob(blob.Content, sensitiveDataSerializer);
         }
         catch (Exception ex)
         {

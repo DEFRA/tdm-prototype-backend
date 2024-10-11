@@ -13,9 +13,8 @@ public static class MovementExtensions
 {
     public static Movement FromClearanceRequest(string s, ISensitiveDataSerializer sensitiveDataSerializer)
     {
-        var r = ClearanceRequestExtensions.FromBlob(s);
-        var r = sensitiveDataSerializer.Deserialize<ALVSClearanceRequest>(s, options => options.Converters.Add(new DateTimeConverterUsingDateTimeParse()))!;
-        
+        var r = ClearanceRequestExtensions.FromBlob(s, sensitiveDataSerializer);
+       
         return new Movement() {
             Id = r.Header!.EntryReference,
             LastUpdated = r.ServiceHeader?.ServiceCallTimestamp,
