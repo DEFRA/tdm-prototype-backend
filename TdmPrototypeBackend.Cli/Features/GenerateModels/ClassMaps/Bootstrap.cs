@@ -64,6 +64,11 @@ static class Bootstrap
             map.MapProperty("ukTelephone").IsSensitive();
             map.MapProperty("telephone").IsSensitive();
         });
+
+        GeneratorClassMap.RegisterClassMap("UserInformation", map =>
+        {
+            map.MapProperty("displayName").IsSensitive();
+        });
     }
 
 
