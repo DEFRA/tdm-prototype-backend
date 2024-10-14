@@ -19,7 +19,16 @@ public class SensitiveDataTypeInfoResolver(ISensitiveDataOptions sensitiveDataOp
                 {
                     if (property.AttributeProvider.GetCustomAttributes(typeof(SensitiveDataAttribute), false).Any())
                     {
-                        property.CustomConverter = new Api.SensitiveData.SensitiveDataRedactedConverter(sensitiveDataOptions);
+                        if (property.PropertyType == typeof(string))
+                        {
+                            property.CustomConverter =
+                                new Api.SensitiveData.SensitiveDataRedactedConverter(sensitiveDataOptions);
+                        }
+                        else if (property.PropertyType == typeof(string[]))
+                        {
+                            property.CustomConverter =
+                                new Api.SensitiveData.StringArraySensitiveDataRedactedConverter(sensitiveDataOptions);
+                        }
                     }
                 }
             }

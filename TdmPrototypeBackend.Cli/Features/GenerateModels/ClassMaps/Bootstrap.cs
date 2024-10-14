@@ -65,6 +65,19 @@ static class Bootstrap
             map.MapProperty("telephone").IsSensitive();
         });
 
+
+        GeneratorClassMap.RegisterClassMap("Party", map =>
+        {
+            map.MapProperty("email").IsSensitive();
+            map.MapProperty("fax").IsSensitive();
+            map.MapProperty("phone").IsSensitive();
+            map.MapProperty("city").IsSensitive();
+            map.MapProperty("postCode").IsSensitive();
+            map.MapProperty("Address").IsSensitive();
+            map.MapProperty("companyName").IsSensitive();
+            map.MapProperty("name").IsSensitive();
+        });
+
         GeneratorClassMap.RegisterClassMap("UserInformation", map =>
         {
             map.MapProperty("displayName").IsSensitive();
