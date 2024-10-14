@@ -32,6 +32,13 @@ internal class PropertyMap(string name)
         return this;
     }
 
+    public PropertyMap IsSensitive()
+    {
+        AddAttribute("[TdmPrototypeBackend.Types.Extensions.SensitiveData()]");
+        return this;
+    }
+
+
     public PropertyMap AddAttribute(string attribute)
     {
         if (string.IsNullOrEmpty(attribute))

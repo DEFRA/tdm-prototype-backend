@@ -1,8 +1,10 @@
 using System.Dynamic;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
 using System.Text.Json.JsonDiffPatch;
 using System.Text.Json.Nodes;
+using System.Text.Json.Serialization.Metadata;
 using Json.Patch;
 using TdmPrototypeBackend.Matching;
 using TdmPrototypeBackend.Storage;
@@ -13,9 +15,11 @@ using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeBackend.Types.VehicleMovement;
 using TdmPrototypeDmpSynchroniser.Api.Config;
 using TdmPrototypeDmpSynchroniser.Api.Models;
+using TdmPrototypeDmpSynchroniser.Api.SensitiveData;
 using Status = TdmPrototypeDmpSynchroniser.Api.Models.Status;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Services;
+
 
 
 public enum SyncStatus
@@ -25,9 +29,10 @@ public enum SyncStatus
     Success,
     SuccessAndMatched
 }
-public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config,
-IBlobService blobService, IStorageService<Movement> movementService,
-IStorageService<Notification> notificationService, IStorageService<Gmr> gmrsService, IMatchingService matchingService) : BaseService(loggerFactory, config), ISyncService
+public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config, IBlobService blobService, 
+    IStorageService<Movement> movementService, IStorageService<Notification> notificationService,
+    IStorageService<Gmr> gmrsService,
+    IMatchingService matchingService, ISensitiveDataSerializer sensitiveDataSerializer):BaseService(loggerFactory, config), ISyncService
 {
 
     private static string GetPeriodPath(SyncPeriod period)
@@ -173,7 +178,7 @@ IStorageService<Notification> notificationService, IStorageService<Gmr> gmrsServ
 
         try
         {
-            return MovementExtensions.FromClearanceRequest(blob.Content);
+            return MovementExtensions.FromClearanceRequest(blob.Content, sensitiveDataSerializer);
         }
         catch (Exception ex)
         {
@@ -404,7 +409,7 @@ IStorageService<Notification> notificationService, IStorageService<Gmr> gmrsServ
         try
         {
             // throw new Exception();
-            return NotificationExtensions.FromBlob(blob.Content);
+            return NotificationExtensions.FromBlob(blob.Content, sensitiveDataSerializer);
         }
         catch (Exception ex)
         {
@@ -500,7 +505,7 @@ IStorageService<Notification> notificationService, IStorageService<Gmr> gmrsServ
 
         try
         {
-            return ClearanceRequestExtensions.FromBlob(blob.Content);
+            return ClearanceRequestExtensions.FromBlob(blob.Content, sensitiveDataSerializer);
         }
         catch (Exception ex)
         {

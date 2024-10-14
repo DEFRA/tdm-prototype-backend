@@ -16,6 +16,7 @@ using JsonApiDotNetCore.Resources.Annotations;
 using JsonApiDotNetCore.Serialization.Objects;
 using JsonApiDotNetCore.Serialization.Response;
 using MongoDB.Bson.Serialization.Attributes;
+using TdmPrototypeBackend.Types.Extensions;
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
 

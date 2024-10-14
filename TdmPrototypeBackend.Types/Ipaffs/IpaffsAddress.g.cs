@@ -27,6 +27,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("street")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? Street { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("city")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? City { get; set; }
 
 	
@@ -51,6 +53,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("postalCode")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? PostalCode { get; set; }
 
 	
@@ -59,6 +62,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("addressLine1")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? AddressLine1 { get; set; }
 
 	
@@ -67,6 +71,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("addressLine2")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? AddressLine2 { get; set; }
 
 	
@@ -75,6 +80,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("addressLine3")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? AddressLine3 { get; set; }
 
 	
@@ -83,6 +89,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("postalZipCode")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? PostalZipCode { get; set; }
 
 	
@@ -99,6 +106,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("email")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? Email { get; set; }
 
 	
@@ -107,6 +115,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("ukTelephone")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? UkTelephone { get; set; }
 
 	
@@ -115,6 +124,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("telephone")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? Telephone { get; set; }
 
 	

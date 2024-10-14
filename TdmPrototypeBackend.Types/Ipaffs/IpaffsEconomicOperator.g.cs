@@ -53,6 +53,7 @@ public partial class IpaffsEconomicOperator  //
     /// </summary
     [Attr]
     [JsonPropertyName("companyName")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? CompanyName { get; set; }
 
 	
@@ -61,6 +62,7 @@ public partial class IpaffsEconomicOperator  //
     /// </summary
     [Attr]
     [JsonPropertyName("individualName")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? IndividualName { get; set; }
 
 	

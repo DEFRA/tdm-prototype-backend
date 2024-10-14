@@ -6,6 +6,7 @@ static class Bootstrap
     {
         RegisterAlvsClassMaps();
         RegisterIpaffsClassMaps();
+
         RegisterVehicleMovementsClassMaps();
     }
 
@@ -15,8 +16,6 @@ static class Bootstrap
         {
             map.MapProperty("ArrivalDateTime").SetType("DateTime");
         });
-
-       ;
     }
 
     public static void RegisterIpaffsClassMaps()
@@ -44,7 +43,47 @@ static class Bootstrap
                 .SetType("IDictionary<string, object>")
                 .AddAttribute("[JsonConverter(typeof(KeyDataPairsToDictionaryStringObjectJsonConverter))]");
         });
+
+
+        GeneratorClassMap.RegisterClassMap("EconomicOperator", map =>
+        {
+            map.MapProperty("individualName").IsSensitive();
+            map.MapProperty("companyName").IsSensitive();
+        });
+
+        GeneratorClassMap.RegisterClassMap("Address", map =>
+        {
+            map.MapProperty("Street").IsSensitive();
+            map.MapProperty("City").IsSensitive();
+            map.MapProperty("postalCode").IsSensitive();
+            map.MapProperty("addressLine1").IsSensitive();
+            map.MapProperty("addressLine2").IsSensitive();
+            map.MapProperty("addressLine3").IsSensitive();
+            map.MapProperty("postalZipCode").IsSensitive();
+            map.MapProperty("email").IsSensitive();
+            map.MapProperty("ukTelephone").IsSensitive();
+            map.MapProperty("telephone").IsSensitive();
+        });
+
+
+        GeneratorClassMap.RegisterClassMap("Party", map =>
+        {
+            map.MapProperty("email").IsSensitive();
+            map.MapProperty("fax").IsSensitive();
+            map.MapProperty("phone").IsSensitive();
+            map.MapProperty("city").IsSensitive();
+            map.MapProperty("postCode").IsSensitive();
+            map.MapProperty("Address").IsSensitive();
+            map.MapProperty("companyName").IsSensitive();
+            map.MapProperty("name").IsSensitive();
+        });
+
+        GeneratorClassMap.RegisterClassMap("UserInformation", map =>
+        {
+            map.MapProperty("displayName").IsSensitive();
+        });
     }
+
 
     public static void RegisterVehicleMovementsClassMaps()
     {

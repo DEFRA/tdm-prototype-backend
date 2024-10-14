@@ -35,6 +35,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("name")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? Name { get; set; }
 
 	
@@ -59,6 +60,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("companyName")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? CompanyName { get; set; }
 
 	
@@ -67,6 +69,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("address")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string[]? Addresses { get; set; }
 
 	
@@ -83,6 +86,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("postCode")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? PostCode { get; set; }
 
 	
@@ -99,6 +103,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("city")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? City { get; set; }
 
 	
@@ -132,6 +137,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("phone")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? Phone { get; set; }
 
 	
@@ -140,6 +146,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("fax")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? Fax { get; set; }
 
 	
@@ -148,6 +155,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("email")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? Email { get; set; }
 
 	}

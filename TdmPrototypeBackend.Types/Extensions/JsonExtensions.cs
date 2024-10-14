@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Options;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -9,6 +11,7 @@ namespace TdmPrototypeBackend.Types.Extensions
         {
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };
+
         public static string ToJsonString<T>(this T value, JsonSerializerOptions? options = null)
         {
             if (value is string s) return s;

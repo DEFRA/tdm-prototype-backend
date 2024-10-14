@@ -5,21 +5,16 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Ipaffs;
+using TdmPrototypeDmpSynchroniser.Api.SensitiveData;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Models;
 
 public static class NotificationExtensions
 {
     
-    public static Notification FromBlob(string s)
+    public static Notification FromBlob(string s, ISensitiveDataSerializer sensitiveDataSerializer)
     {
-        JsonSerializerOptions options = new JsonSerializerOptions()
-        {
-            // PropertyNameCaseInsensitive = true,
-            NumberHandling = JsonNumberHandling.AllowReadingFromString
-        };
-        
-        var r = JsonSerializer.Deserialize<Notification>(s, options)!;
+        var r = sensitiveDataSerializer.Deserialize<Notification>(s, _ => {})!;
         r.Transform();
         
         return r;

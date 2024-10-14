@@ -27,6 +27,7 @@ public partial class IpaffsUserInformation  //
     /// </summary
     [Attr]
     [JsonPropertyName("displayName")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? DisplayName { get; set; }
 
 	
