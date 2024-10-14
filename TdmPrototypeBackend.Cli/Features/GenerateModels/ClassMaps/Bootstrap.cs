@@ -82,6 +82,15 @@ static class Bootstrap
         {
             map.MapProperty("displayName").IsSensitive();
         });
+
+        GeneratorClassMap.RegisterClassMap("OfficialVeterinarian", map =>
+        {
+            map.MapProperty("firstName").IsSensitive();
+            map.MapProperty("lastName").IsSensitive();
+            map.MapProperty("email").IsSensitive();
+            map.MapProperty("phone").IsSensitive();
+            map.MapProperty("fax").IsSensitive();
+        });
     }
 
 
