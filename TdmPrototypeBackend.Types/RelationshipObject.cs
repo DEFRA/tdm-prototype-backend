@@ -30,7 +30,7 @@ public sealed class TdmRelationshipObject
     public bool Matched { get; set; } = default!;
 
     [Attr]
-    public RelationshipLinks? Links { get; set; }
+    public RelationshipLinks Links { get; set; }
 
     [Attr]
     public List<RelationshipDataItem> Data { get; set; } = new List<RelationshipDataItem>();
@@ -45,10 +45,10 @@ public sealed class TdmRelationshipObject
 public sealed class RelationshipLinks
 {
     [Attr]
-    public string? Self { get; set; }
+    public string Self { get; set; }
 
     [Attr]
-    public string? Related { get; set; }
+    public string Related { get; set; }
 
     public static RelationshipLinks CreateForMovement(Movement movement)
     {
@@ -72,7 +72,7 @@ public sealed class RelationshipLinks
 public sealed class ResourceLink
 {
     [Attr]
-    public string? Self { get; set; }
+    public string Self { get; set; }
 }
 
 public sealed class RelationshipDataItem 
@@ -81,13 +81,13 @@ public sealed class RelationshipDataItem
     public bool Matched { get; set; } = default!;
 
     [Attr]
-    public string? Type { get; set; }
+    public string Type { get; set; }
 
     [Attr]
-    public string? Id { get; set; }
+    public string Id { get; set; }
 
     [Attr]
-    public ResourceLink? Links { get; set; }
+    public ResourceLink Links { get; set; }
     
     [Attr]
     public int? SourceItem { get; set; } = default!;
@@ -96,7 +96,7 @@ public sealed class RelationshipDataItem
     public int? DestinationItem { get; set; } = default!;
 
     [Attr]
-    public Dictionary<string, string>? AdditionalInformation { get; set; }
+    public Dictionary<string, string> AdditionalInformation { get; set; }
 
     public static RelationshipDataItem CreateFromNotification(Notification notification, Movement movement, string matchReference, bool matched = true, string reason = null)
     {

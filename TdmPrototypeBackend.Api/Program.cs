@@ -146,8 +146,8 @@ if (builder.IsSwaggerEnabled())
     builder.Services.AddSwaggerGen(c =>
     {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-        c.SwaggerDoc("internal-v1", new OpenApiInfo { Title = "My API", Version = "internal-v1" });
-        c.SwaggerDoc("public-v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+        c.SwaggerDoc("internal-v0.1", new OpenApiInfo { Title = "My API", Version = "internal-v0.1" });
+        c.SwaggerDoc("public-v0.1", new OpenApiInfo { Title = "My API", Version = "v0.1" });
         
 
         c.DocInclusionPredicate((name, api) =>  !name.StartsWith("public"));
@@ -165,8 +165,8 @@ if (builder.IsSwaggerEnabled())
     app.UseSwagger();
     app.UseSwaggerUI(options => // UseSwaggerUI is called only in Development.
     {
-        options.SwaggerEndpoint("/swagger/internal-v1/swagger.json", "internal");
-        options.SwaggerEndpoint("/swagger/public-v1/swagger.json", "public");
+        options.SwaggerEndpoint("/swagger/internal-v0.1/swagger.json", "internal");
+        options.SwaggerEndpoint("/swagger/public-v0.1/swagger.json", "public");
     });
 }
 
