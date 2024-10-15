@@ -7,6 +7,23 @@ using TdmPrototypeBackend.Types.Ipaffs;
 
 namespace TdmPrototypeBackend.Types;
 
+public interface ITdmRelationships
+{
+
+}
+
+public class NotificationTdmRelationships : ITdmRelationships
+{
+    [Attr] 
+    public TdmRelationshipObject Movements { get; set; } = TdmRelationshipObject.CreateDefault();
+}
+
+public class MovementTdmRelationships : ITdmRelationships
+{
+    [Attr]
+    public TdmRelationshipObject Notifications { get; set; } = TdmRelationshipObject.CreateDefault();
+}
+
 public sealed class TdmRelationshipObject
 {
     [Attr]
