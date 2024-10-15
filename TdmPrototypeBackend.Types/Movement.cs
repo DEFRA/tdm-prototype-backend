@@ -15,27 +15,6 @@ namespace TdmPrototypeBackend.Types;
 // https://eaflood.atlassian.net/wiki/spaces/TRADE/pages/5104664583/PHA+Port+Health+Authority+Integration+Data+Schema
 
 
-public partial class Item
-{
-    //    [Attr]
-//    public int ItemNumber { get; set; } = default!;
-    
-//    [Attr]
-//    public string CustomsProcedureCode { get; set; } = default!;
-    
-//    [Attr]
-//    public string TaricCommodityCode { get; set; } = default!;
-    
-//    [Attr]
-//    public string GoodsDescription { get; set; } = default!;
-    
-    // TODO : Unclear yet whether items in a clearance request can be  
-    // split across GMRs
-    [Attr]
-    public MatchingStatus Gmr { get; set; } = new MatchingStatus() { Matched = false }!;
-}
-
-
 [Resource]
 public class Movement : CustomStringMongoIdentifiable
 {

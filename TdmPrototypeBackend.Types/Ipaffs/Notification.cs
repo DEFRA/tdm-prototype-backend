@@ -31,7 +31,7 @@ public partial class Notification : IMongoIdentifiable
 
     //[BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
     [JsonIgnore]
-    public virtual string? Id
+    public virtual string Id
     {
         get => ReferenceNumber;
         set => ReferenceNumber = value;
@@ -43,7 +43,7 @@ public partial class Notification : IMongoIdentifiable
     [JsonIgnore]
     // [NotMapped]
     [Attr]
-    public string? StringId
+    public string StringId
     {
         get => Id;
         set => Id = value;
@@ -54,7 +54,7 @@ public partial class Notification : IMongoIdentifiable
     [JsonIgnore]
     [NotMapped]
     // [Attr]
-    public string? LocalId { get; set; }
+    public string LocalId { get; set; }
     
     [Attr]
     public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
