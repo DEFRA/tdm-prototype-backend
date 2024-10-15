@@ -12,6 +12,7 @@ using JsonApiDotNetCore.Repositories;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.OpenApi.Models;
 using Microsoft.VisualBasic.CompilerServices;
 using MongoDB.Driver;
 using Serilog;
@@ -25,6 +26,7 @@ using TdmPrototypeBackend.Matching.Extensions;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeCdsSimulator.Extensions;
 using TdmPrototypeDmpSynchroniser.Api.Extensions;
+using TdmPrototypeBackend.Api.Swagger;
 
 // using TdmPrototypeBackend.Models;
 
@@ -141,7 +143,16 @@ builder.Services.AddMatchingService();
 if (builder.IsSwaggerEnabled())
 {
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+        c.SwaggerDoc("internal-v1", new OpenApiInfo { Title = "My API", Version = "internal-v1" });
+        c.SwaggerDoc("public-v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+        
+
+        c.DocInclusionPredicate((name, api) =>  !name.StartsWith("public"));
+        c.DocumentFilter<DocumentFilter>();
+    });
 }
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
@@ -152,7 +163,11 @@ var app = builder.Build();
 if (builder.IsSwaggerEnabled())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options => // UseSwaggerUI is called only in Development.
+    {
+        options.SwaggerEndpoint("/swagger/internal-v1/swagger.json", "internal");
+        options.SwaggerEndpoint("/swagger/public-v1/swagger.json", "public");
+    });
 }
 
 app.UseRouting();
