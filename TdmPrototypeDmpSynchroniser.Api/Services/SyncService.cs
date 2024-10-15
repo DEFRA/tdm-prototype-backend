@@ -340,11 +340,11 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
 
                     if (existingNotification is not null)
                     {
-                        if (n.Version > existingNotification.Version)
+                        if (n.LastUpdated > existingNotification.LastUpdated)
                         {
                             n.AuditEntries = existingNotification.AuditEntries;
 
-                            if ((n.Version - existingNotification.Version) == 1)
+                            if ((n.Version - existingNotification.Version) <= 1)
                             {
                                 var auditEntry = AuditEntry.CreateUpdated(existingNotification,
                                     n,
