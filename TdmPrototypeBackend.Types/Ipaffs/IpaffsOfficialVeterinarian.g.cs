@@ -27,6 +27,7 @@ public partial class IpaffsOfficialVeterinarian  //
     /// </summary
     [Attr]
     [JsonPropertyName("firstName")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? FirstName { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsOfficialVeterinarian  //
     /// </summary
     [Attr]
     [JsonPropertyName("lastName")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? LastName { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsOfficialVeterinarian  //
     /// </summary
     [Attr]
     [JsonPropertyName("email")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? Email { get; set; }
 
 	
@@ -51,6 +54,7 @@ public partial class IpaffsOfficialVeterinarian  //
     /// </summary
     [Attr]
     [JsonPropertyName("phone")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? Phone { get; set; }
 
 	
@@ -59,6 +63,7 @@ public partial class IpaffsOfficialVeterinarian  //
     /// </summary
     [Attr]
     [JsonPropertyName("fax")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? Fax { get; set; }
 
 	
