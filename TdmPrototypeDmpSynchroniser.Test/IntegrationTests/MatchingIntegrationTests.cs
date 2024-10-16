@@ -63,6 +63,11 @@ public class MatchingIntegrationTests : IntegrationTests
         notification.Relationships.Count.Should().Be(1);
         notification.Relationships.First().Value.Matched.Should().BeTrue();
         notification.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
+
+        notification = await _notificationService.Find("CHEDD.GB.2024.1004777");
+        notification.Relationships.Count.Should().Be(1);
+        notification.Relationships.First().Value.Matched.Should().BeTrue();
+        notification.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
     }
 
     private async Task ValidateMovements()
@@ -78,6 +83,11 @@ public class MatchingIntegrationTests : IntegrationTests
         movement.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
 
         movement = await _movementService.Find("CHEDPGB20241042294A5");
+        movement.Relationships.Count.Should().Be(1);
+        movement.Relationships.First().Value.Matched.Should().BeTrue();
+        movement.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
+
+        movement = await _movementService.Find("CHEDDGB20241004777");
         movement.Relationships.Count.Should().Be(1);
         movement.Relationships.First().Value.Matched.Should().BeTrue();
         movement.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
