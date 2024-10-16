@@ -104,9 +104,9 @@ public static class ALVSClearanceRequestBuilder
             DocumentStatus = "P"
         };
 
-        var commodities = notification!.PartOne!.Commodities!;
+        var commodities = notification.CommoditiesSummary!;
 
-        clearanceRequest.Items = commodities.CommodityComplements!
+        clearanceRequest.Items = notification.Commodities!
             .Select((c, index) => new Items()
             {
                 ItemNumber = index + 1,
