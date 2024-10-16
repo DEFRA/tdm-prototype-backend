@@ -43,6 +43,11 @@ public class MatchingIntegrationTests(ITestOutputHelper outputHelper) : Integrat
         movement.Relationships.First().Value.Matched.Should().BeTrue();
         movement.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
 
+        movement = await movementService.Find("CHEDPGB20241042294A5");
+        movement.Relationships.Count.Should().Be(1);
+        movement.Relationships.First().Value.Matched.Should().BeTrue();
+        movement.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
+
 
         var notification = await notificationService.Find("CHEDD.GB.2024.1004768");
         notification.Relationships.Count.Should().Be(1);
@@ -50,6 +55,11 @@ public class MatchingIntegrationTests(ITestOutputHelper outputHelper) : Integrat
         notification.AuditEntries.Count(x => x.Status == "Matched").Should().Be(0);
 
         notification = await notificationService.Find("CHEDA.GB.2024.1041389");
+        notification.Relationships.Count.Should().Be(1);
+        notification.Relationships.First().Value.Matched.Should().BeTrue();
+        notification.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
+
+        notification = await notificationService.Find("CHEDP.GB.2024.1042294");
         notification.Relationships.Count.Should().Be(1);
         notification.Relationships.First().Value.Matched.Should().BeTrue();
         notification.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
