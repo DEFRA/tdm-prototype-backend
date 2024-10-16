@@ -58,13 +58,15 @@ public partial class Notification : IMongoIdentifiable
     
     [Attr]
     public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
-
-    //[Attr]
-    //public Dictionary<string, TdmRelationshipObject> Relationships { get; set; } =
-    //    new() { { "movements", TdmRelationshipObject.CreateDefault() } };
-
+    
     [Attr]
     public NotificationTdmRelationships Relationships { get; set; } = new NotificationTdmRelationships();
+
+    [Attr]
+    public IpaffsCommodities Commodities { get; set; }
+
+    [Attr]
+    public IpaffsCommodityComplement[] CommoditiesSummary { get; set; }
 
     // Filter fields...
     // These fields are added to the model solely for use by the filtering

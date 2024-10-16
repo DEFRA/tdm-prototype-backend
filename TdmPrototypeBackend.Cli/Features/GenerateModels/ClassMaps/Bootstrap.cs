@@ -34,7 +34,13 @@ static class Bootstrap
 
         GeneratorClassMap.RegisterClassMap("Commodities", map =>
         {
-            map.MapProperty("complementParameterSet").AddAttribute("[MongoDB.Bson.Serialization.Attributes.BsonIgnore]");
+            map.MapProperty("complementParameterSet").SetBsonIgnore();
+            map.MapProperty("commodityComplement").SetBsonIgnore();
+        });
+
+        GeneratorClassMap.RegisterClassMap("PartOne", map =>
+        {
+            map.MapProperty("commodities").SetBsonIgnore();
         });
 
         GeneratorClassMap.RegisterClassMap("ComplementParameterSet", map =>

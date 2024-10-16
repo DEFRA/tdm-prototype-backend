@@ -43,20 +43,23 @@ public static class NotificationExtensions
     
     private static void Transform(this Notification n)
     {
-        if (n.PartOne!.Commodities!.CommodityComplements!.Length == 1)
+        var commodities = n.PartOne!.Commodities;
+
+        if (commodities!.CommodityComplements!.Length == 1)
         {
-            n.PartOne!.Commodities!.CommodityComplements[0].AdditionalData = n.PartOne!.Commodities!.ComplementParameterSets![0].KeyDataPairs!.FromSnakeCase();
+            commodities!.CommodityComplements[0].AdditionalData = commodities!.ComplementParameterSets![0].KeyDataPairs!.FromSnakeCase();
             if (n.RiskAssessment != null)
             {
-                n.PartOne!.Commodities!.CommodityComplements[0].RiskAssesment = n.RiskAssessment.CommodityResults![0];    
+                commodities!.CommodityComplements[0].RiskAssesment = n.RiskAssessment.CommodityResults![0];    
             }
         }
         else
         {
             var complementParameters = new Dictionary<int, IpaffsComplementParameterSet>();
             var complementRiskAssesments = new Dictionary<string, IpaffsCommodityRiskResult>();
-        
-            foreach (var commoditiesCommodityComplement in n.PartOne!.Commodities!.ComplementParameterSets!)
+            var commodityChecks = new Dictionary<string, IpaffsInspectionCheck[]>();
+
+            foreach (var commoditiesCommodityComplement in commodities!.ComplementParameterSets!)
             {
                 complementParameters[commoditiesCommodityComplement.ComplementID.Value!] = commoditiesCommodityComplement;
             }
@@ -68,8 +71,16 @@ public static class NotificationExtensions
                     complementRiskAssesments[commoditiesRa.UniqueId!] = commoditiesRa;
                 }
             }
+
+            if (n.PartTwo?.CommodityChecks != null)
+            {
+                foreach (var commodityCheck in n.PartTwo?.CommodityChecks)
+                {
+                    commodityChecks[commodityCheck.UniqueComplementId] = commodityCheck.Checks;
+                }
+            }
             
-            foreach (var commodity in n.PartOne!.Commodities!.CommodityComplements)
+            foreach (var commodity in commodities!.CommodityComplements)
             {
                 var parameters = complementParameters[commodity.ComplementID.Value!];
                 commodity.AdditionalData = parameters.KeyDataPairs.FromSnakeCase();
@@ -79,9 +90,19 @@ public static class NotificationExtensions
                     complementRiskAssesments.ContainsKey(parameters.UniqueComplementID))
                 {
                     commodity.RiskAssesment = complementRiskAssesments[parameters.UniqueComplementID!];
+                    
+                }
+
+                if (commodityChecks.Any() &&
+                    parameters.UniqueComplementID is not null &&
+                    commodityChecks.ContainsKey(parameters.UniqueComplementID))
+                {
+                    commodity.Checks = commodityChecks[parameters.UniqueComplementID!];
                 }
             }
-        
         }
+
+        n.Commodities = commodities;
+        n.CommoditiesSummary = commodities.CommodityComplements.Select(x => x).ToArray();
     }
 }

@@ -180,6 +180,7 @@ public partial class IpaffsPartOne  //
     /// </summary
     [Attr]
     [JsonPropertyName("commodities")]
+    [MongoDB.Bson.Serialization.Attributes.BsonIgnore]
     public IpaffsCommodities? Commodities { get; set; }
 
 	

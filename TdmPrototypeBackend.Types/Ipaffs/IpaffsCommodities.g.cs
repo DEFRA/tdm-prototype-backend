@@ -99,6 +99,7 @@ public partial class IpaffsCommodities  //
     /// </summary
     [Attr]
     [JsonPropertyName("commodityComplement")]
+    [MongoDB.Bson.Serialization.Attributes.BsonIgnore]
     public IpaffsCommodityComplement[]? CommodityComplements { get; set; }
 
 	
