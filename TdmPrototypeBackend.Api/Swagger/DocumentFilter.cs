@@ -65,6 +65,7 @@ public class DocumentFilter : IDocumentFilter, ISchemaFilter
     
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {
+        // Exclude BsonIgnore fields
         if (schema?.Properties == null || context.Type == null)
             return;
 
@@ -79,10 +80,5 @@ public class DocumentFilter : IDocumentFilter, ISchemaFilter
             if (schema.Properties.ContainsKey(name))
                 schema.Properties.Remove(name);
         }
-
-        //if (context.MemberInfo?.CustomAttributes?.Any(x => x.AttributeType == typeof(BsonIgnoreAttribute)) == true)
-        //{
-        //    schema.WriteOnly = true;
-        //}
     }
 }

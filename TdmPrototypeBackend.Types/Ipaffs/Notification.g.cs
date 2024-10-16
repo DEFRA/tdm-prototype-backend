@@ -52,6 +52,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("referenceNumber")]
+    [MongoDB.Bson.Serialization.Attributes.BsonIgnore]
     public string? ReferenceNumber { get; set; }
 
 	

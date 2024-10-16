@@ -30,6 +30,7 @@ static class Bootstrap
             map.MapProperty("riskDecisionLockingTime").SetType("DateTime");
             map.MapProperty("decisionDate").SetType("DateTime");
             map.MapProperty("lastUpdated").SetType("DateTime");
+            map.MapProperty("referenceNumber").SetBsonIgnore();
         });
 
         GeneratorClassMap.RegisterClassMap("Commodities", map =>
