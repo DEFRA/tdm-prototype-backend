@@ -155,6 +155,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("commodityChecks")]
+    [MongoDB.Bson.Serialization.Attributes.BsonIgnore]
     public IpaffsCommodityChecks[]? CommodityChecks { get; set; }
 
 	

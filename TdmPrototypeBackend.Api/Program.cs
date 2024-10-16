@@ -152,6 +152,7 @@ if (builder.IsSwaggerEnabled())
 
         c.DocInclusionPredicate((name, api) =>  !name.StartsWith("public"));
         c.DocumentFilter<DocumentFilter>();
+        c.SchemaFilter<DocumentFilter>();
     });
 }
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();

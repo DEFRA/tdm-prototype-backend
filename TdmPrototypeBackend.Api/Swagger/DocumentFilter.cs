@@ -1,11 +1,13 @@
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.OpenApi.Models;
+using MongoDB.Bson.Serialization.Attributes;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace TdmPrototypeBackend.Api.Swagger;
 
-public class DocumentFilter : IDocumentFilter
+public class DocumentFilter : IDocumentFilter, ISchemaFilter
 {
     public DocumentFilter()
     {
@@ -29,6 +31,7 @@ public class DocumentFilter : IDocumentFilter
                     {
                         apiSchema.Value.Properties.Remove(valueProperty);
                     }
+
                 }
 
 
@@ -58,5 +61,28 @@ public class DocumentFilter : IDocumentFilter
                 tag: "Gmrs");
         }
 
+    }
+    
+    public void Apply(OpenApiSchema schema, SchemaFilterContext context)
+    {
+        if (schema?.Properties == null || context.Type == null)
+            return;
+
+        var excludedProperties = context.Type.GetProperties()
+            .Where(t =>
+                t.GetCustomAttribute(typeof(BsonIgnoreAttribute)) != null);
+
+        foreach (var excludedProperty in excludedProperties)
+        {
+            var jsonAttr = excludedProperty.GetCustomAttribute<JsonPropertyNameAttribute>();
+            var name = jsonAttr != null ? jsonAttr.Name : excludedProperty.Name;
+            if (schema.Properties.ContainsKey(name))
+                schema.Properties.Remove(name);
+        }
+
+        //if (context.MemberInfo?.CustomAttributes?.Any(x => x.AttributeType == typeof(BsonIgnoreAttribute)) == true)
+        //{
+        //    schema.WriteOnly = true;
+        //}
     }
 }

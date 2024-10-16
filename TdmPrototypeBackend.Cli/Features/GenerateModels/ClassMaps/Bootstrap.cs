@@ -43,6 +43,11 @@ static class Bootstrap
             map.MapProperty("commodities").SetBsonIgnore();
         });
 
+        GeneratorClassMap.RegisterClassMap("PartTwo", map =>
+        {
+            map.MapProperty("commodityChecks").SetBsonIgnore();
+        });
+
         GeneratorClassMap.RegisterClassMap("ComplementParameterSet", map =>
         {
             map.MapProperty("KeyDataPair")
