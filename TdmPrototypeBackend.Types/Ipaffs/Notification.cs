@@ -63,10 +63,10 @@ public partial class Notification : IMongoIdentifiable
     public NotificationTdmRelationships Relationships { get; set; } = new NotificationTdmRelationships();
 
     [Attr]
-    public IpaffsCommodities Commodities { get; set; }
+    public IpaffsCommodities CommoditiesSummary { get; set; }
 
     [Attr]
-    public IpaffsCommodityComplement[] CommoditiesSummary { get; set; }
+    public IpaffsCommodityComplement[] Commodities { get; set; }
 
     // Filter fields...
     // These fields are added to the model solely for use by the filtering

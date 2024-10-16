@@ -102,7 +102,7 @@ public static class NotificationExtensions
             }
         }
 
-        n.Commodities = commodities;
-        n.CommoditiesSummary = commodities.CommodityComplements.Select(x => x).ToArray();
+        n.CommoditiesSummary = commodities;
+        n.Commodities= commodities.CommodityComplements.Select(x => x).ToArray();
     }
 }
