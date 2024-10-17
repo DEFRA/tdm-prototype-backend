@@ -191,7 +191,7 @@ public partial class IpaffsPartOne  //
     [Attr]
     [JsonPropertyName("isGVMSRoute")]
     [System.ComponentModel.Description("Is GVMS route?")]
-    public bool? IsGVMSRoute { get; set; }
+    public bool? IsGvmsRoute { get; set; }
 
 	
     /// <summary>
@@ -363,7 +363,7 @@ public partial class IpaffsPartOne  //
     [Attr]
     [JsonPropertyName("submissionDate")]
     [System.ComponentModel.Description("Date and time when the notification was submitted")]
-    public string? SubmissionDate { get; set; }
+    public DateTime? SubmissionDate { get; set; }
 
 	
     /// <summary>
@@ -444,7 +444,7 @@ public partial class IpaffsPartOne  //
     [Attr]
     [JsonPropertyName("originalEstimatedDateTime")]
     [System.ComponentModel.Description("Original estimated date time of arrival")]
-    public string? OriginalEstimatedDateTime { get; set; }
+    public DateTime? OriginalEstimatedDateTime { get; set; }
 
 	
     /// <summary>

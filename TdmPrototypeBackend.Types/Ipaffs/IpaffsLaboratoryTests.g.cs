@@ -28,7 +28,7 @@ public partial class IpaffsLaboratoryTests  //
     [Attr]
     [JsonPropertyName("testDate")]
     [System.ComponentModel.Description("Date of tests")]
-    public string? TestDate { get; set; }
+    public DateTime? TestDate { get; set; }
 
 	
     /// <summary>

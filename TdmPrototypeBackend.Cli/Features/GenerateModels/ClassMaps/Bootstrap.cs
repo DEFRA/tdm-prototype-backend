@@ -28,6 +28,7 @@ static class Bootstrap
         GeneratorClassMap.RegisterClassMap("AccompanyingDocument", map =>
         {
             map.MapProperty("documentIssueDate").SetType("DateTime");
+            map.MapProperty("documentIssueDate").SetType("DateTime");
         });
 
         GeneratorClassMap.RegisterClassMap("InspectionOverride", map =>
@@ -40,6 +41,11 @@ static class Bootstrap
             map.MapProperty("dateTimeOfCheck").SetType("DateTime");
         });
 
+        GeneratorClassMap.RegisterClassMap("LaboratoryTests", map =>
+        {
+            map.MapProperty("testDate").SetType("DateTime");
+        });
+
         GeneratorClassMap.RegisterClassMap("LaboratoryTestResult", map =>
         {
             map.MapProperty("releasedDate").SetType("DateTime");
@@ -50,6 +56,17 @@ static class Bootstrap
         {
             map.MapProperty("date").SetType("DateTime");
             map.MapProperty("exitBIP").SetName("exitBip");
+        });
+
+        GeneratorClassMap.RegisterClassMap("CatchCertificateDetails", map =>
+        {
+            map.MapProperty("dateOfIssue").SetType("DateTime");
+        });
+
+
+        GeneratorClassMap.RegisterClassMap("RiskAssessmentResult", map =>
+        {
+            map.MapProperty("assessmentDateTime").SetType("DateTime");
         });
 
         GeneratorClassMap.RegisterClassMap("Notification", map =>
@@ -70,6 +87,9 @@ static class Bootstrap
         GeneratorClassMap.RegisterClassMap("PartOne", map =>
         {
             map.MapProperty("commodities").SetBsonIgnore();
+            map.MapProperty("originalEstimatedDateTime").SetType("DateTime");
+            map.MapProperty("submissionDate").SetType("DateTime");
+            map.MapProperty("isGVMSRoute").SetName("isGvmsRoute");
         });
 
         GeneratorClassMap.RegisterClassMap("PartTwo", map =>

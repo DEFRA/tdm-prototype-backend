@@ -37,7 +37,7 @@ public partial class IpaffsRiskAssessmentResult  //
     [Attr]
     [JsonPropertyName("assessmentDateTime")]
     [System.ComponentModel.Description("Date and time of assessment")]
-    public string? AssessmentDateTime { get; set; }
+    public DateTime? AssessmentDateTime { get; set; }
 
 	}
 
