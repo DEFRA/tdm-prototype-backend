@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using JsonApiDotNetCore.MongoDb.Resources;
+using JsonApiDotNetCore.Resources.Annotations;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
 using Newtonsoft.Json;
@@ -27,7 +28,7 @@ public class CustomStringMongoIdentifiable : IMongoIdentifiable
     
     /// <inheritdoc />
     [BsonIgnore]
-    [JsonIgnore]
     [NotMapped]
+    [Attr]
     public string LocalId { get; set; }
 }
