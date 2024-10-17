@@ -27,6 +27,7 @@ public partial class IpaffsCatchCertificates  //
     /// </summary
     [Attr]
     [JsonPropertyName("certificateNumber")]
+    [System.ComponentModel.Description("The catch certificate number")]
     public string? CertificateNumber { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsCatchCertificates  //
     /// </summary
     [Attr]
     [JsonPropertyName("weight")]
+    [System.ComponentModel.Description("The catch certificate weight number")]
     public double? Weight { get; set; }
 
 	}

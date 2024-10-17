@@ -4,3 +4,8 @@ public class SensitiveDataAttribute : Attribute
 {
 
 }
+
+public class ApiIgnoreAttribute : Attribute
+{
+
+}

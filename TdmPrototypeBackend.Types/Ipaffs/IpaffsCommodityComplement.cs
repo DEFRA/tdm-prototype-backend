@@ -1,4 +1,5 @@
 
+using System.Text.Json.Serialization;
 using JsonApiDotNetCore.Resources.Annotations;
 
 namespace TdmPrototypeBackend.Types.Ipaffs;
@@ -12,8 +13,12 @@ public partial class IpaffsCommodityComplement  //
 	
     [Attr]
     public IpaffsCommodityRiskResult? RiskAssesment { get; set; }
-    
-    
+
+    [Attr]
+    [JsonPropertyName("checks")]
+    public IpaffsInspectionCheck[]? Checks { get; set; }
+
+
 }
 
 

@@ -27,6 +27,7 @@ public partial class IpaffsApplicant  //
     /// </summary
     [Attr]
     [JsonPropertyName("laboratory")]
+    [System.ComponentModel.Description("Name of laboratory")]
     public string? Laboratory { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsApplicant  //
     /// </summary
     [Attr]
     [JsonPropertyName("laboratoryAddress")]
+    [System.ComponentModel.Description("Laboratory address")]
     public string? LaboratoryAddress { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsApplicant  //
     /// </summary
     [Attr]
     [JsonPropertyName("laboratoryIdentification")]
+    [System.ComponentModel.Description("Laboratory identification")]
     public string? LaboratoryIdentification { get; set; }
 
 	
@@ -51,6 +54,7 @@ public partial class IpaffsApplicant  //
     /// </summary
     [Attr]
     [JsonPropertyName("laboratoryPhoneNumber")]
+    [System.ComponentModel.Description("Laboratory phone number")]
     public string? LaboratoryPhoneNumber { get; set; }
 
 	
@@ -59,6 +63,7 @@ public partial class IpaffsApplicant  //
     /// </summary
     [Attr]
     [JsonPropertyName("laboratoryEmail")]
+    [System.ComponentModel.Description("Laboratory email")]
     public string? LaboratoryEmail { get; set; }
 
 	
@@ -67,6 +72,7 @@ public partial class IpaffsApplicant  //
     /// </summary
     [Attr]
     [JsonPropertyName("sampleBatchNumber")]
+    [System.ComponentModel.Description("Sample batch number")]
     public string? SampleBatchNumber { get; set; }
 
 	
@@ -75,6 +81,7 @@ public partial class IpaffsApplicant  //
     /// </summary
     [Attr]
     [JsonPropertyName("analysisType")]
+    [System.ComponentModel.Description("Type of analysis")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsApplicantAnalysisTypeEnum? AnalysisType { get; set; }
 
@@ -84,6 +91,7 @@ public partial class IpaffsApplicant  //
     /// </summary
     [Attr]
     [JsonPropertyName("numberOfSamples")]
+    [System.ComponentModel.Description("Number of samples analysed")]
     public int? NumberOfSamples { get; set; }
 
 	
@@ -92,6 +100,7 @@ public partial class IpaffsApplicant  //
     /// </summary
     [Attr]
     [JsonPropertyName("sampleType")]
+    [System.ComponentModel.Description("Type of sample")]
     public string? SampleType { get; set; }
 
 	
@@ -100,6 +109,7 @@ public partial class IpaffsApplicant  //
     /// </summary
     [Attr]
     [JsonPropertyName("conservationOfSample")]
+    [System.ComponentModel.Description("Conservation of sample")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsApplicantConservationOfSampleEnum? ConservationOfSample { get; set; }
 
@@ -109,6 +119,7 @@ public partial class IpaffsApplicant  //
     /// </summary
     [Attr]
     [JsonPropertyName("inspector")]
+    [System.ComponentModel.Description("inspector")]
     public IpaffsInspector? Inspector { get; set; }
 
 	
@@ -117,6 +128,7 @@ public partial class IpaffsApplicant  //
     /// </summary
     [Attr]
     [JsonPropertyName("sampleDate")]
+    [System.ComponentModel.Description("Date the sample is taken")]
     public string? SampleDate { get; set; }
 
 	
@@ -125,6 +137,7 @@ public partial class IpaffsApplicant  //
     /// </summary
     [Attr]
     [JsonPropertyName("sampleTime")]
+    [System.ComponentModel.Description("Time the sample is taken")]
     public string? SampleTime { get; set; }
 
 	}

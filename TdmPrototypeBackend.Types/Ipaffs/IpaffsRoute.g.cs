@@ -27,6 +27,7 @@ public partial class IpaffsRoute  //
     /// </summary
     [Attr]
     [JsonPropertyName("transitingStates")]
+    [System.ComponentModel.Description("")]
     public string[]? TransitingStates { get; set; }
 
 	}

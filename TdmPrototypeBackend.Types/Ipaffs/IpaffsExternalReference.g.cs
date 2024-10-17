@@ -27,6 +27,7 @@ public partial class IpaffsExternalReference  //
     /// </summary
     [Attr]
     [JsonPropertyName("system")]
+    [System.ComponentModel.Description("Identifier of the external system to which the reference relates")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsExternalReferenceSystemEnum? System { get; set; }
 
@@ -36,6 +37,7 @@ public partial class IpaffsExternalReference  //
     /// </summary
     [Attr]
     [JsonPropertyName("reference")]
+    [System.ComponentModel.Description("Reference which is added to the notification when either sent to the downstream system or received from it")]
     public string? Reference { get; set; }
 
 	
@@ -44,6 +46,7 @@ public partial class IpaffsExternalReference  //
     /// </summary
     [Attr]
     [JsonPropertyName("exactMatch")]
+    [System.ComponentModel.Description("Details whether there's an exact match between the external source and IPAFFS data")]
     public bool? ExactMatch { get; set; }
 
 	
@@ -52,6 +55,7 @@ public partial class IpaffsExternalReference  //
     /// </summary
     [Attr]
     [JsonPropertyName("verifiedByImporter")]
+    [System.ComponentModel.Description("Details whether an importer has verified the data from an external source")]
     public bool? VerifiedByImporter { get; set; }
 
 	
@@ -60,6 +64,7 @@ public partial class IpaffsExternalReference  //
     /// </summary
     [Attr]
     [JsonPropertyName("verifiedByInspector")]
+    [System.ComponentModel.Description("Details whether an inspector has verified the data from an external source")]
     public bool? VerifiedByInspector { get; set; }
 
 	}

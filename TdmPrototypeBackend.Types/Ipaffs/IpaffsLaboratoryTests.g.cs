@@ -27,6 +27,7 @@ public partial class IpaffsLaboratoryTests  //
     /// </summary
     [Attr]
     [JsonPropertyName("testDate")]
+    [System.ComponentModel.Description("Date of tests")]
     public string? TestDate { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsLaboratoryTests  //
     /// </summary
     [Attr]
     [JsonPropertyName("testReason")]
+    [System.ComponentModel.Description("Reason for test")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsLaboratoryTestsTestReasonEnum? TestReason { get; set; }
 
@@ -44,6 +46,7 @@ public partial class IpaffsLaboratoryTests  //
     /// </summary
     [Attr]
     [JsonPropertyName("singleLaboratoryTests")]
+    [System.ComponentModel.Description("List of details of individual tests performed or to be performed")]
     public IpaffsSingleLaboratoryTest[]? SingleLaboratoryTests { get; set; }
 
 	}

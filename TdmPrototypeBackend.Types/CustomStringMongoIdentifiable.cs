@@ -13,13 +13,13 @@ public class CustomStringMongoIdentifiable : IMongoIdentifiable
 {
     /// <inheritdoc />
     [BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
-    public virtual string? Id { get; set; }
+    public virtual string Id { get; set; }
     
     /// <inheritdoc />
     [BsonIgnore]
     [JsonIgnore]
     [NotMapped]
-    public string? StringId
+    public string StringId
     {
         get => Id;
         set => Id = value;
@@ -29,5 +29,5 @@ public class CustomStringMongoIdentifiable : IMongoIdentifiable
     [BsonIgnore]
     [JsonIgnore]
     [NotMapped]
-    public string? LocalId { get; set; }
+    public string LocalId { get; set; }
 }

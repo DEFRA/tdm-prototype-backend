@@ -27,6 +27,7 @@ public partial class IpaffsJourneyRiskCategorisationResult  //
     /// </summary
     [Attr]
     [JsonPropertyName("riskLevel")]
+    [System.ComponentModel.Description("Risk Level is defined using enum values High,Medium,Low")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsJourneyRiskCategorisationResultRiskLevelEnum? RiskLevel { get; set; }
 
@@ -36,6 +37,7 @@ public partial class IpaffsJourneyRiskCategorisationResult  //
     /// </summary
     [Attr]
     [JsonPropertyName("riskLevelMethod")]
+    [System.ComponentModel.Description("Indicator of whether the risk level was determined by the system or by the user")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsJourneyRiskCategorisationResultRiskLevelMethodEnum? RiskLevelMethod { get; set; }
 
@@ -45,6 +47,7 @@ public partial class IpaffsJourneyRiskCategorisationResult  //
     /// </summary
     [Attr]
     [JsonPropertyName("riskLevelDateTime")]
+    [System.ComponentModel.Description("The date and time the risk level has been set for a notification")]
     public string? RiskLevelDateTime { get; set; }
 
 	}

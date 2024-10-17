@@ -46,8 +46,6 @@ public enum IpaffsNotificationStatusEnum
 		[EnumMember(Value = "SPLIT_CONSIGNMENT")]
 		SplitConsignment,
 	
-		[EnumMember(Value = "SUBMITTED,IN_PROGRESS,MODIFY")]
-		SUBMITTEDINPROGRESSMODIFY,
 	
 }
 

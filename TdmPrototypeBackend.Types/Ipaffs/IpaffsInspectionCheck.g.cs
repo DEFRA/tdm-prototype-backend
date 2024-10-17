@@ -27,6 +27,7 @@ public partial class IpaffsInspectionCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("type")]
+    [System.ComponentModel.Description("Type of check")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsInspectionCheckTypeEnum? IpaffsType { get; set; }
 
@@ -36,6 +37,7 @@ public partial class IpaffsInspectionCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("status")]
+    [System.ComponentModel.Description("Status of the check")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsInspectionCheckStatusEnum? Status { get; set; }
 
@@ -45,6 +47,7 @@ public partial class IpaffsInspectionCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("reason")]
+    [System.ComponentModel.Description("Reason for the status if applicable")]
     public string? Reason { get; set; }
 
 	
@@ -53,6 +56,7 @@ public partial class IpaffsInspectionCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("otherReason")]
+    [System.ComponentModel.Description("Other reason text when selected reason is 'Other'")]
     public string? OtherReason { get; set; }
 
 	
@@ -61,6 +65,7 @@ public partial class IpaffsInspectionCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("isSelectedForChecks")]
+    [System.ComponentModel.Description("Has commodity been selected for checks?")]
     public bool? IsSelectedForChecks { get; set; }
 
 	
@@ -69,6 +74,7 @@ public partial class IpaffsInspectionCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("hasChecksComplete")]
+    [System.ComponentModel.Description("Has commodity completed this type of check")]
     public bool? HasChecksComplete { get; set; }
 
 	}

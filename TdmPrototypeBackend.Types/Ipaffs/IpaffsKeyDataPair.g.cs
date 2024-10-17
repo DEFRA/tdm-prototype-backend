@@ -27,6 +27,7 @@ public partial class IpaffsKeyDataPair  //
     /// </summary
     [Attr]
     [JsonPropertyName("key")]
+    [System.ComponentModel.Description("")]
     public string? Key { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsKeyDataPair  //
     /// </summary
     [Attr]
     [JsonPropertyName("data")]
+    [System.ComponentModel.Description("")]
     public string? Data { get; set; }
 
 	}

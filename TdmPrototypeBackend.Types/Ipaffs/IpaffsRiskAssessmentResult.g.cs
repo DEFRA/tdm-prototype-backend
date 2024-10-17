@@ -27,6 +27,7 @@ public partial class IpaffsRiskAssessmentResult  //
     /// </summary
     [Attr]
     [JsonPropertyName("commodityResults")]
+    [System.ComponentModel.Description("List of risk assessed commodities")]
     public IpaffsCommodityRiskResult[]? CommodityResults { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsRiskAssessmentResult  //
     /// </summary
     [Attr]
     [JsonPropertyName("assessmentDateTime")]
+    [System.ComponentModel.Description("Date and time of assessment")]
     public string? AssessmentDateTime { get; set; }
 
 	}

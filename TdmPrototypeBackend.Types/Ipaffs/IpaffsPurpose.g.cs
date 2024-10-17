@@ -27,6 +27,7 @@ public partial class IpaffsPurpose  //
     /// </summary
     [Attr]
     [JsonPropertyName("conformsToEU")]
+    [System.ComponentModel.Description("Does consignment conforms to UK laws")]
     public bool? ConformsToEU { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsPurpose  //
     /// </summary
     [Attr]
     [JsonPropertyName("internalMarketPurpose")]
+    [System.ComponentModel.Description("Detailed purpose of internal market purpose group")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsPurposeInternalMarketPurposeEnum? InternalMarketPurpose { get; set; }
 
@@ -44,6 +46,7 @@ public partial class IpaffsPurpose  //
     /// </summary
     [Attr]
     [JsonPropertyName("thirdCountryTranshipment")]
+    [System.ComponentModel.Description("Country that consignment is transshipped through")]
     public string? ThirdCountryTranshipment { get; set; }
 
 	
@@ -52,6 +55,7 @@ public partial class IpaffsPurpose  //
     /// </summary
     [Attr]
     [JsonPropertyName("forNonConforming")]
+    [System.ComponentModel.Description("Detailed purpose for non conforming purpose group")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsPurposeForNonConformingEnum? ForNonConforming { get; set; }
 
@@ -61,6 +65,7 @@ public partial class IpaffsPurpose  //
     /// </summary
     [Attr]
     [JsonPropertyName("regNumber")]
+    [System.ComponentModel.Description("There are 3 types of registration number based on the purpose of consignment. Customs registration number, Free zone registration number and Shipping supplier registration number.")]
     public string? RegNumber { get; set; }
 
 	
@@ -69,6 +74,7 @@ public partial class IpaffsPurpose  //
     /// </summary
     [Attr]
     [JsonPropertyName("shipName")]
+    [System.ComponentModel.Description("Ship name")]
     public string? ShipName { get; set; }
 
 	
@@ -77,6 +83,7 @@ public partial class IpaffsPurpose  //
     /// </summary
     [Attr]
     [JsonPropertyName("shipPort")]
+    [System.ComponentModel.Description("Destination Ship port")]
     public string? ShipPort { get; set; }
 
 	
@@ -85,6 +92,7 @@ public partial class IpaffsPurpose  //
     /// </summary
     [Attr]
     [JsonPropertyName("exitBIP")]
+    [System.ComponentModel.Description("Exit Border Inspection Post")]
     public string? ExitBIP { get; set; }
 
 	
@@ -93,6 +101,7 @@ public partial class IpaffsPurpose  //
     /// </summary
     [Attr]
     [JsonPropertyName("thirdCountry")]
+    [System.ComponentModel.Description("Country to which consignment is transited")]
     public string? ThirdCountry { get; set; }
 
 	
@@ -101,6 +110,7 @@ public partial class IpaffsPurpose  //
     /// </summary
     [Attr]
     [JsonPropertyName("transitThirdCountries")]
+    [System.ComponentModel.Description("Countries that consignment is transited through")]
     public string[]? TransitThirdCountries { get; set; }
 
 	
@@ -109,6 +119,7 @@ public partial class IpaffsPurpose  //
     /// </summary
     [Attr]
     [JsonPropertyName("forImportOrAdmission")]
+    [System.ComponentModel.Description("Specification of Import or admission purpose")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsPurposeForImportOrAdmissionEnum? ForImportOrAdmission { get; set; }
 
@@ -118,6 +129,7 @@ public partial class IpaffsPurpose  //
     /// </summary
     [Attr]
     [JsonPropertyName("exitDate")]
+    [System.ComponentModel.Description("Exit date when import or admission")]
     public string? ExitDate { get; set; }
 
 	
@@ -126,6 +138,7 @@ public partial class IpaffsPurpose  //
     /// </summary
     [Attr]
     [JsonPropertyName("finalBIP")]
+    [System.ComponentModel.Description("Final Border Inspection Post")]
     public string? FinalBIP { get; set; }
 
 	
@@ -134,6 +147,7 @@ public partial class IpaffsPurpose  //
     /// </summary
     [Attr]
     [JsonPropertyName("purposeGroup")]
+    [System.ComponentModel.Description("Purpose group of consignment (general purpose)")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsPurposePurposeGroupEnum? PurposeGroup { get; set; }
 
@@ -143,6 +157,7 @@ public partial class IpaffsPurpose  //
     /// </summary
     [Attr]
     [JsonPropertyName("estimatedArrivalDateAtPortOfExit")]
+    [System.ComponentModel.Description("Estimated date at port of exit")]
     public string? EstimatedArrivalDateAtPortOfExit { get; set; }
 
 	
@@ -151,6 +166,7 @@ public partial class IpaffsPurpose  //
     /// </summary
     [Attr]
     [JsonPropertyName("estimatedArrivalTimeAtPortOfExit")]
+    [System.ComponentModel.Description("Estimated time at port of exit")]
     public string? EstimatedArrivalTimeAtPortOfExit { get; set; }
 
 	}

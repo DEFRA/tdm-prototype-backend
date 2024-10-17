@@ -15,27 +15,6 @@ namespace TdmPrototypeBackend.Types;
 // https://eaflood.atlassian.net/wiki/spaces/TRADE/pages/5104664583/PHA+Port+Health+Authority+Integration+Data+Schema
 
 
-public partial class Item
-{
-    //    [Attr]
-//    public int ItemNumber { get; set; } = default!;
-    
-//    [Attr]
-//    public string CustomsProcedureCode { get; set; } = default!;
-    
-//    [Attr]
-//    public string TaricCommodityCode { get; set; } = default!;
-    
-//    [Attr]
-//    public string GoodsDescription { get; set; } = default!;
-    
-    // TODO : Unclear yet whether items in a clearance request can be  
-    // split across GMRs
-    [Attr]
-    public MatchingStatus Gmr { get; set; } = new MatchingStatus() { Matched = false }!;
-}
-
-
 [Resource]
 public class Movement : CustomStringMongoIdentifiable
 {
@@ -95,9 +74,13 @@ public class Movement : CustomStringMongoIdentifiable
     [Attr]
     public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
 
+    //[Attr]
+    //public Dictionary<string, TdmRelationshipObject> Relationships { get; set; } =
+    //    new() { { "notifications", TdmRelationshipObject.CreateDefault() } };
+
     [Attr]
-    public Dictionary<string, TdmRelationshipObject> Relationships { get; set; } =
-        new() { { "notifications", TdmRelationshipObject.CreateDefault() } };
+    [ApiIgnore]
+    public MovementTdmRelationships Relationships { get; set; } = new MovementTdmRelationships();
 
     /// <summary>
     /// Tracks the last time the record was changed
@@ -131,25 +114,18 @@ public class Movement : CustomStringMongoIdentifiable
 
     public void AddRelationship(string type, TdmRelationshipObject relationship)
     {
-        if (Relationships.TryGetValue(type, out var value))
+        Relationships.Notifications.Links ??= relationship.Links;
+        foreach (var dataItem in relationship.Data)
         {
-            value.Links ??= relationship.Links;
-            foreach (var dataItem in relationship.Data)
+            if (Relationships.Notifications.Data.All(x => x.Id != dataItem.Id))
             {
-                if (value.Data.All(x => x.Id != dataItem.Id))
-                {
-                    value.Data.Add(dataItem);
-                }
+                Relationships.Notifications.Data.Add(dataItem);
             }
+        }
 
-            value.Matched = Items
-                .Select(x => x.ItemNumber)
-                .All(itemNumber => value.Data.Any(x => x.Matched && x.SourceItem == itemNumber));
-        }
-        else
-        {
-            Relationships.Add(type, relationship);
-        }
+        Relationships.Notifications.Matched = Items
+            .Select(x => x.ItemNumber)
+            .All(itemNumber => Relationships.Notifications.Data.Any(x => x.Matched && x.SourceItem == itemNumber));
     }
 
     public void Update(AuditEntry auditEntry)

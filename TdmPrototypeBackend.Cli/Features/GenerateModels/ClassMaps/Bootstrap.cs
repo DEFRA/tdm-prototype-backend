@@ -30,11 +30,23 @@ static class Bootstrap
             map.MapProperty("riskDecisionLockingTime").SetType("DateTime");
             map.MapProperty("decisionDate").SetType("DateTime");
             map.MapProperty("lastUpdated").SetType("DateTime");
+            map.MapProperty("referenceNumber").SetBsonIgnore();
         });
 
         GeneratorClassMap.RegisterClassMap("Commodities", map =>
         {
-            map.MapProperty("complementParameterSet").AddAttribute("[MongoDB.Bson.Serialization.Attributes.BsonIgnore]");
+            map.MapProperty("complementParameterSet").SetBsonIgnore();
+            map.MapProperty("commodityComplement").SetBsonIgnore();
+        });
+
+        GeneratorClassMap.RegisterClassMap("PartOne", map =>
+        {
+            map.MapProperty("commodities").SetBsonIgnore();
+        });
+
+        GeneratorClassMap.RegisterClassMap("PartTwo", map =>
+        {
+            map.MapProperty("commodityChecks").SetBsonIgnore();
         });
 
         GeneratorClassMap.RegisterClassMap("ComplementParameterSet", map =>

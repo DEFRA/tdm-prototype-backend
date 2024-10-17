@@ -31,7 +31,7 @@ public partial class Notification : IMongoIdentifiable
 
     //[BsonId(IdGenerator = typeof(StringObjectIdGenerator))]
     [JsonIgnore]
-    public virtual string? Id
+    public virtual string Id
     {
         get => ReferenceNumber;
         set => ReferenceNumber = value;
@@ -43,7 +43,7 @@ public partial class Notification : IMongoIdentifiable
     [JsonIgnore]
     // [NotMapped]
     [Attr]
-    public string? StringId
+    public string StringId
     {
         get => Id;
         set => Id = value;
@@ -54,14 +54,20 @@ public partial class Notification : IMongoIdentifiable
     [JsonIgnore]
     [NotMapped]
     // [Attr]
-    public string? LocalId { get; set; }
+    public string LocalId { get; set; }
     
     [Attr]
     public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
 
     [Attr]
-    public Dictionary<string, TdmRelationshipObject> Relationships { get; set; } =
-        new() { { "movements", TdmRelationshipObject.CreateDefault() } };
+    [ApiIgnore]
+    public NotificationTdmRelationships Relationships { get; set; } = new NotificationTdmRelationships();
+
+    [Attr]
+    public IpaffsCommodities CommoditiesSummary { get; set; }
+
+    [Attr]
+    public IpaffsCommodityComplement[] Commodities { get; set; }
 
     // Filter fields...
     // These fields are added to the model solely for use by the filtering
@@ -121,23 +127,16 @@ public partial class Notification : IMongoIdentifiable
 
     public void AddRelationship(string type, TdmRelationshipObject relationship)
     {
-        if (Relationships.TryGetValue(type, out var value))
+        Relationships.Movements.Links ??= relationship.Links;
+        foreach (var dataItem in relationship.Data)
         {
-            value.Links ??= relationship.Links;
-            foreach (var dataItem in relationship.Data)
+            if (Relationships.Movements.Data.All(x => x.Id != dataItem.Id))
             {
-                if (value.Data.All(x => x.Id != dataItem.Id))
-                {
-                    value.Data.Add(dataItem);
-                }
+                Relationships.Movements.Data.Add(dataItem);
             }
+        }
 
-            value.Matched = value.Data.Any(x => x.Matched);
-        }
-        else
-        {
-            Relationships.Add(type, relationship);
-        }
+        Relationships.Movements.Matched = Relationships.Movements.Data.Any(x => x.Matched);
     }
 
     public void Update(AuditEntry auditEntry)

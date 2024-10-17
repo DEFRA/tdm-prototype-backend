@@ -27,6 +27,7 @@ public partial class IpaffsImpactOfTransportOnAnimals  //
     /// </summary
     [Attr]
     [JsonPropertyName("numberOfDeadAnimals")]
+    [System.ComponentModel.Description("Number of dead animals specified by units")]
     public int? NumberOfDeadAnimals { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsImpactOfTransportOnAnimals  //
     /// </summary
     [Attr]
     [JsonPropertyName("numberOfDeadAnimalsUnit")]
+    [System.ComponentModel.Description("Unit used for specifying number of dead animals (percent or units)")]
     public string? NumberOfDeadAnimalsUnit { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsImpactOfTransportOnAnimals  //
     /// </summary
     [Attr]
     [JsonPropertyName("numberOfUnfitAnimals")]
+    [System.ComponentModel.Description("Number of unfit animals")]
     public int? NumberOfUnfitAnimals { get; set; }
 
 	
@@ -51,6 +54,7 @@ public partial class IpaffsImpactOfTransportOnAnimals  //
     /// </summary
     [Attr]
     [JsonPropertyName("numberOfUnfitAnimalsUnit")]
+    [System.ComponentModel.Description("Unit used for specifying number of unfit animals (percent or units)")]
     public string? NumberOfUnfitAnimalsUnit { get; set; }
 
 	
@@ -59,6 +63,7 @@ public partial class IpaffsImpactOfTransportOnAnimals  //
     /// </summary
     [Attr]
     [JsonPropertyName("numberOfBirthOrAbortion")]
+    [System.ComponentModel.Description("Number of births or abortions (unit)")]
     public int? NumberOfBirthOrAbortion { get; set; }
 
 	}

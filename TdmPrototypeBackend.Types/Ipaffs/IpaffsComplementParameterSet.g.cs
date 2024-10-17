@@ -27,6 +27,7 @@ public partial class IpaffsComplementParameterSet  //
     /// </summary
     [Attr]
     [JsonPropertyName("uniqueComplementID")]
+    [System.ComponentModel.Description("UUID used to match commodityComplement to its complementParameter set. CHEDPP only")]
     public string? UniqueComplementID { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsComplementParameterSet  //
     /// </summary
     [Attr]
     [JsonPropertyName("complementID")]
+    [System.ComponentModel.Description("")]
     public int? ComplementID { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsComplementParameterSet  //
     /// </summary
     [Attr]
     [JsonPropertyName("speciesID")]
+    [System.ComponentModel.Description("")]
     public string? SpeciesID { get; set; }
 
 	
@@ -51,6 +54,7 @@ public partial class IpaffsComplementParameterSet  //
     /// </summary
     [Attr]
     [JsonPropertyName("keyDataPair")]
+    [System.ComponentModel.Description("")]
     [JsonConverter(typeof(KeyDataPairsToDictionaryStringObjectJsonConverter))]
     public IDictionary<string, object>? KeyDataPairs { get; set; }
 
@@ -60,6 +64,7 @@ public partial class IpaffsComplementParameterSet  //
     /// </summary
     [Attr]
     [JsonPropertyName("catchCertificates")]
+    [System.ComponentModel.Description("Catch certificate details")]
     public IpaffsCatchCertificates[]? CatchCertificates { get; set; }
 
 	
@@ -68,6 +73,7 @@ public partial class IpaffsComplementParameterSet  //
     /// </summary
     [Attr]
     [JsonPropertyName("identifiers")]
+    [System.ComponentModel.Description("Data used to identify the complements inside an IMP consignment")]
     public IpaffsIdentifiers[]? Identifiers { get; set; }
 
 	}

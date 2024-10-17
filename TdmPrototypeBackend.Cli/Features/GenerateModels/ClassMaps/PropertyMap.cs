@@ -38,6 +38,12 @@ internal class PropertyMap(string name)
         return this;
     }
 
+    public PropertyMap SetBsonIgnore()
+    {
+        AddAttribute("[MongoDB.Bson.Serialization.Attributes.BsonIgnore]");
+        return this;
+    }
+
 
     public PropertyMap AddAttribute(string attribute)
     {

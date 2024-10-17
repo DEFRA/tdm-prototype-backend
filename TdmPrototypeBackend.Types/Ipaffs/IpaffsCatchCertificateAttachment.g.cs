@@ -27,6 +27,7 @@ public partial class IpaffsCatchCertificateAttachment  //
     /// </summary
     [Attr]
     [JsonPropertyName("attachmentId")]
+    [System.ComponentModel.Description("The UUID of the uploaded catch certificate file in blob storage")]
     public string? AttachmentId { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsCatchCertificateAttachment  //
     /// </summary
     [Attr]
     [JsonPropertyName("numberOfCatchCertificates")]
+    [System.ComponentModel.Description("The total number of catch certificates on the attachment")]
     public int? NumberOfCatchCertificates { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsCatchCertificateAttachment  //
     /// </summary
     [Attr]
     [JsonPropertyName("CatchCertificateDetails")]
+    [System.ComponentModel.Description("List of catch certificate details")]
     public IpaffsCatchCertificateDetails[]? CatchCertificateDetails { get; set; }
 
 	}

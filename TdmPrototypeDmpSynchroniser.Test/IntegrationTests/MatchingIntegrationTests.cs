@@ -34,24 +34,20 @@ public class MatchingIntegrationTests(ITestOutputHelper outputHelper) : Integrat
         await syncService.SyncMovements(SyncPeriod.All);
 
         var movement = await movementService.Find("CHEDPGB20241039875A5");
-        movement.Relationships.Count.Should().Be(1);
-        movement.Relationships.First().Value.Matched.Should().BeFalse();
+        movement.Relationships.Notifications.Matched.Should().BeFalse();
         movement.AuditEntries.Count(x => x.Status == "Matched").Should().Be(0);
 
         movement = await movementService.Find("CHEDAGB20241041389");
-        movement.Relationships.Count.Should().Be(1);
-        movement.Relationships.First().Value.Matched.Should().BeTrue();
+        movement.Relationships.Notifications.Matched.Should().BeTrue();
         movement.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
 
 
         var notification = await notificationService.Find("CHEDD.GB.2024.1004768");
-        notification.Relationships.Count.Should().Be(1);
-        notification.Relationships.First().Value.Matched.Should().BeFalse();
+        notification.Relationships.Movements.Matched.Should().BeFalse();
         notification.AuditEntries.Count(x => x.Status == "Matched").Should().Be(0);
 
         notification = await notificationService.Find("CHEDA.GB.2024.1041389");
-        notification.Relationships.Count.Should().Be(1);
-        notification.Relationships.First().Value.Matched.Should().BeTrue();
+        notification.Relationships.Movements.Matched.Should().BeTrue();
         notification.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
 
 
@@ -73,15 +69,13 @@ public class MatchingIntegrationTests(ITestOutputHelper outputHelper) : Integrat
 
 
         var movement =  await movementService.Find("CHEDAGB20241041389");
-        movement.Relationships.Count.Should().Be(1);
-        movement.Relationships.First().Value.Matched.Should().BeFalse();
+        movement.Relationships.Notifications.Matched.Should().BeFalse();
         movement.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
 
 
 
         var notification= await notificationService.Find("CHEDA.GB.2024.1041389");
-        notification.Relationships.Count.Should().Be(1);
-        notification.Relationships.First().Value.Matched.Should().BeFalse();
+        notification.Relationships.Movements.Matched.Should().BeFalse();
         notification.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
 
 

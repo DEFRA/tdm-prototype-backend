@@ -27,6 +27,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("street")]
+    [System.ComponentModel.Description("Street")]
     [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? Street { get; set; }
 
@@ -36,6 +37,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("city")]
+    [System.ComponentModel.Description("City")]
     [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? City { get; set; }
 
@@ -45,6 +47,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("country")]
+    [System.ComponentModel.Description("Country")]
     public string? Country { get; set; }
 
 	
@@ -53,6 +56,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("postalCode")]
+    [System.ComponentModel.Description("Postal Code")]
     [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? PostalCode { get; set; }
 
@@ -62,6 +66,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("addressLine1")]
+    [System.ComponentModel.Description("1st line of address")]
     [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? AddressLine1 { get; set; }
 
@@ -71,6 +76,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("addressLine2")]
+    [System.ComponentModel.Description("2nd line of address")]
     [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? AddressLine2 { get; set; }
 
@@ -80,6 +86,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("addressLine3")]
+    [System.ComponentModel.Description("3rd line of address")]
     [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? AddressLine3 { get; set; }
 
@@ -89,6 +96,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("postalZipCode")]
+    [System.ComponentModel.Description("Post / zip code")]
     [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? PostalZipCode { get; set; }
 
@@ -98,6 +106,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("countryISOCode")]
+    [System.ComponentModel.Description("country 2-digits ISO code")]
     public string? CountryISOCode { get; set; }
 
 	
@@ -106,6 +115,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("email")]
+    [System.ComponentModel.Description("Email address")]
     [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? Email { get; set; }
 
@@ -115,6 +125,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("ukTelephone")]
+    [System.ComponentModel.Description("UK phone number")]
     [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? UkTelephone { get; set; }
 
@@ -124,6 +135,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("telephone")]
+    [System.ComponentModel.Description("Telephone number")]
     [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? Telephone { get; set; }
 
@@ -133,6 +145,7 @@ public partial class IpaffsAddress  //
     /// </summary
     [Attr]
     [JsonPropertyName("internationalTelephone")]
+    [System.ComponentModel.Description("International phone number")]
     public IpaffsInternationalTelephone? InternationalTelephone { get; set; }
 
 	}

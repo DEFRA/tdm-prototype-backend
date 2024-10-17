@@ -27,6 +27,7 @@ public partial class IpaffsIdentifiers  //
     /// </summary
     [Attr]
     [JsonPropertyName("speciesNumber")]
+    [System.ComponentModel.Description("Number used to identify which item the identifiers are related to")]
     public int? SpeciesNumber { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsIdentifiers  //
     /// </summary
     [Attr]
     [JsonPropertyName("data")]
+    [System.ComponentModel.Description("List of identifiers and their keys")]
     public IDictionary<string, string>? Data { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsIdentifiers  //
     /// </summary
     [Attr]
     [JsonPropertyName("isPlaceOfDestinationThePermanentAddress")]
+    [System.ComponentModel.Description("Is the place of destination the permanent address?")]
     public bool? IsPlaceOfDestinationThePermanentAddress { get; set; }
 
 	
@@ -51,6 +54,7 @@ public partial class IpaffsIdentifiers  //
     /// </summary
     [Attr]
     [JsonPropertyName("permanentAddress")]
+    [System.ComponentModel.Description("Permanent address of the species")]
     public IpaffsEconomicOperator? PermanentAddress { get; set; }
 
 	}

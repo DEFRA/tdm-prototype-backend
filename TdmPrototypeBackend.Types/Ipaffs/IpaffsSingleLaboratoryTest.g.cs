@@ -27,6 +27,7 @@ public partial class IpaffsSingleLaboratoryTest  //
     /// </summary
     [Attr]
     [JsonPropertyName("commodityCode")]
+    [System.ComponentModel.Description("Commodity code for which lab test was ordered")]
     public string? CommodityCode { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsSingleLaboratoryTest  //
     /// </summary
     [Attr]
     [JsonPropertyName("speciesID")]
+    [System.ComponentModel.Description("Species id of commodity for which lab test was ordered")]
     public int? SpeciesID { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsSingleLaboratoryTest  //
     /// </summary
     [Attr]
     [JsonPropertyName("tracesID")]
+    [System.ComponentModel.Description("TRACES ID")]
     public int? TracesID { get; set; }
 
 	
@@ -51,6 +54,7 @@ public partial class IpaffsSingleLaboratoryTest  //
     /// </summary
     [Attr]
     [JsonPropertyName("testName")]
+    [System.ComponentModel.Description("Test name")]
     public string? TestName { get; set; }
 
 	
@@ -59,6 +63,7 @@ public partial class IpaffsSingleLaboratoryTest  //
     /// </summary
     [Attr]
     [JsonPropertyName("applicant")]
+    [System.ComponentModel.Description("Laboratory tests information details and information about laboratory")]
     public IpaffsApplicant? Applicant { get; set; }
 
 	
@@ -67,6 +72,7 @@ public partial class IpaffsSingleLaboratoryTest  //
     /// </summary
     [Attr]
     [JsonPropertyName("laboratoryTestResult")]
+    [System.ComponentModel.Description("Information about results of test")]
     public IpaffsLaboratoryTestResult? LaboratoryTestResult { get; set; }
 
 	}
