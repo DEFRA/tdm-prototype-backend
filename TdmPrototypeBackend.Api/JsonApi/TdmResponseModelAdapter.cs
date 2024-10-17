@@ -37,7 +37,7 @@ public class TdmResponseModelAdapter(
                 {
                     Type = item.Type, 
                     Id = item.Id, 
-                    Lid = item.Id, 
+                    //Lid = item.Id, 
                     Meta = new Dictionary<string, object?>()
                     {
                         { "matched", item.Matched }, 
