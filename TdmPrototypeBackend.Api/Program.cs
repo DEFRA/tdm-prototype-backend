@@ -27,6 +27,7 @@ using TdmPrototypeBackend.Types;
 using TdmPrototypeCdsSimulator.Extensions;
 using TdmPrototypeDmpSynchroniser.Api.Extensions;
 using TdmPrototypeBackend.Api.Swagger;
+using JsonApiDotNetCore.Serialization.Response;
 
 // using TdmPrototypeBackend.Models;
 
@@ -114,6 +115,7 @@ builder.Services.AddSingleton<BackendConfig, BackendConfig>();
 builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.AddAssembly(Assembly.Load("TdmPrototypeBackend.Types")));
 
 builder.Services.AddJsonApiMongoDb();
+builder.Services.AddScoped<IResponseModelAdapter, TdmResponseModelAdapter>();
 builder.Services.AddResourceDefinition<NotificationResource>();
 builder.Services.AddResourceDefinition<MovementResource>();
 builder.Services.AddScoped<ITdmClaimsProvider, TdmClaimsPrincipalProvider>();
