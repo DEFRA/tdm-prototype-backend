@@ -46,7 +46,7 @@ public partial class IpaffsCatchCertificateDetails  //
     [Attr]
     [JsonPropertyName("dateOfIssue")]
     [System.ComponentModel.Description("Catch certificate date of issue")]
-    public string? DateOfIssue { get; set; }
+    public DateTime? DateOfIssue { get; set; }
 
 	
     /// <summary>

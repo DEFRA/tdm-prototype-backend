@@ -37,7 +37,7 @@ public partial class IpaffsInspectionOverride  //
     [Attr]
     [JsonPropertyName("overriddenOn")]
     [System.ComponentModel.Description("The time the risk decision is overridden")]
-    public string? OverriddenOn { get; set; }
+    public DateTime? OverriddenOn { get; set; }
 
 	
     /// <summary>

@@ -110,7 +110,7 @@ public static class ALVSClearanceRequestBuilder
             .Select((c, index) => new Items()
             {
                 ItemNumber = index + 1,
-                TaricCommodityCode = c.CommodityID!.PadRight(10, '0'),
+                TaricCommodityCode = c.CommodityId!.PadRight(10, '0'),
                 GoodsDescription = c.CommodityDescription, //from notification
                 ItemOriginCountryCode = commodities.CountryOfOrigin,
                 ItemSupplementaryUnits = c.AdditionalData!.ContainsKey("numberAnimal") ? decimal.Parse(c.AdditionalData["numberAnimal"].ToString()!) : 0, //Number animals

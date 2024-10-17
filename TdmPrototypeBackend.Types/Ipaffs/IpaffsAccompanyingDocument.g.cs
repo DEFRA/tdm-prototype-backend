@@ -47,7 +47,7 @@ public partial class IpaffsAccompanyingDocument  //
     [Attr]
     [JsonPropertyName("documentIssueDate")]
     [System.ComponentModel.Description("Additional document issue date")]
-    public string? DocumentIssueDate { get; set; }
+    public DateTime? DocumentIssueDate { get; set; }
 
 	
     /// <summary>
