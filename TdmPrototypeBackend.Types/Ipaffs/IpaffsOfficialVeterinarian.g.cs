@@ -28,6 +28,7 @@ public partial class IpaffsOfficialVeterinarian  //
     [Attr]
     [JsonPropertyName("firstName")]
     [System.ComponentModel.Description("First name of official veterinarian")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? FirstName { get; set; }
 
 	
@@ -37,6 +38,7 @@ public partial class IpaffsOfficialVeterinarian  //
     [Attr]
     [JsonPropertyName("lastName")]
     [System.ComponentModel.Description("Last name of official veterinarian")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? LastName { get; set; }
 
 	
@@ -46,6 +48,7 @@ public partial class IpaffsOfficialVeterinarian  //
     [Attr]
     [JsonPropertyName("email")]
     [System.ComponentModel.Description("Email address of official veterinarian")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? Email { get; set; }
 
 	
@@ -55,6 +58,7 @@ public partial class IpaffsOfficialVeterinarian  //
     [Attr]
     [JsonPropertyName("phone")]
     [System.ComponentModel.Description("Phone number of official veterinarian")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? Phone { get; set; }
 
 	
@@ -64,6 +68,7 @@ public partial class IpaffsOfficialVeterinarian  //
     [Attr]
     [JsonPropertyName("fax")]
     [System.ComponentModel.Description("Fax number of official veterinarian")]
+    [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? Fax { get; set; }
 
 	

@@ -79,6 +79,7 @@ public class Movement : CustomStringMongoIdentifiable
     //    new() { { "notifications", TdmRelationshipObject.CreateDefault() } };
 
     [Attr]
+    [ApiIgnore]
     public MovementTdmRelationships Relationships { get; set; } = new MovementTdmRelationships();
 
     /// <summary>

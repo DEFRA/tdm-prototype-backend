@@ -58,8 +58,9 @@ public partial class Notification : IMongoIdentifiable
     
     [Attr]
     public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
-    
+
     [Attr]
+    [ApiIgnore]
     public NotificationTdmRelationships Relationships { get; set; } = new NotificationTdmRelationships();
 
     [Attr]

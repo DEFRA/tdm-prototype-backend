@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson.Serialization.Attributes;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using TdmPrototypeBackend.Types.Extensions;
 
 namespace TdmPrototypeBackend.Api.Swagger;
 
@@ -73,7 +74,7 @@ public class DocumentFilter : IDocumentFilter, ISchemaFilter
 
         var excludedProperties = context.Type.GetProperties()
             .Where(t =>
-                t.GetCustomAttribute(typeof(BsonIgnoreAttribute)) != null);
+                t.GetCustomAttribute(typeof(BsonIgnoreAttribute)) != null || t.GetCustomAttribute(typeof(ApiIgnoreAttribute)) != null);
 
         foreach (var excludedProperty in excludedProperties)
         {
