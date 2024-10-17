@@ -6,10 +6,10 @@
     "serviceCallTimestamp": "2024-10-04T13:58:09.5864286Z"
   },
   "header": {
-    "entryReference": "CHEDAGB20241041389",
+    "entryReference": "CHEDDGB20241004777",
     "entryVersionNumber": 2,
     "previousVersionNumber": 1,
-    "declarationUCR": "SimCHEDA.GB.2024.1041389",
+    "declarationUCR": "SimCHEDD.GB.2024.1004777",
     "declarationPartNumber": null,
     "declarationType": null,
     "arrivalDateTime": null,
@@ -18,7 +18,7 @@
     "declarantName": "CDS_Simulator",
     "dispatchCountryCode": null,
     "goodsLocationCode": "BELBELGVM",
-    "masterUCR": "SimCHEDA.GB.2024.1041389"
+    "masterUCR": "SimCHEDD.GB.2024.1004777"
   },
   "items": [
     {
@@ -26,7 +26,7 @@
       "itemNumber": 1,
       "customsProcedureCode": null,
       "taricCommodityCode": null,
-      "goodsDescription": null,
+      "goodsDescription": "Human hair, unworked, whether or not washed or scoured; waste of human hair",
       "consigneeId": null,
       "consigneeName": null,
       "itemNetMass": null,
@@ -35,8 +35,8 @@
       "itemOriginCountryCode": null,
       "document": [
         {
-          "documentCode": "C640",
-          "documentReference": "GBCHD2024.1041389",
+          "documentCode": "N852",
+          "documentReference": "GBCHD2024.1004777",
           "documentStatus": "P",
           "documentControl": null,
           "documentQuantity": 3

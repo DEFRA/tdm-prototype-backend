@@ -1,33 +1,24 @@
-using JsonApiDotNetCore.MongoDb.Resources;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Serilog;
-using TdmPrototypeBackend.Api.Utils;
-using TdmPrototypeBackend.Matching.Extensions;
-using TdmPrototypeBackend.Storage.Mongo;
-using TdmPrototypeBackend.Types;
-using TdmPrototypeBackend.Types.Ipaffs;
-using TdmPrototypeDmpSynchroniser.Api.Extensions;
 using TdmPrototypeDmpSynchroniser.Api.Models;
 using TdmPrototypeDmpSynchroniser.Api.Services;
 using Xunit.Abstractions;
 
 namespace TdmPrototypeDmpSynchroniser.Test.IntegrationTests;
 
-public abstract class IntegrationTests 
+public abstract class IntegrationTests
 {
     protected IntegrationTestDependencies Dependencies;
-    protected ITestOutputHelper OutputHelper;
+    protected readonly ITestOutputHelper OutputHelper;
 
-    protected IntegrationTests(ITestOutputHelper outputHelper)
+    protected IntegrationTests(ITestOutputHelper outputHelper, Action<IntegrationTestDependenciesBuilder>? configureBuilder = default)
     {
         OutputHelper = outputHelper;
-        Dependencies = new IntegrationTestDependenciesBuilder(outputHelper)
+        var builder = new IntegrationTestDependenciesBuilder(outputHelper)
             .SetConfig(Path.Combine(Directory.GetCurrentDirectory(),
                 @"../../../../TdmPrototypeBackend.Api/Properties/local.env"))
-            .SetMongoDbName("tdm-prototype-backend-integration")
-            .Build();
+            .SetMongoDbName("tdm-prototype-backend-integration");
+        configureBuilder?.Invoke(builder);
+        Dependencies = builder.Build();
 
         OnBeforeTest().GetAwaiter().GetResult();
     }
