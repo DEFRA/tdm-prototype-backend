@@ -249,7 +249,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
                 {
                     CommodityComplements =  new []{ new IpaffsCommodityComplement()
                     {   
-                        CommodityID = "0101",
+                        CommodityId = "0101",
                         CommodityDescription = "Live horses, asses, mules and hinnies"
                     }},
                     CountryOfOrigin = "FRA"
