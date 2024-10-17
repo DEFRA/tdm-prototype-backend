@@ -25,8 +25,36 @@ static class Bootstrap
             map.AddEnumValue("For Import Non-Internal Market");
         });
 
+        GeneratorClassMap.RegisterClassMap("AccompanyingDocument", map =>
+        {
+            map.MapProperty("documentIssueDate").SetType("DateTime");
+        });
+
+        GeneratorClassMap.RegisterClassMap("InspectionOverride", map =>
+        {
+            map.MapProperty("overriddenOn").SetType("DateTime");
+        });
+
+        GeneratorClassMap.RegisterClassMap("SealCheck", map =>
+        {
+            map.MapProperty("dateTimeOfCheck").SetType("DateTime");
+        });
+
+        GeneratorClassMap.RegisterClassMap("LaboratoryTestResult", map =>
+        {
+            map.MapProperty("releasedDate").SetType("DateTime");
+            map.MapProperty("labTestCreatedDate").SetType("DateTime");
+        });
+
+        GeneratorClassMap.RegisterClassMap("DetailsOnReExport", map =>
+        {
+            map.MapProperty("date").SetType("DateTime");
+            map.MapProperty("exitBIP").SetName("exitBip");
+        });
+
         GeneratorClassMap.RegisterClassMap("Notification", map =>
         {
+            map.MapProperty("isGMRMatched").SetName("isGmrMatched");
             map.MapProperty("riskDecisionLockingTime").SetType("DateTime");
             map.MapProperty("decisionDate").SetType("DateTime");
             map.MapProperty("lastUpdated").SetType("DateTime");
@@ -75,6 +103,7 @@ static class Bootstrap
             map.MapProperty("email").IsSensitive();
             map.MapProperty("ukTelephone").IsSensitive();
             map.MapProperty("telephone").IsSensitive();
+            map.MapProperty("countryISOCode").SetName("countryIsoCode");
         });
 
 

@@ -55,7 +55,7 @@ public partial class IpaffsSealCheck  //
     [Attr]
     [JsonPropertyName("dateTimeOfCheck")]
     [System.ComponentModel.Description("date and time of seal check")]
-    public string? DateTimeOfCheck { get; set; }
+    public DateTime? DateTimeOfCheck { get; set; }
 
 	}
 

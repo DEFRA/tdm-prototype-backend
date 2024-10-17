@@ -107,7 +107,7 @@ public partial class IpaffsAddress  //
     [Attr]
     [JsonPropertyName("countryISOCode")]
     [System.ComponentModel.Description("country 2-digits ISO code")]
-    public string? CountryISOCode { get; set; }
+    public string? CountryIsoCode { get; set; }
 
 	
     /// <summary>

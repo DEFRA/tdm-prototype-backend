@@ -37,7 +37,7 @@ public partial class IpaffsLaboratoryTestResult  //
     [Attr]
     [JsonPropertyName("releasedDate")]
     [System.ComponentModel.Description("When it was released")]
-    public string? ReleasedDate { get; set; }
+    public DateTime? ReleasedDate { get; set; }
 
 	
     /// <summary>
@@ -74,7 +74,7 @@ public partial class IpaffsLaboratoryTestResult  //
     [Attr]
     [JsonPropertyName("labTestCreatedDate")]
     [System.ComponentModel.Description("Date of lab test created in IPAFFS")]
-    public string? LabTestCreatedDate { get; set; }
+    public DateTime? LabTestCreatedDate { get; set; }
 
 	}
 

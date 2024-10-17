@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using MongoDB.Bson.Serialization.Attributes;
 using TdmPrototypeBackend.Types.Alvs;
 using TdmPrototypeBackend.Types.Extensions;
+using System.Text.Json.Serialization;
 
 // using JsonApiSerializer.JsonApi;
 
@@ -80,6 +81,7 @@ public class Movement : CustomStringMongoIdentifiable
 
     [Attr]
     [ApiIgnore]
+    [JsonPropertyName("relationships")]
     public MovementTdmRelationships Relationships { get; set; } = new MovementTdmRelationships();
 
     /// <summary>
