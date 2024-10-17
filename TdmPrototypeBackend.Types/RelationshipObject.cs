@@ -115,7 +115,7 @@ public sealed class RelationshipDataItem
             SourceItem = movement.Items
                 .FirstOrDefault(x => x.Documents.Any(d => d.DocumentReference.Contains(matchReference)))
                 ?.ItemNumber,
-            DestinationItem = notification.PartOne?.Commodities?.CommodityComplements?.FirstOrDefault()?.ComplementID,
+            DestinationItem = notification.Commodities?.FirstOrDefault()?.ComplementID,
             Links = new ResourceLink() { Self = LinksBuilder.Notification.BuildSelfLink(notification.Id) },
             AdditionalInformation = additionalInfo
         };
@@ -134,7 +134,7 @@ public sealed class RelationshipDataItem
             Matched = matched,
             Type = "movements",
             Id = movement.Id,
-            SourceItem = notification.PartOne?.Commodities?.CommodityComplements?.FirstOrDefault()?.ComplementID,
+            SourceItem = notification?.Commodities?.FirstOrDefault()?.ComplementID,
             DestinationItem = movement.Items
                 .FirstOrDefault(x => x.Documents.Any(d => d.DocumentReference.Contains(matchReference)))
                 ?.ItemNumber,

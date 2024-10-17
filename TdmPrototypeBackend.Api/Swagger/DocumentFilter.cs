@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson.Serialization.Attributes;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -96,6 +97,22 @@ public class DocumentFilter : IDocumentFilter, ISchemaFilter
                     property.Description = descAttr.Description;
                 }
             }
+        }
+
+        if(context.Type.IsEnum)
+        {
+            var enumOpenApiStrings = new List<IOpenApiAny>();
+            foreach (var enumValue in Enum.GetValues(context.Type))
+            {
+                enumOpenApiStrings.Add(new OpenApiString(enumValue.ToString()));
+                //var member = context.Type.GetMember(enumValue.ToString())[0];
+                //if (!member.GetCustomAttributes<OpenApiIgnoreEnumAttribute>().Any())
+                //{
+                //    enumOpenApiStrings.Add(new OpenApiString(enumValue.ToString()));
+                //}
+            }
+
+            schema.Enum = enumOpenApiStrings;
         }
     }
 }
