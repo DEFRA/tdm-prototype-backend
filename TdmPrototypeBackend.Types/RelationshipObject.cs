@@ -4,24 +4,36 @@ using JsonApiDotNetCore.Resources.Annotations;
 using JsonApiDotNetCore.Serialization.Objects;
 using TdmPrototypeBackend.Types.Extensions;
 using TdmPrototypeBackend.Types.Ipaffs;
+using static TdmPrototypeBackend.Types.Extensions.LinksBuilder;
+using Notification = TdmPrototypeBackend.Types.Ipaffs.Notification;
 
 namespace TdmPrototypeBackend.Types;
 
 public interface ITdmRelationships
 {
-
+    public (string, TdmRelationshipObject) GetRelationshipObject();
 }
 
 public class NotificationTdmRelationships : ITdmRelationships
 {
     [Attr] 
     public TdmRelationshipObject Movements { get; set; } = TdmRelationshipObject.CreateDefault();
+
+    public (string, TdmRelationshipObject) GetRelationshipObject()
+    {
+        return ("movements", Movements);
+    }
 }
 
 public class MovementTdmRelationships : ITdmRelationships
 {
     [Attr]
     public TdmRelationshipObject Notifications { get; set; } = TdmRelationshipObject.CreateDefault();
+
+    public (string, TdmRelationshipObject) GetRelationshipObject()
+    {
+        return ("notifications", Notifications);
+    }
 }
 
 public sealed class TdmRelationshipObject

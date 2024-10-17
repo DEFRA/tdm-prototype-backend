@@ -105,11 +105,6 @@ public class DocumentFilter : IDocumentFilter, ISchemaFilter
             foreach (var enumValue in Enum.GetValues(context.Type))
             {
                 enumOpenApiStrings.Add(new OpenApiString(enumValue.ToString()));
-                //var member = context.Type.GetMember(enumValue.ToString())[0];
-                //if (!member.GetCustomAttributes<OpenApiIgnoreEnumAttribute>().Any())
-                //{
-                //    enumOpenApiStrings.Add(new OpenApiString(enumValue.ToString()));
-                //}
             }
 
             schema.Enum = enumOpenApiStrings;
