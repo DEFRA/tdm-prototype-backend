@@ -27,6 +27,7 @@ public partial class IpaffsCatchCertificateDetails  //
     /// </summary
     [Attr]
     [JsonPropertyName("catchCertificateId")]
+    [System.ComponentModel.Description("The UUID of the catch certificate")]
     public string? CatchCertificateId { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsCatchCertificateDetails  //
     /// </summary
     [Attr]
     [JsonPropertyName("catchCertificateReference")]
+    [System.ComponentModel.Description("Catch certificate reference")]
     public string? CatchCertificateReference { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsCatchCertificateDetails  //
     /// </summary
     [Attr]
     [JsonPropertyName("dateOfIssue")]
+    [System.ComponentModel.Description("Catch certificate date of issue")]
     public string? DateOfIssue { get; set; }
 
 	
@@ -51,6 +54,7 @@ public partial class IpaffsCatchCertificateDetails  //
     /// </summary
     [Attr]
     [JsonPropertyName("flagState")]
+    [System.ComponentModel.Description("Catch certificate flag state of catching vessel(s)")]
     public string? FlagState { get; set; }
 
 	
@@ -59,6 +63,7 @@ public partial class IpaffsCatchCertificateDetails  //
     /// </summary
     [Attr]
     [JsonPropertyName("species")]
+    [System.ComponentModel.Description("List of species imported under this catch certificate")]
     public string[]? Species { get; set; }
 
 	}

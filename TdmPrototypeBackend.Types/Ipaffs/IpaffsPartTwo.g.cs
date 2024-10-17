@@ -27,6 +27,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("decision")]
+    [System.ComponentModel.Description("Decision on the consignment")]
     public IpaffsDecision? Decision { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("consignmentCheck")]
+    [System.ComponentModel.Description("Consignment check")]
     public IpaffsConsignmentCheck? ConsignmentCheck { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("impactOfTransportOnAnimals")]
+    [System.ComponentModel.Description("Checks of impact of transport on animals")]
     public IpaffsImpactOfTransportOnAnimals? ImpactOfTransportOnAnimals { get; set; }
 
 	
@@ -51,6 +54,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("laboratoryTestsRequired")]
+    [System.ComponentModel.Description("Are laboratory tests required")]
     public bool? LaboratoryTestsRequired { get; set; }
 
 	
@@ -59,6 +63,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("laboratoryTests")]
+    [System.ComponentModel.Description("Laboratory tests information details")]
     public IpaffsLaboratoryTests? LaboratoryTests { get; set; }
 
 	
@@ -67,6 +72,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("resealedContainersIncluded")]
+    [System.ComponentModel.Description("Are the containers resealed")]
     public bool? ResealedContainersIncluded { get; set; }
 
 	
@@ -75,6 +81,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("resealedContainers")]
+    [System.ComponentModel.Description("(Deprecated - To be removed as part of IMTA-6256) Resealed containers information details")]
     public string[]? ResealedContainers { get; set; }
 
 	
@@ -83,6 +90,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("resealedContainersMapping")]
+    [System.ComponentModel.Description("Resealed containers information details")]
     public IpaffsSealContainer[]? ResealedContainersMappings { get; set; }
 
 	
@@ -91,6 +99,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("controlAuthority")]
+    [System.ComponentModel.Description("Control Authority information details")]
     public IpaffsControlAuthority? ControlAuthority { get; set; }
 
 	
@@ -99,6 +108,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("controlledDestination")]
+    [System.ComponentModel.Description("Controlled destination")]
     public IpaffsEconomicOperator? ControlledDestination { get; set; }
 
 	
@@ -107,6 +117,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("bipLocalReferenceNumber")]
+    [System.ComponentModel.Description("Local reference number at BIP")]
     public string? BipLocalReferenceNumber { get; set; }
 
 	
@@ -115,6 +126,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("signedOnBehalfOf")]
+    [System.ComponentModel.Description("Part 2 - Sometimes other user can sign decision on behalf of another user")]
     public string? SignedOnBehalfOf { get; set; }
 
 	
@@ -123,6 +135,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("onwardTransportation")]
+    [System.ComponentModel.Description("Onward transportation")]
     public string? OnwardTransportation { get; set; }
 
 	
@@ -131,6 +144,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("consignmentValidation")]
+    [System.ComponentModel.Description("Validation messages for Part 2 - Decision")]
     public IpaffsValidationMessageCode[]? ConsignmentValidations { get; set; }
 
 	
@@ -139,6 +153,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("checkDate")]
+    [System.ComponentModel.Description("User entered date when the checks were completed")]
     public string? CheckDate { get; set; }
 
 	
@@ -147,6 +162,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("accompanyingDocuments")]
+    [System.ComponentModel.Description("Accompanying documents")]
     public IpaffsAccompanyingDocument[]? AccompanyingDocuments { get; set; }
 
 	
@@ -155,6 +171,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("commodityChecks")]
+    [System.ComponentModel.Description("")]
     [MongoDB.Bson.Serialization.Attributes.BsonIgnore]
     public IpaffsCommodityChecks[]? CommodityChecks { get; set; }
 
@@ -164,6 +181,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("phsiAutoCleared")]
+    [System.ComponentModel.Description("Have the PHSI regulated commodities been auto cleared?")]
     public bool? PhsiAutoCleared { get; set; }
 
 	
@@ -172,6 +190,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("hmiAutoCleared")]
+    [System.ComponentModel.Description("Have the HMI regulated commodities been auto cleared?")]
     public bool? HmiAutoCleared { get; set; }
 
 	
@@ -180,6 +199,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("inspectionRequired")]
+    [System.ComponentModel.Description("Inspection required")]
     public string? InspectionRequired { get; set; }
 
 	
@@ -188,6 +208,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("inspectionOverride")]
+    [System.ComponentModel.Description("Details about the manual inspection override")]
     public IpaffsInspectionOverride? InspectionOverride { get; set; }
 
 	
@@ -196,6 +217,7 @@ public partial class IpaffsPartTwo  //
     /// </summary
     [Attr]
     [JsonPropertyName("autoClearedDateTime")]
+    [System.ComponentModel.Description("Date of autoclearance")]
     public string? AutoClearedDateTime { get; set; }
 
 	}

@@ -27,6 +27,7 @@ public partial class IpaffsUserInformation  //
     /// </summary
     [Attr]
     [JsonPropertyName("displayName")]
+    [System.ComponentModel.Description("Display name")]
     [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? DisplayName { get; set; }
 
@@ -36,6 +37,7 @@ public partial class IpaffsUserInformation  //
     /// </summary
     [Attr]
     [JsonPropertyName("userId")]
+    [System.ComponentModel.Description("User ID")]
     public string? UserId { get; set; }
 
 	
@@ -44,6 +46,7 @@ public partial class IpaffsUserInformation  //
     /// </summary
     [Attr]
     [JsonPropertyName("isControlUser")]
+    [System.ComponentModel.Description("Is this user a control")]
     public bool? IsControlUser { get; set; }
 
 	}

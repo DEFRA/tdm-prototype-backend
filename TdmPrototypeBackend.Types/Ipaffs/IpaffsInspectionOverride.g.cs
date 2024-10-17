@@ -27,6 +27,7 @@ public partial class IpaffsInspectionOverride  //
     /// </summary
     [Attr]
     [JsonPropertyName("originalDecision")]
+    [System.ComponentModel.Description("Original inspection decision")]
     public string? OriginalDecision { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsInspectionOverride  //
     /// </summary
     [Attr]
     [JsonPropertyName("overriddenOn")]
+    [System.ComponentModel.Description("The time the risk decision is overridden")]
     public string? OverriddenOn { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsInspectionOverride  //
     /// </summary
     [Attr]
     [JsonPropertyName("overriddenBy")]
+    [System.ComponentModel.Description("User entity who has manually overridden the inspection")]
     public IpaffsUserInformation? OverriddenBy { get; set; }
 
 	}

@@ -27,6 +27,7 @@ public partial class IpaffsBillingInformation  //
     /// </summary
     [Attr]
     [JsonPropertyName("isConfirmed")]
+    [System.ComponentModel.Description("Indicates whether user has confirmed their billing information")]
     public bool? IsConfirmed { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsBillingInformation  //
     /// </summary
     [Attr]
     [JsonPropertyName("emailAddress")]
+    [System.ComponentModel.Description("Billing email address")]
     public string? EmailAddress { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsBillingInformation  //
     /// </summary
     [Attr]
     [JsonPropertyName("phoneNumber")]
+    [System.ComponentModel.Description("Billing phone number")]
     public string? PhoneNumber { get; set; }
 
 	
@@ -51,6 +54,7 @@ public partial class IpaffsBillingInformation  //
     /// </summary
     [Attr]
     [JsonPropertyName("contactName")]
+    [System.ComponentModel.Description("Billing Contact Name")]
     public string? ContactName { get; set; }
 
 	
@@ -59,6 +63,7 @@ public partial class IpaffsBillingInformation  //
     /// </summary
     [Attr]
     [JsonPropertyName("postalAddress")]
+    [System.ComponentModel.Description("Billing postal address")]
     public IpaffsPostalAddress? PostalAddress { get; set; }
 
 	}

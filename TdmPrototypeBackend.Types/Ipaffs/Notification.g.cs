@@ -28,6 +28,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("id")]
+    [System.ComponentModel.Description("The IPAFFS ID number for this notification.")]
     public int? IpaffsId { get; set; }
 
 	
@@ -36,6 +37,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("etag")]
+    [System.ComponentModel.Description("The etag for this notification.")]
     public string? Etag { get; set; }
 
 	
@@ -44,6 +46,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("externalReferences")]
+    [System.ComponentModel.Description("List of external references, which relate to downstream services")]
     public IpaffsExternalReference[]? ExternalReferences { get; set; }
 
 	
@@ -52,6 +55,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("referenceNumber")]
+    [System.ComponentModel.Description("Reference number of the notification")]
     [MongoDB.Bson.Serialization.Attributes.BsonIgnore]
     public string? ReferenceNumber { get; set; }
 
@@ -61,6 +65,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("version")]
+    [System.ComponentModel.Description("Current version of the notification")]
     public int? Version { get; set; }
 
 	
@@ -69,6 +74,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("lastUpdated")]
+    [System.ComponentModel.Description("Date when the notification was last updated.")]
     public DateTime? LastUpdated { get; set; }
 
 	
@@ -77,6 +83,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("lastUpdatedBy")]
+    [System.ComponentModel.Description("User entity whose update was last")]
     public IpaffsUserInformation? LastUpdatedBy { get; set; }
 
 	
@@ -85,6 +92,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("type")]
+    [System.ComponentModel.Description("The Type of notification that has been submitted")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsNotificationTypeEnum? IpaffsType { get; set; }
 
@@ -94,6 +102,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("replaces")]
+    [System.ComponentModel.Description("Reference number of notification that was replaced by this one")]
     public string? Replaces { get; set; }
 
 	
@@ -102,6 +111,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("replacedBy")]
+    [System.ComponentModel.Description("Reference number of notification that replaced this one")]
     public string? ReplacedBy { get; set; }
 
 	
@@ -110,6 +120,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("status")]
+    [System.ComponentModel.Description("Current status of the notification. When created by an importer, the notification has the status 'SUBMITTED'. Before submission of the notification it has the status 'DRAFT'. When the BIP starts validation of the notification it has the status 'IN PROGRESS' Once the BIP validates the notification, it gets the status 'VALIDATED'. 'AMEND' is set when the Part-1 user is modifying the notification. 'MODIFY' is set when Part-2 user is modifying the notification. Replaced - When the notification is replaced by another notification. Rejected - Notification moves to Rejected status when rejected by a Part-2 user. ")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsNotificationStatusEnum? Status { get; set; }
 
@@ -119,6 +130,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("splitConsignment")]
+    [System.ComponentModel.Description("Present if the consignment has been split")]
     public IpaffsSplitConsignment? SplitConsignment { get; set; }
 
 	
@@ -127,6 +139,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("childNotification")]
+    [System.ComponentModel.Description("Is this notification a child of a split consignment?")]
     public bool? ChildNotification { get; set; }
 
 	
@@ -135,6 +148,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("riskAssessment")]
+    [System.ComponentModel.Description("Result of risk assessment by the risk scorer")]
     public IpaffsRiskAssessmentResult? RiskAssessment { get; set; }
 
 	
@@ -143,6 +157,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("journeyRiskCategorisation")]
+    [System.ComponentModel.Description("Details of the risk categorisation level for a notification")]
     public IpaffsJourneyRiskCategorisationResult? JourneyRiskCategorisation { get; set; }
 
 	
@@ -151,6 +166,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("isHighRiskEuImport")]
+    [System.ComponentModel.Description("Is this notification a high risk notification from the EU/EEA?")]
     public bool? IsHighRiskEuImport { get; set; }
 
 	
@@ -159,6 +175,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("partOne")]
+    [System.ComponentModel.Description("")]
     public IpaffsPartOne? PartOne { get; set; }
 
 	
@@ -167,6 +184,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("decisionBy")]
+    [System.ComponentModel.Description("Information about the user who set the decision in Part 2")]
     public IpaffsUserInformation? DecisionBy { get; set; }
 
 	
@@ -175,6 +193,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("decisionDate")]
+    [System.ComponentModel.Description("Date when the notification was validated or rejected")]
     public DateTime? DecisionDate { get; set; }
 
 	
@@ -183,6 +202,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("partTwo")]
+    [System.ComponentModel.Description("Part of the notification which contains information filled by inspector at BIP/DPE")]
     public IpaffsPartTwo? PartTwo { get; set; }
 
 	
@@ -191,6 +211,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("partThree")]
+    [System.ComponentModel.Description("Part of the notification which contains information filled by LVU if control of consignment is needed.")]
     public IpaffsPartThree? PartThree { get; set; }
 
 	
@@ -199,6 +220,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("officialVeterinarian")]
+    [System.ComponentModel.Description("Official veterinarian")]
     public string? OfficialVeterinarian { get; set; }
 
 	
@@ -207,6 +229,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("consignmentValidation")]
+    [System.ComponentModel.Description("Validation messages for whole notification")]
     public IpaffsValidationMessageCode[]? ConsignmentValidations { get; set; }
 
 	
@@ -215,6 +238,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("agencyOrganisationId")]
+    [System.ComponentModel.Description("Organisation id which the agent user belongs to, stored against each notification which has been raised on behalf of another organisation")]
     public string? AgencyOrganisationId { get; set; }
 
 	
@@ -223,6 +247,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("riskDecisionLockingTime")]
+    [System.ComponentModel.Description("Date and Time when risk decision was locked")]
     public DateTime? RiskDecisionLockingTime { get; set; }
 
 	
@@ -231,6 +256,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("isRiskDecisionLocked")]
+    [System.ComponentModel.Description("is the risk decision locked?")]
     public bool? IsRiskDecisionLocked { get; set; }
 
 	
@@ -239,6 +265,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("isBulkUploadInProgress")]
+    [System.ComponentModel.Description("Boolean flag that indicates whether a bulk upload is in progress")]
     public bool? IsBulkUploadInProgress { get; set; }
 
 	
@@ -247,6 +274,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("requestId")]
+    [System.ComponentModel.Description("Request UUID to trace bulk upload")]
     public string? RequestId { get; set; }
 
 	
@@ -255,6 +283,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("isCdsFullMatched")]
+    [System.ComponentModel.Description("Have all commodities been matched with corresponding CDS declaration(s)")]
     public bool? IsCdsFullMatched { get; set; }
 
 	
@@ -263,6 +292,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("chedTypeVersion")]
+    [System.ComponentModel.Description("The version of the ched type the notification was created with")]
     public int? ChedTypeVersion { get; set; }
 
 	
@@ -271,6 +301,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     /// </summary
     [Attr]
     [JsonPropertyName("isGMRMatched")]
+    [System.ComponentModel.Description("Indicates whether a CHED has been matched with a GVMS GMR via DMP")]
     public bool? IsGMRMatched { get; set; }
 
 	}

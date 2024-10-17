@@ -27,6 +27,7 @@ public partial class IpaffsSealContainer  //
     /// </summary
     [Attr]
     [JsonPropertyName("sealNumber")]
+    [System.ComponentModel.Description("")]
     public string? SealNumber { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsSealContainer  //
     /// </summary
     [Attr]
     [JsonPropertyName("containerNumber")]
+    [System.ComponentModel.Description("")]
     public string? ContainerNumber { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsSealContainer  //
     /// </summary
     [Attr]
     [JsonPropertyName("officialSeal")]
+    [System.ComponentModel.Description("")]
     public bool? OfficialSeal { get; set; }
 
 	
@@ -51,6 +54,7 @@ public partial class IpaffsSealContainer  //
     /// </summary
     [Attr]
     [JsonPropertyName("resealedSealNumber")]
+    [System.ComponentModel.Description("")]
     public string? ResealedSealNumber { get; set; }
 
 	}

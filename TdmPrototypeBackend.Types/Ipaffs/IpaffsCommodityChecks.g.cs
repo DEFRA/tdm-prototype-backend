@@ -27,6 +27,7 @@ public partial class IpaffsCommodityChecks  //
     /// </summary
     [Attr]
     [JsonPropertyName("uniqueComplementId")]
+    [System.ComponentModel.Description("UUID used to match the commodityChecks to the commodityComplement")]
     public string? UniqueComplementId { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsCommodityChecks  //
     /// </summary
     [Attr]
     [JsonPropertyName("checks")]
+    [System.ComponentModel.Description("")]
     public IpaffsInspectionCheck[]? Checks { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsCommodityChecks  //
     /// </summary
     [Attr]
     [JsonPropertyName("validityPeriod")]
+    [System.ComponentModel.Description("Manually entered validity period, allowed if risk decision is INSPECTION_REQUIRED and HMI check status 'Compliant' or 'Not inspected'")]
     public int? ValidityPeriod { get; set; }
 
 	}

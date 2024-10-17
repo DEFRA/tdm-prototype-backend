@@ -27,6 +27,7 @@ public partial class IpaffsCommodityComplement  //
     /// </summary
     [Attr]
     [JsonPropertyName("uniqueComplementID")]
+    [System.ComponentModel.Description("UUID used to match commodityComplement to its complementParameter set. CHEDPP only")]
     public string? UniqueComplementID { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsCommodityComplement  //
     /// </summary
     [Attr]
     [JsonPropertyName("commodityDescription")]
+    [System.ComponentModel.Description("Description of the commodity")]
     public string? CommodityDescription { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsCommodityComplement  //
     /// </summary
     [Attr]
     [JsonPropertyName("commodityID")]
+    [System.ComponentModel.Description("The unique commodity ID")]
     public string? CommodityID { get; set; }
 
 	
@@ -51,6 +54,7 @@ public partial class IpaffsCommodityComplement  //
     /// </summary
     [Attr]
     [JsonPropertyName("complementID")]
+    [System.ComponentModel.Description("Identifier of complement chosen from speciesFamily,speciesClass and speciesType'. This is also used to link to the complementParameterSet")]
     public int? ComplementID { get; set; }
 
 	
@@ -59,6 +63,7 @@ public partial class IpaffsCommodityComplement  //
     /// </summary
     [Attr]
     [JsonPropertyName("complementName")]
+    [System.ComponentModel.Description("Represents the lowest granularity - either type, class, family or species name - for the commodity selected.  This is also used to drive behaviour for EU Import journeys")]
     public string? ComplementName { get; set; }
 
 	
@@ -67,6 +72,7 @@ public partial class IpaffsCommodityComplement  //
     /// </summary
     [Attr]
     [JsonPropertyName("eppoCode")]
+    [System.ComponentModel.Description("EPPO Code related to plant commodities and wood packaging")]
     public string? EppoCode { get; set; }
 
 	
@@ -75,6 +81,7 @@ public partial class IpaffsCommodityComplement  //
     /// </summary
     [Attr]
     [JsonPropertyName("isWoodPackaging")]
+    [System.ComponentModel.Description("(Deprecated in IMTA-11832) Is this commodity wood packaging?")]
     public bool? IsWoodPackaging { get; set; }
 
 	
@@ -83,6 +90,7 @@ public partial class IpaffsCommodityComplement  //
     /// </summary
     [Attr]
     [JsonPropertyName("speciesID")]
+    [System.ComponentModel.Description("The species ID of the commodity that is imported. Not every commodity has a species ID. This is also used to link to the complementParameterSet. The species ID can change over time")]
     public string? SpeciesID { get; set; }
 
 	
@@ -91,6 +99,7 @@ public partial class IpaffsCommodityComplement  //
     /// </summary
     [Attr]
     [JsonPropertyName("speciesName")]
+    [System.ComponentModel.Description("Species name")]
     public string? SpeciesName { get; set; }
 
 	
@@ -99,6 +108,7 @@ public partial class IpaffsCommodityComplement  //
     /// </summary
     [Attr]
     [JsonPropertyName("speciesNomination")]
+    [System.ComponentModel.Description("Species nomination")]
     public string? SpeciesNomination { get; set; }
 
 	
@@ -107,6 +117,7 @@ public partial class IpaffsCommodityComplement  //
     /// </summary
     [Attr]
     [JsonPropertyName("speciesTypeName")]
+    [System.ComponentModel.Description("Species type name")]
     public string? SpeciesTypeName { get; set; }
 
 	
@@ -115,6 +126,7 @@ public partial class IpaffsCommodityComplement  //
     /// </summary
     [Attr]
     [JsonPropertyName("speciesType")]
+    [System.ComponentModel.Description("Species type identifier of commodity")]
     public string? SpeciesType { get; set; }
 
 	
@@ -123,6 +135,7 @@ public partial class IpaffsCommodityComplement  //
     /// </summary
     [Attr]
     [JsonPropertyName("speciesClassName")]
+    [System.ComponentModel.Description("Species class name")]
     public string? SpeciesClassName { get; set; }
 
 	
@@ -131,6 +144,7 @@ public partial class IpaffsCommodityComplement  //
     /// </summary
     [Attr]
     [JsonPropertyName("speciesClass")]
+    [System.ComponentModel.Description("Species class identifier of commodity")]
     public string? SpeciesClass { get; set; }
 
 	
@@ -139,6 +153,7 @@ public partial class IpaffsCommodityComplement  //
     /// </summary
     [Attr]
     [JsonPropertyName("speciesFamilyName")]
+    [System.ComponentModel.Description("Species family name of commodity")]
     public string? SpeciesFamilyName { get; set; }
 
 	
@@ -147,6 +162,7 @@ public partial class IpaffsCommodityComplement  //
     /// </summary
     [Attr]
     [JsonPropertyName("speciesFamily")]
+    [System.ComponentModel.Description("Species family identifier of commodity")]
     public string? SpeciesFamily { get; set; }
 
 	
@@ -155,6 +171,7 @@ public partial class IpaffsCommodityComplement  //
     /// </summary
     [Attr]
     [JsonPropertyName("speciesCommonName")]
+    [System.ComponentModel.Description("Species common name of commodity for IMP notification simple commodity selection")]
     public string? SpeciesCommonName { get; set; }
 
 	
@@ -163,6 +180,7 @@ public partial class IpaffsCommodityComplement  //
     /// </summary
     [Attr]
     [JsonPropertyName("isCdsMatched")]
+    [System.ComponentModel.Description("Has commodity been matched with corresponding CDS declaration")]
     public bool? IsCdsMatched { get; set; }
 
 	}

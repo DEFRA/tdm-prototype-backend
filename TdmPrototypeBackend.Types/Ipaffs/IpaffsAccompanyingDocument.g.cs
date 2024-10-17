@@ -27,6 +27,7 @@ public partial class IpaffsAccompanyingDocument  //
     /// </summary
     [Attr]
     [JsonPropertyName("documentType")]
+    [System.ComponentModel.Description("Additional document type")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsAccompanyingDocumentDocumentTypeEnum? DocumentType { get; set; }
 
@@ -36,6 +37,7 @@ public partial class IpaffsAccompanyingDocument  //
     /// </summary
     [Attr]
     [JsonPropertyName("documentReference")]
+    [System.ComponentModel.Description("Additional document reference")]
     public string? DocumentReference { get; set; }
 
 	
@@ -44,6 +46,7 @@ public partial class IpaffsAccompanyingDocument  //
     /// </summary
     [Attr]
     [JsonPropertyName("documentIssueDate")]
+    [System.ComponentModel.Description("Additional document issue date")]
     public string? DocumentIssueDate { get; set; }
 
 	
@@ -52,6 +55,7 @@ public partial class IpaffsAccompanyingDocument  //
     /// </summary
     [Attr]
     [JsonPropertyName("attachmentId")]
+    [System.ComponentModel.Description("The UUID used for the uploaded file in blob storage")]
     public string? AttachmentId { get; set; }
 
 	
@@ -60,6 +64,7 @@ public partial class IpaffsAccompanyingDocument  //
     /// </summary
     [Attr]
     [JsonPropertyName("attachmentFilename")]
+    [System.ComponentModel.Description("The original filename of the uploaded file")]
     public string? AttachmentFilename { get; set; }
 
 	
@@ -68,6 +73,7 @@ public partial class IpaffsAccompanyingDocument  //
     /// </summary
     [Attr]
     [JsonPropertyName("attachmentContentType")]
+    [System.ComponentModel.Description("The MIME type of the uploaded file")]
     public string? AttachmentContentType { get; set; }
 
 	
@@ -76,6 +82,7 @@ public partial class IpaffsAccompanyingDocument  //
     /// </summary
     [Attr]
     [JsonPropertyName("uploadUserId")]
+    [System.ComponentModel.Description("The UUID for the user that uploaded the file")]
     public string? UploadUserId { get; set; }
 
 	
@@ -84,6 +91,7 @@ public partial class IpaffsAccompanyingDocument  //
     /// </summary
     [Attr]
     [JsonPropertyName("uploadOrganisationId")]
+    [System.ComponentModel.Description("The UUID for the organisation that the upload user is associated with")]
     public string? UploadOrganisationId { get; set; }
 
 	
@@ -92,6 +100,7 @@ public partial class IpaffsAccompanyingDocument  //
     /// </summary
     [Attr]
     [JsonPropertyName("externalReference")]
+    [System.ComponentModel.Description("External reference of accompanying document, which relates to a downstream service")]
     public IpaffsExternalReference? ExternalReference { get; set; }
 
 	}

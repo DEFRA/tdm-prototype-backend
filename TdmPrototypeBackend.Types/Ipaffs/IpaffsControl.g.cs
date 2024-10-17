@@ -27,6 +27,7 @@ public partial class IpaffsControl  //
     /// </summary
     [Attr]
     [JsonPropertyName("feedbackInformation")]
+    [System.ComponentModel.Description("Feedback information of Control")]
     public IpaffsFeedbackInformation? FeedbackInformation { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsControl  //
     /// </summary
     [Attr]
     [JsonPropertyName("detailsOnReExport")]
+    [System.ComponentModel.Description("Details on re-export")]
     public IpaffsDetailsOnReExport? DetailsOnReExport { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsControl  //
     /// </summary
     [Attr]
     [JsonPropertyName("officialInspector")]
+    [System.ComponentModel.Description("Official inspector")]
     public IpaffsOfficialInspector? OfficialInspector { get; set; }
 
 	
@@ -51,6 +54,7 @@ public partial class IpaffsControl  //
     /// </summary
     [Attr]
     [JsonPropertyName("consignmentLeave")]
+    [System.ComponentModel.Description("Is the consignment leaving UK borders?")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsControlConsignmentLeaveEnum? ConsignmentLeave { get; set; }
 

@@ -26,7 +26,11 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel
             Description = description;
             IsReferenceType = isReferenceType;
             IsArray = isArray;
-            Attributes = new List<string>() { "[Attr]", $"[JsonPropertyName(\"{Name}\")]" };
+            Attributes = new List<string>()
+            {
+                "[Attr]", $"[JsonPropertyName(\"{Name}\")]",
+                $"[System.ComponentModel.Description(\"{Description}\")]"
+            };
 
             if (type.EndsWith("Enum"))
             {

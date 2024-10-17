@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -79,6 +80,22 @@ public class DocumentFilter : IDocumentFilter, ISchemaFilter
             var name = jsonAttr != null ? jsonAttr.Name : excludedProperty.Name;
             if (schema.Properties.ContainsKey(name))
                 schema.Properties.Remove(name);
+        }
+
+
+        //apply description
+        foreach (var excludedProperty in context.Type.GetProperties())
+        {
+            var descAttr = excludedProperty.GetCustomAttribute<DescriptionAttribute>();
+            if (descAttr is not null)
+            {
+                var jsonAttr = excludedProperty.GetCustomAttribute<JsonPropertyNameAttribute>();
+                var name = jsonAttr != null ? jsonAttr.Name : excludedProperty.Name;
+                if (schema.Properties.TryGetValue(name, out var property))
+                {
+                    property.Description = descAttr.Description;
+                }
+            }
         }
     }
 }

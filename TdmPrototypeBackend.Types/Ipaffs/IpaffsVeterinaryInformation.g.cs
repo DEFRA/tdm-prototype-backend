@@ -27,6 +27,7 @@ public partial class IpaffsVeterinaryInformation  //
     /// </summary
     [Attr]
     [JsonPropertyName("establishmentsOfOriginExternalReference")]
+    [System.ComponentModel.Description("External reference of approved establishments, which relates to a downstream service")]
     public IpaffsExternalReference? EstablishmentsOfOriginExternalReference { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsVeterinaryInformation  //
     /// </summary
     [Attr]
     [JsonPropertyName("establishmentsOfOrigin")]
+    [System.ComponentModel.Description("List of establishments which were approved by UK to issue veterinary documents")]
     public IpaffsApprovedEstablishment[]? EstablishmentsOfOrigins { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsVeterinaryInformation  //
     /// </summary
     [Attr]
     [JsonPropertyName("veterinaryDocument")]
+    [System.ComponentModel.Description("Veterinary document identification")]
     public string? VeterinaryDocument { get; set; }
 
 	
@@ -51,6 +54,7 @@ public partial class IpaffsVeterinaryInformation  //
     /// </summary
     [Attr]
     [JsonPropertyName("veterinaryDocumentIssueDate")]
+    [System.ComponentModel.Description("Veterinary document issue date")]
     public string? VeterinaryDocumentIssueDate { get; set; }
 
 	
@@ -59,6 +63,7 @@ public partial class IpaffsVeterinaryInformation  //
     /// </summary
     [Attr]
     [JsonPropertyName("accompanyingDocumentNumbers")]
+    [System.ComponentModel.Description("Additional documents")]
     public string[]? AccompanyingDocumentNumbers { get; set; }
 
 	
@@ -67,6 +72,7 @@ public partial class IpaffsVeterinaryInformation  //
     /// </summary
     [Attr]
     [JsonPropertyName("accompanyingDocuments")]
+    [System.ComponentModel.Description("Accompanying documents")]
     public IpaffsAccompanyingDocument[]? AccompanyingDocuments { get; set; }
 
 	
@@ -75,6 +81,7 @@ public partial class IpaffsVeterinaryInformation  //
     /// </summary
     [Attr]
     [JsonPropertyName("catchCertificateAttachments")]
+    [System.ComponentModel.Description("Catch certificate attachments")]
     public IpaffsCatchCertificateAttachment[]? CatchCertificateAttachments { get; set; }
 
 	
@@ -83,6 +90,7 @@ public partial class IpaffsVeterinaryInformation  //
     /// </summary
     [Attr]
     [JsonPropertyName("identificationDetails")]
+    [System.ComponentModel.Description("Details helpful for identification")]
     public IpaffsIdentificationDetails[]? IdentificationDetails { get; set; }
 
 	}

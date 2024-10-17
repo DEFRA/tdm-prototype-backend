@@ -27,6 +27,7 @@ public partial class IpaffsSealCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("satisfactory")]
+    [System.ComponentModel.Description("Is seal check satisfactory")]
     public bool? Satisfactory { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsSealCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("reason")]
+    [System.ComponentModel.Description("reason for not satisfactory")]
     public string? Reason { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsSealCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("officialInspector")]
+    [System.ComponentModel.Description("Official inspector")]
     public IpaffsOfficialInspector? OfficialInspector { get; set; }
 
 	
@@ -51,6 +54,7 @@ public partial class IpaffsSealCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("dateTimeOfCheck")]
+    [System.ComponentModel.Description("date and time of seal check")]
     public string? DateTimeOfCheck { get; set; }
 
 	}

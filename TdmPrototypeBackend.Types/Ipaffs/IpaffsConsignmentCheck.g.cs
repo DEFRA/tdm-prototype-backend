@@ -27,6 +27,7 @@ public partial class IpaffsConsignmentCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("euStandard")]
+    [System.ComponentModel.Description("Does it conform EU standards")]
     public string? EuStandard { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsConsignmentCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("additionalGuarantees")]
+    [System.ComponentModel.Description("Result of additional guarantees")]
     public string? AdditionalGuarantees { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsConsignmentCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("documentCheckResult")]
+    [System.ComponentModel.Description("Result of document check")]
     public string? DocumentCheckResult { get; set; }
 
 	
@@ -51,6 +54,7 @@ public partial class IpaffsConsignmentCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("nationalRequirements")]
+    [System.ComponentModel.Description("Result of national requirements check")]
     public string? NationalRequirements { get; set; }
 
 	
@@ -59,6 +63,7 @@ public partial class IpaffsConsignmentCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("identityCheckDone")]
+    [System.ComponentModel.Description("Was identity check done")]
     public bool? IdentityCheckDone { get; set; }
 
 	
@@ -67,6 +72,7 @@ public partial class IpaffsConsignmentCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("identityCheckType")]
+    [System.ComponentModel.Description("Type of identity check performed")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsConsignmentCheckIdentityCheckTypeEnum? IdentityCheckType { get; set; }
 
@@ -76,6 +82,7 @@ public partial class IpaffsConsignmentCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("identityCheckResult")]
+    [System.ComponentModel.Description("Result of identity check")]
     public string? IdentityCheckResult { get; set; }
 
 	
@@ -84,6 +91,7 @@ public partial class IpaffsConsignmentCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("identityCheckNotDoneReason")]
+    [System.ComponentModel.Description("What was the reason for skipping identity check")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsConsignmentCheckIdentityCheckNotDoneReasonEnum? IdentityCheckNotDoneReason { get; set; }
 
@@ -93,6 +101,7 @@ public partial class IpaffsConsignmentCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("physicalCheckDone")]
+    [System.ComponentModel.Description("Was physical check done")]
     public bool? PhysicalCheckDone { get; set; }
 
 	
@@ -101,6 +110,7 @@ public partial class IpaffsConsignmentCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("physicalCheckResult")]
+    [System.ComponentModel.Description("Result of physical check")]
     public string? PhysicalCheckResult { get; set; }
 
 	
@@ -109,6 +119,7 @@ public partial class IpaffsConsignmentCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("physicalCheckNotDoneReason")]
+    [System.ComponentModel.Description("What was the reason for skipping physical check")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsConsignmentCheckPhysicalCheckNotDoneReasonEnum? PhysicalCheckNotDoneReason { get; set; }
 
@@ -118,6 +129,7 @@ public partial class IpaffsConsignmentCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("physicalCheckOtherText")]
+    [System.ComponentModel.Description("Other reason to not do physical check")]
     public string? PhysicalCheckOtherText { get; set; }
 
 	
@@ -126,6 +138,7 @@ public partial class IpaffsConsignmentCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("welfareCheck")]
+    [System.ComponentModel.Description("Welfare check")]
     public string? WelfareCheck { get; set; }
 
 	
@@ -134,6 +147,7 @@ public partial class IpaffsConsignmentCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("numberOfAnimalsChecked")]
+    [System.ComponentModel.Description("Number of animals checked")]
     public int? NumberOfAnimalsChecked { get; set; }
 
 	
@@ -142,6 +156,7 @@ public partial class IpaffsConsignmentCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("laboratoryCheckDone")]
+    [System.ComponentModel.Description("Were laboratory tests done")]
     public bool? LaboratoryCheckDone { get; set; }
 
 	
@@ -150,6 +165,7 @@ public partial class IpaffsConsignmentCheck  //
     /// </summary
     [Attr]
     [JsonPropertyName("laboratoryCheckResult")]
+    [System.ComponentModel.Description("Result of laboratory tests")]
     public string? LaboratoryCheckResult { get; set; }
 
 	}

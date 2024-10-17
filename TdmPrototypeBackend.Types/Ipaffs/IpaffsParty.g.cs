@@ -27,6 +27,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("id")]
+    [System.ComponentModel.Description("IPAFFS ID of party")]
     public string? IpaffsId { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("name")]
+    [System.ComponentModel.Description("Name of party")]
     [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? Name { get; set; }
 
@@ -44,6 +46,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("companyId")]
+    [System.ComponentModel.Description("Company ID")]
     public string? CompanyId { get; set; }
 
 	
@@ -52,6 +55,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("contactId")]
+    [System.ComponentModel.Description("Contact ID (B2C)")]
     public string? ContactId { get; set; }
 
 	
@@ -60,6 +64,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("companyName")]
+    [System.ComponentModel.Description("Company name")]
     [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? CompanyName { get; set; }
 
@@ -69,6 +74,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("address")]
+    [System.ComponentModel.Description("Addresses")]
     [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string[]? Addresses { get; set; }
 
@@ -78,6 +84,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("county")]
+    [System.ComponentModel.Description("County")]
     public string? County { get; set; }
 
 	
@@ -86,6 +93,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("postCode")]
+    [System.ComponentModel.Description("Post code of party")]
     [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? PostCode { get; set; }
 
@@ -95,6 +103,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("country")]
+    [System.ComponentModel.Description("Country of party")]
     public string? Country { get; set; }
 
 	
@@ -103,6 +112,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("city")]
+    [System.ComponentModel.Description("City")]
     [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? City { get; set; }
 
@@ -112,6 +122,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("tracesID")]
+    [System.ComponentModel.Description("TRACES ID")]
     public int? TracesID { get; set; }
 
 	
@@ -120,6 +131,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("type")]
+    [System.ComponentModel.Description("Type of party")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsPartyTypeEnum? IpaffsType { get; set; }
 
@@ -129,6 +141,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("approvalNumber")]
+    [System.ComponentModel.Description("Approval number")]
     public string? ApprovalNumber { get; set; }
 
 	
@@ -137,6 +150,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("phone")]
+    [System.ComponentModel.Description("Phone number of party")]
     [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? Phone { get; set; }
 
@@ -146,6 +160,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("fax")]
+    [System.ComponentModel.Description("Fax number of party")]
     [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? Fax { get; set; }
 
@@ -155,6 +170,7 @@ public partial class IpaffsParty  //
     /// </summary
     [Attr]
     [JsonPropertyName("email")]
+    [System.ComponentModel.Description("Email number of party")]
     [TdmPrototypeBackend.Types.Extensions.SensitiveData()]
     public string? Email { get; set; }
 

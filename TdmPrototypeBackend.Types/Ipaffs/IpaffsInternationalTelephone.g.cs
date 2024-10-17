@@ -27,6 +27,7 @@ public partial class IpaffsInternationalTelephone  //
     /// </summary
     [Attr]
     [JsonPropertyName("countryCode")]
+    [System.ComponentModel.Description("Country code of phone number")]
     public string? CountryCode { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsInternationalTelephone  //
     /// </summary
     [Attr]
     [JsonPropertyName("subscriberNumber")]
+    [System.ComponentModel.Description("Phone number")]
     public string? SubscriberNumber { get; set; }
 
 	}

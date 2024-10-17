@@ -27,6 +27,7 @@ public partial class IpaffsIdentificationDetails  //
     /// </summary
     [Attr]
     [JsonPropertyName("identificationDetail")]
+    [System.ComponentModel.Description("Identification detail")]
     public string? IdentificationDetail { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsIdentificationDetails  //
     /// </summary
     [Attr]
     [JsonPropertyName("identificationDescription")]
+    [System.ComponentModel.Description("Identification description")]
     public string? IdentificationDescription { get; set; }
 
 	}

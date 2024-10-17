@@ -27,6 +27,7 @@ public partial class IpaffsApprovedEstablishment  //
     /// </summary
     [Attr]
     [JsonPropertyName("id")]
+    [System.ComponentModel.Description("ID")]
     public string? IpaffsId { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsApprovedEstablishment  //
     /// </summary
     [Attr]
     [JsonPropertyName("name")]
+    [System.ComponentModel.Description("Name of approved establishment")]
     public string? Name { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsApprovedEstablishment  //
     /// </summary
     [Attr]
     [JsonPropertyName("country")]
+    [System.ComponentModel.Description("Country of approved establishment")]
     public string? Country { get; set; }
 
 	
@@ -51,6 +54,7 @@ public partial class IpaffsApprovedEstablishment  //
     /// </summary
     [Attr]
     [JsonPropertyName("types")]
+    [System.ComponentModel.Description("Types of approved establishment")]
     public string[]? Types { get; set; }
 
 	
@@ -59,6 +63,7 @@ public partial class IpaffsApprovedEstablishment  //
     /// </summary
     [Attr]
     [JsonPropertyName("approvalNumber")]
+    [System.ComponentModel.Description("Approval number")]
     public string? ApprovalNumber { get; set; }
 
 	
@@ -67,6 +72,7 @@ public partial class IpaffsApprovedEstablishment  //
     /// </summary
     [Attr]
     [JsonPropertyName("section")]
+    [System.ComponentModel.Description("Section of approved establishment")]
     public string? Section { get; set; }
 
 	}

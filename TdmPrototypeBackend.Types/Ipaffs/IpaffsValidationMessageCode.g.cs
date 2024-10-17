@@ -27,6 +27,7 @@ public partial class IpaffsValidationMessageCode  //
     /// </summary
     [Attr]
     [JsonPropertyName("field")]
+    [System.ComponentModel.Description("Field")]
     public string? Field { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsValidationMessageCode  //
     /// </summary
     [Attr]
     [JsonPropertyName("code")]
+    [System.ComponentModel.Description("Code")]
     public string? Code { get; set; }
 
 	}

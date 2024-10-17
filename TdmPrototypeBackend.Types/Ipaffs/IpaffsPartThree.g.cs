@@ -27,6 +27,7 @@ public partial class IpaffsPartThree  //
     /// </summary
     [Attr]
     [JsonPropertyName("controlStatus")]
+    [System.ComponentModel.Description("Control status enum")]
     [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
     public IpaffsPartThreeControlStatusEnum? ControlStatus { get; set; }
 
@@ -36,6 +37,7 @@ public partial class IpaffsPartThree  //
     /// </summary
     [Attr]
     [JsonPropertyName("control")]
+    [System.ComponentModel.Description("Control details")]
     public IpaffsControl? Control { get; set; }
 
 	
@@ -44,6 +46,7 @@ public partial class IpaffsPartThree  //
     /// </summary
     [Attr]
     [JsonPropertyName("consignmentValidation")]
+    [System.ComponentModel.Description("Validation messages for Part 3 - Control")]
     public IpaffsValidationMessageCode[]? ConsignmentValidations { get; set; }
 
 	
@@ -52,6 +55,7 @@ public partial class IpaffsPartThree  //
     /// </summary
     [Attr]
     [JsonPropertyName("sealCheckRequired")]
+    [System.ComponentModel.Description("Is the seal check required")]
     public bool? SealCheckRequired { get; set; }
 
 	
@@ -60,6 +64,7 @@ public partial class IpaffsPartThree  //
     /// </summary
     [Attr]
     [JsonPropertyName("sealCheck")]
+    [System.ComponentModel.Description("Seal check details")]
     public IpaffsSealCheck? SealCheck { get; set; }
 
 	
@@ -68,6 +73,7 @@ public partial class IpaffsPartThree  //
     /// </summary
     [Attr]
     [JsonPropertyName("sealCheckOverride")]
+    [System.ComponentModel.Description("Seal check override details")]
     public IpaffsInspectionOverride? SealCheckOverride { get; set; }
 
 	}

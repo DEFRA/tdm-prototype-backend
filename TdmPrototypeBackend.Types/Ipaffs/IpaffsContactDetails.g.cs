@@ -27,6 +27,7 @@ public partial class IpaffsContactDetails  //
     /// </summary
     [Attr]
     [JsonPropertyName("name")]
+    [System.ComponentModel.Description("Name of designated contact")]
     public string? Name { get; set; }
 
 	
@@ -35,6 +36,7 @@ public partial class IpaffsContactDetails  //
     /// </summary
     [Attr]
     [JsonPropertyName("telephone")]
+    [System.ComponentModel.Description("Telephone number of designated contact")]
     public string? Telephone { get; set; }
 
 	
@@ -43,6 +45,7 @@ public partial class IpaffsContactDetails  //
     /// </summary
     [Attr]
     [JsonPropertyName("email")]
+    [System.ComponentModel.Description("Email address of designated contact")]
     public string? Email { get; set; }
 
 	
@@ -51,6 +54,7 @@ public partial class IpaffsContactDetails  //
     /// </summary
     [Attr]
     [JsonPropertyName("agent")]
+    [System.ComponentModel.Description("Name of agent representing designated contact")]
     public string? Agent { get; set; }
 
 	}
