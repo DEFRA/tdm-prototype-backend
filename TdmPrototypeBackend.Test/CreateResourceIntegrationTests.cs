@@ -268,15 +268,15 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         return new Movement()
         {
             Items = items.ToList(),
-            ClearanceRequests = new List<ALVSClearanceRequest>() { CreateChedAClearanceRequest(id, items) }
+            ClearanceRequests = new List<AlvsClearanceRequest>() { CreateChedAClearanceRequest(id, items) }
         };
     }
 
-    private ALVSClearanceRequest CreateChedAClearanceRequest(String id = null, Items[] items = null)
+    private AlvsClearanceRequest CreateChedAClearanceRequest(String id = null, Items[] items = null)
     {
         id = id ?? GenerateChedID(id:testId);
         items = items ?? new[] { new Items() { CustomsProcedureCode = "AAA" } };
-        return new ALVSClearanceRequest()
+        return new AlvsClearanceRequest()
         {
             // Id = id,
             ServiceHeader = new ServiceHeader() { SourceSystem = "CDS", DestinationSystem = "ALVS" },
