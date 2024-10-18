@@ -53,7 +53,7 @@ public class DocumentFilter : IDocumentFilter, ISchemaFilter
                 path: "/movements",
                 pathDescription: "Movement Operations",
                 operationDescription: "Get Movements",
-                referenceId: "NMovementResourceResponse",
+                referenceId: "MovementResourceResponse",
                 tag: "Movements");
 
             swaggerDoc.AddPath(
