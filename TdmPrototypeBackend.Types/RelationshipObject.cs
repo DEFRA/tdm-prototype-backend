@@ -9,9 +9,16 @@ using Notification = TdmPrototypeBackend.Types.Ipaffs.Notification;
 
 namespace TdmPrototypeBackend.Types;
 
+public class RelationshipTuple
+{
+    public string Name { get; set; }
+
+    public TdmRelationshipObject Value { get; set; }
+}
+
 public interface ITdmRelationships
 {
-    public (string, TdmRelationshipObject) GetRelationshipObject();
+    public RelationshipTuple GetRelationshipObject();
 }
 
 public class NotificationTdmRelationships : ITdmRelationships
@@ -19,9 +26,9 @@ public class NotificationTdmRelationships : ITdmRelationships
     [Attr] 
     public TdmRelationshipObject Movements { get; set; } = TdmRelationshipObject.CreateDefault();
 
-    public (string, TdmRelationshipObject) GetRelationshipObject()
+    public RelationshipTuple GetRelationshipObject()
     {
-        return ("movements", Movements);
+        return new RelationshipTuple() { Name = "movements", Value = Movements };
     }
 }
 
@@ -30,9 +37,9 @@ public class MovementTdmRelationships : ITdmRelationships
     [Attr]
     public TdmRelationshipObject Notifications { get; set; } = TdmRelationshipObject.CreateDefault();
 
-    public (string, TdmRelationshipObject) GetRelationshipObject()
+    public RelationshipTuple GetRelationshipObject()
     {
-        return ("notifications", Notifications);
+        return new RelationshipTuple() { Name = "notifications",  Value = Notifications };
     }
 }
 

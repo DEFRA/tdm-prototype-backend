@@ -27,12 +27,15 @@ using TdmPrototypeBackend.Types;
 using TdmPrototypeCdsSimulator.Extensions;
 using TdmPrototypeDmpSynchroniser.Api.Extensions;
 using TdmPrototypeBackend.Api.Swagger;
+using TdmPrototypeBackend.Api.Experimental.Graphql;
 
 // using TdmPrototypeBackend.Models;
 
 //-------- Configure the WebApplication builder------------------//
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddExperimentalGraphQl();
 
 builder.Services.AddHttpLogging(logging =>
 {
@@ -140,39 +143,39 @@ builder.Services.AddCdsSimulator();
 builder.Services.AddMatchingService();
 
 // swagger endpoints
-if (builder.IsSwaggerEnabled())
-{
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen(c =>
-    {
-        c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-        c.SwaggerDoc("internal-v0.1", new OpenApiInfo { Title = "My API", Version = "internal-v0.1" });
-        c.SwaggerDoc("public-v0.1", new OpenApiInfo { Title = "My API", Version = "v0.1" });
+//if (builder.IsSwaggerEnabled())
+//{
+//    builder.Services.AddEndpointsApiExplorer();
+//    builder.Services.AddSwaggerGen(c =>
+//    {
+//        c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+//        c.SwaggerDoc("internal-v0.1", new OpenApiInfo { Title = "My API", Version = "internal-v0.1" });
+//        c.SwaggerDoc("public-v0.1", new OpenApiInfo { Title = "My API", Version = "v0.1" });
         
 
-        c.DocInclusionPredicate((name, api) =>  !name.StartsWith("public"));
-        c.DocumentFilter<DocumentFilter>();
-        c.SchemaFilter<DocumentFilter>();
-    });
-}
+//        c.DocInclusionPredicate((name, api) =>  !name.StartsWith("public"));
+//        c.DocumentFilter<DocumentFilter>();
+//        c.SchemaFilter<DocumentFilter>();
+//    });
+//}
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
-
+builder.Services.AddHttpContextAccessor();
 
 
 var app = builder.Build();
 
-if (builder.IsSwaggerEnabled())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(options => // UseSwaggerUI is called only in Development.
-    {
-        options.SwaggerEndpoint("/swagger/internal-v0.1/swagger.json", "internal");
-        options.SwaggerEndpoint("/swagger/public-v0.1/swagger.json", "public");
-    });
-}
+//if (builder.IsSwaggerEnabled())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI(options => // UseSwaggerUI is called only in Development.
+//    {
+//        options.SwaggerEndpoint("/swagger/internal-v0.1/swagger.json", "internal");
+//        options.SwaggerEndpoint("/swagger/public-v0.1/swagger.json", "public");
+//    });
+//}
 
 app.UseRouting();
-app.UseJsonApi();
+//app.UseJsonApi();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
@@ -190,5 +193,10 @@ app.MapHealthChecks("/health", new HealthCheckOptions()
 });
 
 app.UseHttpLogging();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapGraphQL().AllowAnonymous();
+});
 
 app.Run();

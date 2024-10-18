@@ -33,7 +33,7 @@ public class TdmResponseModelAdapter(
 
             document.Data.SingleValue.Relationships = new Dictionary<string, RelationshipObject?>();
 
-            var list = relationships.Item2.Data.Select(item => new ResourceIdentifierObject()
+            var list = relationships.Value.Data.Select(item => new ResourceIdentifierObject()
                 {
                     Type = item.Type, 
                     Id = item.Id, 
@@ -50,16 +50,16 @@ public class TdmResponseModelAdapter(
                 .ToList();
 
 
-            document.Data.SingleValue.Relationships.Add(relationships.Item1, new RelationshipObject()
+            document.Data.SingleValue.Relationships.Add(relationships.Name, new RelationshipObject()
             {
                 Meta = new Dictionary<string, object?>()
                 {
-                    {"matched", relationships.Item2.Matched}
+                    {"matched", relationships.Value.Matched}
                 },
                 Links = new RelationshipLinks()
                 {
-                    Self = relationships.Item2.Links.Self,
-                    Related = relationships.Item2.Links.Self
+                    Self = relationships.Value.Links.Self,
+                    Related = relationships.Value.Links.Self
                 },
                 Data = new SingleOrManyData<ResourceIdentifierObject>(list)
             });
