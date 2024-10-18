@@ -71,6 +71,11 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels
                             }
                                 
                         }
+
+                        if (propertyMap.ExcludedFromApi)
+                        {
+                            propertyDescriptor.Attributes.RemoveAll(x => x.Equals("[Attr]"));
+                        }
                     }
                 }
             }

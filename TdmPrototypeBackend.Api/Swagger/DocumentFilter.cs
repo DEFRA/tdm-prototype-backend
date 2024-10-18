@@ -53,7 +53,7 @@ public class DocumentFilter : IDocumentFilter, ISchemaFilter
                 path: "/movements",
                 pathDescription: "Movement Operations",
                 operationDescription: "Get Movements",
-                referenceId: "NMovementResourceResponse",
+                referenceId: "MovementResourceResponse",
                 tag: "Movements");
 
             swaggerDoc.AddPath(
@@ -68,37 +68,51 @@ public class DocumentFilter : IDocumentFilter, ISchemaFilter
     
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {
+        var namingPolicy = JsonNamingPolicy.CamelCase;
         // Exclude BsonIgnore fields
         if (schema?.Properties == null || context.Type == null)
             return;
 
-        var excludedProperties = context.Type.GetProperties()
-            .Where(t =>
-                t.GetCustomAttribute(typeof(BsonIgnoreAttribute)) != null || t.GetCustomAttribute(typeof(ApiIgnoreAttribute)) != null);
 
-        foreach (var excludedProperty in excludedProperties)
+        foreach (var propertyInfo in context.Type.GetProperties())
         {
-            var jsonAttr = excludedProperty.GetCustomAttribute<JsonPropertyNameAttribute>();
-            var name = jsonAttr != null ? jsonAttr.Name : excludedProperty.Name;
-            if (schema.Properties.ContainsKey(name))
-                schema.Properties.Remove(name);
-        }
+            var jsonAttr = propertyInfo.GetCustomAttribute<JsonPropertyNameAttribute>();
+            var name = jsonAttr != null ? jsonAttr.Name : propertyInfo.Name;
+            if (jsonAttr != null)
+            {
 
+            }
 
-        //apply description
-        foreach (var excludedProperty in context.Type.GetProperties())
-        {
-            var descAttr = excludedProperty.GetCustomAttribute<DescriptionAttribute>();
+            // Add description
+            var descAttr = propertyInfo.GetCustomAttribute<DescriptionAttribute>();
             if (descAttr is not null)
             {
-                var jsonAttr = excludedProperty.GetCustomAttribute<JsonPropertyNameAttribute>();
-                var name = jsonAttr != null ? jsonAttr.Name : excludedProperty.Name;
                 if (schema.Properties.TryGetValue(name, out var property))
                 {
                     property.Description = descAttr.Description;
                 }
             }
+
+            // Exclude properties
+            if (propertyInfo.GetCustomAttribute(typeof(BsonIgnoreAttribute)) != null ||
+                propertyInfo.GetCustomAttribute(typeof(ApiIgnoreAttribute)) != null)
+            {
+                if (schema.Properties.ContainsKey(name))
+                    schema.Properties.Remove(name);
+            }
+
+            //Use the property name with camel casing rather than the jsonpropertyname
+            if (schema.Properties.TryGetValue(name, out var existingProperty))
+            {
+                var newName = namingPolicy.ConvertName(propertyInfo.Name);
+                if (schema.Properties.ContainsKey(name))
+                {
+                    schema.Properties.Remove(name);
+                    schema.Properties.Add(newName, existingProperty);
+                }
+            }
         }
+
 
         if(context.Type.IsEnum)
         {

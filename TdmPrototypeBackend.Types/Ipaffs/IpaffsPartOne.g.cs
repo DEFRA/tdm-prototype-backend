@@ -191,13 +191,12 @@ public partial class IpaffsPartOne  //
     [Attr]
     [JsonPropertyName("isGVMSRoute")]
     [System.ComponentModel.Description("Is GVMS route?")]
-    public bool? IsGVMSRoute { get; set; }
+    public bool? IsGvmsRoute { get; set; }
 
 	
     /// <summary>
     /// 
     /// </summary
-    [Attr]
     [JsonPropertyName("commodities")]
     [System.ComponentModel.Description("")]
     [MongoDB.Bson.Serialization.Attributes.BsonIgnore]
@@ -237,7 +236,7 @@ public partial class IpaffsPartOne  //
     [Attr]
     [JsonPropertyName("arrivalDate")]
     [System.ComponentModel.Description("Date when consignment arrives")]
-    public string? ArrivalDate { get; set; }
+    public DateOnly? ArrivalDate { get; set; }
 
 	
     /// <summary>
@@ -246,7 +245,7 @@ public partial class IpaffsPartOne  //
     [Attr]
     [JsonPropertyName("arrivalTime")]
     [System.ComponentModel.Description("Time (HH:MM) when consignment arrives")]
-    public string? ArrivalTime { get; set; }
+    public TimeOnly? ArrivalTime { get; set; }
 
 	
     /// <summary>
@@ -291,7 +290,7 @@ public partial class IpaffsPartOne  //
     [Attr]
     [JsonPropertyName("departureDate")]
     [System.ComponentModel.Description("Date of consignment departure")]
-    public string? DepartureDate { get; set; }
+    public DateOnly? DepartureDate { get; set; }
 
 	
     /// <summary>
@@ -300,7 +299,7 @@ public partial class IpaffsPartOne  //
     [Attr]
     [JsonPropertyName("departureTime")]
     [System.ComponentModel.Description("Time (HH:MM) of consignment departure")]
-    public string? DepartureTime { get; set; }
+    public TimeOnly? DepartureTime { get; set; }
 
 	
     /// <summary>
@@ -363,7 +362,7 @@ public partial class IpaffsPartOne  //
     [Attr]
     [JsonPropertyName("submissionDate")]
     [System.ComponentModel.Description("Date and time when the notification was submitted")]
-    public string? SubmissionDate { get; set; }
+    public DateTime? SubmissionDate { get; set; }
 
 	
     /// <summary>
@@ -417,7 +416,7 @@ public partial class IpaffsPartOne  //
     [Attr]
     [JsonPropertyName("portOfExitDate")]
     [System.ComponentModel.Description("Date of Port Exit for EU Import Notification.")]
-    public string? PortOfExitDate { get; set; }
+    public DateTime? PortOfExitDate { get; set; }
 
 	
     /// <summary>
@@ -444,7 +443,7 @@ public partial class IpaffsPartOne  //
     [Attr]
     [JsonPropertyName("originalEstimatedDateTime")]
     [System.ComponentModel.Description("Original estimated date time of arrival")]
-    public string? OriginalEstimatedDateTime { get; set; }
+    public DateTime? OriginalEstimatedDateTime { get; set; }
 
 	
     /// <summary>

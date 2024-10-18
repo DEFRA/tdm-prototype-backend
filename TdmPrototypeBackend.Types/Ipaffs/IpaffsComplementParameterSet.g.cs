@@ -28,7 +28,7 @@ public partial class IpaffsComplementParameterSet  //
     [Attr]
     [JsonPropertyName("uniqueComplementID")]
     [System.ComponentModel.Description("UUID used to match commodityComplement to its complementParameter set. CHEDPP only")]
-    public string? UniqueComplementID { get; set; }
+    public string? UniqueComplementId { get; set; }
 
 	
     /// <summary>
@@ -37,7 +37,7 @@ public partial class IpaffsComplementParameterSet  //
     [Attr]
     [JsonPropertyName("complementID")]
     [System.ComponentModel.Description("")]
-    public int? ComplementID { get; set; }
+    public int? ComplementId { get; set; }
 
 	
     /// <summary>
@@ -46,7 +46,7 @@ public partial class IpaffsComplementParameterSet  //
     [Attr]
     [JsonPropertyName("speciesID")]
     [System.ComponentModel.Description("")]
-    public string? SpeciesID { get; set; }
+    public string? SpeciesId { get; set; }
 
 	
     /// <summary>

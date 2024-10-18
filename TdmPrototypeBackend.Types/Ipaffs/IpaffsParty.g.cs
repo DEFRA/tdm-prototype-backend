@@ -123,7 +123,7 @@ public partial class IpaffsParty  //
     [Attr]
     [JsonPropertyName("tracesID")]
     [System.ComponentModel.Description("TRACES ID")]
-    public int? TracesID { get; set; }
+    public int? TracesId { get; set; }
 
 	
     /// <summary>

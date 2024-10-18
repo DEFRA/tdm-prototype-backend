@@ -129,7 +129,7 @@ public partial class IpaffsApplicant  //
     [Attr]
     [JsonPropertyName("sampleDate")]
     [System.ComponentModel.Description("Date the sample is taken")]
-    public string? SampleDate { get; set; }
+    public DateOnly? SampleDate { get; set; }
 
 	
     /// <summary>
@@ -138,7 +138,7 @@ public partial class IpaffsApplicant  //
     [Attr]
     [JsonPropertyName("sampleTime")]
     [System.ComponentModel.Description("Time the sample is taken")]
-    public string? SampleTime { get; set; }
+    public TimeOnly? SampleTime { get; set; }
 
 	}
 

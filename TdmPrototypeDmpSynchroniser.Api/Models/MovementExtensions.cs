@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Alvs;
 using TdmPrototypeDmpSynchroniser.Api.SensitiveData;
-using ALVSClearanceRequest = TdmPrototypeBackend.Types.Alvs.ALVSClearanceRequest;
+using ALVSClearanceRequest = TdmPrototypeBackend.Types.Alvs.AlvsClearanceRequest;
 using Type = System.Type;
 
 namespace TdmPrototypeDmpSynchroniser.Api.Models;

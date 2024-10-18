@@ -48,7 +48,7 @@ public partial class IpaffsJourneyRiskCategorisationResult  //
     [Attr]
     [JsonPropertyName("riskLevelDateTime")]
     [System.ComponentModel.Description("The date and time the risk level has been set for a notification")]
-    public string? RiskLevelDateTime { get; set; }
+    public DateTime? RiskLevelDateTime { get; set; }
 
 	}
 

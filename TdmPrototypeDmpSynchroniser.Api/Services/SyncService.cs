@@ -472,7 +472,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
         }
     }
 
-    internal async Task<bool> SyncDecision(string id, ALVSClearanceRequest decision)
+    internal async Task<bool> SyncDecision(string id, AlvsClearanceRequest decision)
     {
         try
         {
@@ -499,7 +499,7 @@ public class SyncService(ILoggerFactory loggerFactory, SynchroniserConfig config
         }
     }
 
-    private async Task<ALVSClearanceRequest> ConvertDecision(IBlobItem item)
+    private async Task<AlvsClearanceRequest> ConvertDecision(IBlobItem item)
     {
         var blob = await blobService.GetBlobAsync(item.Name);
 

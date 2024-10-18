@@ -28,7 +28,7 @@ public partial class IpaffsDetailsOnReExport  //
     [Attr]
     [JsonPropertyName("date")]
     [System.ComponentModel.Description("Date of re-export")]
-    public string? Date { get; set; }
+    public DateTime? Date { get; set; }
 
 	
     /// <summary>
@@ -74,7 +74,7 @@ public partial class IpaffsDetailsOnReExport  //
     [Attr]
     [JsonPropertyName("exitBIP")]
     [System.ComponentModel.Description("Exit BIP (where consignment will leave the country)")]
-    public string? ExitBIP { get; set; }
+    public string? ExitBip { get; set; }
 
 	}
 

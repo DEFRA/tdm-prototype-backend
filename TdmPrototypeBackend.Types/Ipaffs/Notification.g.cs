@@ -302,7 +302,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     [Attr]
     [JsonPropertyName("isGMRMatched")]
     [System.ComponentModel.Description("Indicates whether a CHED has been matched with a GVMS GMR via DMP")]
-    public bool? IsGMRMatched { get; set; }
+    public bool? IsGmrMatched { get; set; }
 
 	}
 

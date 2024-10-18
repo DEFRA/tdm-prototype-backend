@@ -61,6 +61,7 @@ public partial class Notification : IMongoIdentifiable
 
     [Attr]
     [ApiIgnore]
+    [JsonPropertyName("relationships")]
     public NotificationTdmRelationships Relationships { get; set; } = new NotificationTdmRelationships();
 
     [Attr]

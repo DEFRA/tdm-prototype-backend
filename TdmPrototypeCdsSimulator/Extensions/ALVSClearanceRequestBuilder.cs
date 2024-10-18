@@ -8,9 +8,9 @@ public static class ALVSClearanceRequestBuilder
 {
     private static readonly char[] s_AlphaNumeric = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
-    public static ALVSClearanceRequest BuildDecision(ALVSClearanceRequest request)
+    public static AlvsClearanceRequest BuildDecision(AlvsClearanceRequest request)
     {
-        var decision = new ALVSClearanceRequest()
+        var decision = new AlvsClearanceRequest()
         {
             ServiceHeader = new ServiceHeader()
             {
@@ -50,7 +50,7 @@ public static class ALVSClearanceRequestBuilder
         return decision;
     }
 
-    public static ALVSClearanceRequest BuildFromNotification(Notification notification)
+    public static AlvsClearanceRequest BuildFromNotification(Notification notification)
     {
         return notification.IpaffsType switch
         {
@@ -69,11 +69,11 @@ public static class ALVSClearanceRequestBuilder
     }
 
 
-    private static ALVSClearanceRequest Build(Notification notification, string documentCode)
+    private static AlvsClearanceRequest Build(Notification notification, string documentCode)
     {
         const string declarant = "GB363127805000";
         var now = DateTime.UtcNow;
-        ALVSClearanceRequest clearanceRequest = new ALVSClearanceRequest();
+        AlvsClearanceRequest clearanceRequest = new AlvsClearanceRequest();
         clearanceRequest.Header = new Header()
         {
             EntryReference = $"{now.ToString("yy")}GB{GenerateRandomString()}",
@@ -110,7 +110,7 @@ public static class ALVSClearanceRequestBuilder
             .Select((c, index) => new Items()
             {
                 ItemNumber = index + 1,
-                TaricCommodityCode = c.CommodityID!.PadRight(10, '0'),
+                TaricCommodityCode = c.CommodityId!.PadRight(10, '0'),
                 GoodsDescription = c.CommodityDescription, //from notification
                 ItemOriginCountryCode = commodities.CountryOfOrigin,
                 ItemSupplementaryUnits = c.AdditionalData!.ContainsKey("numberAnimal") ? decimal.Parse(c.AdditionalData["numberAnimal"].ToString()!) : 0, //Number animals

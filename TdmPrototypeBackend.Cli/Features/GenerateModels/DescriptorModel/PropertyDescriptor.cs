@@ -74,6 +74,11 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel
                 n = n.Pluralize();
             }
 
+            if (n.Contains("ID", StringComparison.CurrentCulture))
+            {
+                n = n.Replace("ID", "Id");
+            }
+
             return n;
         }
 

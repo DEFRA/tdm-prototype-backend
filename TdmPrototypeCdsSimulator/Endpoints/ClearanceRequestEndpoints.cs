@@ -61,9 +61,9 @@ public static class ClearanceRequestEndpoints
         {
             return Results.NotFound(notificationId);
         }
-       
 
-        ALVSClearanceRequest clearanceRequest = ALVSClearanceRequestBuilder.BuildFromNotification(notification);
+
+        AlvsClearanceRequest clearanceRequest = ALVSClearanceRequestBuilder.BuildFromNotification(notification);
         var now = DateTime.UtcNow;
 
         if (config.BypassAsb)
@@ -82,7 +82,7 @@ public static class ClearanceRequestEndpoints
                 DeclarantName = clearanceRequest.Header.DeclarantName,
                 DispatchCountryCode = clearanceRequest.Header.DispatchCountryCode,
                 GoodsLocationCode = clearanceRequest.Header.GoodsLocationCode,
-                ClearanceRequests = new List<ALVSClearanceRequest>() { clearanceRequest },
+                ClearanceRequests = new List<AlvsClearanceRequest>() { clearanceRequest },
                 Items = clearanceRequest.Items?.Select(x =>
                 {
                     x.ClearanceRequestReference = clearanceRequest.Header.EntryReference;
@@ -153,7 +153,7 @@ public static class ClearanceRequestEndpoints
         }
 
 
-        ALVSClearanceRequest clearanceRequest = ALVSClearanceRequestBuilder.BuildFromNotification(notification);
+        AlvsClearanceRequest clearanceRequest = ALVSClearanceRequestBuilder.BuildFromNotification(notification);
         var now = DateTime.UtcNow;
 
         if (config.BypassAsb)
@@ -172,7 +172,7 @@ public static class ClearanceRequestEndpoints
                 DeclarantName = clearanceRequest.Header.DeclarantName,
                 DispatchCountryCode = clearanceRequest.Header.DispatchCountryCode,
                 GoodsLocationCode = clearanceRequest.Header.GoodsLocationCode,
-                ClearanceRequests = new List<ALVSClearanceRequest>() { clearanceRequest },
+                ClearanceRequests = new List<AlvsClearanceRequest>() { clearanceRequest },
                 Items = clearanceRequest.Items?.Select(x =>
                 {
                     x.ClearanceRequestReference = clearanceRequest.Header.EntryReference;

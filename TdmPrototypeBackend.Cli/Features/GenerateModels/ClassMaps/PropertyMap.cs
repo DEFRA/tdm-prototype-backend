@@ -18,10 +18,30 @@ internal class PropertyMap(string name)
 
     public bool NoAttributes { get; set; }
 
+    public bool ExcludedFromApi { get; set; } = false;
+
     public PropertyMap SetType(string type)
     {
         Type = type ?? throw new ArgumentNullException("type");
         TypeOverwritten = true;
+        return this;
+    }
+
+    public PropertyMap IsDateTime()
+    {
+        SetType("DateTime");
+        return this;
+    }
+
+    public PropertyMap IsDate()
+    {
+        SetType("DateOnly");
+        return this;
+    }
+
+    public PropertyMap IsTime()
+    {
+        SetType("TimeOnly");
         return this;
     }
 
@@ -41,6 +61,12 @@ internal class PropertyMap(string name)
     public PropertyMap SetBsonIgnore()
     {
         AddAttribute("[MongoDB.Bson.Serialization.Attributes.BsonIgnore]");
+        return this;
+    }
+
+    public PropertyMap ExcludeFromApi()
+    {
+        ExcludedFromApi = true;
         return this;
     }
 

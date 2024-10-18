@@ -50,9 +50,9 @@ public static class ClearanceRequestExtensions
         }
     }
 
-    public static ALVSClearanceRequest FromBlob(string s, ISensitiveDataSerializer sensitiveDataSerializer)
+    public static AlvsClearanceRequest FromBlob(string s, ISensitiveDataSerializer sensitiveDataSerializer)
     {
-        return sensitiveDataSerializer.Deserialize<ALVSClearanceRequest>(s, options => options.Converters.Add(new DateTimeConverterUsingDateTimeParse()))!;
+        return sensitiveDataSerializer.Deserialize<AlvsClearanceRequest>(s, options => options.Converters.Add(new DateTimeConverterUsingDateTimeParse()))!;
        
     }
 }

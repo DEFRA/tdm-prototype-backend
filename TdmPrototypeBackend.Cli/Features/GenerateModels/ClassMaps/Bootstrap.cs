@@ -14,7 +14,12 @@ static class Bootstrap
     {
         GeneratorClassMap.RegisterClassMap("Header", map =>
         {
-            map.MapProperty("ArrivalDateTime").SetType("DateTime");
+            map.MapProperty("ArrivalDateTime").IsDateTime();
+        });
+
+        GeneratorClassMap.RegisterClassMap("ALVSClearanceRequest", map =>
+        {
+            map.SetClassName("AlvsClearanceRequest");
         });
     }
 
@@ -25,11 +30,73 @@ static class Bootstrap
             map.AddEnumValue("For Import Non-Internal Market");
         });
 
+        GeneratorClassMap.RegisterClassMap("Purpose ", map =>
+        {
+            map.MapProperty("estimatedArrivalTimeAtPortOfExit").IsTime();
+            map.MapProperty("estimatedArrivalDateAtPortOfExit").IsDate();
+            map.MapProperty("exitDate").IsDate();
+        });
+
+        GeneratorClassMap.RegisterClassMap("AccompanyingDocument", map =>
+        {
+            map.MapProperty("documentIssueDate").IsDateTime();
+            map.MapProperty("documentIssueDate").IsDateTime();
+        });
+
+        GeneratorClassMap.RegisterClassMap("VeterinaryInformation", map =>
+        {
+            map.MapProperty("veterinaryDocumentIssueDate").IsDate();
+        });
+
+        GeneratorClassMap.RegisterClassMap("InspectionOverride", map =>
+        {
+            map.MapProperty("overriddenOn").IsDateTime();
+        });
+
+        GeneratorClassMap.RegisterClassMap("SealCheck", map =>
+        {
+            map.MapProperty("dateTimeOfCheck").IsDateTime();
+        });
+
+        GeneratorClassMap.RegisterClassMap("LaboratoryTests", map =>
+        {
+            map.MapProperty("testDate").IsDateTime();
+        });
+
+        GeneratorClassMap.RegisterClassMap("LaboratoryTestResult", map =>
+        {
+            map.MapProperty("releasedDate").IsDateTime();
+            map.MapProperty("labTestCreatedDate").IsDateTime();
+        });
+
+        GeneratorClassMap.RegisterClassMap("DetailsOnReExport", map =>
+        {
+            map.MapProperty("date").IsDateTime();
+            map.MapProperty("exitBIP").SetName("exitBip");
+        });
+
+        GeneratorClassMap.RegisterClassMap("CatchCertificateDetails", map =>
+        {
+            map.MapProperty("dateOfIssue").IsDateTime();
+        });
+
+        GeneratorClassMap.RegisterClassMap("JourneyRiskCategorisationResult", map =>
+        {
+            map.MapProperty("riskLevelDateTime").IsDateTime();
+        });
+
+
+        GeneratorClassMap.RegisterClassMap("RiskAssessmentResult", map =>
+        {
+            map.MapProperty("assessmentDateTime").IsDateTime();
+        });
+
         GeneratorClassMap.RegisterClassMap("Notification", map =>
         {
-            map.MapProperty("riskDecisionLockingTime").SetType("DateTime");
-            map.MapProperty("decisionDate").SetType("DateTime");
-            map.MapProperty("lastUpdated").SetType("DateTime");
+            map.MapProperty("isGMRMatched").SetName("isGmrMatched");
+            map.MapProperty("riskDecisionLockingTime").IsDateTime();
+            map.MapProperty("decisionDate").IsDateTime();
+            map.MapProperty("lastUpdated").IsDateTime();
             map.MapProperty("referenceNumber").SetBsonIgnore();
         });
 
@@ -39,15 +106,42 @@ static class Bootstrap
             map.MapProperty("commodityComplement").SetBsonIgnore();
         });
 
+        GeneratorClassMap.RegisterClassMap("Decision", map =>
+        {
+            map.MapProperty("notAcceptableActionByDate").IsDate();
+        });
+
         GeneratorClassMap.RegisterClassMap("PartOne", map =>
         {
-            map.MapProperty("commodities").SetBsonIgnore();
+            map.MapProperty("commodities").SetBsonIgnore().ExcludeFromApi();
+            map.MapProperty("originalEstimatedDateTime").IsDateTime();
+            map.MapProperty("submissionDate").IsDateTime();
+            map.MapProperty("isGVMSRoute").SetName("isGvmsRoute");
+            map.MapProperty("arrivalDate").IsDate();
+            map.MapProperty("arrivalTime").IsTime();
+            map.MapProperty("departureDate").IsDate();
+            map.MapProperty("departureTime").IsTime();
+            map.MapProperty("portOfExitDate").IsDateTime();
+        });
+
+        GeneratorClassMap.RegisterClassMap("Applicant", map =>
+        {
+            map.MapProperty("sampleDate").IsDate();
+            map.MapProperty("sampleTime").IsTime();
         });
 
         GeneratorClassMap.RegisterClassMap("PartTwo", map =>
         {
-            map.MapProperty("commodityChecks").SetBsonIgnore();
+            map.MapProperty("commodityChecks").SetBsonIgnore().ExcludeFromApi();
+            map.MapProperty("autoClearedDateTime").IsDateTime();
+            map.MapProperty("checkDate").IsDate();
         });
+
+        GeneratorClassMap.RegisterClassMap("PartThree", map =>
+        {
+            map.MapProperty("destructionDate").IsDate();
+        });
+
 
         GeneratorClassMap.RegisterClassMap("ComplementParameterSet", map =>
         {
@@ -75,6 +169,7 @@ static class Bootstrap
             map.MapProperty("email").IsSensitive();
             map.MapProperty("ukTelephone").IsSensitive();
             map.MapProperty("telephone").IsSensitive();
+            map.MapProperty("countryISOCode").SetName("countryIsoCode");
         });
 
 
@@ -113,7 +208,7 @@ static class Bootstrap
             map.SetClassName("Gmr");
             map.MapProperty("haulierEORI").SetName("haulierEori");
             map.MapProperty("vehicleRegNum").SetName("vehicleRegNumber");
-            map.MapProperty("updatedDateTime").SetName("lastUpdated").SetType("DateTime");
+            map.MapProperty("updatedDateTime").SetName("lastUpdated").IsDateTime();
         });
 
         GeneratorClassMap.RegisterClassMap("SearchGmrsForDeclarationIdsResponse", map =>
@@ -134,17 +229,17 @@ static class Bootstrap
 
         GeneratorClassMap.RegisterClassMap("PlannedCrossing", map =>
         {
-            map.MapProperty("localDateTimeOfDeparture").SetType("DateTime");
+            map.MapProperty("localDateTimeOfDeparture").IsDateTime();
         });
 
         GeneratorClassMap.RegisterClassMap("ActualCrossing", map =>
         {
-            map.MapProperty("localDateTimeOfArrival").SetType("DateTime");
+            map.MapProperty("localDateTimeOfArrival").IsDateTime();
         });
 
         GeneratorClassMap.RegisterClassMap("CheckedInCrossing", map =>
         {
-            map.MapProperty("localDateTimeOfArrival").SetType("DateTime");
+            map.MapProperty("localDateTimeOfArrival").IsDateTime();
         });
     }
 }
