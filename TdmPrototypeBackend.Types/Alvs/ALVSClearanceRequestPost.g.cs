@@ -59,7 +59,7 @@ public partial class ALVSClearanceRequestPost  //
     /// </summary
     [Attr]
     [JsonPropertyName("alvsClearanceRequest")]
-    public ALVSClearanceRequest? AlvsClearanceRequest { get; set; }
+    public AlvsClearanceRequest? AlvsClearanceRequest { get; set; }
 
 	}
 

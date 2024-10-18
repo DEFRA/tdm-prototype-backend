@@ -16,6 +16,11 @@ static class Bootstrap
         {
             map.MapProperty("ArrivalDateTime").IsDateTime();
         });
+
+        GeneratorClassMap.RegisterClassMap("ALVSClearanceRequest", map =>
+        {
+            map.SetClassName("AlvsClearanceRequest");
+        });
     }
 
     public static void RegisterIpaffsClassMaps()
