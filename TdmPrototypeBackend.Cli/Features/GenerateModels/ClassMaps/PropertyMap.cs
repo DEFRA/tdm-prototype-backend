@@ -18,6 +18,8 @@ internal class PropertyMap(string name)
 
     public bool NoAttributes { get; set; }
 
+    public bool ExcludedFromApi { get; set; } = false;
+
     public PropertyMap SetType(string type)
     {
         Type = type ?? throw new ArgumentNullException("type");
@@ -59,6 +61,12 @@ internal class PropertyMap(string name)
     public PropertyMap SetBsonIgnore()
     {
         AddAttribute("[MongoDB.Bson.Serialization.Attributes.BsonIgnore]");
+        return this;
+    }
+
+    public PropertyMap ExcludeFromApi()
+    {
+        ExcludedFromApi = true;
         return this;
     }
 

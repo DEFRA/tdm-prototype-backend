@@ -197,7 +197,6 @@ public partial class IpaffsPartOne  //
     /// <summary>
     /// 
     /// </summary
-    [Attr]
     [JsonPropertyName("commodities")]
     [System.ComponentModel.Description("")]
     [MongoDB.Bson.Serialization.Attributes.BsonIgnore]

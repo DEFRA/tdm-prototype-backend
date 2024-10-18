@@ -113,7 +113,7 @@ static class Bootstrap
 
         GeneratorClassMap.RegisterClassMap("PartOne", map =>
         {
-            map.MapProperty("commodities").SetBsonIgnore();
+            map.MapProperty("commodities").SetBsonIgnore().ExcludeFromApi();
             map.MapProperty("originalEstimatedDateTime").IsDateTime();
             map.MapProperty("submissionDate").IsDateTime();
             map.MapProperty("isGVMSRoute").SetName("isGvmsRoute");
@@ -132,7 +132,7 @@ static class Bootstrap
 
         GeneratorClassMap.RegisterClassMap("PartTwo", map =>
         {
-            map.MapProperty("commodityChecks").SetBsonIgnore();
+            map.MapProperty("commodityChecks").SetBsonIgnore().ExcludeFromApi();
             map.MapProperty("autoClearedDateTime").IsDateTime();
             map.MapProperty("checkDate").IsDate();
         });
