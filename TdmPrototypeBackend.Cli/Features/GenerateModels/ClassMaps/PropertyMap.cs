@@ -25,6 +25,24 @@ internal class PropertyMap(string name)
         return this;
     }
 
+    public PropertyMap IsDateTime()
+    {
+        SetType("DateTime");
+        return this;
+    }
+
+    public PropertyMap IsDate()
+    {
+        SetType("DateOnly");
+        return this;
+    }
+
+    public PropertyMap IsTime()
+    {
+        SetType("TimeOnly");
+        return this;
+    }
+
     public PropertyMap SetName(string name)
     {
         OverriddenName = name ?? throw new ArgumentNullException("name");

@@ -154,7 +154,7 @@ public partial class IpaffsPartTwo  //
     [Attr]
     [JsonPropertyName("checkDate")]
     [System.ComponentModel.Description("User entered date when the checks were completed")]
-    public string? CheckDate { get; set; }
+    public DateOnly? CheckDate { get; set; }
 
 	
     /// <summary>
@@ -218,7 +218,7 @@ public partial class IpaffsPartTwo  //
     [Attr]
     [JsonPropertyName("autoClearedDateTime")]
     [System.ComponentModel.Description("Date of autoclearance")]
-    public string? AutoClearedDateTime { get; set; }
+    public DateTime? AutoClearedDateTime { get; set; }
 
 	}
 

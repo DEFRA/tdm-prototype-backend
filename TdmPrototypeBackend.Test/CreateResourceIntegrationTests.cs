@@ -255,8 +255,8 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
                     CountryOfOrigin = "FRA"
                 },
                 PointOfEntry = "GBEDI4",
-                ArrivalDate = DateTime.Today.AddDays(7).ToString("yyyy-MM-dd"),
-                ArrivalTime = "11:11:00"
+                ArrivalDate = DateOnly.FromDateTime(DateTime.Today.AddDays(7)),
+                ArrivalTime = TimeOnly.Parse("11:11:00")
             }
         };
     }
