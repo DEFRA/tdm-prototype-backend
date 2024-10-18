@@ -99,17 +99,12 @@ public class MatchingIntegrationTests : IntegrationTests
         await syncService.SyncNotifications(SyncPeriod.All);
         await syncService.SyncMovements(SyncPeriod.All);
 
-
         var movement =  await movementService.Find("CHEDAGB20241041389");
         movement.Relationships.Notifications.Matched.Should().BeFalse();
         movement.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
 
-
-
         var notification= await notificationService.Find("CHEDA.GB.2024.1041389");
         notification.Relationships.Movements.Matched.Should().BeFalse();
         notification.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
-
-
     }
 }
