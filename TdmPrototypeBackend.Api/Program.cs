@@ -1,9 +1,7 @@
 using System.Reflection;
 using System.Text.Json.Serialization;
-using TdmPrototypeBackend.Api.Config;
-using TdmPrototypeBackend.Api.Utils;
-using TdmPrototypeBackend.Api.Extensions;
 using FluentValidation;
+using GraphQL_play.Types;
 using HealthChecks.UI.Client;
 using JsonApiDotNetCore.Configuration;
 using JsonApiDotNetCore.MongoDb.Configuration;
@@ -13,26 +11,35 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.OpenApi.Models;
-using Microsoft.VisualBasic.CompilerServices;
+using MongoDB.Driver.Core.Configuration;
 using MongoDB.Driver;
+using TdmPrototypeBackend.Types.Ipaffs;
+using MongoDB.Bson.Serialization.Conventions;
 using Serilog;
+using TdmPrototypeBackend.Api.Config;
 using TdmPrototypeBackend.Api.Endpoints;
+using TdmPrototypeBackend.Api.Experimental.Graphql;
+using TdmPrototypeBackend.Api.Extensions;
 using TdmPrototypeBackend.Api.HealthChecks;
 using TdmPrototypeBackend.Api.JsonApi;
-using TdmPrototypeDmpSynchroniser.Api.Endpoints;
+using TdmPrototypeBackend.Api.Swagger;
 using TdmPrototypeBackend.Api.Utils;
-using TdmPrototypeBackend.Matching;
 using TdmPrototypeBackend.Matching.Extensions;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeCdsSimulator.Extensions;
+using TdmPrototypeDmpSynchroniser.Api.Endpoints;
 using TdmPrototypeDmpSynchroniser.Api.Extensions;
-using TdmPrototypeBackend.Api.Swagger;
-
-// using TdmPrototypeBackend.Models;
-
-//-------- Configure the WebApplication builder------------------//
 
 var builder = WebApplication.CreateBuilder(args);
+
+var graphqlEnabled = builder.Configuration.GetValue<bool>("ENABLE_GRAPHQL")!;
+
+if (graphqlEnabled)
+{
+    builder.AddExperimentalGraphQl();
+}
+
+
 
 builder.Services.AddHttpLogging(logging =>
 {
@@ -62,7 +69,6 @@ var loggerFactory = builder.Services.BuildServiceProvider()
 
 TdmPrototypeBackend.Api.Utils.ApplicationLogging.LoggerFactory = loggerFactory;
 
-
 var logger = loggerConfiguration
     .CreateLogger();
 
@@ -75,13 +81,12 @@ TrustStore.SetupTrustStore(logger);
 
 var mongoUri = builder.Configuration.GetValue<string>("Mongo:DatabaseUri")!;
 var mongoDatabaseName = builder.Configuration.GetValue<string>("Mongo:DatabaseName")!;
-    
+
 if (builder.IsDevMode())
 {
     logger.Information("MongoDB Connection mongoUri={mongoUri}, mongoDatabaseName={mongoDatabaseName}",
         mongoUri, mongoDatabaseName);
 }
-
 
 // health checks
 builder.Services.AddHealthChecks();
@@ -94,7 +99,7 @@ builder.Services.AddHttpProxyServices(logger, builder.Configuration);
 // JSON API
 
 static void ConfigureJsonApiOptions(JsonApiOptions options)
-{ 
+{
     options.Namespace = "api";
     options.UseRelativeLinks = true;
     options.IncludeTotalResourceCount = true;
@@ -148,16 +153,15 @@ if (builder.IsSwaggerEnabled())
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
         c.SwaggerDoc("internal-v0.1", new OpenApiInfo { Title = "My API", Version = "internal-v0.1" });
         c.SwaggerDoc("public-v0.1", new OpenApiInfo { Title = "My API", Version = "v0.1" });
-        
 
-        c.DocInclusionPredicate((name, api) =>  !name.StartsWith("public"));
+
+        c.DocInclusionPredicate((name, api) => !name.StartsWith("public"));
         c.DocumentFilter<DocumentFilter>();
         c.SchemaFilter<DocumentFilter>();
     });
 }
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
-
-
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -190,5 +194,11 @@ app.MapHealthChecks("/health", new HealthCheckOptions()
 });
 
 app.UseHttpLogging();
+
+if (graphqlEnabled)
+{
+    app.MapGraphQL().AllowAnonymous();
+}
+
 
 app.Run();
