@@ -1,6 +1,8 @@
-﻿namespace TdmPrototypeBackend.Api.Swagger;
+namespace TdmPrototypeBackend.Api.Swagger;
 
 public class ResourceResponse<T>
 {
-    public ResourceData<T> Data { get; set; }
+    public T Data { get; set; }
 }
+
+

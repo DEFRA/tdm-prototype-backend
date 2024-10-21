@@ -1,8 +1,8 @@
-﻿using TdmPrototypeBackend.Types;
+using TdmPrototypeBackend.Types;
 
 namespace TdmPrototypeBackend.Api.Swagger;
 
-public class MovementResourceResponse : ResourceResponse<Movement>
+public class MovementResourceResponse : ResourceResponse<MovementResourceData>
 {
 
 }

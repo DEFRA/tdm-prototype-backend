@@ -5,7 +5,7 @@ using TdmPrototypeBackend.Types.Ipaffs;
 
 namespace TdmPrototypeBackend.Api.Swagger
 {
-    public class NotificationResourceResponse : ResourceResponse<Notification>
+    public class NotificationResourceResponse : ResourceResponse<NotificationResourceData>
     {
 
     }
@@ -35,7 +35,7 @@ namespace TdmPrototypeBackend.Api.Swagger
     }
   
 
-    public class JsonApiTdmRelationships
+    public class NotificationJsonApiTdmRelationships
     {
         [Attr]
         public JsonApiTdmRelationshipObject Movements { get; set; }
@@ -43,7 +43,7 @@ namespace TdmPrototypeBackend.Api.Swagger
         
     }
 
-    public class MovementTdmRelationships 
+    public class MovementJsonApiTdmRelationships
     {
         [Attr]
         public JsonApiTdmRelationshipObject Notifications { get; set; }
