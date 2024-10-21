@@ -135,7 +135,7 @@ public partial class IpaffsDecision  //
     [Attr]
     [JsonPropertyName("notAcceptableActionByDate")]
     [System.ComponentModel.Description("Filled when consignmentAcceptable is set to false")]
-    public string? NotAcceptableActionByDate { get; set; }
+    public DateOnly? NotAcceptableActionByDate { get; set; }
 
 	
     /// <summary>

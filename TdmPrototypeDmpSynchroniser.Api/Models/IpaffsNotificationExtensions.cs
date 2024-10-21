@@ -61,7 +61,7 @@ public static class NotificationExtensions
 
             foreach (var commoditiesCommodityComplement in commodities!.ComplementParameterSets!)
             {
-                complementParameters[commoditiesCommodityComplement.ComplementID.Value!] = commoditiesCommodityComplement;
+                complementParameters[commoditiesCommodityComplement.ComplementId.Value!] = commoditiesCommodityComplement;
             }
 
             if (n.RiskAssessment != null)
@@ -82,22 +82,22 @@ public static class NotificationExtensions
             
             foreach (var commodity in commodities!.CommodityComplements)
             {
-                var parameters = complementParameters[commodity.ComplementID.Value!];
+                var parameters = complementParameters[commodity.ComplementId.Value!];
                 commodity.AdditionalData = parameters.KeyDataPairs.FromSnakeCase();
 
                 if (complementRiskAssesments.Any() && 
-                    parameters.UniqueComplementID is not null && 
-                    complementRiskAssesments.ContainsKey(parameters.UniqueComplementID))
+                    parameters.UniqueComplementId is not null && 
+                    complementRiskAssesments.ContainsKey(parameters.UniqueComplementId))
                 {
-                    commodity.RiskAssesment = complementRiskAssesments[parameters.UniqueComplementID!];
+                    commodity.RiskAssesment = complementRiskAssesments[parameters.UniqueComplementId!];
                     
                 }
 
                 if (commodityChecks.Any() &&
-                    parameters.UniqueComplementID is not null &&
-                    commodityChecks.ContainsKey(parameters.UniqueComplementID))
+                    parameters.UniqueComplementId is not null &&
+                    commodityChecks.ContainsKey(parameters.UniqueComplementId))
                 {
-                    commodity.Checks = commodityChecks[parameters.UniqueComplementID!];
+                    commodity.Checks = commodityChecks[parameters.UniqueComplementId!];
                 }
             }
         }

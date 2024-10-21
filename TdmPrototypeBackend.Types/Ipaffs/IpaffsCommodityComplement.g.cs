@@ -28,7 +28,7 @@ public partial class IpaffsCommodityComplement  //
     [Attr]
     [JsonPropertyName("uniqueComplementID")]
     [System.ComponentModel.Description("UUID used to match commodityComplement to its complementParameter set. CHEDPP only")]
-    public string? UniqueComplementID { get; set; }
+    public string? UniqueComplementId { get; set; }
 
 	
     /// <summary>
@@ -46,7 +46,7 @@ public partial class IpaffsCommodityComplement  //
     [Attr]
     [JsonPropertyName("commodityID")]
     [System.ComponentModel.Description("The unique commodity ID")]
-    public string? CommodityID { get; set; }
+    public string? CommodityId { get; set; }
 
 	
     /// <summary>
@@ -55,7 +55,7 @@ public partial class IpaffsCommodityComplement  //
     [Attr]
     [JsonPropertyName("complementID")]
     [System.ComponentModel.Description("Identifier of complement chosen from speciesFamily,speciesClass and speciesType'. This is also used to link to the complementParameterSet")]
-    public int? ComplementID { get; set; }
+    public int? ComplementId { get; set; }
 
 	
     /// <summary>
@@ -91,7 +91,7 @@ public partial class IpaffsCommodityComplement  //
     [Attr]
     [JsonPropertyName("speciesID")]
     [System.ComponentModel.Description("The species ID of the commodity that is imported. Not every commodity has a species ID. This is also used to link to the complementParameterSet. The species ID can change over time")]
-    public string? SpeciesID { get; set; }
+    public string? SpeciesId { get; set; }
 
 	
     /// <summary>

@@ -166,7 +166,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
                 Type = "notifications",
                 Id = notificationId,
                 Links = new ResourceLink() { Self = LinksBuilder.Notification.BuildSelfLink(notificationId) },
-                AdditionalInformation = new Dictionary<string, string>() { { "matchingLevel", "1" } }
+                MatchingLevel = 1
             }]
         });
 
@@ -249,14 +249,14 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
                 {
                     CommodityComplements =  new []{ new IpaffsCommodityComplement()
                     {   
-                        CommodityID = "0101",
+                        CommodityId = "0101",
                         CommodityDescription = "Live horses, asses, mules and hinnies"
                     }},
                     CountryOfOrigin = "FRA"
                 },
                 PointOfEntry = "GBEDI4",
-                ArrivalDate = DateTime.Today.AddDays(7).ToString("yyyy-MM-dd"),
-                ArrivalTime = "11:11:00"
+                ArrivalDate = DateOnly.FromDateTime(DateTime.Today.AddDays(7)),
+                ArrivalTime = TimeOnly.Parse("11:11:00")
             }
         };
     }
@@ -268,15 +268,15 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         return new Movement()
         {
             Items = items.ToList(),
-            ClearanceRequests = new List<ALVSClearanceRequest>() { CreateChedAClearanceRequest(id, items) }
+            ClearanceRequests = new List<AlvsClearanceRequest>() { CreateChedAClearanceRequest(id, items) }
         };
     }
 
-    private ALVSClearanceRequest CreateChedAClearanceRequest(String id = null, Items[] items = null)
+    private AlvsClearanceRequest CreateChedAClearanceRequest(String id = null, Items[] items = null)
     {
         id = id ?? GenerateChedID(id:testId);
         items = items ?? new[] { new Items() { CustomsProcedureCode = "AAA" } };
-        return new ALVSClearanceRequest()
+        return new AlvsClearanceRequest()
         {
             // Id = id,
             ServiceHeader = new ServiceHeader() { SourceSystem = "CDS", DestinationSystem = "ALVS" },

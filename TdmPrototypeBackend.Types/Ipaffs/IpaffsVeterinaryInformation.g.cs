@@ -55,7 +55,7 @@ public partial class IpaffsVeterinaryInformation  //
     [Attr]
     [JsonPropertyName("veterinaryDocumentIssueDate")]
     [System.ComponentModel.Description("Veterinary document issue date")]
-    public string? VeterinaryDocumentIssueDate { get; set; }
+    public DateOnly? VeterinaryDocumentIssueDate { get; set; }
 
 	
     /// <summary>

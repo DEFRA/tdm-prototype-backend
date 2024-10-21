@@ -37,7 +37,7 @@ public partial class IpaffsSingleLaboratoryTest  //
     [Attr]
     [JsonPropertyName("speciesID")]
     [System.ComponentModel.Description("Species id of commodity for which lab test was ordered")]
-    public int? SpeciesID { get; set; }
+    public int? SpeciesId { get; set; }
 
 	
     /// <summary>
@@ -46,7 +46,7 @@ public partial class IpaffsSingleLaboratoryTest  //
     [Attr]
     [JsonPropertyName("tracesID")]
     [System.ComponentModel.Description("TRACES ID")]
-    public int? TracesID { get; set; }
+    public int? TracesId { get; set; }
 
 	
     /// <summary>

@@ -27,6 +27,7 @@ using TdmPrototypeBackend.Types;
 using TdmPrototypeCdsSimulator.Extensions;
 using TdmPrototypeDmpSynchroniser.Api.Extensions;
 using TdmPrototypeBackend.Api.Swagger;
+using JsonApiDotNetCore.Serialization.Response;
 
 // using TdmPrototypeBackend.Models;
 
@@ -114,6 +115,7 @@ builder.Services.AddSingleton<BackendConfig, BackendConfig>();
 builder.Services.AddJsonApi(ConfigureJsonApiOptions, discovery => discovery.AddAssembly(Assembly.Load("TdmPrototypeBackend.Types")));
 
 builder.Services.AddJsonApiMongoDb();
+builder.Services.AddScoped<IResponseModelAdapter, TdmResponseModelAdapter>();
 builder.Services.AddResourceDefinition<NotificationResource>();
 builder.Services.AddResourceDefinition<MovementResource>();
 builder.Services.AddScoped<ITdmClaimsProvider, TdmClaimsPrincipalProvider>();
@@ -145,9 +147,9 @@ if (builder.IsSwaggerEnabled())
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerGen(c =>
     {
-        c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-        c.SwaggerDoc("internal-v0.1", new OpenApiInfo { Title = "My API", Version = "internal-v0.1" });
-        c.SwaggerDoc("public-v0.1", new OpenApiInfo { Title = "My API", Version = "v0.1" });
+        c.SwaggerDoc("public-v1", new OpenApiInfo { Title = "TDM Public API", Version = "v1" });
+        c.SwaggerDoc("internal-v0.1", new OpenApiInfo { Title = "TDM Internal API", Version = "v0.1" });
+        c.SwaggerDoc("public-v0.1", new OpenApiInfo { Title = "TDM Public API", Version = "v0.1" });
         
 
         c.DocInclusionPredicate((name, api) =>  !name.StartsWith("public"));

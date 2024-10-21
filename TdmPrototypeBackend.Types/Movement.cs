@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using MongoDB.Bson.Serialization.Attributes;
 using TdmPrototypeBackend.Types.Alvs;
 using TdmPrototypeBackend.Types.Extensions;
+using System.Text.Json.Serialization;
 
 // using JsonApiSerializer.JsonApi;
 
@@ -27,10 +28,10 @@ public class Movement : CustomStringMongoIdentifiable
     //public List<MatchingStatus> Notifications { get; set; } = [new() { Matched = false }];
 
     [Attr]
-    public List<Alvs.ALVSClearanceRequest> ClearanceRequests { get; set; } = default!;
+    public List<Alvs.AlvsClearanceRequest> ClearanceRequests { get; set; } = default!;
 
     [Attr]
-    public List<Alvs.ALVSClearanceRequest> Decisions { get; set; } = default!;
+    public List<Alvs.AlvsClearanceRequest> Decisions { get; set; } = default!;
 
     [Attr]
     public List<Items> Items { get; set; } = default!;
@@ -80,6 +81,7 @@ public class Movement : CustomStringMongoIdentifiable
 
     [Attr]
     [ApiIgnore]
+    [JsonPropertyName("relationships")]
     public MovementTdmRelationships Relationships { get; set; } = new MovementTdmRelationships();
 
     /// <summary>
@@ -134,7 +136,7 @@ public class Movement : CustomStringMongoIdentifiable
         _Ts = DateTime.UtcNow;
     }
 
-    public bool MergeDecision(string path, ALVSClearanceRequest clearanceRequest)
+    public bool MergeDecision(string path, AlvsClearanceRequest clearanceRequest)
     {
         var before = this.ToJsonString();
         foreach (var item in clearanceRequest.Items)
@@ -156,7 +158,7 @@ public class Movement : CustomStringMongoIdentifiable
             clearanceRequest.Header.DeclarantName);
         if (auditEntry.Diff.Any())
         {
-            Decisions ??= new List<ALVSClearanceRequest>();
+            Decisions ??= new List<AlvsClearanceRequest>();
             Decisions.Add(clearanceRequest);
             this.Update(auditEntry);
         }
