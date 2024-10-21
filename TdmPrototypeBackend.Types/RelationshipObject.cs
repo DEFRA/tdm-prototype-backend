@@ -107,8 +107,10 @@ public sealed class RelationshipDataItem
     [Attr]
     public int? DestinationItem { get; set; } = default!;
 
-    [Attr]
-    public Dictionary<string, string> AdditionalInformation { get; set; }
+    //[Attr]
+    //public Dictionary<string, string> AdditionalInformation { get; set; 
+
+    public int? MatchingLevel { get; set; }
 
     public static RelationshipDataItem CreateFromNotification(Notification notification, Movement movement, string matchReference, bool matched = true, string reason = null)
     {
@@ -129,7 +131,7 @@ public sealed class RelationshipDataItem
                 ?.ItemNumber,
             DestinationItem = notification.Commodities?.FirstOrDefault()?.ComplementId,
             Links = new ResourceLink() { Self = LinksBuilder.Notification.BuildSelfLink(notification.Id) },
-            AdditionalInformation = additionalInfo
+            MatchingLevel = 1
         };
     }
 
@@ -154,7 +156,7 @@ public sealed class RelationshipDataItem
             {
                 Self = LinksBuilder.Movement.BuildSelfLink(movement.Id)
             },
-            AdditionalInformation = additionalInfo
+            MatchingLevel = 1
         };
     }
 

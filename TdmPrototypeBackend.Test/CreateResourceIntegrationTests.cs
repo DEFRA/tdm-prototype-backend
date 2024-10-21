@@ -166,7 +166,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
                 Type = "notifications",
                 Id = notificationId,
                 Links = new ResourceLink() { Self = LinksBuilder.Notification.BuildSelfLink(notificationId) },
-                AdditionalInformation = new Dictionary<string, string>() { { "matchingLevel", "1" } }
+                MatchingLevel = 1
             }]
         });
 

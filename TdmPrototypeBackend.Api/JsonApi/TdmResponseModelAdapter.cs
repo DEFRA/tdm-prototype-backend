@@ -53,7 +53,7 @@ public class TdmResponseModelAdapter(
                             { "matched", item.Matched },
                             { "sourceItem", item.SourceItem },
                             { "destinationItem", item.DestinationItem },
-                            { "additionalInformation", item.AdditionalInformation },
+                            { "matchingLevel", item.MatchingLevel },
                             { "self", item.Links.Self }
                         },
                     })
