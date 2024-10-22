@@ -61,7 +61,13 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
     [Fact]
     public void CreateGvmsGmr()
     {
-        var r = new GvmsGmr() { Id = "GMR" + testId, HaulierEori = "EORI", State = GvmsGmrState.NotFinalisable };
+        var r = new GvmsGmr()
+        {
+            LocalId = testId,
+            Id = "GMR" + testId,
+            HaulierEori = "EORI",
+            State = GvmsGmrState.NotFinalisable
+        };
 
         JsonApiConsumer.Response<GvmsGmr> response = JsonApiConsumer.JsonApiConsumer.Create<GvmsGmr, GvmsGmr>(
             model: r,
@@ -71,14 +77,15 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         );
         
         Console.WriteLine("Response from GvmsGmr API {0}", response.ToJson());
-        Assert.Equal(204, (int)response.HttpStatusCode);
+        Assert.Equal(201, (int)response.HttpStatusCode);
     }
     
     [Fact]
     public void CreateNotification()
     {
+        var notification = CreateChedANotification();
         JsonApiConsumer.Response<Notification> response = JsonApiConsumer.JsonApiConsumer.Create<Notification, Notification>(
-            model: CreateChedANotification(),
+            model: notification,
             baseURI: apiHost,
             path: "api/notifications",
             headers: GetHeaders()

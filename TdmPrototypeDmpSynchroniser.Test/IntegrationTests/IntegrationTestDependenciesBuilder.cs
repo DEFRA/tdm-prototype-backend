@@ -8,6 +8,7 @@ using TdmPrototypeBackend.Api.Utils;
 using TdmPrototypeBackend.Matching.Extensions;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Ipaffs;
+using TdmPrototypeBackend.Types.VehicleMovement;
 using TdmPrototypeDmpSynchroniser.Api.Config;
 using TdmPrototypeDmpSynchroniser.Api.Extensions;
 using TdmPrototypeDmpSynchroniser.Api.Services;
@@ -76,6 +77,7 @@ public class IntegrationTestDependenciesBuilder(ITestOutputHelper outputHelper)
         builder.Services.AddHttpProxyServices(logger, builder.Configuration);
         builder.Services.AddSingleton<MongoHelperService<Movement>>();
         builder.Services.AddSingleton<MongoHelperService<Notification>>();
+        builder.Services.AddSingleton<MongoHelperService<Gmr>>();
         builder.AddSynchroniserDatabase();
         builder.Services.AddSynchroniserServices();
 
