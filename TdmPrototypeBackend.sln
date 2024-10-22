@@ -39,7 +39,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TdmPrototypeBackend.Storage
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TdmPrototypeBackend.Storage.Mongo", "TdmPrototypeBackend.Storage.Mongo\TdmPrototypeBackend.Storage.Mongo.csproj", "{072C8B80-A861-40CD-81A5-BA20C03B53DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TdmPrototypeBackend.Matching", "TdmPrototypeBackend.Matching\TdmPrototypeBackend.Matching.csproj", "{0E07183F-7EB1-4775-82F7-EC622BC4FF58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TdmPrototypeBackend.Matching", "TdmPrototypeBackend.Matching\TdmPrototypeBackend.Matching.csproj", "{0E07183F-7EB1-4775-82F7-EC622BC4FF58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tdm.Types.Alvs", "Tdm.Types.Alvs\Tdm.Types.Alvs.csproj", "{818200BE-0C84-4C1F-B621-6E3DD5305B1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tdm.Model", "Tdm.Model\Tdm.Model.csproj", "{86A5421A-41E8-489E-BD3D-17FDF87F9A13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tdm.Types.Alvs.Mapping", "Tdm.Types.Alvs.Mapping\Tdm.Types.Alvs.Mapping.csproj", "{D0A3198B-1BC7-4188-A370-0920913505C0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NonPocWork", "NonPocWork", "{CD753605-DBBD-4C00-926A-F1E0061918E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tdm.Types.Alvs.Mapping.Tests", "Tdm.Types.Alvs.Mapping.Tests\Tdm.Types.Alvs.Mapping.Tests.csproj", "{0DA5EC96-55A1-4E3E-B09B-23CB2D02467C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +109,22 @@ Global
 		{0E07183F-7EB1-4775-82F7-EC622BC4FF58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E07183F-7EB1-4775-82F7-EC622BC4FF58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E07183F-7EB1-4775-82F7-EC622BC4FF58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{818200BE-0C84-4C1F-B621-6E3DD5305B1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{818200BE-0C84-4C1F-B621-6E3DD5305B1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{818200BE-0C84-4C1F-B621-6E3DD5305B1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{818200BE-0C84-4C1F-B621-6E3DD5305B1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86A5421A-41E8-489E-BD3D-17FDF87F9A13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86A5421A-41E8-489E-BD3D-17FDF87F9A13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86A5421A-41E8-489E-BD3D-17FDF87F9A13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86A5421A-41E8-489E-BD3D-17FDF87F9A13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0A3198B-1BC7-4188-A370-0920913505C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0A3198B-1BC7-4188-A370-0920913505C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0A3198B-1BC7-4188-A370-0920913505C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0A3198B-1BC7-4188-A370-0920913505C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DA5EC96-55A1-4E3E-B09B-23CB2D02467C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DA5EC96-55A1-4E3E-B09B-23CB2D02467C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DA5EC96-55A1-4E3E-B09B-23CB2D02467C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DA5EC96-55A1-4E3E-B09B-23CB2D02467C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,6 +141,10 @@ Global
 		{857B16AC-1965-4632-A013-6A5635E8D66C} = {E2C1F510-C79C-486A-BB0B-6C21EBF1BC1E}
 		{072C8B80-A861-40CD-81A5-BA20C03B53DF} = {E2C1F510-C79C-486A-BB0B-6C21EBF1BC1E}
 		{0E07183F-7EB1-4775-82F7-EC622BC4FF58} = {741D67DE-B5E3-455F-905C-A9850B9AE21A}
+		{818200BE-0C84-4C1F-B621-6E3DD5305B1A} = {CD753605-DBBD-4C00-926A-F1E0061918E9}
+		{86A5421A-41E8-489E-BD3D-17FDF87F9A13} = {CD753605-DBBD-4C00-926A-F1E0061918E9}
+		{D0A3198B-1BC7-4188-A370-0920913505C0} = {CD753605-DBBD-4C00-926A-F1E0061918E9}
+		{0DA5EC96-55A1-4E3E-B09B-23CB2D02467C} = {CD753605-DBBD-4C00-926A-F1E0061918E9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C397DA36-BA75-4366-A480-71026B8F38D3}

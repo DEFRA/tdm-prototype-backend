@@ -11,8 +11,11 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateIpaffsModel.Co
         [Option('s', "schema", Required = true, HelpText = "The Json schema file, which to use to generate the csharp classes.")]
         public string SchemaFile { get; set; }
 
-        [Option('o', "outputPath", Required = true, HelpText = "The path to save the generated csharp classes.")]
-        public string OutputPath { get; set; }
+        [Option('o', "sourceOutputPath", Required = true, HelpText = "The path to save the generated csharp classes.")]
+        public string SourceOutputPath { get; set; }
+
+        [Option('i', "internalOutputPath", Required = true, HelpText = "The path to save the generated csharp classes.")]
+        public string InteralOutputPath { get; set; }
 
         public class Handler : AsyncRequestHandler<GenerateIpaffsModelCommand>
         {
@@ -22,7 +25,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateIpaffsModel.Co
                 // var model = builder.Build(File.ReadAllText("jsonschema.txt"));
                 var model = builder.Build(await File.ReadAllTextAsync(request.SchemaFile, cancellationToken));
 
-                await CSharpFileBuilder.Build(model, request.OutputPath);
+                await CSharpFileBuilder.Build(model, request.SourceOutputPath, request.InteralOutputPath, request.InteralOutputPath);
             }
         }
     }

@@ -1,5 +1,12 @@
 namespace TdmPrototypeBackend.Cli.Features.GenerateModels.ClassMaps;
 
+public enum Model
+{
+    Source,
+    Internal,
+    Both
+}
+
 internal class PropertyMap(string name)
 {
     public string Name { get; set; } = name;
@@ -8,13 +15,19 @@ internal class PropertyMap(string name)
 
     public bool TypeOverwritten { get; set; }
 
-    public List<string> Attributes { get; set; } = new();
+    public List<string> SourceAttributes { get; set; } = new();
+
+    public List<string> InternalAttributes { get; set; } = new();
 
     public bool AttributesOverwritten { get; set; }
 
-    public string OverriddenName { get; set; }
+    public string OverriddenSourceName { get; set; }
 
-    public bool NameOverwritten { get; set; }
+    public string OverriddenInternalName { get; set; }
+
+    public bool SourceNameOverwritten { get; set; }
+
+    public bool InternalNameOverwritten { get; set; }
 
     public bool NoAttributes { get; set; }
 
@@ -47,20 +60,34 @@ internal class PropertyMap(string name)
 
     public PropertyMap SetName(string name)
     {
-        OverriddenName = name ?? throw new ArgumentNullException("name");
-        NameOverwritten = true;
+        SetSourceName(name);
+        SetInternalName(name);
+        return this;
+    }
+
+    public PropertyMap SetSourceName(string name)
+    {
+        OverriddenSourceName = name ?? throw new ArgumentNullException("name");
+        SourceNameOverwritten = true;
+        return this;
+    }
+
+    public PropertyMap SetInternalName(string name)
+    {
+        OverriddenInternalName = name ?? throw new ArgumentNullException("name");
+        InternalNameOverwritten = true;
         return this;
     }
 
     public PropertyMap IsSensitive()
     {
-        AddAttribute("[TdmPrototypeBackend.Types.Extensions.SensitiveData()]");
+        AddAttribute("[TdmPrototypeBackend.Types.Extensions.SensitiveData()]", Model.Source);
         return this;
     }
 
     public PropertyMap SetBsonIgnore()
     {
-        AddAttribute("[MongoDB.Bson.Serialization.Attributes.BsonIgnore]");
+        AddAttribute("[MongoDB.Bson.Serialization.Attributes.BsonIgnore]", Model.Internal);
         return this;
     }
 
@@ -71,21 +98,50 @@ internal class PropertyMap(string name)
     }
 
 
-    public PropertyMap AddAttribute(string attribute)
+    public PropertyMap AddAttribute(string attribute, Model model)
     {
         if (string.IsNullOrEmpty(attribute))
         {
             throw new ArgumentNullException("attribute");
         }
 
-        Attributes.Add(attribute);
+        switch (model)
+        {
+            case Model.Source:
+                SourceAttributes.Add(attribute);
+                break;
+            case Model.Internal:
+                InternalAttributes.Add(attribute);
+                break;
+            case Model.Both:
+                SourceAttributes.Add(attribute);
+                InternalAttributes.Add(attribute);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(model), model, null);
+        }
+
         AttributesOverwritten = true;
         return this;
     }
 
-    public PropertyMap NoAttribute()
+    public PropertyMap NoAttribute(Model model)
     {
-        Attributes.Clear();
+        switch (model)
+        {
+            case Model.Source:
+                SourceAttributes.Clear();
+                break;
+            case Model.Internal:
+                InternalAttributes.Clear();
+                break;
+            case Model.Both:
+                SourceAttributes.Clear();
+                InternalAttributes.Clear();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(model), model, null);
+        }
         AttributesOverwritten = true;
         NoAttributes = true;
         return this;

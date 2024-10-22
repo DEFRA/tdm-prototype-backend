@@ -12,11 +12,12 @@
 //------------------------------------------------------------------------------
 #nullable enable
 
+using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
 using System.Dynamic;
 
 
-namespace @Model.SourceNamespace;
+namespace @Model.InternalNamespace;
 
 /// <summary>
 /// @Model.Description
@@ -45,14 +46,14 @@ public partial class @Model.GetClassName()  //@if (Model.IsResource) { <text>: C
     /// @property.Description
     /// </summary
     </text>
-        @foreach (var attr in property.SourceAttributes)
+        @foreach (var attr in property.InternalAttributes)
         {
             var htmlString = new HtmlString(attr);
     <text>@htmlString
     </text>
 
         }
-    <text>public @t? @property.GetSourcePropertyName() { get; set; }
+    <text>public @t? @property.GetInternalPropertyName() { get; set; }
 
 	</text>
    

@@ -15,10 +15,19 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateAlvsModel.Comm
     [Verb("generate-alvs-model", isDefault: false, HelpText = "Generates Csharp ALVS classes from XSD Schema.")]
     class GenerateAlvsModelCommand : IRequest
     {
-        public const string Namespace = "TdmPrototypeBackend.Types.Alvs";
+        public const string SourceNamespace = "Tdm.Types.Alvs";
+        public const string InternalNamespace = "Tdm.Model.Alvs";
         public const string ClassNamePrefix = "";
 
-        public string OutputPath { get; set; } = "D:\\repos\\esynergy\\tdm-prototype-backend\\TdmPrototypeBackend.Types\\Alvs\\";
+        //[Option('o', "sourceOutputPath", Required = true, HelpText = "The path to save the generated csharp classes.")]
+        public string SourceOutputPath { get; set; } = "D:\\repos\\esynergy\\tdm-prototype-backend\\Tdm.Types.Alvs\\";
+
+        // [Option('i', "internalOutputPath", Required = true, HelpText = "The path to save the generated csharp classes.")]
+        public string InternalOutputPath { get; set; } = "D:\\repos\\esynergy\\tdm-prototype-backend\\Tdm.Model\\Alvs\\";
+
+        public string MappingOutputPath { get; set; } = "D:\\repos\\esynergy\\tdm-prototype-backend\\Tdm.Types.Alvs.Mapping\\";
+
+        //public string OutputPath { get; set; } = "D:\\repos\\esynergy\\tdm-prototype-backend\\TdmPrototypeBackend.Types\\Alvs\\";
         public class Handler : AsyncRequestHandler<GenerateAlvsModelCommand>
         {
            
@@ -37,7 +46,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateAlvsModel.Comm
                     }
                 }
 
-                await CSharpFileBuilder.Build(csharpDescriptor, request.OutputPath, cancellationToken);
+                await CSharpFileBuilder.Build(csharpDescriptor, request.SourceOutputPath, request.InternalOutputPath, request.MappingOutputPath, cancellationToken);
             }
 
             private void BuildClass(CSharpDescriptor cSharpDescriptor, XmlSchemaComplexType complexType)
@@ -50,7 +59,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateAlvsModel.Comm
                 }
 
                 Console.WriteLine($"Class Name: {name}");
-                var classDescriptor = new ClassDescriptor(name, Namespace, ClassNamePrefix);
+                var classDescriptor = new ClassDescriptor(name, SourceNamespace, InternalNamespace, ClassNamePrefix);
 
                 classDescriptor.Description = complexType.GetDescription();
                 cSharpDescriptor.AddClassDescriptor(classDescriptor);
@@ -71,10 +80,10 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateAlvsModel.Comm
                         Console.WriteLine($"Property Name: {schemaElement.Name} - Type: {schemaElement.GetSchemaType()}");
                         var propertyName = System.Text.Json.JsonNamingPolicy.CamelCase.ConvertName(schemaElement.Name);
                         var propertyDescriptor = new PropertyDescriptor(
-                            name: propertyName,
+                            sourceName: propertyName,
                             type: schemaElement.GetSchemaType(),
                             description: "",
-                            isReferenceType: false,
+                            isReferenceType: IsReferenceType(schemaElement.GetSchemaType()),
                             isArray: schemaElement.MaxOccursString == "unbounded",
                             classNamePrefix: ClassNamePrefix);
                         classDescriptor.Properties.Add(propertyDescriptor);
@@ -82,6 +91,12 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateAlvsModel.Comm
 
 
                 }
+            }
+
+            static bool IsReferenceType(string type)
+            {
+                var nonReferenceTypes = new string[] { "string", "DateTime", "int", "decimal" };
+                return !nonReferenceTypes.Contains(type);
             }
 
             static void ValidationCallback(object sender, ValidationEventArgs args)

@@ -9,7 +9,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels
 {
     class CSharpFileBuilder
     {
-        public static async Task Build(CSharpDescriptor descriptor, string outputPath, CancellationToken cancellationToken = default)
+        public static async Task Build(CSharpDescriptor descriptor, string sourceOutputPath, string internalOutputPath, string mappingOutputPath, CancellationToken cancellationToken = default)
         {
             var engine = new RazorLightEngineBuilder()
                 .UseEmbeddedResourcesProject(typeof(Program).Assembly, "TdmPrototypeBackend.Cli.Features.GenerateModels.Templates")
@@ -18,11 +18,29 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels
 
             foreach (var @class in descriptor.Classes.OrderBy(x => x.Name))
             {
-                ApplyClassMapOverrides(@class);
+                ApplySourceClassMapOverrides(@class);
+
+                //create source 
 
                 var contents = await engine.CompileRenderAsync("ClassTemplate", @class);
-                await File.WriteAllTextAsync(Path.Combine(outputPath, $"{@class.GetClassName()}.g.cs"), contents, cancellationToken);
+                await File.WriteAllTextAsync(Path.Combine(sourceOutputPath, $"{@class.GetClassName()}.g.cs"), contents, cancellationToken);
                 Console.WriteLine($"Created file: {@class.GetClassName()}.cs");
+
+                //create internal 
+
+                if (!@class.IgnoreInternalClass)
+                {
+                    contents = await engine.CompileRenderAsync("InternalClassTemplate", @class);
+                    await File.WriteAllTextAsync(Path.Combine(internalOutputPath, $"{@class.GetClassName()}.g.cs"),
+                        contents, cancellationToken);
+                    Console.WriteLine($"Created file: {@class.GetClassName()}.cs");
+
+                    contents = await engine.CompileRenderAsync("MapperTemplate", @class);
+                    await File.WriteAllTextAsync(Path.Combine(mappingOutputPath, $"{@class.GetClassName()}Mapper.g.cs"), contents, cancellationToken);
+                    Console.WriteLine($"Created file: {@class.GetClassName()}.cs");
+                }
+
+               
             }
             
             foreach (var @enum in descriptor.Enums.OrderBy(x => x.Name))
@@ -30,22 +48,29 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels
                 ApplyEnumMapOverrides(@enum);
 
                 var contents = await engine.CompileRenderAsync("EnumTemplate", @enum);
-                await File.WriteAllTextAsync(Path.Combine(outputPath, $"{@enum.GetEnumName()}.g.cs"), contents, cancellationToken);
+                await File.WriteAllTextAsync(Path.Combine(sourceOutputPath, $"{@enum.GetEnumName()}.g.cs"), contents, cancellationToken);
+                // File.WriteAllText($"../../../Model/{@enum.GetEnumName()}.cs", contents);
+                Console.WriteLine($"Created file: {@enum.GetEnumName()}.cs");
+
+                contents = await engine.CompileRenderAsync("EnumTemplate", @enum);
+                await File.WriteAllTextAsync(Path.Combine(internalOutputPath, $"{@enum.GetEnumName()}.g.cs"), contents, cancellationToken);
                 // File.WriteAllText($"../../../Model/{@enum.GetEnumName()}.cs", contents);
                 Console.WriteLine($"Created file: {@enum.GetEnumName()}.cs");
             }
         }
 
-        private static void ApplyClassMapOverrides(ClassDescriptor @class)
+        private static void ApplySourceClassMapOverrides(ClassDescriptor @class)
         {
             var classMap = GeneratorClassMap.LookupClassMap(@class.Name);
 
             if (classMap is not null)
             {
-                @class.Name = classMap.ClassName;
+                @class.Name = classMap.SourceClassName;
+                @class.IgnoreInternalClass = classMap.IgnoreInternalClass;
+
                 foreach (var propertyMap in classMap.Properties)
                 {
-                    var propertyDescriptor = @class.Properties.FirstOrDefault(x => x.Name.Equals(propertyMap.Name, StringComparison.InvariantCultureIgnoreCase));
+                    var propertyDescriptor = @class.Properties.FirstOrDefault(x => x.SourceName.Equals(propertyMap.Name, StringComparison.InvariantCultureIgnoreCase));
 
                     if (propertyDescriptor is not null)
                     {
@@ -54,27 +79,34 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels
                             propertyDescriptor.OverrideType(propertyMap.Type);
                         }
 
-                        if (propertyMap.NameOverwritten)
+                        if (propertyMap.SourceNameOverwritten)
                         {
-                            propertyDescriptor.Name = propertyMap.OverriddenName;
+                            propertyDescriptor.SourceName = propertyMap.OverriddenSourceName;
+                        }
+
+                        if (propertyMap.InternalNameOverwritten)
+                        {
+                            propertyDescriptor.InternalName = propertyMap.OverriddenInternalName;
                         }
 
                         if (propertyMap.AttributesOverwritten)
                         {
                             if (propertyMap.NoAttributes)
                             {
-                                propertyDescriptor.Attributes.Clear();
+                                propertyDescriptor.SourceAttributes.Clear();
+                                propertyDescriptor.InternalAttributes.Clear();
                             }
                             else
                             {
-                                propertyDescriptor.Attributes.AddRange(propertyMap.Attributes);
+                                propertyDescriptor.SourceAttributes.AddRange(propertyMap.SourceAttributes);
+                                propertyDescriptor.InternalAttributes.AddRange(propertyMap.InternalAttributes);
                             }
                                 
                         }
 
                         if (propertyMap.ExcludedFromApi)
                         {
-                            propertyDescriptor.Attributes.RemoveAll(x => x.Equals("[Attr]"));
+                            propertyDescriptor.InternalAttributes.RemoveAll(x => x.Equals("[Attr]"));
                         }
                     }
                 }

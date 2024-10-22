@@ -55,7 +55,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
                 if (context.JsonSchema.IsClassAndHasProperties())
                 {
                     var propertiesKeyword = context.JsonSchema.GetKeyword<PropertiesKeyword>();
-                    var classDescriptor = new ClassDescriptor(context.Key.Dehumanize(), IpaffsDescriptorBuilder.Namespace, IpaffsDescriptorBuilder.ClassNamePrefix);
+                    var classDescriptor = new ClassDescriptor(context.Key.Dehumanize(), IpaffsDescriptorBuilder.Namespace, IpaffsDescriptorBuilder.Namespace, IpaffsDescriptorBuilder.ClassNamePrefix);
                     classDescriptor.Description = context.JsonSchema.GetDescription();
                     
 
@@ -126,7 +126,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
             else
             {
                 var propertiesKeyword = context.JsonSchema.GetKeyword<PropertiesKeyword>();
-                var classDescriptor = new ClassDescriptor(context.Key.Dehumanize(), IpaffsDescriptorBuilder.Namespace, IpaffsDescriptorBuilder.ClassNamePrefix);
+                var classDescriptor = new ClassDescriptor(context.Key.Dehumanize(), IpaffsDescriptorBuilder.Namespace, IpaffsDescriptorBuilder.Namespace, IpaffsDescriptorBuilder.ClassNamePrefix);
                 classDescriptor.Description = context.JsonSchema.GetDescription();
                 context.CSharpDescriptor.AddClassDescriptor(classDescriptor);
 
@@ -157,7 +157,7 @@ public class DescriptorBuilderSchemaVisitor : ISchemaVisitor
         }
         else if (context.JsonSchema.IsClass())
         {
-            var classDescriptor = new ClassDescriptor(context.Key.Dehumanize(), IpaffsDescriptorBuilder.Namespace, IpaffsDescriptorBuilder.ClassNamePrefix);
+            var classDescriptor = new ClassDescriptor(context.Key.Dehumanize(), IpaffsDescriptorBuilder.Namespace, IpaffsDescriptorBuilder.Namespace, IpaffsDescriptorBuilder.ClassNamePrefix);
             classDescriptor.Description = context.JsonSchema.GetDescription();
             context.CSharpDescriptor.AddClassDescriptor(classDescriptor);
 

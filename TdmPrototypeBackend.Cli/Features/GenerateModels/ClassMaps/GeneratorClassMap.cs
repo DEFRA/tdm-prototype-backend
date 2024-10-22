@@ -7,24 +7,53 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.ClassMaps
         public GeneratorClassMap(string className, Action<GeneratorClassMap> classMapInitializer)
         {
             Name = className;
-            ClassName = className;
+            SourceClassName = className;
+            InternalClassName = className;
             classMapInitializer(this);
         }
 
         public string Name { get; set; }
 
-        public string ClassName { get; private set; }
+        public string SourceClassName { get; private set; }
+
+        public string InternalClassName { get; private set; }
+
+        public bool IgnoreInternalClass { get; private set; }
 
         public List<PropertyMap> Properties { get; private set; } = new List<PropertyMap>();
 
         public GeneratorClassMap SetClassName(string className)
+        {
+            SetSourceClassName(className);
+            SetInternalClassName(className);
+            return this;
+        }
+
+        public GeneratorClassMap NoInternalClass()
+        {
+            IgnoreInternalClass = true;
+            return this;
+        }
+
+        public GeneratorClassMap SetSourceClassName(string className)
         {
             if (string.IsNullOrEmpty(className))
             {
                 throw new ArgumentNullException("className");
             }
 
-            ClassName = className;
+            SourceClassName = className;
+            return this;
+        }
+
+        public GeneratorClassMap SetInternalClassName(string className)
+        {
+            if (string.IsNullOrEmpty(className))
+            {
+                throw new ArgumentNullException("className");
+            }
+
+            InternalClassName = className;
             return this;
         }
 

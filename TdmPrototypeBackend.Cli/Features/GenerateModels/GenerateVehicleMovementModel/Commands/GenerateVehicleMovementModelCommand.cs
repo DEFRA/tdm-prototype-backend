@@ -35,12 +35,12 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateVehicleMovemen
                         BuildClass(csharpDescriptor, schemas.Key, schemas.Value);
                 }
 
-                await CSharpFileBuilder.Build(csharpDescriptor, request.OutputPath);
+                await CSharpFileBuilder.Build(csharpDescriptor, request.OutputPath, request.OutputPath, request.OutputPath);
             }
 
             private void BuildClass(CSharpDescriptor cSharpDescriptor, string name, OpenApiSchema schema)
             {
-                var classDescriptor = new ClassDescriptor(name, Namespace, ClassNamePrefix);
+                var classDescriptor = new ClassDescriptor(name, Namespace, Namespace, ClassNamePrefix);
 
                 classDescriptor.Description = schema.Description;
                 cSharpDescriptor.AddClassDescriptor(classDescriptor);
@@ -54,7 +54,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateVehicleMovemen
                         if (arrayType == "object")
                         {
                             var propertyDescriptor = new PropertyDescriptor(
-                                name: property.Key,
+                                sourceName: property.Key,
                                 type: ClassDescriptor.BuildClassName(property.Key, null),
                                 description: property.Value.Description,
                                 isReferenceType: false,
@@ -69,7 +69,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateVehicleMovemen
                     else if (property.Value.IsObject())
                     {
                         var propertyDescriptor = new PropertyDescriptor(
-                            name: property.Key,
+                            sourceName: property.Key,
                             type: ClassDescriptor.BuildClassName(property.Key, null),
                             description: property.Value.Description,
                             isReferenceType: false,
@@ -90,7 +90,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateVehicleMovemen
                         }
 
                         var propertyDescriptor = new PropertyDescriptor(
-                            name: property.Key,
+                            sourceName: property.Key,
                             type: EnumDescriptor.BuildEnumName(property.Key, null, null),
                             description: property.Value.Description,
                             isReferenceType: false,
@@ -102,7 +102,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateVehicleMovemen
                     else
                     {
                         var propertyDescriptor = new PropertyDescriptor(
-                            name: property.Key,
+                            sourceName: property.Key,
                             type: property.ToCSharpType(),
                             description: property.Value.Description,
                             isReferenceType: false,

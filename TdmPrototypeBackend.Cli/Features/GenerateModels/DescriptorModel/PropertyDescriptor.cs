@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Xml.Linq;
 using Humanizer;
 
 namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel
@@ -6,7 +7,6 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel
     [DebuggerDisplay("{Name}")]
     public class PropertyDescriptor
     {
-        private readonly string _name;
 
         private readonly bool _isReferenceType;
 
@@ -15,38 +15,51 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel
         private readonly string _classNamePrefix;
         private bool _typeOverridden;
 
-        public PropertyDescriptor(string name, string type, string description, bool isReferenceType, bool isArray, string classNamePrefix)
+        public PropertyDescriptor(string sourceName, string type, string description, bool isReferenceType, bool isArray, string classNamePrefix)
+        :this(sourceName, sourceName, type, description, isReferenceType, isArray, classNamePrefix)
         {
-            _name = name;
+        }
+
+        public PropertyDescriptor(string sourceName, string internalName, string type, string description, bool isReferenceType, bool isArray, string classNamePrefix)
+        {
+            SourceName = sourceName;
+            InternalName = internalName;
+
             _isReferenceType = isReferenceType;
             _isArray = isArray;
             _classNamePrefix = classNamePrefix;
-            Name = name;
             Type = type;
             Description = description;
             IsReferenceType = isReferenceType;
             IsArray = isArray;
-            Attributes = new List<string>()
+            SourceAttributes = new List<string>()
             {
-                "[Attr]", $"[JsonPropertyName(\"{Name}\")]",
-                $"[System.ComponentModel.Description(\"{Description}\")]"
+                $"[JsonPropertyName(\"{sourceName}\")]"
+            };
+            InternalAttributes = new List<string>()
+            {
+                "[Attr]", $"[System.ComponentModel.Description(\"{Description}\")]"
             };
 
             if (type.EndsWith("Enum"))
             {
-                Attributes.Add("[MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]");
+                InternalAttributes.Add("[MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]");
             }
 
         }
         // private const string prefix = "Ipaffs";
 
-        public string Name { get; set; }
+        public string SourceName { get; set; }
+
+        public string InternalName { get; set; }
 
         public string Type { get; set; }
 
         public string Description { get; set; }
 
-        public List<string> Attributes { get; set; } = new();
+        public List<string> SourceAttributes { get; set; } = new();
+
+        public List<string> InternalAttributes { get; set; } = new();
 
         public bool IsReferenceType { get; set; }
 
@@ -60,12 +73,34 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel
             _typeOverridden = true;
         }
 
-        public string GetPropertyName()
+        public string GetSourcePropertyName()
         {
-            var n = Name.Dehumanize();
-            if (_name.Equals("type", StringComparison.InvariantCultureIgnoreCase) || _name.Equals("id", StringComparison.InvariantCultureIgnoreCase))
+            var n = SourceName.Dehumanize();
+            if (SourceName.Equals("type", StringComparison.InvariantCultureIgnoreCase) || SourceName.Equals("id", StringComparison.InvariantCultureIgnoreCase))
             {
-                return $"{_classNamePrefix}{_name.Dehumanize()}";
+                return $"{_classNamePrefix}{SourceName.Dehumanize()}";
+            }
+
+
+            if (_isArray)
+            {
+                n = n.Pluralize();
+            }
+
+            if (n.Contains("ID", StringComparison.CurrentCulture))
+            {
+                n = n.Replace("ID", "Id");
+            }
+
+            return n;
+        }
+
+        public string GetInternalPropertyName()
+        {
+            var n = InternalName.Dehumanize();
+            if (InternalName.Equals("type", StringComparison.InvariantCultureIgnoreCase) || InternalName.Equals("id", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return $"{_classNamePrefix}{InternalName.Dehumanize()}";
             }
 
 
@@ -102,6 +137,11 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel
                 t = $"{t}[]";
             }
             return t;
+        }
+
+        public string GetPropertyTypeName()
+        {
+            return GetPropertyType().Replace("[]", "");
         }
 
     }

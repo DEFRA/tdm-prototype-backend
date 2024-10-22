@@ -15,11 +15,25 @@ static class Bootstrap
         GeneratorClassMap.RegisterClassMap("Header", map =>
         {
             map.MapProperty("ArrivalDateTime").IsDateTime();
+            map.MapProperty("MasterUCR").SetName("MasterUcr");
+            map.MapProperty("SubmitterTURN").SetName("SubmitterTurn");
         });
 
         GeneratorClassMap.RegisterClassMap("ALVSClearanceRequest", map =>
         {
             map.SetClassName("AlvsClearanceRequest");
+        });
+
+        GeneratorClassMap.RegisterClassMap("ALVSClearanceRequestPost", map =>
+        {
+            map.SetClassName("AlvsClearanceRequestPost");
+            map.MapProperty("AlvsClearanceRequest").SetType("AlvsClearanceRequest");
+        });
+
+        GeneratorClassMap.RegisterClassMap("ALVSClearanceRequestPostResult", map =>
+        {
+            map.SetClassName("AlvsClearanceRequestPostResult")
+                .NoInternalClass();
         });
     }
 
@@ -147,7 +161,7 @@ static class Bootstrap
         {
             map.MapProperty("KeyDataPair")
                 .SetType("IDictionary<string, object>")
-                .AddAttribute("[JsonConverter(typeof(KeyDataPairsToDictionaryStringObjectJsonConverter))]");
+                .AddAttribute("[JsonConverter(typeof(KeyDataPairsToDictionaryStringObjectJsonConverter))]", Model.Source);
         });
 
 
