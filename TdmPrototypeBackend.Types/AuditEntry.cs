@@ -7,7 +7,9 @@ using TdmPrototypeBackend.Types.Extensions;
 namespace TdmPrototypeBackend.Types;
 
 public class AuditEntry
-{    public string Id { get; set; }
+{
+    private const string CreatedBySystem = "System";
+    public string Id { get; set; }
     public int Version { get; set; }
 
     public string CreatedBy { get; set; }
@@ -38,7 +40,7 @@ public class AuditEntry
             Id = id,
             Version = version,
             CreatedSource = lastUpdated,
-            CreatedBy = lastUpdatedBy,
+            CreatedBy = CreatedBySystem,
             CreatedLocal = DateTime.UtcNow,
             Status = status
 
@@ -85,14 +87,14 @@ public class AuditEntry
         };
     }
 
-    public static AuditEntry CreateMatch(string id, int version, DateTime? lastUpdated, string lastUpdatedBy)
+    public static AuditEntry CreateMatch(string id, int version, DateTime? lastUpdated)
     {
         return new AuditEntry()
         {
             Id = id,
             Version = version,
             CreatedSource = lastUpdated,
-            CreatedBy = lastUpdatedBy,
+            CreatedBy = CreatedBySystem,
             CreatedLocal = DateTime.UtcNow,
             Status = "Matched"
 
