@@ -22,7 +22,8 @@
         "AZURE_CLIENT_ID": "c1d14b98-8baf-486b-99c0-f30ac3ee5464",
         "AZURE_TENANT_ID": "c9d74090-b4e6-4b04-981d-e6757a160812",
         "ENABLE_MANAGEMENT": "true",
-        "DISABLE_AUTHORISATION": "true"
+        "DISABLE_AUTHORISATION": "true",
+        "CONTAINER_VERSION": "local-build"
       }
     },
     "IIS Express": {

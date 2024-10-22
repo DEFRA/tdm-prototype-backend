@@ -22,8 +22,9 @@ public static class ManagementEndpoints
         {
             app.MapGet(BaseRoute + "/collections", GetCollectionsAsync).AllowAnonymous();
             app.MapGet(BaseRoute + "/collections/drop", DropCollectionsAsync).RequireAuthorization("tdm-technical");  
-            app.MapGet(BaseRoute + "/environment", GetEnvironment).AllowAnonymous(); 
+            app.MapGet(BaseRoute + "/environment", GetEnvironment).RequireAuthorization("tdm-technical");  
             app.MapGet(BaseRoute + "/auth/status", GetAuth).AllowAnonymous();
+            app.MapGet(BaseRoute + "/status", GetStatus).AllowAnonymous();
             // app.MapGet(BaseRoute + "/proxy/set", SetProxy).RequireAuthorization("technical");
             // app.MapGet(BaseRoute + "/proxy/unset", UnsetProxy).RequireAuthorization("technical");   
         }
@@ -34,7 +35,8 @@ public static class ManagementEndpoints
         var key = d.Key.ToString()!;
         return key.StartsWith("DMP") | key.StartsWith("CDP")
                                      | key.StartsWith("AZURE") | key.StartsWith("TRADE")
-                                     | key.StartsWith("HTTP") | key.StartsWith("TDM");
+                                     | key.StartsWith("HTTP") | key.StartsWith("TDM")
+                                     | key == "CONTAINER_VERSION";
     }
     private static IResult GetEnvironment(IConfiguration configuration)
     {
@@ -43,6 +45,16 @@ public static class ManagementEndpoints
         return Results.Ok(filtered); //(Dictionary)dict.Where(i => i.Value.BooleanProperty));
     }
 
+    private static IResult GetStatus(IConfiguration configuration, HttpRequest request, ClaimsPrincipal user)
+    {
+
+        var dict = new Dictionary<string, object>
+        {
+            { "version", System.Environment.GetEnvironmentVariable("CONTAINER_VERSION")! }
+        };
+        return Results.Ok(dict);
+    }
+    
     private static IResult GetAuth(IConfiguration configuration, HttpRequest request, ClaimsPrincipal user)
     {
 
