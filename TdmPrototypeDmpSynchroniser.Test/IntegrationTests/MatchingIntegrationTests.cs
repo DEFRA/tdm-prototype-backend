@@ -8,49 +8,81 @@ using Xunit.Abstractions;
 
 namespace TdmPrototypeDmpSynchroniser.Test.IntegrationTests;
 
-
 [Trait("Category", "Integration")]
-public class MatchingIntegrationTests(ITestOutputHelper outputHelper) : IntegrationTests(outputHelper)
+public class MatchingIntegrationTests : IntegrationTests
 {
-    protected override Task OnBeforeTest()
+    private static readonly Action<IntegrationTestDependenciesBuilder>? ConfigureBuilder = builder => builder.UseLocalPathBlobStorage("Fixtures/Matching/ValidMatch");
+    private readonly IStorageService<Movement> _movementService;
+    private readonly IStorageService<Notification> _notificationService;
+    private readonly ISyncService _syncService;
+
+    public MatchingIntegrationTests(ITestOutputHelper outputHelper) : base(outputHelper, ConfigureBuilder)
     {
-        return Task.WhenAll(
+        _syncService = Dependencies.ServiceProvider.GetService<ISyncService>()!;
+        _movementService = Dependencies.ServiceProvider.GetService<IStorageService<Movement>>()!;
+        _notificationService = Dependencies.ServiceProvider.GetService<IStorageService<Notification>>()!;
+        
+        Task.WhenAll(
             Dependencies.MongoClearCollection<Notification>(),
-            Dependencies.MongoClearCollection<Movement>());
+            Dependencies.MongoClearCollection<Movement>()).Wait();
     }
 
     [Fact]
-    public async Task ValidMatch()
+    public async Task ValidMovementToNotificationMatches()
     {
-        Dependencies = new IntegrationTestDependenciesBuilder(OutputHelper)
-            .UseLocalPathBlobStorage("Fixtures/Matching/ValidMatch")
-            .Build();
+        await _syncService.SyncNotifications(SyncPeriod.All);
+        await _syncService.SyncMovements(SyncPeriod.All);
 
-        var syncService = Dependencies.ServiceProvider.GetService<ISyncService>();
-        var movementService = Dependencies.ServiceProvider.GetService<IStorageService<Movement>>();
-        var notificationService = Dependencies.ServiceProvider.GetService<IStorageService<Notification>>();
+        await ValidateMovements();
+        await ValidateNotifications();
+    }
 
-        await syncService.SyncNotifications(SyncPeriod.All);
-        await syncService.SyncMovements(SyncPeriod.All);
+    [Fact]
+    public async Task ValidNotificationToMovementMatches()
+    {
+        await _syncService.SyncNotifications(SyncPeriod.All);
+        await _syncService.SyncMovements(SyncPeriod.All);
 
-        var movement = await movementService.Find("CHEDPGB20241039875A5");
-        movement.Relationships.Notifications.Matched.Should().BeFalse();
-        movement.AuditEntries.Count(x => x.Status == "Matched").Should().Be(0);
+        await ValidateMovements();
+        await ValidateNotifications();
+    }
 
-        movement = await movementService.Find("CHEDAGB20241041389");
-        movement.Relationships.Notifications.Matched.Should().BeTrue();
-        movement.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
-
-
-        var notification = await notificationService.Find("CHEDD.GB.2024.1004768");
+    private async Task ValidateNotifications()
+    {
+        var notification = await _notificationService.Find("CHEDD.GB.2024.1004768");
         notification.Relationships.Movements.Matched.Should().BeFalse();
         notification.AuditEntries.Count(x => x.Status == "Matched").Should().Be(0);
 
-        notification = await notificationService.Find("CHEDA.GB.2024.1041389");
+        notification = await _notificationService.Find("CHEDA.GB.2024.1041389");
         notification.Relationships.Movements.Matched.Should().BeTrue();
         notification.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
 
+        notification = await _notificationService.Find("CHEDP.GB.2024.1042294");
+        notification.Relationships.Movements.Matched.Should().BeTrue();
+        notification.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
 
+        notification = await _notificationService.Find("CHEDD.GB.2024.1004777");
+        notification.Relationships.Movements.Matched.Should().BeTrue();
+        notification.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
+    }
+
+    private async Task ValidateMovements()
+    {
+        var movement = await _movementService.Find("CHEDPGB20241039875A5");
+        movement.Relationships.Notifications.Matched.Should().BeFalse();
+        movement.AuditEntries.Count(x => x.Status == "Matched").Should().Be(0);
+
+        movement = await _movementService.Find("CHEDAGB20241041389");
+        movement.Relationships.Notifications.Matched.Should().BeTrue();
+        movement.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
+
+        movement = await _movementService.Find("CHEDPGB20241042294A5");
+        movement.Relationships.Notifications.Matched.Should().BeTrue();
+        movement.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
+
+        movement = await _movementService.Find("CHEDDGB20241004777");
+        movement.Relationships.Notifications.Matched.Should().BeTrue();
+        movement.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
     }
 
     [Fact]

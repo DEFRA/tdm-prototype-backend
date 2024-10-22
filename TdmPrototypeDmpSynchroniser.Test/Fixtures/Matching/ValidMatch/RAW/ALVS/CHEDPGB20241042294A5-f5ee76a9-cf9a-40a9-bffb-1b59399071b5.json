@@ -6,7 +6,7 @@
     "serviceCallTimestamp": 1619550176000
   },
   "header": {
-    "entryReference": "CHEDPGB20241039875A5",
+    "entryReference": "CHEDPGB20241042294A5",
     "entryVersionNumber": 2,
     "previousVersionNumber": 1,
     "declarationUCR": "1GB782435121000-000000001079849",
@@ -35,37 +35,10 @@
       "document": [
         {
           "documentCode": "N853",
-          "documentReference": "GBCVD2024.1039875",
-          "documentStatus": "AE",
-          "documentControl": "P",
-          "documentQuantity": null
-        }
-      ],
-      "checks": [
-        {
-          "checkCode": "H234",
-          "departmentCode": "PHA"
-        }
-      ]
-    },
-    {
-      "itemNumber": 2,
-      "customsProcedureCode": "4000000",
-      "taricCommodityCode": "0201300000",
-      "goodsDescription": "LAMB",
-      "consigneeId": "GB782435121000",
-      "consigneeName": "GB782435121000",
-      "itemNetMass": 14910.75,
-      "itemSupplementaryUnits": 0,
-      "itemThirdQuantity": null,
-      "itemOriginCountryCode": "NZ",
-      "document": [
-        {
-          "documentCode": "N853",
-          "documentReference": "GBCVD2024.1039875",
-          "documentStatus": "AE",
-          "documentControl": "P",
-          "documentQuantity": null
+          "documentReference": "GBCVD2024.1042294",
+          "documentStatus": "P",
+          "documentControl": null,
+          "documentQuantity": 3
         }
       ],
       "checks": [
