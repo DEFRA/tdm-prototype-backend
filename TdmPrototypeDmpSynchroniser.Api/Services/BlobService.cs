@@ -23,7 +23,7 @@ public class BlobService(ILoggerFactory loggerFactory, SynchroniserConfig config
             {
                 IsLoggingContentEnabled = true,
                 IsLoggingEnabled = true
-            }
+            },
         };
         
         var blobServiceClient = new BlobServiceClient(
@@ -32,7 +32,8 @@ public class BlobService(ILoggerFactory loggerFactory, SynchroniserConfig config
             options);
 
         var containerClient = blobServiceClient.GetBlobContainerClient(config.DmpBlobContainer);
-        
+        // containerClient.
+            
         return containerClient;
     }
 

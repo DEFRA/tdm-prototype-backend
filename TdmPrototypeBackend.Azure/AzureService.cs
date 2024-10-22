@@ -35,7 +35,10 @@ public abstract class AzureService<T>
 
         if (clientFactory != null)
         {
-            Transport = new HttpClientTransport(clientFactory.CreateClient("proxy"));    
+            var client = clientFactory.CreateClient("proxy");
+            client.DefaultRequestHeaders.Add("Host", "devdmpinfdl1001.blob.core.windows.net");
+            var transport = new HttpClientTransport(client);
+            Transport = transport;
         }
         
     }
