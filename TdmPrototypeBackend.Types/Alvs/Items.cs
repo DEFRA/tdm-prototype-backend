@@ -51,8 +51,15 @@ public partial class Items  //
 
         this.Checks = checks.ToArray();
     }
+    
+    [Attr]
+    [JsonPropertyName("documents")]
+    public Document[]? PPDocuments
+    {
+        get => Documents;
+        set => Documents = value;
+    }
 
-   
 }
 
 

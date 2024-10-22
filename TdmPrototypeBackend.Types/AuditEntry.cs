@@ -66,7 +66,7 @@ public class AuditEntry
             Id = id,
             Version = version,
             CreatedSource = lastUpdated,
-            CreatedBy = CreatedBySystem,
+            CreatedBy = lastUpdatedBy,
             CreatedLocal = DateTime.UtcNow,
             Status = "Created"
 
@@ -80,14 +80,14 @@ public class AuditEntry
             Id = id,
             Version = version,
             CreatedSource = lastUpdated,
-            CreatedBy = CreatedBySystem,
+            CreatedBy = lastUpdatedBy,
             CreatedLocal = DateTime.UtcNow,
             Status = "Updated"
 
         };
     }
 
-    public static AuditEntry CreateMatch(string id, int version, DateTime? lastUpdated, string lastUpdatedBy)
+    public static AuditEntry CreateMatch(string id, int version, DateTime? lastUpdated)
     {
         return new AuditEntry()
         {

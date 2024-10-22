@@ -48,8 +48,7 @@ namespace TdmPrototypeBackend.Matching
                 }
 
                 var auditEntry = AuditEntry.CreateMatch(movement.Id, notification.Version.GetValueOrDefault(),
-                    notification.LastUpdated,
-                    notification.LastUpdatedBy?.DisplayName);
+                    notification.LastUpdated);
                 notification.Update(auditEntry);
                 await notificationService.Upsert(notification);
             }
@@ -69,36 +68,46 @@ namespace TdmPrototypeBackend.Matching
 
             foreach (var movement in items)
             {
-                var doc = (from item in movement.Items
+                var docs = (from item in movement.Items
                     from itemDocument in item.Documents
                     where itemDocument.DocumentReference.Contains(matchReference.ToString())
-                    select itemDocument).FirstOrDefault();
-
-                var referenceNumber = MatchingReferenceNumber.FromCds(doc.DocumentReference, doc.DocumentCode);
-                if (notification.IpaffsType != referenceNumber.ChedType)
+                    select itemDocument).ToList();
+                
+                foreach (var doc in docs)
                 {
-                    movement.AddRelationship("notifications", new TdmRelationshipObject
+                    
+                    var referenceNumber = MatchingReferenceNumber.FromCds(doc.DocumentReference, doc.DocumentCode);
+                    if (notification.IpaffsType != referenceNumber.ChedType)
                     {
-                        Matched = false,
-                        Links = RelationshipLinks.CreateForMovement(movement),
-                        Data = [RelationshipDataItem.CreateFromNotification(notification,  movement, matchReference.ToString(),false, "ChedType does not match")],
-                    });
-                }
-                else
-                {
-                    movement.AddRelationship("notifications", new TdmRelationshipObject
+                        movement.AddRelationship("notifications", new TdmRelationshipObject
+                        {
+                            Matched = false,
+                            Links = RelationshipLinks.CreateForMovement(movement),
+                            Data = [RelationshipDataItem.CreateFromNotification(notification, movement, matchReference.ToString(), false, "ChedType does not match")],
+                        });
+                    }
+                    else
                     {
-                        Matched = true,
-                        Links = RelationshipLinks.CreateForMovement(movement),
-                        Data = [RelationshipDataItem.CreateFromNotification(notification, movement, matchReference.ToString())]
-                    });
+                        var rel = new TdmRelationshipObject
+                        {
+                            Matched = true,
+                            Links = RelationshipLinks.CreateForMovement(movement),
+                            Data =
+                            [
+                                RelationshipDataItem.CreateFromNotification(notification, movement,
+                                    matchReference.ToString())
+                            ]
+                        };
+                        movement.AddRelationship("notifications", rel);
+                    }
+                    
+                    var auditEntry = AuditEntry.CreateMatch(
+                        notification.Id,
+                        movement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(),
+                        movement.LastUpdated);
+                    movement.Update(auditEntry);
                 }
 
-                var auditEntry = AuditEntry.CreateMatch(notification.Id, 
-                    movement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(),
-                    movement.LastUpdated,
-                    movement.ClearanceRequests.First().Header.DeclarantName);
-                movement.Update(auditEntry);
                 await movementService.Upsert(movement);
             }
 

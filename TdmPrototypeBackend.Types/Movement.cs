@@ -125,9 +125,11 @@ public class Movement : CustomStringMongoIdentifiable
             }
         }
 
-        Relationships.Notifications.Matched = Items
+        var allDocsMatched = Items
             .Select(x => x.ItemNumber)
             .All(itemNumber => Relationships.Notifications.Data.Any(x => x.Matched && x.SourceItem == itemNumber));
+        
+        Relationships.Notifications.Matched = relationship.Matched;
     }
 
     public void Update(AuditEntry auditEntry)

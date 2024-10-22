@@ -55,7 +55,7 @@ public class SyncMovementsIntegrationTests(ITestOutputHelper outputHelper) : Int
         existingMovement.AuditEntries.Count.Should().Be(2);
         existingMovement.AuditEntries[0].Id.Should().Be("2024/02/14/ALVSCDSTEST0000314-361456c1-5369-4359-bb78-929121c618a6.json");
         existingMovement.AuditEntries[0].Version.Should().Be(2);
-        existingMovement.AuditEntries[0].CreatedBy.Should().Be("System");
+        existingMovement.AuditEntries[0].CreatedBy.Should().Be("TRANSITAIR.GB");
         existingMovement.AuditEntries[0].Status.Should().Be("Created");
         existingMovement.AuditEntries[0].Diff.Should().BeEmpty();
 

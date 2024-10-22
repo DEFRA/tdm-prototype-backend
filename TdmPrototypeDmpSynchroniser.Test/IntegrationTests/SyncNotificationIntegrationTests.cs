@@ -73,7 +73,7 @@ public class SyncNotificationIntegrationTests(ITestOutputHelper outputHelper) : 
         notification.AuditEntries.Count.Should().Be(2);
         notification.AuditEntries[0].Id.Should().Be("CHEDA/2024/02/14/CHEDA_GB_2024_1101869-1639d446-0706-4a83-ad4c-976f0837816a.json");
         notification.AuditEntries[0].Version.Should().Be(2);
-        notification.AuditEntries[0].CreatedBy.Should().Be("System");
+        notification.AuditEntries[0].CreatedBy.Should().Be("Mark Admin-Tester");
         notification.AuditEntries[0].Status.Should().Be("Created");
         notification.AuditEntries[0].Diff.Should().BeEmpty();
 
