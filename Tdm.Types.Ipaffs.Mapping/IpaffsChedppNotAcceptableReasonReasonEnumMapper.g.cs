@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsChedppNotAcceptableReasonReasonEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsChedppNotAcceptableReasonReasonEnum Map(Tdm.Types.Ipaffs.IpaffsChedppNotAcceptableReasonReasonEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsChedppNotAcceptableReasonReasonEnum? Map(Tdm.Types.Ipaffs.IpaffsChedppNotAcceptableReasonReasonEnum? from)
 {
 if(from == null)
 {

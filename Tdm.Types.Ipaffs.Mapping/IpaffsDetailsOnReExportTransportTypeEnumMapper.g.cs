@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsDetailsOnReExportTransportTypeEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsDetailsOnReExportTransportTypeEnum Map(Tdm.Types.Ipaffs.IpaffsDetailsOnReExportTransportTypeEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsDetailsOnReExportTransportTypeEnum? Map(Tdm.Types.Ipaffs.IpaffsDetailsOnReExportTransportTypeEnum? from)
 {
 if(from == null)
 {

@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsPurposeInternalMarketPurposeEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsPurposeInternalMarketPurposeEnum Map(Tdm.Types.Ipaffs.IpaffsPurposeInternalMarketPurposeEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsPurposeInternalMarketPurposeEnum? Map(Tdm.Types.Ipaffs.IpaffsPurposeInternalMarketPurposeEnum? from)
 {
 if(from == null)
 {

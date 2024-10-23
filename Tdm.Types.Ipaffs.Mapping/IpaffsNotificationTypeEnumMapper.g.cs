@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsNotificationTypeEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsNotificationTypeEnum Map(Tdm.Types.Ipaffs.IpaffsNotificationTypeEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsNotificationTypeEnum? Map(Tdm.Types.Ipaffs.IpaffsNotificationTypeEnum? from)
 {
 if(from == null)
 {

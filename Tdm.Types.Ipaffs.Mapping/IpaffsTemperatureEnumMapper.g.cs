@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsTemperatureEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsTemperatureEnum Map(Tdm.Types.Ipaffs.IpaffsTemperatureEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsTemperatureEnum? Map(Tdm.Types.Ipaffs.IpaffsTemperatureEnum? from)
 {
 if(from == null)
 {

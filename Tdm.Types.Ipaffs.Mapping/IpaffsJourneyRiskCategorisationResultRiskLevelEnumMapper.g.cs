@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsJourneyRiskCategorisationResultRiskLevelEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsJourneyRiskCategorisationResultRiskLevelEnum Map(Tdm.Types.Ipaffs.IpaffsJourneyRiskCategorisationResultRiskLevelEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsJourneyRiskCategorisationResultRiskLevelEnum? Map(Tdm.Types.Ipaffs.IpaffsJourneyRiskCategorisationResultRiskLevelEnum? from)
 {
 if(from == null)
 {

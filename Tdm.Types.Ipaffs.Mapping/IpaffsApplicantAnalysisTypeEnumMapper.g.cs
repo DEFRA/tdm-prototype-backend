@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsApplicantAnalysisTypeEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsApplicantAnalysisTypeEnum Map(Tdm.Types.Ipaffs.IpaffsApplicantAnalysisTypeEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsApplicantAnalysisTypeEnum? Map(Tdm.Types.Ipaffs.IpaffsApplicantAnalysisTypeEnum? from)
 {
 if(from == null)
 {

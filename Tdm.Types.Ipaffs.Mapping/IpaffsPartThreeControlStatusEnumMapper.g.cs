@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsPartThreeControlStatusEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsPartThreeControlStatusEnum Map(Tdm.Types.Ipaffs.IpaffsPartThreeControlStatusEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsPartThreeControlStatusEnum? Map(Tdm.Types.Ipaffs.IpaffsPartThreeControlStatusEnum? from)
 {
 if(from == null)
 {

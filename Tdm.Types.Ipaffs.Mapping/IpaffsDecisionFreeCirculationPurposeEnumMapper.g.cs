@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsDecisionFreeCirculationPurposeEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsDecisionFreeCirculationPurposeEnum Map(Tdm.Types.Ipaffs.IpaffsDecisionFreeCirculationPurposeEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsDecisionFreeCirculationPurposeEnum? Map(Tdm.Types.Ipaffs.IpaffsDecisionFreeCirculationPurposeEnum? from)
 {
 if(from == null)
 {

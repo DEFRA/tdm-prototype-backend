@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsPartOneTypeOfImpEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsPartOneTypeOfImpEnum Map(Tdm.Types.Ipaffs.IpaffsPartOneTypeOfImpEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsPartOneTypeOfImpEnum? Map(Tdm.Types.Ipaffs.IpaffsPartOneTypeOfImpEnum? from)
 {
 if(from == null)
 {

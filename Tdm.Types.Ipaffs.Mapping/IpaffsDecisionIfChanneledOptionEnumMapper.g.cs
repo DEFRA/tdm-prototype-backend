@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsDecisionIfChanneledOptionEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsDecisionIfChanneledOptionEnum Map(Tdm.Types.Ipaffs.IpaffsDecisionIfChanneledOptionEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsDecisionIfChanneledOptionEnum? Map(Tdm.Types.Ipaffs.IpaffsDecisionIfChanneledOptionEnum? from)
 {
 if(from == null)
 {

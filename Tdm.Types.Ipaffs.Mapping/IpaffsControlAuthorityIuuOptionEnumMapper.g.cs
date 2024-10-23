@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsControlAuthorityIuuOptionEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsControlAuthorityIuuOptionEnum Map(Tdm.Types.Ipaffs.IpaffsControlAuthorityIuuOptionEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsControlAuthorityIuuOptionEnum? Map(Tdm.Types.Ipaffs.IpaffsControlAuthorityIuuOptionEnum? from)
 {
 if(from == null)
 {

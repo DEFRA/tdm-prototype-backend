@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsDecisionDefinitiveImportPurposeEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsDecisionDefinitiveImportPurposeEnum Map(Tdm.Types.Ipaffs.IpaffsDecisionDefinitiveImportPurposeEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsDecisionDefinitiveImportPurposeEnum? Map(Tdm.Types.Ipaffs.IpaffsDecisionDefinitiveImportPurposeEnum? from)
 {
 if(from == null)
 {

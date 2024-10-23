@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsFeedbackInformationAuthorityTypeEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsFeedbackInformationAuthorityTypeEnum Map(Tdm.Types.Ipaffs.IpaffsFeedbackInformationAuthorityTypeEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsFeedbackInformationAuthorityTypeEnum? Map(Tdm.Types.Ipaffs.IpaffsFeedbackInformationAuthorityTypeEnum? from)
 {
 if(from == null)
 {

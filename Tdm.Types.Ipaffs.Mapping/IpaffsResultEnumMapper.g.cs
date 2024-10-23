@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsResultEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsResultEnum Map(Tdm.Types.Ipaffs.IpaffsResultEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsResultEnum? Map(Tdm.Types.Ipaffs.IpaffsResultEnum? from)
 {
 if(from == null)
 {

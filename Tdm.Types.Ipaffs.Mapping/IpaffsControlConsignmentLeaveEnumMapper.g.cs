@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsControlConsignmentLeaveEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsControlConsignmentLeaveEnum Map(Tdm.Types.Ipaffs.IpaffsControlConsignmentLeaveEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsControlConsignmentLeaveEnum? Map(Tdm.Types.Ipaffs.IpaffsControlConsignmentLeaveEnum? from)
 {
 if(from == null)
 {

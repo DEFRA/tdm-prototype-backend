@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsCommodityRiskResultPhsiClassificationEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsCommodityRiskResultPhsiClassificationEnum Map(Tdm.Types.Ipaffs.IpaffsCommodityRiskResultPhsiClassificationEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsCommodityRiskResultPhsiClassificationEnum? Map(Tdm.Types.Ipaffs.IpaffsCommodityRiskResultPhsiClassificationEnum? from)
 {
 if(from == null)
 {

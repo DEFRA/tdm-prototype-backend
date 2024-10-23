@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsExternalReferenceSystemEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsExternalReferenceSystemEnum Map(Tdm.Types.Ipaffs.IpaffsExternalReferenceSystemEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsExternalReferenceSystemEnum? Map(Tdm.Types.Ipaffs.IpaffsExternalReferenceSystemEnum? from)
 {
 if(from == null)
 {

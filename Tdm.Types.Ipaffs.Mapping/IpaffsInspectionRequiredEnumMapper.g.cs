@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsInspectionRequiredEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsInspectionRequiredEnum Map(Tdm.Types.Ipaffs.IpaffsInspectionRequiredEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsInspectionRequiredEnum? Map(Tdm.Types.Ipaffs.IpaffsInspectionRequiredEnum? from)
 {
 if(from == null)
 {

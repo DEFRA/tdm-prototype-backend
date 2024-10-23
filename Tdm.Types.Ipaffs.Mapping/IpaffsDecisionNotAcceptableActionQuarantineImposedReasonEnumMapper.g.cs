@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsDecisionNotAcceptableActionQuarantineImposedReasonEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsDecisionNotAcceptableActionQuarantineImposedReasonEnum Map(Tdm.Types.Ipaffs.IpaffsDecisionNotAcceptableActionQuarantineImposedReasonEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsDecisionNotAcceptableActionQuarantineImposedReasonEnum? Map(Tdm.Types.Ipaffs.IpaffsDecisionNotAcceptableActionQuarantineImposedReasonEnum? from)
 {
 if(from == null)
 {

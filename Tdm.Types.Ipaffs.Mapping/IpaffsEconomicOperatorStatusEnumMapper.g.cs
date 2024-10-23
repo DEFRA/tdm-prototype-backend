@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsEconomicOperatorStatusEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsEconomicOperatorStatusEnum Map(Tdm.Types.Ipaffs.IpaffsEconomicOperatorStatusEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsEconomicOperatorStatusEnum? Map(Tdm.Types.Ipaffs.IpaffsEconomicOperatorStatusEnum? from)
 {
 if(from == null)
 {

@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsDecisionSpecificWarehouseNonConformingConsignmentEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsDecisionSpecificWarehouseNonConformingConsignmentEnum Map(Tdm.Types.Ipaffs.IpaffsDecisionSpecificWarehouseNonConformingConsignmentEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsDecisionSpecificWarehouseNonConformingConsignmentEnum? Map(Tdm.Types.Ipaffs.IpaffsDecisionSpecificWarehouseNonConformingConsignmentEnum? from)
 {
 if(from == null)
 {

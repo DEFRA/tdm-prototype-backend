@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsPurposeForNonConformingEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsPurposeForNonConformingEnum Map(Tdm.Types.Ipaffs.IpaffsPurposeForNonConformingEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsPurposeForNonConformingEnum? Map(Tdm.Types.Ipaffs.IpaffsPurposeForNonConformingEnum? from)
 {
 if(from == null)
 {

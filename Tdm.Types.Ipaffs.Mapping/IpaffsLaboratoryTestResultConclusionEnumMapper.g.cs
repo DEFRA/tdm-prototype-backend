@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsLaboratoryTestResultConclusionEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsLaboratoryTestResultConclusionEnum Map(Tdm.Types.Ipaffs.IpaffsLaboratoryTestResultConclusionEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsLaboratoryTestResultConclusionEnum? Map(Tdm.Types.Ipaffs.IpaffsLaboratoryTestResultConclusionEnum? from)
 {
 if(from == null)
 {

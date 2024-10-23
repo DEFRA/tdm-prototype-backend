@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsAnimalCertificationEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsAnimalCertificationEnum Map(Tdm.Types.Ipaffs.IpaffsAnimalCertificationEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsAnimalCertificationEnum? Map(Tdm.Types.Ipaffs.IpaffsAnimalCertificationEnum? from)
 {
 if(from == null)
 {

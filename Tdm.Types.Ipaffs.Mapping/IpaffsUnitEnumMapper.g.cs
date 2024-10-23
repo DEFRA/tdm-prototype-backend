@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsUnitEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsUnitEnum Map(Tdm.Types.Ipaffs.IpaffsUnitEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsUnitEnum? Map(Tdm.Types.Ipaffs.IpaffsUnitEnum? from)
 {
 if(from == null)
 {

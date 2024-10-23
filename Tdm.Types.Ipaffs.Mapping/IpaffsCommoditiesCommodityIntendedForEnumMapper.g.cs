@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsCommoditiesCommodityIntendedForEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsCommoditiesCommodityIntendedForEnum Map(Tdm.Types.Ipaffs.IpaffsCommoditiesCommodityIntendedForEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsCommoditiesCommodityIntendedForEnum? Map(Tdm.Types.Ipaffs.IpaffsCommoditiesCommodityIntendedForEnum? from)
 {
 if(from == null)
 {

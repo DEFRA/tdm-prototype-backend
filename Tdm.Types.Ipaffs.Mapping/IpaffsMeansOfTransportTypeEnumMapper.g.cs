@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsMeansOfTransportTypeEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsMeansOfTransportTypeEnum Map(Tdm.Types.Ipaffs.IpaffsMeansOfTransportTypeEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsMeansOfTransportTypeEnum? Map(Tdm.Types.Ipaffs.IpaffsMeansOfTransportTypeEnum? from)
 {
 if(from == null)
 {

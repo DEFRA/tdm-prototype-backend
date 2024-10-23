@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsApplicantConservationOfSampleEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsApplicantConservationOfSampleEnum Map(Tdm.Types.Ipaffs.IpaffsApplicantConservationOfSampleEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsApplicantConservationOfSampleEnum? Map(Tdm.Types.Ipaffs.IpaffsApplicantConservationOfSampleEnum? from)
 {
 if(from == null)
 {

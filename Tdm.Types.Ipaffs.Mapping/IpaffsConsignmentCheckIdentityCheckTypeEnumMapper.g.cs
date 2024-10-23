@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsConsignmentCheckIdentityCheckTypeEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsConsignmentCheckIdentityCheckTypeEnum Map(Tdm.Types.Ipaffs.IpaffsConsignmentCheckIdentityCheckTypeEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsConsignmentCheckIdentityCheckTypeEnum? Map(Tdm.Types.Ipaffs.IpaffsConsignmentCheckIdentityCheckTypeEnum? from)
 {
 if(from == null)
 {

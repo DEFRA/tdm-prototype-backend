@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsConsignmentCheckIdentityCheckNotDoneReasonEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsConsignmentCheckIdentityCheckNotDoneReasonEnum Map(Tdm.Types.Ipaffs.IpaffsConsignmentCheckIdentityCheckNotDoneReasonEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsConsignmentCheckIdentityCheckNotDoneReasonEnum? Map(Tdm.Types.Ipaffs.IpaffsConsignmentCheckIdentityCheckNotDoneReasonEnum? from)
 {
 if(from == null)
 {

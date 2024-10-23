@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsPurposePurposeGroupEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsPurposePurposeGroupEnum Map(Tdm.Types.Ipaffs.IpaffsPurposePurposeGroupEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsPurposePurposeGroupEnum? Map(Tdm.Types.Ipaffs.IpaffsPurposePurposeGroupEnum? from)
 {
 if(from == null)
 {

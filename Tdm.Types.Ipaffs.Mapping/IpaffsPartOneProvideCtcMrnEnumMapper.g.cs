@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsPartOneProvideCtcMrnEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsPartOneProvideCtcMrnEnum Map(Tdm.Types.Ipaffs.IpaffsPartOneProvideCtcMrnEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsPartOneProvideCtcMrnEnum? Map(Tdm.Types.Ipaffs.IpaffsPartOneProvideCtcMrnEnum? from)
 {
 if(from == null)
 {

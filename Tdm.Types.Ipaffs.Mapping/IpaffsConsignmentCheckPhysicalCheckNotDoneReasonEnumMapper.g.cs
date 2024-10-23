@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsConsignmentCheckPhysicalCheckNotDoneReasonEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsConsignmentCheckPhysicalCheckNotDoneReasonEnum Map(Tdm.Types.Ipaffs.IpaffsConsignmentCheckPhysicalCheckNotDoneReasonEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsConsignmentCheckPhysicalCheckNotDoneReasonEnum? Map(Tdm.Types.Ipaffs.IpaffsConsignmentCheckPhysicalCheckNotDoneReasonEnum? from)
 {
 if(from == null)
 {

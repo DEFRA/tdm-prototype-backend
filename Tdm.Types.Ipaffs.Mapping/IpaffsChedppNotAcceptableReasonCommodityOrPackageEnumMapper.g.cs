@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsChedppNotAcceptableReasonCommodityOrPackageEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsChedppNotAcceptableReasonCommodityOrPackageEnum Map(Tdm.Types.Ipaffs.IpaffsChedppNotAcceptableReasonCommodityOrPackageEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsChedppNotAcceptableReasonCommodityOrPackageEnum? Map(Tdm.Types.Ipaffs.IpaffsChedppNotAcceptableReasonCommodityOrPackageEnum? from)
 {
 if(from == null)
 {

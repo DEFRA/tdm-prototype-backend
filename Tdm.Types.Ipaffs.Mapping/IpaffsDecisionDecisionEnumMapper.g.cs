@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsDecisionDecisionEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsDecisionDecisionEnum Map(Tdm.Types.Ipaffs.IpaffsDecisionDecisionEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsDecisionDecisionEnum? Map(Tdm.Types.Ipaffs.IpaffsDecisionDecisionEnum? from)
 {
 if(from == null)
 {

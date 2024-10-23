@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsPurposeForImportOrAdmissionEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsPurposeForImportOrAdmissionEnum Map(Tdm.Types.Ipaffs.IpaffsPurposeForImportOrAdmissionEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsPurposeForImportOrAdmissionEnum? Map(Tdm.Types.Ipaffs.IpaffsPurposeForImportOrAdmissionEnum? from)
 {
 if(from == null)
 {

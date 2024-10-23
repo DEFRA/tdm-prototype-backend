@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsAccompanyingDocumentDocumentTypeEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsAccompanyingDocumentDocumentTypeEnum Map(Tdm.Types.Ipaffs.IpaffsAccompanyingDocumentDocumentTypeEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsAccompanyingDocumentDocumentTypeEnum? Map(Tdm.Types.Ipaffs.IpaffsAccompanyingDocumentDocumentTypeEnum? from)
 {
 if(from == null)
 {

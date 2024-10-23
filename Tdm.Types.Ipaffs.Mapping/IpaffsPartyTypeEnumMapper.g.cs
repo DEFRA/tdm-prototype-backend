@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsPartyTypeEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsPartyTypeEnum Map(Tdm.Types.Ipaffs.IpaffsPartyTypeEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsPartyTypeEnum? Map(Tdm.Types.Ipaffs.IpaffsPartyTypeEnum? from)
 {
 if(from == null)
 {

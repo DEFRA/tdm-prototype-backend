@@ -13,7 +13,7 @@ namespace Tdm.Types.Ipaffs;
 
 public static class IpaffsDecisionNotAcceptableActionReDispatchReasonEnumMapper
 {
-public static Tdm.Model.Ipaffs.IpaffsDecisionNotAcceptableActionReDispatchReasonEnum Map(Tdm.Types.Ipaffs.IpaffsDecisionNotAcceptableActionReDispatchReasonEnum? from)
+public static Tdm.Model.Ipaffs.IpaffsDecisionNotAcceptableActionReDispatchReasonEnum? Map(Tdm.Types.Ipaffs.IpaffsDecisionNotAcceptableActionReDispatchReasonEnum? from)
 {
 if(from == null)
 {
