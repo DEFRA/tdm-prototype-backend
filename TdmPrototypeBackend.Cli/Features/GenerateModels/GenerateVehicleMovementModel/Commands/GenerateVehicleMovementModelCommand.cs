@@ -81,7 +81,7 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateVehicleMovemen
                     }
                     else if (property.Value.OneOf.Any())
                     {
-                        var enumDescriptor = new EnumDescriptor(property.Key, null, Namespace, ClassNamePrefix);
+                        var enumDescriptor = new EnumDescriptor(property.Key, null, Namespace, Namespace, ClassNamePrefix);
                         cSharpDescriptor.AddEnumDescriptor(enumDescriptor);
                         foreach (var oneOfSchema in property.Value.OneOf)
                         {

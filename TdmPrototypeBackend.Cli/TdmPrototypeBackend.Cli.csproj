@@ -16,8 +16,10 @@
 
   <ItemGroup>
     <None Remove="Features\GenerateModels\Templates\ClassTemplate.cshtml" />
+    <None Remove="Features\GenerateModels\Templates\EnumMapperTemplate.cshtml" />
     <None Remove="Features\GenerateModels\Templates\EnumTemplate.cshtml" />
     <None Remove="Features\GenerateModels\Templates\InternalClassTemplate.cshtml" />
+    <None Remove="Features\GenerateModels\Templates\InternalEnumTemplate.cshtml" />
     <None Remove="Features\GenerateModels\Templates\MapperTemplate.cshtml" />
   </ItemGroup>
 
@@ -34,6 +36,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Features\GenerateModels\Templates\InternalEnumTemplate.cshtml" />
+    <EmbeddedResource Include="Features\GenerateModels\Templates\EnumMapperTemplate.cshtml" />
     <EmbeddedResource Include="Features\GenerateModels\Templates\MapperTemplate.cshtml" />
     <EmbeddedResource Include="Features\GenerateModels\Templates\InternalClassTemplate.cshtml" />
     <EmbeddedResource Include="Features\GenerateModels\Templates\ClassTemplate.cshtml" />

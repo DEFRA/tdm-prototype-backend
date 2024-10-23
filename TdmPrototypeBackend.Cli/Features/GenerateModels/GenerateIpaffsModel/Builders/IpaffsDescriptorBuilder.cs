@@ -5,7 +5,8 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.GenerateIpaffsModel.Bu
 
 public class IpaffsDescriptorBuilder(List<ISchemaVisitor> visitors)
 {
-    public const string Namespace = "TdmPrototypeBackend.Types.Ipaffs";
+    public const string SourceNamespace = "Tdm.Types.Ipaffs";
+    public const string InternalNamespace = "Tdm.Model.Ipaffs";
     public const string ClassNamePrefix = "Ipaffs";
     public CSharpDescriptor Build(string jsonSchema)
     {
@@ -13,7 +14,7 @@ public class IpaffsDescriptorBuilder(List<ISchemaVisitor> visitors)
 
         var csharpDescriptor = new CSharpDescriptor();
 
-        var mainClassDescriptor = new ClassDescriptor("Notification", Namespace, Namespace, ClassNamePrefix);
+        var mainClassDescriptor = new ClassDescriptor("Notification", SourceNamespace, InternalNamespace, ClassNamePrefix);
         mainClassDescriptor.IsResource = true;
         csharpDescriptor.AddClassDescriptor(mainClassDescriptor);
         foreach (var property in mySchema.GetProperties())

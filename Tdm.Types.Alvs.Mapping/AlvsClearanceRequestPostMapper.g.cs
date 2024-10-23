@@ -13,19 +13,20 @@ namespace Tdm.Types.Alvs;
 
 public static class AlvsClearanceRequestPostMapper
 {
-	public static Tdm.Model.Alvs.AlvsClearanceRequestPost Map(Tdm.Types.Alvs.AlvsClearanceRequestPost from)
+    public static Tdm.Model.Alvs.AlvsClearanceRequestPost Map(Tdm.Types.Alvs.AlvsClearanceRequestPost from)
     {
-    if(from is null)
-    {
-        return default!;
-    }
-		var to = new Tdm.Model.Alvs.AlvsClearanceRequestPost ();
-to.XmlSchemaVersion = from.XmlSchemaVersion;
+        if (from is null)
+        {
+            return default!;
+        }
+
+        var to = new Tdm.Model.Alvs.AlvsClearanceRequestPost();
+        to.XmlSchemaVersion = from.XmlSchemaVersion;
         to.UserIdentification = from.UserIdentification;
         to.UserPassword = from.UserPassword;
         to.SendingDate = from.SendingDate;
         to.AlvsClearanceRequest = AlvsClearanceRequestMapper.Map(from?.AlvsClearanceRequest);
-            	return to;
+        return to;
     }
 }
 

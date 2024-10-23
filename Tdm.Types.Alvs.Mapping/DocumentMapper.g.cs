@@ -13,19 +13,20 @@ namespace Tdm.Types.Alvs;
 
 public static class DocumentMapper
 {
-	public static Tdm.Model.Alvs.Document Map(Tdm.Types.Alvs.Document from)
+    public static Tdm.Model.Alvs.Document Map(Tdm.Types.Alvs.Document from)
     {
-    if(from is null)
-    {
-        return default!;
-    }
-		var to = new Tdm.Model.Alvs.Document ();
-to.DocumentCode = from.DocumentCode;
+        if (from is null)
+        {
+            return default!;
+        }
+
+        var to = new Tdm.Model.Alvs.Document();
+        to.DocumentCode = from.DocumentCode;
         to.DocumentReference = from.DocumentReference;
         to.DocumentStatus = from.DocumentStatus;
         to.DocumentControl = from.DocumentControl;
         to.DocumentQuantity = from.DocumentQuantity;
-        	return to;
+        return to;
     }
 }
 

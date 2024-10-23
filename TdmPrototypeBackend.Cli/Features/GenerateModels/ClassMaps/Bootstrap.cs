@@ -6,6 +6,7 @@ static class Bootstrap
     {
         RegisterAlvsClassMaps();
         RegisterIpaffsClassMaps();
+        RegisterIpaffsEnumMaps();
 
         RegisterVehicleMovementsClassMaps();
     }
@@ -34,6 +35,14 @@ static class Bootstrap
         {
             map.SetClassName("AlvsClearanceRequestPostResult")
                 .NoInternalClass();
+        });
+    }
+
+    public static void RegisterIpaffsEnumMaps()
+    {
+        GeneratorEnumMap.RegisterEnumMap("IpaffsNotificationStatusEnum", map =>
+        {
+            map.RemoveEnumValue("SUBMITTED,IN_PROGRESS,MODIFY");
         });
     }
 
@@ -127,7 +136,7 @@ static class Bootstrap
 
         GeneratorClassMap.RegisterClassMap("PartOne", map =>
         {
-            map.MapProperty("commodities").SetBsonIgnore().ExcludeFromApi();
+            map.MapProperty("commodities").ExcludeFromInternal();
             map.MapProperty("originalEstimatedDateTime").IsDateTime();
             map.MapProperty("submissionDate").IsDateTime();
             map.MapProperty("isGVMSRoute").SetName("isGvmsRoute");
@@ -146,7 +155,7 @@ static class Bootstrap
 
         GeneratorClassMap.RegisterClassMap("PartTwo", map =>
         {
-            map.MapProperty("commodityChecks").SetBsonIgnore().ExcludeFromApi();
+            map.MapProperty("commodityChecks").ExcludeFromInternal();
             map.MapProperty("autoClearedDateTime").IsDateTime();
             map.MapProperty("checkDate").IsDate();
         });
@@ -161,7 +170,8 @@ static class Bootstrap
         {
             map.MapProperty("KeyDataPair")
                 .SetType("IDictionary<string, object>")
-                .AddAttribute("[JsonConverter(typeof(KeyDataPairsToDictionaryStringObjectJsonConverter))]", Model.Source);
+                .AddAttribute("[JsonConverter(typeof(KeyDataPairsToDictionaryStringObjectJsonConverter))]", Model.Source)
+                .SetMapper("Tdm.Types.Ipaffs.Mapping.DictionaryMapper");
         });
 
 

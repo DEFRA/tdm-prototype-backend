@@ -13,16 +13,17 @@ namespace Tdm.Types.Alvs;
 
 public static class CheckMapper
 {
-	public static Tdm.Model.Alvs.Check Map(Tdm.Types.Alvs.Check from)
+    public static Tdm.Model.Alvs.Check Map(Tdm.Types.Alvs.Check from)
     {
-    if(from is null)
-    {
-        return default!;
-    }
-		var to = new Tdm.Model.Alvs.Check ();
-to.CheckCode = from.CheckCode;
+        if (from is null)
+        {
+            return default!;
+        }
+
+        var to = new Tdm.Model.Alvs.Check();
+        to.CheckCode = from.CheckCode;
         to.DepartmentCode = from.DepartmentCode;
-        	return to;
+        return to;
     }
 }
 

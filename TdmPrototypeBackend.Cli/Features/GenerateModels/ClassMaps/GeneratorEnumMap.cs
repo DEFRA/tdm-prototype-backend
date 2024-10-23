@@ -16,10 +16,24 @@ internal class GeneratorEnumMap
     public string Name { get; set; }
 
     public List<EnumDescriptor.EnumValueDescriptor> EnumValues = new List<EnumDescriptor.EnumValueDescriptor>();
+    public List<string> EnumValuesToRemove = new List<string>();
+    public List<(string OldValue, string NewValue)> EnumValuesToRename = new ();
 
     public GeneratorEnumMap AddEnumValue(string value)
     {
         EnumValues.Add(new EnumDescriptor.EnumValueDescriptor(value));
+        return this;
+    }
+
+    public GeneratorEnumMap RemoveEnumValue(string value)
+    {
+        EnumValuesToRemove.Add(value);
+        return this;
+    }
+
+    public GeneratorEnumMap RenameEnumValue(string oldValue, string newValue)
+    {
+        EnumValuesToRename.Add(new ValueTuple<string, string>(oldValue, newValue));
         return this;
     }
 

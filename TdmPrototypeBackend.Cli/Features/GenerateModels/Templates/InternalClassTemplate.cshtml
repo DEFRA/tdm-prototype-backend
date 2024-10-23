@@ -38,7 +38,7 @@ public partial class @Model.GetClassName()  //@if (Model.IsResource) { <text>: C
     </text>
 } *@
 
-@foreach(var property in Model.Properties)
+@foreach(var property in Model.Properties.Where(x => !x.ExcludedFromInternal))
 {
 	var t = new HtmlString(property.GetPropertyType());
     <text>

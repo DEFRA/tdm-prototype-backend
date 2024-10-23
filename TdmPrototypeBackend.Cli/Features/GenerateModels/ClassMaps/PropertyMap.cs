@@ -31,7 +31,9 @@ internal class PropertyMap(string name)
 
     public bool NoAttributes { get; set; }
 
-    public bool ExcludedFromApi { get; set; } = false;
+    public bool ExcludedFromInternal { get; set; } = false;
+
+    public string Mapper { get; set; }
 
     public PropertyMap SetType(string type)
     {
@@ -81,7 +83,7 @@ internal class PropertyMap(string name)
 
     public PropertyMap IsSensitive()
     {
-        AddAttribute("[TdmPrototypeBackend.Types.Extensions.SensitiveData()]", Model.Source);
+        AddAttribute("[Tdm.SensitiveData.SensitiveData.SensitiveData]", Model.Source);
         return this;
     }
 
@@ -91,12 +93,17 @@ internal class PropertyMap(string name)
         return this;
     }
 
-    public PropertyMap ExcludeFromApi()
+    public PropertyMap ExcludeFromInternal()
     {
-        ExcludedFromApi = true;
+        ExcludedFromInternal = true;
         return this;
     }
 
+    public PropertyMap SetMapper(string mapperName)
+    {
+        Mapper = mapperName;
+        return this;
+    }
 
     public PropertyMap AddAttribute(string attribute, Model model)
     {

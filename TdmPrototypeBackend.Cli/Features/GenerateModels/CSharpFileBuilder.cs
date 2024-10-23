@@ -52,8 +52,13 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels
                 // File.WriteAllText($"../../../Model/{@enum.GetEnumName()}.cs", contents);
                 Console.WriteLine($"Created file: {@enum.GetEnumName()}.cs");
 
-                contents = await engine.CompileRenderAsync("EnumTemplate", @enum);
+                contents = await engine.CompileRenderAsync("InternalEnumTemplate", @enum);
                 await File.WriteAllTextAsync(Path.Combine(internalOutputPath, $"{@enum.GetEnumName()}.g.cs"), contents, cancellationToken);
+                // File.WriteAllText($"../../../Model/{@enum.GetEnumName()}.cs", contents);
+                Console.WriteLine($"Created file: {@enum.GetEnumName()}.cs");
+
+                contents = await engine.CompileRenderAsync("EnumMapperTemplate", @enum);
+                await File.WriteAllTextAsync(Path.Combine(mappingOutputPath, $"{@enum.GetEnumName()}Mapper.g.cs"), contents, cancellationToken);
                 // File.WriteAllText($"../../../Model/{@enum.GetEnumName()}.cs", contents);
                 Console.WriteLine($"Created file: {@enum.GetEnumName()}.cs");
             }
@@ -104,9 +109,11 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels
                                 
                         }
 
-                        if (propertyMap.ExcludedFromApi)
+                        propertyDescriptor.ExcludedFromInternal = propertyMap.ExcludedFromInternal;
+
+                        if (!string.IsNullOrEmpty(propertyMap.Mapper))
                         {
-                            propertyDescriptor.InternalAttributes.RemoveAll(x => x.Equals("[Attr]"));
+                            propertyDescriptor.Mapper = propertyMap.Mapper;
                         }
                     }
                 }
@@ -115,11 +122,23 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels
 
         private static void ApplyEnumMapOverrides(EnumDescriptor @enum)
         {
-            var classMap = GeneratorEnumMap.LookupEnumMap(@enum.Name);
+            var classMap = GeneratorEnumMap.LookupEnumMap(@enum.FullName);
 
             if (classMap is not null)
             {
-               
+                foreach (var v in classMap.EnumValuesToRemove)
+                {
+                    @enum.Values.RemoveAll(x => x.Value == v);
+                }
+
+                foreach (var v in classMap.EnumValuesToRename)
+                {
+                    var item = @enum.Values.SingleOrDefault(x => x.Value == v.OldValue);
+                    if (item is not null)
+                    {
+                        item.OverriddenValue = v.NewValue;
+                    }
+                }
                 @enum.Values.AddRange(classMap.EnumValues);
             }
         }

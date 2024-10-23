@@ -13,14 +13,15 @@ namespace Tdm.Types.Alvs;
 
 public static class ItemsMapper
 {
-	public static Tdm.Model.Alvs.Items Map(Tdm.Types.Alvs.Items from)
+    public static Tdm.Model.Alvs.Items Map(Tdm.Types.Alvs.Items from)
     {
-    if(from is null)
-    {
-        return default!;
-    }
-		var to = new Tdm.Model.Alvs.Items ();
-to.ItemNumber = from.ItemNumber;
+        if (from is null)
+        {
+            return default!;
+        }
+
+        var to = new Tdm.Model.Alvs.Items();
+        to.ItemNumber = from.ItemNumber;
         to.CustomsProcedureCode = from.CustomsProcedureCode;
         to.TaricCommodityCode = from.TaricCommodityCode;
         to.GoodsDescription = from.GoodsDescription;
@@ -31,8 +32,8 @@ to.ItemNumber = from.ItemNumber;
         to.ItemThirdQuantity = from.ItemThirdQuantity;
         to.ItemOriginCountryCode = from.ItemOriginCountryCode;
         to.Documents = from?.Documents?.Select(x => DocumentMapper.Map(x)).ToArray();
-            to.Checks = from?.Checks?.Select(x => CheckMapper.Map(x)).ToArray();
-            	return to;
+        to.Checks = from?.Checks?.Select(x => CheckMapper.Map(x)).ToArray();
+        return to;
     }
 }
 

@@ -67,6 +67,10 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel
 
         public bool IsArray { get; set; }
 
+        public string Mapper { get; set; }
+
+        public bool ExcludedFromInternal { get; set; } = false;
+
         public void OverrideType(string type)
         {
             Type = type;
@@ -78,6 +82,10 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel
             var n = SourceName.Dehumanize();
             if (SourceName.Equals("type", StringComparison.InvariantCultureIgnoreCase) || SourceName.Equals("id", StringComparison.InvariantCultureIgnoreCase))
             {
+                if (SourceName.StartsWith(_classNamePrefix))
+                {
+                    return $"{SourceName.Dehumanize()}";
+                }
                 return $"{_classNamePrefix}{SourceName.Dehumanize()}";
             }
 
@@ -100,6 +108,10 @@ namespace TdmPrototypeBackend.Cli.Features.GenerateModels.DescriptorModel
             var n = InternalName.Dehumanize();
             if (InternalName.Equals("type", StringComparison.InvariantCultureIgnoreCase) || InternalName.Equals("id", StringComparison.InvariantCultureIgnoreCase))
             {
+                if (InternalName.StartsWith(_classNamePrefix))
+                {
+                    return $"{InternalName.Dehumanize()}";
+                }
                 return $"{_classNamePrefix}{InternalName.Dehumanize()}";
             }
 

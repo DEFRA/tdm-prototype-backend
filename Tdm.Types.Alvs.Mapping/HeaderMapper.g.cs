@@ -13,14 +13,15 @@ namespace Tdm.Types.Alvs;
 
 public static class HeaderMapper
 {
-	public static Tdm.Model.Alvs.Header Map(Tdm.Types.Alvs.Header from)
+    public static Tdm.Model.Alvs.Header Map(Tdm.Types.Alvs.Header from)
     {
-    if(from is null)
-    {
-        return default!;
-    }
-		var to = new Tdm.Model.Alvs.Header ();
-to.EntryReference = from.EntryReference;
+        if (from is null)
+        {
+            return default!;
+        }
+
+        var to = new Tdm.Model.Alvs.Header();
+        to.EntryReference = from.EntryReference;
         to.EntryVersionNumber = from.EntryVersionNumber;
         to.PreviousVersionNumber = from.PreviousVersionNumber;
         to.DeclarationUCR = from.DeclarationUCR;
@@ -33,7 +34,7 @@ to.EntryReference = from.EntryReference;
         to.DispatchCountryCode = from.DispatchCountryCode;
         to.GoodsLocationCode = from.GoodsLocationCode;
         to.MasterUcr = from.MasterUcr;
-        	return to;
+        return to;
     }
 }
 

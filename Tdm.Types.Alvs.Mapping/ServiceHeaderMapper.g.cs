@@ -13,18 +13,19 @@ namespace Tdm.Types.Alvs;
 
 public static class ServiceHeaderMapper
 {
-	public static Tdm.Model.Alvs.ServiceHeader Map(Tdm.Types.Alvs.ServiceHeader from)
+    public static Tdm.Model.Alvs.ServiceHeader Map(Tdm.Types.Alvs.ServiceHeader from)
     {
-    if(from is null)
-    {
-        return default!;
-    }
-		var to = new Tdm.Model.Alvs.ServiceHeader ();
-to.SourceSystem = from.SourceSystem;
+        if (from is null)
+        {
+            return default!;
+        }
+
+        var to = new Tdm.Model.Alvs.ServiceHeader();
+        to.SourceSystem = from.SourceSystem;
         to.DestinationSystem = from.DestinationSystem;
         to.CorrelationId = from.CorrelationId;
         to.ServiceCallTimestamp = from.ServiceCallTimestamp;
-        	return to;
+        return to;
     }
 }
 
