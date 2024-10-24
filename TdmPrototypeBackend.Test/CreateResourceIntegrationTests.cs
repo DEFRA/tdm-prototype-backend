@@ -163,7 +163,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
         //    }
         //};
 
-        movement.AddRelationship("notification", new TdmRelationshipObject()
+        movement.AddRelationship(new TdmRelationshipObject()
         {
             Matched = true,
             Links = RelationshipLinks.CreateForMovement(movement),
@@ -172,7 +172,7 @@ public class CreateResourceIntegrationTests(ITestOutputHelper output)
                 Matched = true,
                 Type = "notifications",
                 Id = notificationId,
-                Links = new ResourceLink() { Self = LinksBuilder.Notification.BuildSelfLink(notificationId) },
+                Links = new ResourceLink { Self = LinksBuilder.Notification.BuildSelfLink(notificationId) },
                 MatchingLevel = 1
             }]
         });
