@@ -1,10 +1,6 @@
-using System.Collections.Generic;
-using System.Text.Json.Serialization;
 using JsonApiDotNetCore.Resources.Annotations;
-using JsonApiDotNetCore.Serialization.Objects;
+using TdmPrototypeBackend.Types.Alvs;
 using TdmPrototypeBackend.Types.Extensions;
-using TdmPrototypeBackend.Types.Ipaffs;
-using static TdmPrototypeBackend.Types.Extensions.LinksBuilder;
 using Notification = TdmPrototypeBackend.Types.Ipaffs.Notification;
 
 namespace TdmPrototypeBackend.Types;
@@ -39,17 +35,17 @@ public class MovementTdmRelationships : ITdmRelationships
 public sealed class TdmRelationshipObject
 {
     [Attr]
-    public bool Matched { get; set; } = default!;
+    public bool Matched { get; set; }
 
     [Attr]
     public RelationshipLinks Links { get; set; }
 
     [Attr]
-    public List<RelationshipDataItem> Data { get; set; } = new List<RelationshipDataItem>();
+    public List<RelationshipDataItem> Data { get; set; } = new();
 
     public static TdmRelationshipObject CreateDefault()
     {
-        return new TdmRelationshipObject() { Matched = false };
+        return new TdmRelationshipObject { Matched = false };
     }
 }
 
@@ -64,7 +60,7 @@ public sealed class RelationshipLinks
 
     public static RelationshipLinks CreateForMovement(Movement movement)
     {
-        return new RelationshipLinks()
+        return new RelationshipLinks
         {
             Self = LinksBuilder.Movement.BuildSelfLink(movement.Id),
             Related = LinksBuilder.Movement.BuildRelatedMovementLink(movement.Id)
@@ -73,7 +69,7 @@ public sealed class RelationshipLinks
 
     public static RelationshipLinks CreateForNotification(Notification notification)
     {
-        return new RelationshipLinks()
+        return new RelationshipLinks
         {
             Self = LinksBuilder.Notification.BuildSelfLink(notification.Id),
             Related = LinksBuilder.Notification.BuildRelatedMovementLink(notification.Id)
@@ -108,47 +104,32 @@ public sealed class RelationshipDataItem
     public int? DestinationItem { get; set; } = default!;
 
     //[Attr]
-    //public Dictionary<string, string> AdditionalInformation { get; set; 
+    //public Dictionary<string, string> AdditionalInformation { get; set; } e.g. "matchingLevel", "reason"
 
     public int? MatchingLevel { get; set; }
 
-    public static RelationshipDataItem CreateFromNotification(Notification notification, Movement movement, string matchReference, bool matched = true, string reason = null)
+    public static RelationshipDataItem CreateFromNotification(Notification notification, Items item, bool matched = true, string reason = null)
     {
-        Dictionary<string, string> additionalInfo = new Dictionary<string, string>() { { "matchingLevel", "1" } };
-
-        if (!string.IsNullOrEmpty(reason))
-        {
-            additionalInfo.Add("reason", reason);
-        }
-
-        return new RelationshipDataItem()
+        return new RelationshipDataItem
         {
             Matched = matched,
             Type = "notifications",
             Id = notification.Id,
-            SourceItem = movement.Items
-                .FirstOrDefault(x => x.Documents.Any(d => d.DocumentReference.Contains(matchReference)))
-                ?.ItemNumber,
+            SourceItem = item?.ItemNumber,
             DestinationItem = notification.Commodities?.FirstOrDefault()?.ComplementId,
             Links = new ResourceLink() { Self = LinksBuilder.Notification.BuildSelfLink(notification.Id) },
             MatchingLevel = 1
         };
     }
 
-    public static RelationshipDataItem CreateFromMovement(Notification notification, Movement movement, string matchReference, bool matched = true, string reason = null)
+    public static RelationshipDataItem CreateFromMovement(Movement movement, Items item, string matchReference, bool matched = true, string reason = null)
     {
-        Dictionary<string, string> additionalInfo = new Dictionary<string, string>() { { "matchingLevel", "1" } };
-
-        if (!string.IsNullOrEmpty(reason))
-        {
-            additionalInfo.Add("reason", reason);
-        }
-        return new RelationshipDataItem()
+        return new RelationshipDataItem
         {
             Matched = matched,
             Type = "movements",
             Id = movement.Id,
-            SourceItem = notification?.Commodities?.FirstOrDefault()?.ComplementId,
+            SourceItem = item?.ItemNumber,
             DestinationItem = movement.Items
                 .FirstOrDefault(x => x.Documents.Any(d => d.DocumentReference.Contains(matchReference)))
                 ?.ItemNumber,

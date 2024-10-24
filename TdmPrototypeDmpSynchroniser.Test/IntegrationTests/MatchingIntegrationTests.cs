@@ -47,7 +47,6 @@ public class MatchingIntegrationTests : IntegrationTests
         await ValidateNotifications();
     }
     
-    
     [Fact]
     public async Task ValidMultiCommodityMatch()
     {
@@ -55,12 +54,18 @@ public class MatchingIntegrationTests : IntegrationTests
         await _syncService.SyncMovements(SyncPeriod.All);
         
         var notification = await _notificationService.Find("CHEDPP.GB.2024.1038788");
+        notification.Relationships.Movements.Data.All(x => x.Matched).Should().BeTrue();
+        notification.Relationships.Movements.Data.Where(x => x.Matched).Should().HaveCount(10);
+        notification.Relationships.Movements.Data.Select(x => x.SourceItem.Value).Should().ContainInOrder(Enumerable.Range(1, 10));
         notification.Relationships.Movements.Matched.Should().BeTrue();
         notification.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
         
         var movement = await _movementService.Find("CHEDPPGB20241038788");
+        movement.Relationships.Notifications.Data.All(x => x.Matched).Should().BeTrue();
+        movement.Relationships.Notifications.Data.Where(x => x.Matched).Should().HaveCount(10);
+        movement.Relationships.Notifications.Data.Select(x => x.SourceItem.Value).Should().ContainInOrder(Enumerable.Range(1, 10));
         movement.Relationships.Notifications.Matched.Should().BeTrue();
-        movement.AuditEntries.Count(x => x.Status == "Matched").Should().Be(10);
+        movement.AuditEntries.Count(x => x.Status == "Matched").Should().Be(1);
     }
 
     private async Task ValidateNotifications()

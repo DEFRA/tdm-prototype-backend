@@ -102,12 +102,9 @@ public static class ClearanceRequestEndpoints
             await movementService.Upsert(movement);
             var matchResult = await matchingService.Match(MatchingReferenceNumber.FromCds(document.DocumentReference, document.DocumentCode));
             return Results.Ok(new { clearanceRequest, matchResult });
+        }
 
-        }
-        else
-        {
-            await busService.SendMessageAsync(clearanceRequest);
-        }
+        await busService.SendMessageAsync(clearanceRequest);
 
         return Results.Ok(clearanceRequest);
     }
@@ -140,15 +137,15 @@ public static class ClearanceRequestEndpoints
                  if (config.BypassAsb)
                  {
                      var merged = existingMovement.MergeDecision("CreatedCdsSim", decision);
-                    if (merged)
-                    {
-                        await movementService.Upsert(existingMovement);
-                    }
-                }
-                else
-                {
-                    await busService.SendMessageAsync(decision);
-                }
+                     if (merged)
+                     {
+                         await movementService.Upsert(existingMovement);
+                     }
+                 }
+                 else
+                 {
+                     await busService.SendMessageAsync(decision);
+                 }
             }
         }
 
