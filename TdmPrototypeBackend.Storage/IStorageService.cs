@@ -1,10 +1,13 @@
+using MongoDB.Driver;
+
 namespace TdmPrototypeBackend.Storage
 {
     public interface IStorageService<T> where T : class
     {
-        public Task Upsert(T item);
+        Task Upsert(T item);
 
-        public Task<T> Find(string id);
-
+        Task<T> Find(string id);
+        
+        Task<List<T>> Filter(FilterDefinition<T> pipeline);
     }
 }

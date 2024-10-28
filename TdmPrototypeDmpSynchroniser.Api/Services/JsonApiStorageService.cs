@@ -1,4 +1,5 @@
 using JsonApiConsumer;
+using MongoDB.Driver;
 using TdmPrototypeBackend.Storage;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeDmpSynchroniser.Api.Config;
@@ -38,6 +39,11 @@ public class JsonApiStorageService<T>: BaseService, IStorageService<T> where T :
     }
 
     public Task<T> Find(string id)
+    {
+        throw new NotImplementedException();
+    }
+    
+    public Task<List<T>> Filter(FilterDefinition<T> pipeline)
     {
         throw new NotImplementedException();
     }

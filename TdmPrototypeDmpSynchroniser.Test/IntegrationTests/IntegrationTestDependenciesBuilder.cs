@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Serilog;
 using TdmPrototypeBackend.Api.Utils;
-using TdmPrototypeBackend.Matching.Extensions;
+using TdmPrototypeBackend.Matching.DependencyInjection;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeBackend.Types.VehicleMovement;

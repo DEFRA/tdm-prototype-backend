@@ -22,12 +22,15 @@ using TdmPrototypeBackend.Api.JsonApi;
 using TdmPrototypeDmpSynchroniser.Api.Endpoints;
 using TdmPrototypeBackend.Api.Utils;
 using TdmPrototypeBackend.Matching;
-using TdmPrototypeBackend.Matching.Extensions;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeCdsSimulator.Extensions;
 using TdmPrototypeDmpSynchroniser.Api.Extensions;
 using TdmPrototypeBackend.Api.Swagger;
 using JsonApiDotNetCore.Serialization.Response;
+using MediatR;
+using TdmPrototypeBackend.Api.Mediatr;
+using TdmPrototypeBackend.Matching.DependencyInjection;
+using MatchRequest = TdmPrototypeBackend.Api.Mediatr.MatchRequest;
 
 // using TdmPrototypeBackend.Models;
 
@@ -76,13 +79,16 @@ TrustStore.SetupTrustStore(logger);
 
 var mongoUri = builder.Configuration.GetValue<string>("Mongo:DatabaseUri")!;
 var mongoDatabaseName = builder.Configuration.GetValue<string>("Mongo:DatabaseName")!;
-    
+
 if (builder.IsDevMode())
 {
     logger.Information("MongoDB Connection mongoUri={mongoUri}, mongoDatabaseName={mongoDatabaseName}",
         mongoUri, mongoDatabaseName);
 }
 
+// Fetch matching rule sequence from config
+//var matchingRules = builder.Configuration.GetSection("Pipelines:Matching").Get<MatchingConfig>();
+var matchingRules = builder.Configuration.GetValue<MatchingConfig>("Pipelines:Matching");
 
 // health checks
 builder.Services.AddHealthChecks();
@@ -160,8 +166,22 @@ if (builder.IsSwaggerEnabled())
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 
+// Mediatr Spike
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(MatchRequest).Assembly);
+    cfg.AddRequestPreProcessor<TestPipelineRulePre>();
+    cfg.AddRequestPostProcessor<TestPipelineRulePost>();
+    //cfg.AddBehavior<IPipelineBehavior<MatchRequest, MatchResponse>, TestPipelineRule5>();
+    //cfg.AddBehavior<IPipelineBehavior<MatchRequest, MatchResponse>, TestPipelineRule4>();
+    //cfg.AddBehavior<IPipelineBehavior<MatchRequest, MatchResponse>, TestPipelineRule3>();
+    //cfg.AddBehavior<IPipelineBehavior<MatchRequest, MatchResponse>, TestPipelineRule2>();
+    cfg.AddBehavior<IPipelineBehavior<MatchRequest, MatchResponse>, TestPipelineRule1>();
+});
 
 var app = builder.Build();
+
+var mediator = app.Services.GetService<IMediator>();
 
 if (builder.IsSwaggerEnabled())
 {
@@ -179,7 +199,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.UseDiagnosticEndpoints();
-app.UseManagementEndpoints(new BackendConfig(builder.Configuration));
+app.UseManagementEndpoints(new BackendConfig(builder.Configuration), mediator);
 app.UseSyncEndpoints();
 
 app.UseCdsSimulator();

@@ -2,8 +2,10 @@ using System.Collections;
 using System.Security.Claims;
 using Azure.Core;
 using Json.More;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using TdmPrototypeBackend.Api.Config;
+using TdmPrototypeBackend.Api.Mediatr;
 using TdmPrototypeBackend.Storage.Mongo;
 
 // using MongoDB.Bson;
@@ -13,9 +15,12 @@ namespace TdmPrototypeBackend.Api.Endpoints;
 public static class ManagementEndpoints
 {
     private const string BaseRoute = "mgmt";
+    
+    private static IMediator _mediator;
 
-    public static void UseManagementEndpoints(this IEndpointRouteBuilder app, BackendConfig config)
+    public static void UseManagementEndpoints(this IEndpointRouteBuilder app, BackendConfig config, IMediator mediator)
     {
+        _mediator = mediator;
         app.MapGet("health", GetAuth).AllowAnonymous();
 
         if (config.EnableManagement)
@@ -91,6 +96,13 @@ public static class ManagementEndpoints
     private static async Task<IResult> DropCollectionsAsync(
         IMongoDbManagementClientFactory clientFactory)
     {
+        var req = new MatchRequest()
+        {
+            InitialRequest = "This is the initial Call"
+        };
+        
+        var res = await _mediator.Send(req);
+
         await clientFactory.DropCollections();
 
         return Results.Ok("Dropped");
