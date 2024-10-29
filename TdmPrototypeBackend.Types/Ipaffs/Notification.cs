@@ -1,20 +1,7 @@
-using System.Collections.Immutable;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
-using Amazon.Runtime.Internal;
-using Amazon.Runtime.Internal.Transform;
-using JsonApiDotNetCore.Configuration;
-using JsonApiDotNetCore.Errors;
-using JsonApiDotNetCore.Middleware;
 using JsonApiDotNetCore.MongoDb.Resources;
-using JsonApiDotNetCore.Queries;
-using JsonApiDotNetCore.Queries.Expressions;
-using JsonApiDotNetCore.QueryStrings;
-using JsonApiDotNetCore.Resources;
 using JsonApiDotNetCore.Resources.Annotations;
-using JsonApiDotNetCore.Serialization.Objects;
-using JsonApiDotNetCore.Serialization.Response;
 using MongoDB.Bson.Serialization.Attributes;
 using TdmPrototypeBackend.Types.Extensions;
 
@@ -126,18 +113,16 @@ public partial class Notification : IMongoIdentifiable
         set => matchReference = value;
     }
 
-    public void AddRelationship(string type, TdmRelationshipObject relationship)
+    public void ClearRelationships()
+    {
+        Relationships.Movements.Data.Clear();
+    }
+
+    public void AddRelationship(TdmRelationshipObject relationship)
     {
         Relationships.Movements.Links ??= relationship.Links;
-        foreach (var dataItem in relationship.Data)
-        {
-            if (Relationships.Movements.Data.All(x => x.Id != dataItem.Id))
-            {
-                Relationships.Movements.Data.Add(dataItem);
-            }
-        }
-
-        Relationships.Movements.Matched = Relationships.Movements.Data.Any(x => x.Matched);
+        Relationships.Movements.Data.AddRange(relationship.Data);
+        Relationships.Movements.Matched = Relationships.Movements.Data.All(x => x.Matched);
     }
 
     public void Update(AuditEntry auditEntry)

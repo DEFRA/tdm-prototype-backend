@@ -1,7 +1,4 @@
-using Newtonsoft.Json;
-using JsonApiDotNetCore.MongoDb.Resources;
 using JsonApiDotNetCore.Resources.Annotations;
-using Microsoft.AspNetCore.Authorization;
 using MongoDB.Bson.Serialization.Attributes;
 using TdmPrototypeBackend.Types.Alvs;
 using TdmPrototypeBackend.Types.Extensions;
@@ -114,22 +111,16 @@ public class Movement : CustomStringMongoIdentifiable
         set => matchReferences = value;
     }
 
-    public void AddRelationship(string type, TdmRelationshipObject relationship)
+    public void ClearRelationships()
+    {
+        Relationships.Notifications.Data.Clear();
+    }
+
+    public void AddRelationship(TdmRelationshipObject relationship)
     {
         Relationships.Notifications.Links ??= relationship.Links;
-        foreach (var dataItem in relationship.Data)
-        {
-            if (Relationships.Notifications.Data.All(x => x.Id != dataItem.Id))
-            {
-                Relationships.Notifications.Data.Add(dataItem);
-            }
-        }
-
-        var allDocsMatched = Items
-            .Select(x => x.ItemNumber)
-            .All(itemNumber => Relationships.Notifications.Data.Any(x => x.Matched && x.SourceItem == itemNumber));
-        
-        Relationships.Notifications.Matched = relationship.Matched;
+        Relationships.Notifications.Data.AddRange(relationship.Data);
+        Relationships.Notifications.Matched = Relationships.Notifications.Data.All(x => x.Matched);
     }
 
     public void Update(AuditEntry auditEntry)
