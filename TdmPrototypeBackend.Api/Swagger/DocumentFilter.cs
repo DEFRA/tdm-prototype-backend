@@ -23,8 +23,8 @@ public class DocumentFilter : IDocumentFilter, ISchemaFilter
         {
             context.SchemaGenerator.GenerateSchema(typeof(GmrResourceResponse), context.SchemaRepository);
             swaggerDoc.AddPath(
-                path: "/grms",
-                pathDescription: "GRM Operations",
+                path: "/gmrs",
+                pathDescription: "GMR Operations",
                 operationDescription: "Get Gmrs",
                 referenceId: "GmrResourceResponse",
                 tag: "Gmrs");
