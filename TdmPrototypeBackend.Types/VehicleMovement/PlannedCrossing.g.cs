@@ -35,7 +35,7 @@ public partial class PlannedCrossing  //
     /// </summary
     [Attr]
     [JsonPropertyName("localDateTimeOfDeparture")]
-    public string? LocalDateTimeOfDeparture { get; set; }
+    public DateTime? DepartsAt { get; set; }
 
 	}
 

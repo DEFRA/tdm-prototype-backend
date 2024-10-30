@@ -35,7 +35,7 @@ public partial class ActualCrossing  //
     /// </summary
     [Attr]
     [JsonPropertyName("localDateTimeOfArrival")]
-    public string? LocalDateTimeOfArrival { get; set; }
+    public DateTime? ArrivesAt { get; set; }
 
 	}
 
