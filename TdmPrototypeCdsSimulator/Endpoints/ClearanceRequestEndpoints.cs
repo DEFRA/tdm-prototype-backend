@@ -13,7 +13,7 @@ using TdmPrototypeCdsSimulator.Extensions;
 
 namespace TdmPrototypeCdsSimulator.Endpoints;
 
-public static class ClearanceRequestEndpoints
+public static class SimulatorEndpoints
 {
     private const string BaseRoute = "simulator";
     public static void UseClearanceRequestEndpoints(this IEndpointRouteBuilder app)
