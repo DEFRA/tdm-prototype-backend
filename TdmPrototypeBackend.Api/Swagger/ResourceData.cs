@@ -10,8 +10,6 @@ public class ResourceData<T>
     public string Type { get; set; }
     public string Id { get; set; }
     public T Attributes { get; set; }
-
-   
 }
 
 public class NotificationResourceData : ResourceData<Notification>
@@ -26,4 +24,5 @@ public class MovementResourceData : ResourceData<Notification>
 
 public class GmrResourceData : ResourceData<Gmr>
 {
+    public GrmJsonApiTdmRelationships Relationships { get; set; }
 }

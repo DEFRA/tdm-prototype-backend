@@ -13,12 +13,12 @@ using TdmPrototypeCdsSimulator.Extensions;
 
 namespace TdmPrototypeCdsSimulator.Endpoints;
 
-public static class ClearanceRequestEndpoints
+public static class SimulatorEndpoints
 {
     private const string BaseRoute = "simulator";
     public static void UseClearanceRequestEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet(BaseRoute + "/create-dmp-decision/{notificationId}", CreateDmpDecisionAsync).AllowAnonymous();
+        app.MapGet(BaseRoute + "/send-decisions/{notificationId}/{scenario}", SendDecisionsAsync).AllowAnonymous();
         app.MapGet(BaseRoute + "/create-clearance-request/{notificationId}", CreateClearanceRequestsAsync).AllowAnonymous();
         app.MapGet(BaseRoute + "/notification-received/{notificationId}", MatchNotification).AllowAnonymous();
         app.MapGet(BaseRoute + "/cds-received/{documentReference}", MatchCds).AllowAnonymous();
@@ -109,13 +109,14 @@ public static class ClearanceRequestEndpoints
         return Results.Ok(clearanceRequest);
     }
 
-    private static async Task<IResult> CreateDmpDecisionAsync(
+    private static async Task<IResult> SendDecisionsAsync(
       IMatchingService matchingService,
       IStorageService<Notification> notificationService,
       MatchingStorageService<Movement> movementService,
       IBusService busService,
       CdsSimulatorConfig config,
-      string notificationId)
+      string notificationId,
+      string scenario)
     {
         var notification = await notificationService.Find(notificationId);
 
@@ -131,21 +132,23 @@ public static class ClearanceRequestEndpoints
         {
             foreach (var request in movement.ClearanceRequests)
             {
-                 var decision = ALVSClearanceRequestBuilder.BuildDecision(request);
-                 var existingMovement = await movementService.Find(decision.Header!.EntryReference);
+                // TODO - support more complex scenarios
+                var decisionCode = scenario == "hold" ? "H02" : "C02";
+                var decision = ALVSClearanceRequestBuilder.BuildDecision(request, decisionCode);
+                var existingMovement = await movementService.Find(decision.Header!.EntryReference);
 
-                 if (config.BypassAsb)
-                 {
-                     var merged = existingMovement.MergeDecision("CreatedCdsSim", decision);
-                     if (merged)
-                     {
-                         await movementService.Upsert(existingMovement);
-                     }
-                 }
-                 else
-                 {
-                     await busService.SendMessageAsync(decision);
-                 }
+                if (config.BypassAsb)
+                {
+                    var merged = existingMovement.MergeDecision("CreatedCdsSim", decision);
+                    if (merged)
+                    {
+                        await movementService.Upsert(existingMovement);
+                    }
+                }
+                else
+                {
+                    await busService.SendMessageAsync(decision);
+                }
             }
         }
 

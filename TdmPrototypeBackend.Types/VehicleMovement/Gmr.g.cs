@@ -11,6 +11,7 @@
 using JsonApiDotNetCore.Resources.Annotations;
 using System.Text.Json.Serialization;
 using System.Dynamic;
+using TdmPrototypeBackend.Types.Extensions;
 
 
 namespace TdmPrototypeBackend.Types.VehicleMovement;
@@ -102,7 +103,7 @@ public partial class Gmr  //
     /// </summary
     [Attr]
     [JsonPropertyName("vehicleRegNum")]
-    public string? VehicleRegNumber { get; set; }
+    public string? VehicleRegistrationNumber { get; set; }
 
 	
     /// <summary>
@@ -133,6 +134,7 @@ public partial class Gmr  //
     /// 
     /// </summary
     [Attr]
+    [ApiIgnore]
     [JsonPropertyName("declarations")]
     public Declarations? Declarations { get; set; }
 

@@ -14,6 +14,7 @@ using System.Text.Json.Serialization;
 using System.Dynamic;
 using JsonApiDotNetCore.MongoDb.Resources;
 using MongoDB.Bson.Serialization.Attributes;
+using TdmPrototypeBackend.Types.Extensions;
 
 
 namespace TdmPrototypeBackend.Types.VehicleMovement;
@@ -55,6 +56,11 @@ public partial class Gmr : IMongoIdentifiable
 
     [Attr]
     public List<AuditEntry> AuditEntries { get; set; } = new List<AuditEntry>();
+
+    [Attr]
+    [ApiIgnore]
+    [JsonPropertyName("relationships")]
+    public GmrTdmRelationships Relationships { get; set; } = new GmrTdmRelationships();
 
 }
 

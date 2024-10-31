@@ -21,36 +21,32 @@ public class DocumentFilter : IDocumentFilter, ISchemaFilter
     {
         if (context.DocumentName.StartsWith("public"))
         {
-            context.SchemaGenerator.GenerateSchema(typeof(NotificationResourceResponse), context.SchemaRepository);
+            context.SchemaGenerator.GenerateSchema(typeof(GmrResourceResponse), context.SchemaRepository);
+            swaggerDoc.AddPath(
+                path: "/gmrs",
+                pathDescription: "GMR Operations",
+                operationDescription: "Get Gmrs",
+                referenceId: "GmrResourceResponse",
+                tag: "Gmrs");
 
+            context.SchemaGenerator.GenerateSchema(typeof(NotificationResourceResponse), context.SchemaRepository);
             swaggerDoc.AddPath(
                 path: "/notifications",
                 pathDescription: "Notification Operations",
                 operationDescription: "Get Notifications",
                 referenceId: "NotificationResourceResponse",
                 tag: "Notifications");
-
-        }
-        else
-        {
-            context.SchemaGenerator.GenerateSchema(typeof(GmrResourceResponse), context.SchemaRepository);
-            context.SchemaGenerator.GenerateSchema(typeof(MovementResourceResponse), context.SchemaRepository);
             
+            context.SchemaGenerator.GenerateSchema(typeof(MovementResourceResponse), context.SchemaRepository);
+
             swaggerDoc.AddPath(
                 path: "/movements",
                 pathDescription: "Movement Operations",
                 operationDescription: "Get Movements",
                 referenceId: "MovementResourceResponse",
                 tag: "Movements");
-            
-            swaggerDoc.AddPath(
-                path: "/grms",
-                pathDescription: "GRM Operations",
-                operationDescription: "Get Gmrs",
-                referenceId: "GmrResourceResponse",
-                tag: "Gmrs");
         }
-        
+
         foreach (var apiSchema in swaggerDoc.Components.Schemas)
         {
             foreach (var valueProperty in apiSchema.Value.Properties)
@@ -59,12 +55,10 @@ public class DocumentFilter : IDocumentFilter, ISchemaFilter
                 {
                     apiSchema.Value.Properties.Remove(valueProperty);
                 }
-
             }
         }
-
     }
-    
+
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {
         var namingPolicy = JsonNamingPolicy.CamelCase;
@@ -79,7 +73,6 @@ public class DocumentFilter : IDocumentFilter, ISchemaFilter
             var name = jsonAttr != null ? jsonAttr.Name : propertyInfo.Name;
             if (jsonAttr != null)
             {
-
             }
 
             // Add description
@@ -113,7 +106,7 @@ public class DocumentFilter : IDocumentFilter, ISchemaFilter
         }
 
 
-        if(context.Type.IsEnum)
+        if (context.Type.IsEnum)
         {
             var enumOpenApiStrings = new List<IOpenApiAny>();
             foreach (var enumValue in Enum.GetValues(context.Type))
