@@ -18,7 +18,7 @@ public static class SimulatorEndpoints
     private const string BaseRoute = "simulator";
     public static void UseClearanceRequestEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet(BaseRoute + "/create-dmp-decision/{notificationId}", CreateDmpDecisionAsync).AllowAnonymous();
+        app.MapGet(BaseRoute + "/send-decisions/{notificationId}", SendDecisionsAsync).AllowAnonymous();
         app.MapGet(BaseRoute + "/create-clearance-request/{notificationId}", CreateClearanceRequestsAsync).AllowAnonymous();
         app.MapGet(BaseRoute + "/notification-received/{notificationId}", MatchNotification).AllowAnonymous();
         app.MapGet(BaseRoute + "/cds-received/{documentReference}", MatchCds).AllowAnonymous();
@@ -109,7 +109,7 @@ public static class SimulatorEndpoints
         return Results.Ok(clearanceRequest);
     }
 
-    private static async Task<IResult> CreateDmpDecisionAsync(
+    private static async Task<IResult> SendDecisionsAsync(
       IMatchingService matchingService,
       IStorageService<Notification> notificationService,
       MatchingStorageService<Movement> movementService,

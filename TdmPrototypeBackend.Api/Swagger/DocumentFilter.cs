@@ -36,9 +36,7 @@ public class DocumentFilter : IDocumentFilter, ISchemaFilter
                 operationDescription: "Get Notifications",
                 referenceId: "NotificationResourceResponse",
                 tag: "Notifications");
-        }
-        else
-        {
+            
             context.SchemaGenerator.GenerateSchema(typeof(MovementResourceResponse), context.SchemaRepository);
 
             swaggerDoc.AddPath(
