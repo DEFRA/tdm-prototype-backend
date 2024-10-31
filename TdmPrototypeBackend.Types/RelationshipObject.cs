@@ -26,7 +26,7 @@ public class GmrTdmRelationships : ITdmRelationships
 
     public (string, TdmRelationshipObject) GetRelationshipObject()
     {
-        return ("transits", Transits);
+        return ("notifications", Transits);
     }
 }
 

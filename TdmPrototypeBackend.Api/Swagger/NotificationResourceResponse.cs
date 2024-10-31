@@ -35,9 +35,9 @@ namespace TdmPrototypeBackend.Api.Swagger
 
     public class GrmJsonApiTdmRelationships
     {
-        [Attr] public GrmJsonApiTdmRelationshipObject Transits { get; set; }
+        [Attr] public GrmJsonApiTdmRelationshipObject Notifications { get; set; }
 
-        [Attr] public GrmJsonApiTdmRelationshipObject Customs { get; set; }
+        [Attr] public GrmJsonApiTdmRelationshipObject Movements { get; set; }
     }
 
     public class MovementJsonApiTdmRelationships
