@@ -8,7 +8,7 @@ public static class ALVSClearanceRequestBuilder
 {
     private static readonly char[] s_AlphaNumeric = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
 
-    public static AlvsClearanceRequest BuildDecision(AlvsClearanceRequest request)
+    public static AlvsClearanceRequest BuildDecision(AlvsClearanceRequest request, string decisionCode)
     {
         var decision = new AlvsClearanceRequest()
         {
@@ -33,15 +33,13 @@ public static class ALVSClearanceRequestBuilder
             var decisionItem = new Items()
             {
                 ItemNumber = item.ItemNumber,
-                Checks = new[]
+                Checks = item.Checks!.Select(c => new Check()
                 {
-                    new Check()
-                    {
-                        CheckCode = "H234",
-                        DepartmentCode = "PHA",
-                        DecisionReasons = new[] { "CDS Sim Reason" }
-                    }
-                }
+                    CheckCode = c.CheckCode,
+                    DepartmentCode = c.DepartmentCode,
+                    DecisionCode = decisionCode,
+                    DecisionReasons = new[] { "CDS Simulator release" }
+                }).ToArray()
             };
             decisionItems.Add(decisionItem);
         }
