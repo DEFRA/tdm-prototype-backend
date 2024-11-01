@@ -1,3 +1,6 @@
+using System.Net.Http.Json;
+using System.Net.Mime;
+using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -16,9 +19,11 @@ namespace TdmPrototypeCdsSimulator.Endpoints;
 public static class SimulatorEndpoints
 {
     private const string BaseRoute = "simulator";
+
     public static void UseClearanceRequestEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapGet(BaseRoute + "/send-decisions/{notificationId}/{scenario}", SendDecisionsAsync).AllowAnonymous();
+        app.MapPost(BaseRoute + "/legacy/create-clearance-request/{notificationId}", CreateClearanceRequestsAfterProxyAsync).AllowAnonymous();
         app.MapGet(BaseRoute + "/create-clearance-request/{notificationId}", CreateClearanceRequestsAsync).AllowAnonymous();
         app.MapGet(BaseRoute + "/notification-received/{notificationId}", MatchNotification).AllowAnonymous();
         app.MapGet(BaseRoute + "/cds-received/{documentReference}", MatchCds).AllowAnonymous();
@@ -48,6 +53,21 @@ public static class SimulatorEndpoints
     }
 
     private static async Task<IResult> CreateClearanceRequestsAsync(
+        IHttpClientFactory httpClientFactory,
+        string notificationId)
+    {
+        var client = httpClientFactory.CreateClient("proxy");
+
+        var response = await client.PostAsync($"http://cdms-gateway.localtest.me:3091/cds/create-clearance-request/{notificationId}", new StringContent("{}", Encoding.UTF8, MediaTypeNames.Application.Json));
+
+        if (!response.IsSuccessStatusCode) return Results.StatusCode((int)response.StatusCode);
+
+        var clearanceRequest = await response.Content.ReadFromJsonAsync<AlvsClearanceRequest>();
+
+        return TypedResults.Ok(clearanceRequest);
+    }
+
+    private static async Task<IResult> CreateClearanceRequestsAfterProxyAsync(
         IMatchingService matchingService,
         IStorageService<Notification> notificationService,
         IStorageService<Movement> movementService,
@@ -88,14 +108,17 @@ public static class SimulatorEndpoints
                     x.ClearanceRequestReference = clearanceRequest.Header.EntryReference;
                     return x;
                 }).ToList(),
-                AuditEntries = [new AuditEntry()
-                {
-                    CreatedLocal = now,
-                    CreatedSource = now,
-                    CreatedBy = "CDS Simulator",
-                    Status = "Created",
-                    Version = 1
-                }]
+                AuditEntries =
+                [
+                    new AuditEntry()
+                    {
+                        CreatedLocal = now,
+                        CreatedSource = now,
+                        CreatedBy = "CDS Simulator",
+                        Status = "Created",
+                        Version = 1
+                    }
+                ]
             };
 
             var document = clearanceRequest.Items.First().Documents.First();
@@ -110,13 +133,13 @@ public static class SimulatorEndpoints
     }
 
     private static async Task<IResult> SendDecisionsAsync(
-      IMatchingService matchingService,
-      IStorageService<Notification> notificationService,
-      MatchingStorageService<Movement> movementService,
-      IBusService busService,
-      CdsSimulatorConfig config,
-      string notificationId,
-      string scenario)
+        IMatchingService matchingService,
+        IStorageService<Notification> notificationService,
+        MatchingStorageService<Movement> movementService,
+        IBusService busService,
+        CdsSimulatorConfig config,
+        string notificationId,
+        string scenario)
     {
         var notification = await notificationService.Find(notificationId);
 
@@ -178,14 +201,17 @@ public static class SimulatorEndpoints
                     x.ClearanceRequestReference = clearanceRequest.Header.EntryReference;
                     return x;
                 }).ToList(),
-                AuditEntries = [new AuditEntry()
-                {
-                    CreatedLocal = now,
-                    CreatedSource = now,
-                    CreatedBy = "CDS Simulator",
-                    Status = "Created",
-                    Version = 1
-                }]
+                AuditEntries =
+                [
+                    new AuditEntry()
+                    {
+                        CreatedLocal = now,
+                        CreatedSource = now,
+                        CreatedBy = "CDS Simulator",
+                        Status = "Created",
+                        Version = 1
+                    }
+                ]
             };
 
             var document = clearanceRequest.Items.First().Documents.First();
@@ -201,5 +227,4 @@ public static class SimulatorEndpoints
 
         return Results.Ok(clearanceRequest);
     }
-
 }

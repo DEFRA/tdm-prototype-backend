@@ -61,7 +61,7 @@ var loggerConfiguration = new LoggerConfiguration()
 var loggerFactory = builder.Services.BuildServiceProvider()
     .GetService<ILoggerFactory>()!;
 
-TdmPrototypeBackend.Api.Utils.ApplicationLogging.LoggerFactory = loggerFactory;
+ApplicationLogging.LoggerFactory = loggerFactory;
 
 
 var logger = loggerConfiguration
