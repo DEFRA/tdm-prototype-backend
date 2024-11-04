@@ -11,7 +11,7 @@
     "TdmPrototypeBackend.Api": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "applicationUrl": "https://tdm-prototype-backend.localtest.me:3080",
+      "applicationUrl": "http://tdm-prototype-backend.localtest.me:3080",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "DMP_ENVIRONMENT": "dev",
