@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using TdmPrototypeBackend.ASB;
 using TdmPrototypeBackend.Matching;
@@ -53,17 +54,25 @@ public static class SimulatorEndpoints
     }
 
     private static async Task<IResult> CreateClearanceRequestsAsync(
+        IMatchingService matchingService,
+        IStorageService<Notification> notificationService,
+        IStorageService<Movement> movementService,
+        IBusService busService,
+        CdsSimulatorConfig cdsSimulatorConfig,
         IHttpClientFactory httpClientFactory,
+        IConfiguration configuration,
         string notificationId)
     {
+        var gatewayUrl = configuration["GatewayUrl"]?.Trim('/');
+        if (gatewayUrl == null)
+            return await CreateClearanceRequestsAfterProxyAsync(matchingService, notificationService, movementService, busService, cdsSimulatorConfig, notificationId);
+        
         var client = httpClientFactory.CreateClient("proxy");
-
-        var response = await client.PostAsync($"http://cdms-gateway.localtest.me:3091/cds/create-clearance-request/{notificationId}", new StringContent("{}", Encoding.UTF8, MediaTypeNames.Application.Json));
+        var response = await client.GetAsync($"{gatewayUrl}/create-clearance-request/{notificationId}");
 
         if (!response.IsSuccessStatusCode) return Results.StatusCode((int)response.StatusCode);
 
         var clearanceRequest = await response.Content.ReadFromJsonAsync<AlvsClearanceRequest>();
-
         return TypedResults.Ok(clearanceRequest);
     }
 
@@ -72,7 +81,7 @@ public static class SimulatorEndpoints
         IStorageService<Notification> notificationService,
         IStorageService<Movement> movementService,
         IBusService busService,
-        CdsSimulatorConfig config,
+        CdsSimulatorConfig cdsSimulatorConfig,
         string notificationId)
     {
         var notification = await notificationService.Find(notificationId);
@@ -86,7 +95,7 @@ public static class SimulatorEndpoints
         AlvsClearanceRequest clearanceRequest = ALVSClearanceRequestBuilder.BuildFromNotification(notification);
         var now = DateTime.UtcNow;
 
-        if (config.BypassAsb)
+        if (cdsSimulatorConfig.BypassAsb)
         {
             var movement = new Movement()
             {
