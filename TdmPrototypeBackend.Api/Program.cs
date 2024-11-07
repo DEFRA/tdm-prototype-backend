@@ -28,6 +28,10 @@ using TdmPrototypeCdsSimulator.Extensions;
 using TdmPrototypeDmpSynchroniser.Api.Extensions;
 using TdmPrototypeBackend.Api.Swagger;
 using JsonApiDotNetCore.Serialization.Response;
+using OpenTelemetry;
+using OpenTelemetry.Exporter;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Trace;
 
 // using TdmPrototypeBackend.Models;
 
@@ -51,11 +55,44 @@ builder.Configuration.AddEnvironmentVariables("CDP");
 builder.Configuration.AddEnvironmentVariables();
 builder.Configuration.AddIniFile("Properties/local.env", true);
 
+//OTEL
+
+builder.Services.AddOpenTelemetry()
+    .WithMetrics(metrics =>
+    {
+        metrics.AddRuntimeInstrumentation()
+            .AddMeter(
+                "Microsoft.AspNetCore.Hosting",
+                "Microsoft.AspNetCore.Server.Kestrel",
+                "System.Net.Http");
+    })
+    .WithTracing(tracing =>
+    {
+        tracing.AddAspNetCoreInstrumentation()
+            .AddHttpClientInstrumentation();
+    })
+    .UseOtlpExporter();
+
+   // .UseOtlpExporter(OtlpExportProtocol.HttpProtobuf, new Uri(builder.Configuration["OTEL_EXPORTER_OTLP_ENDPOINT"]));
+
+
 // Serilog
 builder.Logging.ClearProviders();
+builder.Logging.AddOpenTelemetry(logging =>
+{
+    logging.IncludeFormattedMessage = true;
+    logging.IncludeScopes = true;
+});
 var loggerConfiguration = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.With<LogLevelMapper>();
+
+loggerConfiguration
+    .WriteTo.OpenTelemetry(options =>
+    {
+        options.Endpoint = builder.Configuration["OTEL_EXPORTER_OTLP_ENDPOINT"];
+        options.ResourceAttributes.Add("service.name", "Tdm");
+    });
 
 // Is there something better we can do here:
 var loggerFactory = builder.Services.BuildServiceProvider()
