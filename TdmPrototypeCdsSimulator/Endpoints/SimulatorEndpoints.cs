@@ -1,10 +1,9 @@
 using System.Net.Http.Json;
-using System.Net.Mime;
-using System.Text;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using TdmPrototypeBackend.ASB;
 using TdmPrototypeBackend.Matching;
@@ -19,10 +18,14 @@ namespace TdmPrototypeCdsSimulator.Endpoints;
 
 public static class SimulatorEndpoints
 {
+    private static string? _gatewayUrl;
     private const string BaseRoute = "simulator";
 
     public static void UseClearanceRequestEndpoints(this IEndpointRouteBuilder app)
     {
+        _gatewayUrl = app.ServiceProvider.GetService<IConfiguration>()?["GatewayUrl"]?.Trim('/');
+
+        app.MapGet(BaseRoute + "/legacy/send-decisions/{notificationId}/{scenario}", SendDecisionsAfterProxyAsync).AllowAnonymous();
         app.MapGet(BaseRoute + "/send-decisions/{notificationId}/{scenario}", SendDecisionsAsync).AllowAnonymous();
         app.MapGet(BaseRoute + "/legacy/create-clearance-request/{notificationId}", CreateClearanceRequestsAfterProxyAsync).AllowAnonymous();
         app.MapGet(BaseRoute + "/create-clearance-request/{notificationId}", CreateClearanceRequestsAsync).AllowAnonymous();
@@ -60,15 +63,13 @@ public static class SimulatorEndpoints
         IBusService busService,
         CdsSimulatorConfig cdsSimulatorConfig,
         IHttpClientFactory httpClientFactory,
-        IConfiguration configuration,
         string notificationId)
     {
-        var gatewayUrl = configuration["GatewayUrl"]?.Trim('/');
-        if (gatewayUrl == null)
+        if (_gatewayUrl == null)
             return await CreateClearanceRequestsAfterProxyAsync(matchingService, notificationService, movementService, busService, cdsSimulatorConfig, notificationId);
         
         var client = httpClientFactory.CreateClient("proxy");
-        var response = await client.GetAsync($"{gatewayUrl}/create-clearance-request/{notificationId}");
+        var response = await client.GetAsync($"{_gatewayUrl}/simulator-cds/create-clearance-request/{notificationId}");
 
         if (!response.IsSuccessStatusCode) return Results.StatusCode((int)response.StatusCode);
 
@@ -146,7 +147,29 @@ public static class SimulatorEndpoints
         IStorageService<Notification> notificationService,
         MatchingStorageService<Movement> movementService,
         IBusService busService,
-        CdsSimulatorConfig config,
+        CdsSimulatorConfig cdsSimulatorConfig,
+        IHttpClientFactory httpClientFactory,
+        string notificationId,
+        string scenario)
+    {
+        if (_gatewayUrl == null)
+            return await SendDecisionsAfterProxyAsync(matchingService, notificationService, movementService, busService, cdsSimulatorConfig, notificationId, scenario);
+        
+        var client = httpClientFactory.CreateClient("proxy");
+        var response = await client.GetAsync($"{_gatewayUrl}/simulator-alvs-cds/send-decisions/{notificationId}/{scenario}");
+
+        if (!response.IsSuccessStatusCode) return Results.StatusCode((int)response.StatusCode);
+
+        var clearanceRequest = await response.Content.ReadFromJsonAsync<AlvsClearanceRequest>();
+        return TypedResults.Ok(clearanceRequest);
+    }
+
+    private static async Task<IResult> SendDecisionsAfterProxyAsync(
+        IMatchingService matchingService,
+        IStorageService<Notification> notificationService,
+        MatchingStorageService<Movement> movementService,
+        IBusService busService,
+        CdsSimulatorConfig cdsSimulatorConfig,
         string notificationId,
         string scenario)
     {
@@ -169,7 +192,7 @@ public static class SimulatorEndpoints
                 var decision = ALVSClearanceRequestBuilder.BuildDecision(request, decisionCode);
                 var existingMovement = await movementService.Find(decision.Header!.EntryReference);
 
-                if (config.BypassAsb)
+                if (cdsSimulatorConfig.BypassAsb)
                 {
                     var merged = existingMovement.MergeDecision("CreatedCdsSim", decision);
                     if (merged)
@@ -188,7 +211,7 @@ public static class SimulatorEndpoints
         AlvsClearanceRequest clearanceRequest = ALVSClearanceRequestBuilder.BuildFromNotification(notification);
         var now = DateTime.UtcNow;
 
-        if (config.BypassAsb)
+        if (cdsSimulatorConfig.BypassAsb)
         {
             var movement = new Movement()
             {
