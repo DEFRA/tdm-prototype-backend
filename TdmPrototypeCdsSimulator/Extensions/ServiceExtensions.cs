@@ -14,6 +14,6 @@ public static class ServiceExtensions
 
     public static void UseCdsSimulator(this WebApplication app)
     {
-        app.UseClearanceRequestEndpoints();
+        app.UseCdsSimulatorEndpoints();
     }
 }

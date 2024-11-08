@@ -21,7 +21,7 @@ public static class SimulatorEndpoints
     private static string? _gatewayUrl;
     private const string BaseRoute = "simulator";
 
-    public static void UseClearanceRequestEndpoints(this IEndpointRouteBuilder app)
+    public static void UseCdsSimulatorEndpoints(this IEndpointRouteBuilder app)
     {
         _gatewayUrl = app.ServiceProvider.GetService<IConfiguration>()?["GatewayUrl"]?.Trim('/');
 
