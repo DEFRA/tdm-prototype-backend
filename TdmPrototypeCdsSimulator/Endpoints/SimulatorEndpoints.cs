@@ -25,9 +25,9 @@ public static class SimulatorEndpoints
     {
         _gatewayUrl = app.ServiceProvider.GetService<IConfiguration>()?["GatewayUrl"]?.Trim('/');
 
-        app.MapGet(BaseRoute + "/legacy/send-decisions/{notificationId}/{scenario}", SendDecisionsAfterProxyAsync).AllowAnonymous();
+        app.MapGet(BaseRoute + "/alvs-cds/send-decisions/{notificationId}/{scenario}", SendDecisionsAfterProxyAsync).AllowAnonymous();
         app.MapGet(BaseRoute + "/send-decisions/{notificationId}/{scenario}", SendDecisionsAsync).AllowAnonymous();
-        app.MapGet(BaseRoute + "/legacy/create-clearance-request/{notificationId}", CreateClearanceRequestsAfterProxyAsync).AllowAnonymous();
+        app.MapGet(BaseRoute + "/cds/create-clearance-request/{notificationId}", CreateClearanceRequestsAfterProxyAsync).AllowAnonymous();
         app.MapGet(BaseRoute + "/create-clearance-request/{notificationId}", CreateClearanceRequestsAsync).AllowAnonymous();
         app.MapGet(BaseRoute + "/notification-received/{notificationId}", MatchNotification).AllowAnonymous();
         app.MapGet(BaseRoute + "/cds-received/{documentReference}", MatchCds).AllowAnonymous();
