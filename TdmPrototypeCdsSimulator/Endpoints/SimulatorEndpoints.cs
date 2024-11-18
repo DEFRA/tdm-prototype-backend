@@ -65,8 +65,8 @@ public static class SimulatorEndpoints
         IHttpClientFactory httpClientFactory,
         string notificationId)
     {
-        // if (_gatewayUrl == null)
-             return await CreateClearanceRequestsAfterProxyAsync(matchingService, notificationService, movementService, busService, cdsSimulatorConfig, notificationId);
+        if (_gatewayUrl == null)
+            return await CreateClearanceRequestsAfterProxyAsync(matchingService, notificationService, movementService, busService, cdsSimulatorConfig, notificationId);
         
         var client = httpClientFactory.CreateClient("proxy");
         var response = await client.GetAsync($"{_gatewayUrl}/simulator-cds/create-clearance-request/{notificationId}");
@@ -152,7 +152,7 @@ public static class SimulatorEndpoints
         string notificationId,
         string scenario)
     {
-        // if (_gatewayUrl == null)
+        if (_gatewayUrl == null)
             return await SendDecisionsAfterProxyAsync(matchingService, notificationService, movementService, busService, cdsSimulatorConfig, notificationId, scenario);
         
         var client = httpClientFactory.CreateClient("proxy");
