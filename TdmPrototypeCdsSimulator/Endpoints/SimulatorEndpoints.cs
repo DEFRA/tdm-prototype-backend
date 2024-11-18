@@ -73,8 +73,8 @@ public static class SimulatorEndpoints
 
         if (!response.IsSuccessStatusCode) return Results.StatusCode((int)response.StatusCode);
 
-        var clearanceRequest = await response.Content.ReadFromJsonAsync<AlvsClearanceRequest>();
-        return TypedResults.Ok(clearanceRequest);
+        var clearanceRequestJson = await response.Content.ReadAsStringAsync();
+        return TypedResults.Text(clearanceRequestJson);
     }
 
     private static async Task<IResult> CreateClearanceRequestsAfterProxyAsync(
@@ -92,13 +92,12 @@ public static class SimulatorEndpoints
             return Results.NotFound(notificationId);
         }
 
-
-        AlvsClearanceRequest clearanceRequest = ALVSClearanceRequestBuilder.BuildFromNotification(notification);
+        var clearanceRequest = ALVSClearanceRequestBuilder.BuildFromNotification(notification);
         var now = DateTime.UtcNow;
 
         if (cdsSimulatorConfig.BypassAsb)
         {
-            var movement = new Movement()
+            var movement = new Movement
             {
                 Id = clearanceRequest.Header!.EntryReference,
                 LastUpdated = clearanceRequest.ServiceHeader?.ServiceCallTimestamp,
@@ -120,7 +119,7 @@ public static class SimulatorEndpoints
                 }).ToList(),
                 AuditEntries =
                 [
-                    new AuditEntry()
+                    new AuditEntry
                     {
                         CreatedLocal = now,
                         CreatedSource = now,
@@ -160,8 +159,8 @@ public static class SimulatorEndpoints
 
         if (!response.IsSuccessStatusCode) return Results.StatusCode((int)response.StatusCode);
 
-        var clearanceRequest = await response.Content.ReadFromJsonAsync<AlvsClearanceRequest>();
-        return TypedResults.Ok(clearanceRequest);
+        var clearanceRequest = await response.Content.ReadAsStringAsync();
+        return TypedResults.Text(clearanceRequest);
     }
 
     private static async Task<IResult> SendDecisionsAfterProxyAsync(
@@ -180,8 +179,7 @@ public static class SimulatorEndpoints
             return Results.NotFound(notificationId);
         }
 
-        var movements =
-            await movementService.Filter(Builders<Movement>.Filter.AnyIn(x => x._MatchReferences, [notification._MatchReference]));
+        var movements = await movementService.Filter(Builders<Movement>.Filter.AnyIn(x => x._MatchReferences, [notification._MatchReference]));
 
         foreach (var movement in movements)
         {
@@ -207,13 +205,12 @@ public static class SimulatorEndpoints
             }
         }
 
-
-        AlvsClearanceRequest clearanceRequest = ALVSClearanceRequestBuilder.BuildFromNotification(notification);
+        var clearanceRequest = ALVSClearanceRequestBuilder.BuildFromNotification(notification);
         var now = DateTime.UtcNow;
 
         if (cdsSimulatorConfig.BypassAsb)
         {
-            var movement = new Movement()
+            var movement = new Movement
             {
                 Id = clearanceRequest.Header!.EntryReference,
                 LastUpdated = clearanceRequest.ServiceHeader?.ServiceCallTimestamp,
@@ -252,10 +249,8 @@ public static class SimulatorEndpoints
             return Results.Ok(new { clearanceRequest, matchResult });
 
         }
-        else
-        {
-            await busService.SendMessageAsync(clearanceRequest);
-        }
+
+        await busService.SendMessageAsync(clearanceRequest);
 
         return Results.Ok(clearanceRequest);
     }
