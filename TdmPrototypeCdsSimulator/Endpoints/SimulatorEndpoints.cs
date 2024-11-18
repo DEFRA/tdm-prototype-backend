@@ -1,9 +1,11 @@
 using System.Net.Http.Json;
+using Amazon.Runtime.Internal.Util;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using MongoDB.Driver;
 using TdmPrototypeBackend.ASB;
 using TdmPrototypeBackend.Matching;
@@ -13,6 +15,7 @@ using TdmPrototypeBackend.Types.Alvs;
 using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeCdsSimulator.Config;
 using TdmPrototypeCdsSimulator.Extensions;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace TdmPrototypeCdsSimulator.Endpoints;
 
@@ -63,17 +66,22 @@ public static class SimulatorEndpoints
         IBusService busService,
         CdsSimulatorConfig cdsSimulatorConfig,
         IHttpClientFactory httpClientFactory,
+        ILogger logger,
         string notificationId)
     {
         if (_gatewayUrl == null)
-            return await CreateClearanceRequestsAfterProxyAsync(matchingService, notificationService, movementService, busService, cdsSimulatorConfig, notificationId);
-        
+            return await CreateClearanceRequestsAfterProxyAsync(matchingService, notificationService, movementService, busService, cdsSimulatorConfig, logger, notificationId);
+
+        var requestUri = $"{_gatewayUrl}/simulator-cds/create-clearance-request/{notificationId}";
+        logger.LogInformation("Sending CreateClearanceRequests notification {NotificationId} to gateway {RequestUri}", notificationId, requestUri);
         var client = httpClientFactory.CreateClient("proxy");
-        var response = await client.GetAsync($"{_gatewayUrl}/simulator-cds/create-clearance-request/{notificationId}");
+        var response = await client.GetAsync(requestUri);
+        logger.LogInformation("Got CreateClearanceRequests notification {NotificationId} response {StatusCode} from {RequestUri}", notificationId, response.StatusCode, requestUri);
 
         if (!response.IsSuccessStatusCode) return Results.StatusCode((int)response.StatusCode);
 
         var clearanceRequestJson = await response.Content.ReadAsStringAsync();
+        logger.LogInformation("Responding CreateClearanceRequests notification {NotificationId} with JSON starting {Json} from {RequestUri}", notificationId, clearanceRequestJson[..20], requestUri);
         return TypedResults.Text(clearanceRequestJson);
     }
 
@@ -83,8 +91,10 @@ public static class SimulatorEndpoints
         IStorageService<Movement> movementService,
         IBusService busService,
         CdsSimulatorConfig cdsSimulatorConfig,
+        ILogger logger,
         string notificationId)
     {
+        logger.LogInformation("Processing CreateClearanceRequests notification {NotificationId} from gateway", notificationId);
         var notification = await notificationService.Find(notificationId);
 
         if (notification is null)
@@ -133,6 +143,7 @@ public static class SimulatorEndpoints
             var document = clearanceRequest.Items.First().Documents.First();
             await movementService.Upsert(movement);
             var matchResult = await matchingService.Match(MatchingReferenceNumber.FromCds(document.DocumentReference, document.DocumentCode));
+            logger.LogInformation("Found CreateClearanceRequests notification {NotificationId} with match {Match} from gateway", notificationId, matchResult.Matched);
             return Results.Ok(new { clearanceRequest, matchResult });
         }
 
@@ -148,19 +159,24 @@ public static class SimulatorEndpoints
         IBusService busService,
         CdsSimulatorConfig cdsSimulatorConfig,
         IHttpClientFactory httpClientFactory,
+        ILogger logger,
         string notificationId,
         string scenario)
     {
         if (_gatewayUrl == null)
-            return await SendDecisionsAfterProxyAsync(matchingService, notificationService, movementService, busService, cdsSimulatorConfig, notificationId, scenario);
-        
+            return await SendDecisionsAfterProxyAsync(matchingService, notificationService, movementService, busService, cdsSimulatorConfig, logger, notificationId, scenario);
+
+        var requestUri = $"{_gatewayUrl}/simulator-alvs-cds/send-decisions/{notificationId}/{scenario}";
+        logger.LogInformation("Sending SendDecisions notification {NotificationId} to gateway {RequestUri}", notificationId, requestUri);
         var client = httpClientFactory.CreateClient("proxy");
-        var response = await client.GetAsync($"{_gatewayUrl}/simulator-alvs-cds/send-decisions/{notificationId}/{scenario}");
+        var response = await client.GetAsync(requestUri);
+        logger.LogInformation("Got SendDecisions notification {NotificationId} response {StatusCode} from {RequestUri}", notificationId, response.StatusCode, requestUri);
 
         if (!response.IsSuccessStatusCode) return Results.StatusCode((int)response.StatusCode);
 
-        var clearanceRequest = await response.Content.ReadAsStringAsync();
-        return TypedResults.Text(clearanceRequest);
+        var clearanceRequestJson = await response.Content.ReadAsStringAsync();
+        logger.LogInformation("Responding SendDecisions notification {NotificationId} with JSON starting {Json} from {RequestUri}", notificationId, clearanceRequestJson[..20], requestUri);
+        return TypedResults.Text(clearanceRequestJson);
     }
 
     private static async Task<IResult> SendDecisionsAfterProxyAsync(
@@ -169,9 +185,11 @@ public static class SimulatorEndpoints
         MatchingStorageService<Movement> movementService,
         IBusService busService,
         CdsSimulatorConfig cdsSimulatorConfig,
+        ILogger logger,
         string notificationId,
         string scenario)
     {
+        logger.LogInformation("Processing SendDecisions notification {NotificationId} from gateway", notificationId);
         var notification = await notificationService.Find(notificationId);
 
         if (notification is null)
@@ -246,8 +264,8 @@ public static class SimulatorEndpoints
             var document = clearanceRequest.Items.First().Documents.First();
             await movementService.Upsert(movement);
             var matchResult = await matchingService.Match(MatchingReferenceNumber.FromCds(document.DocumentReference, document.DocumentCode));
+            logger.LogInformation("Found SendDecisions notification {NotificationId} with match {Match} from gateway", notificationId, matchResult.Matched);
             return Results.Ok(new { clearanceRequest, matchResult });
-
         }
 
         await busService.SendMessageAsync(clearanceRequest);
