@@ -1,7 +1,6 @@
-using System.Net.Http.Json;
-using Amazon.Runtime.Internal.Util;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,10 +14,10 @@ using TdmPrototypeBackend.Types.Alvs;
 using TdmPrototypeBackend.Types.Ipaffs;
 using TdmPrototypeCdsSimulator.Config;
 using TdmPrototypeCdsSimulator.Extensions;
-using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace TdmPrototypeCdsSimulator.Endpoints;
 
+public class SimulatorEndpoints2 { }
 public static class SimulatorEndpoints
 {
     private static string? _gatewayUrl;
@@ -66,7 +65,7 @@ public static class SimulatorEndpoints
         IBusService busService,
         CdsSimulatorConfig cdsSimulatorConfig,
         IHttpClientFactory httpClientFactory,
-        ILogger logger,
+        [FromServices] ILogger<SimulatorEndpoints2> logger,
         string notificationId)
     {
         if (_gatewayUrl == null)
@@ -91,7 +90,7 @@ public static class SimulatorEndpoints
         IStorageService<Movement> movementService,
         IBusService busService,
         CdsSimulatorConfig cdsSimulatorConfig,
-        ILogger logger,
+        [FromServices] ILogger<SimulatorEndpoints2> logger,
         string notificationId)
     {
         logger.LogInformation("Processing CreateClearanceRequests notification {NotificationId} from gateway", notificationId);
@@ -159,7 +158,7 @@ public static class SimulatorEndpoints
         IBusService busService,
         CdsSimulatorConfig cdsSimulatorConfig,
         IHttpClientFactory httpClientFactory,
-        ILogger logger,
+        [FromServices] ILogger<SimulatorEndpoints2> logger,
         string notificationId,
         string scenario)
     {
@@ -175,7 +174,7 @@ public static class SimulatorEndpoints
         if (!response.IsSuccessStatusCode) return Results.StatusCode((int)response.StatusCode);
 
         var clearanceRequestJson = await response.Content.ReadAsStringAsync();
-        logger.LogInformation("Responding SendDecisions notification {NotificationId} with JSON starting {Json} from {RequestUri}", notificationId, clearanceRequestJson[..20], requestUri);
+        logger.LogInformation("Responding SendDecisions notification {NotificationId} with JSON starting {Json} from {RequestUri}", notificationId, clearanceRequestJson[..50], requestUri);
         return TypedResults.Text(clearanceRequestJson);
     }
 
@@ -185,7 +184,7 @@ public static class SimulatorEndpoints
         MatchingStorageService<Movement> movementService,
         IBusService busService,
         CdsSimulatorConfig cdsSimulatorConfig,
-        ILogger logger,
+        [FromServices] ILogger<SimulatorEndpoints2> logger,
         string notificationId,
         string scenario)
     {
