@@ -80,7 +80,7 @@ public static class SimulatorEndpoints
         if (!response.IsSuccessStatusCode) return Results.StatusCode((int)response.StatusCode);
 
         var clearanceRequestJson = await response.Content.ReadAsStringAsync();
-        logger.LogInformation("Responding CreateClearanceRequests notification {NotificationId} with JSON starting {Json} from {RequestUri}", notificationId, clearanceRequestJson[..20], requestUri);
+        logger.LogInformation("Responding CreateClearanceRequests notification {NotificationId} from {RequestUri}", notificationId, requestUri);
         return TypedResults.Text(clearanceRequestJson);
     }
 
