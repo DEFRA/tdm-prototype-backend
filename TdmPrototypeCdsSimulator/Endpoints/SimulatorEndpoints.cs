@@ -174,7 +174,7 @@ public static class SimulatorEndpoints
         if (!response.IsSuccessStatusCode) return Results.StatusCode((int)response.StatusCode);
 
         var clearanceRequestJson = await response.Content.ReadAsStringAsync();
-        logger.LogInformation("Responding SendDecisions notification {NotificationId} with JSON starting {Json} from {RequestUri}", notificationId, clearanceRequestJson[..50], requestUri);
+        logger.LogInformation("Responding SendDecisions notification {NotificationId} from {RequestUri}", notificationId, requestUri);
         return TypedResults.Text(clearanceRequestJson);
     }
 
