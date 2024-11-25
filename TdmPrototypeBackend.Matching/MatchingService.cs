@@ -1,6 +1,9 @@
+using System.Reflection.Metadata;
 using MongoDB.Driver;
 using TdmPrototypeBackend.Types;
+using TdmPrototypeBackend.Types.Alvs;
 using TdmPrototypeBackend.Types.Ipaffs;
+using Document = TdmPrototypeBackend.Types.Alvs.Document;
 using RelationshipLinks = TdmPrototypeBackend.Types.RelationshipLinks;
 
 namespace TdmPrototypeBackend.Matching
@@ -119,8 +122,17 @@ namespace TdmPrototypeBackend.Matching
 
         public async Task<MatchResult> Match(MatchingReferenceNumber matchingReferenceNumber)
         {
-            await notificationService.DefineIndexesIfNotPresentAsync(notificationService.IndexBuilder.Text(x => x._MatchReference));
-            await movementService.DefineIndexesIfNotPresentAsync(movementService.IndexBuilder.Text(x => x._MatchReferences));
+            await notificationService.DefineIndexesIfNotPresentAsync(
+                notificationService.IndexBuilder.Ascending("_matchReferences"), 
+                notificationService.IndexBuilder.Ascending("referenceNumber"), 
+                notificationService.IndexBuilder.Ascending("type"));
+            await movementService.DefineIndexesIfNotPresentAsync(
+                movementService.IndexBuilder.Ascending("_matchReferences"), 
+                // movementService.IndexBuilder.Ascending(x => x._MatchReferences), 
+                // movementService.IndexBuilder.Ascending(x => $"{nameof(x.Items)}.{nameof(Items.Documents)}.{nameof(Document.DocumentReference)}"), 
+                // movementService.IndexBuilder.Ascending(x => $"{nameof(x.Items)}.{nameof(Items.Documents)}.{nameof(Document.DocumentCode)}"), 
+                movementService.IndexBuilder.Ascending("items.documents.documentReference"), 
+                movementService.IndexBuilder.Ascending("items.documents.documentStatus"));
             
             var cdsResult = await MatchCds(matchingReferenceNumber.Identifier);
             var notificationResult = await MatchNotification(matchingReferenceNumber.Identifier);
