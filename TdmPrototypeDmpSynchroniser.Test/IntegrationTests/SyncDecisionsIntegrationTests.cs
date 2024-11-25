@@ -1,20 +1,9 @@
 using FluentAssertions;
-using FluentAssertions.Common;
-using JsonApiDotNetCore.MongoDb.Resources;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
-using MongoDB.Bson;
-using MongoDB.Driver;
 using Moq;
 using TdmPrototypeBackend.Storage;
-using TdmPrototypeBackend.Storage.Mongo;
 using TdmPrototypeBackend.Types;
 using TdmPrototypeBackend.Types.Ipaffs;
-using TdmPrototypeBackend.Types.VehicleMovement;
-using TdmPrototypeDmpSynchroniser.Api.Config;
-using TdmPrototypeDmpSynchroniser.Api.Models;
 using TdmPrototypeDmpSynchroniser.Api.Services;
 using Xunit.Abstractions;
 

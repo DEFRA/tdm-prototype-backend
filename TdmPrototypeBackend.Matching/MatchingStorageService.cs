@@ -20,7 +20,7 @@ public class MatchingStorageService<T> : MongoService<T>, IStorageService<T> whe
     {
         try
         {
-            Logger.LogInformation("Upsert to MongoDB");
+            Logger.LogInformation("Upsert to MongoDB: {Id}", item.Id);
 
             await Collection.ReplaceOneAsync(
                 filter: new BsonDocument("_id", item.Id),
@@ -29,7 +29,7 @@ public class MatchingStorageService<T> : MongoService<T>, IStorageService<T> whe
         }
         catch (Exception ex)
         {
-            Logger.LogError(ex.ToString());
+            Logger.LogError(ex,"Error Upserting in Matching Storage");
             throw;
         }
 
@@ -39,29 +39,29 @@ public class MatchingStorageService<T> : MongoService<T>, IStorageService<T> whe
     {
         try
         {
-            Logger.LogInformation("Upsert to MongoDB");
+            Logger.LogInformation("Find in MongoDB: {Id}", id);
             var filter = Builders<T>.Filter.Eq(new StringFieldDefinition<T, string>("_id"), id);
 
             return await Collection.Find(filter).FirstOrDefaultAsync();
         }
         catch (Exception ex)
         {
-            Logger.LogError(ex.ToString());
+            Logger.LogError(ex,"Error Finding in Matching Storage");
             throw;
         }
 
     }
 
-    public Task<List<T>> Pipeline(PipelineDefinition<T, T> pipeline)
+    public Task<List<T>> Aggregate(PipelineDefinition<T, T> pipeline)
     {
         try
         {
-
+            Logger.LogInformation("Aggregate in MongoDB: {Json}", pipeline.ToJson());
             return Collection.Aggregate(pipeline).ToListAsync();
         }
         catch (Exception ex)
         {
-            Logger.LogError(ex.ToString());
+            Logger.LogError(ex,"Error Aggregating in Matching Storage");
             throw;
         }
 
@@ -71,12 +71,12 @@ public class MatchingStorageService<T> : MongoService<T>, IStorageService<T> whe
     {
         try
         {
-
+            Logger.LogInformation("Filter MongoDB: {Json}", pipeline.ToJson());
             return Collection.FindSync(pipeline).ToListAsync();
         }
         catch (Exception ex)
         {
-            Logger.LogError(ex.ToString());
+            Logger.LogError(ex,"Error Filtering in Matching Storage");
             throw;
         }
 
