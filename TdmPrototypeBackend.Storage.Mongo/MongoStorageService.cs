@@ -11,7 +11,7 @@ public class MongoStorageService<T> : MongoService<T>, IStorageService<T> where 
     public MongoStorageService(IMongoDbClientFactory connectionFactory, ILoggerFactory loggerFactory,  MongoDbOptions<T> options)
         : base(connectionFactory, options.CollectionName, loggerFactory)
     {
-        Logger.LogInformation($"Connecting {options.CollectionName} to MongoDB");
+        Logger.LogInformation("Connecting {OptionsCollectionName} to MongoDB", options.CollectionName);
     }
 
     public async Task Upsert(T item)
@@ -30,7 +30,6 @@ public class MongoStorageService<T> : MongoService<T>, IStorageService<T> where 
             Logger.LogError(ex,"Error Upserting in Mongo Storage");
             throw;
         }
-
     }
 
     public async Task<T> Find(string id)
@@ -47,14 +46,13 @@ public class MongoStorageService<T> : MongoService<T>, IStorageService<T> where 
             Logger.LogError(ex,"Error Finding in Mongo Storage");
             throw;
         }
-
     }
 
     public Task<List<T>> Aggregate(PipelineDefinition<T, T> pipeline)
     {
         try
         {
-            Logger.LogInformation("Aggregate in MongoDB: {Json}", pipeline.ToJson());
+            Logger.LogInformation("Aggregate in MongoDB");
             return Collection.Aggregate(pipeline).ToListAsync();
         }
         catch (Exception ex)
@@ -62,14 +60,13 @@ public class MongoStorageService<T> : MongoService<T>, IStorageService<T> where 
             Logger.LogError(ex,"Error Aggregating in Mongo Storage");
             throw;
         }
-
     }
 
     public Task<List<T>> Filter(FilterDefinition<T> pipeline)
     {
         try
         {
-            Logger.LogInformation("Filter MongoDB: {Json}", pipeline.ToJson());
+            Logger.LogInformation("Filter MongoDB");
             return Collection.FindSync(pipeline).ToListAsync();
         }
         catch (Exception ex)
@@ -77,11 +74,5 @@ public class MongoStorageService<T> : MongoService<T>, IStorageService<T> where 
             Logger.LogError(ex,"Error Filtering in Mongo Storage");
             throw;
         }
-
-    }
-
-    protected override List<CreateIndexModel<T>> DefineIndexes(IndexKeysDefinitionBuilder<T> builder)
-    {
-        return new List<CreateIndexModel<T>>();
     }
 }

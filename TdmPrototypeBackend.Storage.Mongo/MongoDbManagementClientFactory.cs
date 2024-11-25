@@ -20,7 +20,7 @@ public class MongoDbManagementClientFactory(
         try
         {
             var collections = await GetCollections();
-            logger.LogInformation($"Dropping collections {collections}");
+            logger.LogInformation("Dropping collections {Collections}", collections);
             collections.ForEach(c => MongoDatabase.DropCollection(c));
         }
         catch (Exception e)
@@ -28,7 +28,5 @@ public class MongoDbManagementClientFactory(
             Console.WriteLine(e);
             throw;
         }
-
-
     }
 }

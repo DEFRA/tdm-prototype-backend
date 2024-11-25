@@ -12,16 +12,11 @@ public class MongoHelperService<T> : MongoService<T> where T : class, IMongoIden
     public MongoHelperService(IMongoDbClientFactory connectionFactory, ILoggerFactory loggerFactory, SynchroniserConfig config, MongoDbOptions<T> options)
         : base(connectionFactory, options.CollectionName, loggerFactory)
     {
-        Logger.LogInformation($"Connecting {options.CollectionName} to MongoDB");
+        Logger.LogInformation("Connecting {OptionsCollectionName} to MongoDB", options.CollectionName);
     }
 
     public Task ClearCollection()
     {
         return Collection.DeleteManyAsync(FilterDefinition<T>.Empty);
-    }
-
-    protected override List<CreateIndexModel<T>> DefineIndexes(IndexKeysDefinitionBuilder<T> builder)
-    {
-        return new List<CreateIndexModel<T>>();
     }
 }

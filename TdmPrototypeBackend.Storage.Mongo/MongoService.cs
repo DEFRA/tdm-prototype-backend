@@ -14,22 +14,18 @@ public abstract class MongoService<T>
         Collection = connectionFactory.GetCollection<T>(collectionName);
         var loggerName = GetType().FullName ?? GetType().Name;
         Logger = loggerFactory.CreateLogger(loggerName);
-        EnsureIndexes();
     }
 
-    protected abstract List<CreateIndexModel<T>> DefineIndexes(IndexKeysDefinitionBuilder<T> builder);
+    public IndexKeysDefinitionBuilder<T> IndexBuilder => Builders<T>.IndexKeys;
 
-    private IEnumerable<string?> EnsureIndexes()
+    public async Task DefineIndexesIfNotPresentAsync(params IndexKeysDefinition<T>[] definedKeys)
     {
-        var builder = Builders<T>.IndexKeys;
-        var indexes = DefineIndexes(builder);
-        if (indexes.Count == 0) return [];
+        var indexes = definedKeys.Select(keys => new CreateIndexModel<T>(keys));
+        await Collection.Indexes.CreateManyAsync(indexes);
 
         Logger.LogInformation(
             "Ensuring index is created if it does not exist for collection {CollectionNamespaceCollectionName} in DB {DatabaseDatabaseNamespace}",
             Collection.CollectionNamespace.CollectionName,
             Collection.Database.DatabaseNamespace);
-        var result = Collection.Indexes.CreateMany(indexes);
-        return result;
     }
 }

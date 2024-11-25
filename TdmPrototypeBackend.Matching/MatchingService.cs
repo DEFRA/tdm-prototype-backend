@@ -16,8 +16,7 @@ namespace TdmPrototypeBackend.Matching
             if (movement == null) return new MatchResult(false);
            
             var builder = Builders<Notification>.Filter;
-            var filter = builder.Eq(x => x._MatchReference, matchReference);
-            var notifications = await notificationService.Filter(filter);
+            var notifications = await notificationService.Filter(builder.Eq(x => x._MatchReference, matchReference));
 
             foreach (var notification in notifications)
             {
@@ -120,6 +119,9 @@ namespace TdmPrototypeBackend.Matching
 
         public async Task<MatchResult> Match(MatchingReferenceNumber matchingReferenceNumber)
         {
+            await notificationService.DefineIndexesIfNotPresentAsync(notificationService.IndexBuilder.Text(x => x._MatchReference));
+            await movementService.DefineIndexesIfNotPresentAsync(movementService.IndexBuilder.Text(x => x._MatchReferences));
+            
             var cdsResult = await MatchCds(matchingReferenceNumber.Identifier);
             var notificationResult = await MatchNotification(matchingReferenceNumber.Identifier);
 
