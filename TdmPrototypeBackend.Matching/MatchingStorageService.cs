@@ -1,4 +1,5 @@
-﻿using JsonApiDotNetCore.MongoDb.Resources;
+﻿using System.Diagnostics;
+using JsonApiDotNetCore.MongoDb.Resources;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -68,7 +69,10 @@ public class MatchingStorageService<T> : MongoService<T>, IStorageService<T> whe
         try
         {
             Logger.LogInformation("Filter MongoDB");
-            return Collection.FindSync(pipeline).ToListAsync();
+            var stopwatch = Stopwatch.StartNew();
+            var result = Collection.FindSync(pipeline).ToListAsync();
+            Logger.LogInformation("Filter MongoDB took {Elapsed} ms", stopwatch.Elapsed.TotalMilliseconds.ToString("N1"));
+            return result;
         }
         catch (Exception ex)
         {
