@@ -99,6 +99,7 @@ public partial class Notification : IMongoIdentifiable
 
     private string _referenceNumber;
     private IpaffsNotificationTypeEnum? _ipaffsType;
+    private int? _matchReference;
 
     /// <summary>
     /// Reference number of the notification
@@ -113,7 +114,8 @@ public partial class Notification : IMongoIdentifiable
         set
         {
             _referenceNumber = value;
-            if (_ipaffsType.HasValue && _referenceNumber != null) _MatchReference = MatchingReferenceNumber.FromIpaffs(ReferenceNumber, IpaffsType.Value).Identifier;
+            if (_matchReference == null && _ipaffsType.HasValue && _referenceNumber != null) 
+                _MatchReference = MatchingReferenceNumber.FromIpaffs(ReferenceNumber, IpaffsType.Value).Identifier;
         }
     }
 
@@ -130,12 +132,17 @@ public partial class Notification : IMongoIdentifiable
         set
         {
             _ipaffsType = value;
-            if (_ipaffsType.HasValue && _referenceNumber != null) _MatchReference = MatchingReferenceNumber.FromIpaffs(ReferenceNumber, IpaffsType.Value).Identifier;
+            if (_matchReference == null && _ipaffsType.HasValue && _referenceNumber != null) 
+                _MatchReference = MatchingReferenceNumber.FromIpaffs(ReferenceNumber, IpaffsType.Value).Identifier;
         }
     }
 
     [BsonElement("_matchReferences")]
-    public int _MatchReference { get; set; }
+    public int _MatchReference
+    {
+        get => _matchReference ?? 0;
+        set => _matchReference = value;
+    }
 
     public void ClearRelationships()
     {
