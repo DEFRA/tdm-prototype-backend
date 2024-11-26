@@ -10,6 +10,8 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
 
 public partial class Notification : IMongoIdentifiable
 {
+    private int? _matchReference;
+
     //// This field is used by the jsonapi-consumer to control the correct casing in the type field
      [JsonIgnore]
     public string Type { get; set; } = "notifications";
@@ -97,50 +99,17 @@ public partial class Notification : IMongoIdentifiable
         }
     }
 
-    private string _referenceNumber;
-    private IpaffsNotificationTypeEnum? _ipaffsType;
-    private int? _matchReference;
-
-    /// <summary>
-    /// Reference number of the notification
-    /// </summary
-    [Attr]
-    [JsonPropertyName("referenceNumber")]
-    [System.ComponentModel.Description("Reference number of the notification")]
-    [BsonIgnore]
-    public string? ReferenceNumber
-    {
-        get => _referenceNumber;
-        set
-        {
-            _referenceNumber = value;
-            if (_matchReference == null && _ipaffsType.HasValue && _referenceNumber != null) 
-                _MatchReference = MatchingReferenceNumber.FromIpaffs(ReferenceNumber, IpaffsType.Value).Identifier;
-        }
-    }
-
-    /// <summary>
-    /// The Type of notification that has been submitted
-    /// </summary
-    [Attr]
-    [JsonPropertyName("type")]
-    [System.ComponentModel.Description("The Type of notification that has been submitted")]
-    [BsonRepresentation(MongoDB.Bson.BsonType.String)]
-    public IpaffsNotificationTypeEnum? IpaffsType
-    {
-        get => _ipaffsType;
-        set
-        {
-            _ipaffsType = value;
-            if (_matchReference == null && _ipaffsType.HasValue && _referenceNumber != null) 
-                _MatchReference = MatchingReferenceNumber.FromIpaffs(ReferenceNumber, IpaffsType.Value).Identifier;
-        }
-    }
-
     [BsonElement("_matchReferences")]
     public int _MatchReference
     {
-        get => _matchReference ?? 0;
+        get
+        {
+            if (_matchReference is null)
+            {
+                _matchReference = MatchingReferenceNumber.FromIpaffs(ReferenceNumber, IpaffsType.Value).Identifier;
+            }
+            return _matchReference.Value;
+        }
         set => _matchReference = value;
     }
 

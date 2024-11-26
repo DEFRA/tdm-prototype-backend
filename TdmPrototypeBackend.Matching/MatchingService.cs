@@ -14,7 +14,7 @@ namespace TdmPrototypeBackend.Matching
             var movements = await movementService.Filter(Builders<Movement>.Filter.AnyIn(x => x._MatchReferences, [matchReference]));
             var movement = movements.FirstOrDefault();
             if (movement == null) return new MatchResult(false);
-           
+
             var builder = Builders<Notification>.Filter;
             var notifications = await notificationService.Filter(builder.Eq(x => x._MatchReference, matchReference));
 

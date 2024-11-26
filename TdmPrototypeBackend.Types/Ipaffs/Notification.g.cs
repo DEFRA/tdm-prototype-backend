@@ -77,7 +77,25 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     public IpaffsUserInformation? LastUpdatedBy { get; set; }
 
 
-	
+    /// <summary>
+    /// Reference number of the notification
+    /// </summary
+    [Attr]
+    [JsonPropertyName("referenceNumber")]
+    [System.ComponentModel.Description("Reference number of the notification")]
+    [MongoDB.Bson.Serialization.Attributes.BsonIgnore]
+    public string? ReferenceNumber { get; set; }
+
+    /// <summary>
+    /// The Type of notification that has been submitted
+    /// </summary
+    [Attr]
+    [JsonPropertyName("type")]
+    [System.ComponentModel.Description("The Type of notification that has been submitted")]
+    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
+    public IpaffsNotificationTypeEnum? IpaffsType { get; set; }
+
+
     /// <summary>
     /// Reference number of notification that was replaced by this one
     /// </summary
