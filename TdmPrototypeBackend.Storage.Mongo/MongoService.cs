@@ -18,10 +18,10 @@ public abstract class MongoService<T>
 
     public IndexKeysDefinitionBuilder<T> IndexBuilder => Builders<T>.IndexKeys;
 
-    public void DefineIndexesIfNotPresent(params IndexKeysDefinition<T>[] definedKeys)
+    public async Task DefineIndexesIfNotPresentAsync(params IndexKeysDefinition<T>[] definedKeys)
     {
         var indexes = definedKeys.Select(keys => new CreateIndexModel<T>(keys));
-        Collection.Indexes.CreateMany(indexes);
+        await Collection.Indexes.CreateManyAsync(indexes);
 
         Logger.LogInformation(
             "Ensuring index is created if it does not exist for collection {CollectionNamespaceCollectionName} in DB {DatabaseDatabaseNamespace}",

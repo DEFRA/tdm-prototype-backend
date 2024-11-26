@@ -5,28 +5,18 @@ using RelationshipLinks = TdmPrototypeBackend.Types.RelationshipLinks;
 
 namespace TdmPrototypeBackend.Matching
 {
-    public class MatchingService : IMatchingService
+    public class MatchingService(
+        MatchingStorageService<Notification> notificationService,
+        MatchingStorageService<Movement> movementService) : IMatchingService
     {
-        private readonly MatchingStorageService<Notification> _notificationService;
-        private readonly MatchingStorageService<Movement> _movementService;
-
-        public MatchingService(MatchingStorageService<Notification> notificationService, MatchingStorageService<Movement> movementService)
-        {
-            _notificationService = notificationService;
-            _movementService = movementService;
-            
-            _notificationService.DefineIndexesIfNotPresent(_notificationService.IndexBuilder.Ascending(x => x._MatchReference));
-            _movementService.DefineIndexesIfNotPresent(_movementService.IndexBuilder.Ascending(x => x._MatchReferences));
-        }
-
         public async Task<MatchResult> MatchNotification(int matchReference)
         {
-            var movements = await _movementService.Filter(Builders<Movement>.Filter.AnyIn(x => x._MatchReferences, [matchReference]));
+            var movements = await movementService.Filter(Builders<Movement>.Filter.AnyIn(x => x._MatchReferences, [matchReference]));
             var movement = movements.FirstOrDefault();
             if (movement == null) return new MatchResult(false);
            
             var builder = Builders<Notification>.Filter;
-            var notifications = await _notificationService.Filter(builder.Eq(x => x._MatchReference, matchReference));
+            var notifications = await notificationService.Filter(builder.Eq(x => x._MatchReference, matchReference));
 
             foreach (var notification in notifications)
             {
@@ -64,7 +54,7 @@ namespace TdmPrototypeBackend.Matching
                 var auditEntry = AuditEntry.CreateMatch(movement.Id, notification.Version.GetValueOrDefault(), notification.LastUpdated);
                 notification.Update(auditEntry);
 
-                await _notificationService.Upsert(notification);
+                await notificationService.Upsert(notification);
             }
 
             return new MatchResult(notifications.All(x => x.Relationships.Movements.Matched));
@@ -73,12 +63,12 @@ namespace TdmPrototypeBackend.Matching
 
         public async Task<MatchResult> MatchCds(int matchReference)
         {
-            var notifications = await _notificationService.Filter(Builders<Notification>.Filter.Eq(x => x._MatchReference, matchReference));
+            var notifications = await notificationService.Filter(Builders<Notification>.Filter.Eq(x => x._MatchReference, matchReference));
             var notification = notifications.FirstOrDefault();
             if (notification == null) return new MatchResult(false);
 
             var filter = Builders<Movement>.Filter.AnyIn(x => x._MatchReferences, [matchReference]);
-            var movements = await _movementService.Filter(filter);
+            var movements = await movementService.Filter(filter);
 
             foreach (var movement in movements)
             {
@@ -120,7 +110,7 @@ namespace TdmPrototypeBackend.Matching
                 var auditEntry = AuditEntry.CreateMatch(notification.Id, movement.ClearanceRequests.First().Header.EntryVersionNumber.GetValueOrDefault(), movement.LastUpdated);
                 movement.Update(auditEntry);
 
-                await _movementService.Upsert(movement);
+                await movementService.Upsert(movement);
             }
 
             return new MatchResult(movements.All(x => x.Relationships.Notifications.Matched));
@@ -129,6 +119,9 @@ namespace TdmPrototypeBackend.Matching
 
         public async Task<MatchResult> Match(MatchingReferenceNumber matchingReferenceNumber)
         {
+            await notificationService.DefineIndexesIfNotPresentAsync(notificationService.IndexBuilder.Ascending(x => x._MatchReference));
+            await movementService.DefineIndexesIfNotPresentAsync(movementService.IndexBuilder.Ascending(x => x._MatchReferences));
+            
             var cdsResult = await MatchCds(matchingReferenceNumber.Identifier);
             var notificationResult = await MatchNotification(matchingReferenceNumber.Identifier);
 
