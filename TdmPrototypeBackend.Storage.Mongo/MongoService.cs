@@ -9,11 +9,10 @@ public abstract class MongoService<T>
 
     protected readonly ILogger Logger;
 
-    protected MongoService(IMongoDbClientFactory connectionFactory, string collectionName, ILoggerFactory loggerFactory)
+    protected MongoService(IMongoDbClientFactory connectionFactory, string collectionName, ILogger<T> logger)
     {
         Collection = connectionFactory.GetCollection<T>(collectionName);
-        var loggerName = GetType().FullName ?? GetType().Name;
-        Logger = loggerFactory.CreateLogger(loggerName);
+        Logger = logger;
     }
 
     public IndexKeysDefinitionBuilder<T> IndexBuilder => Builders<T>.IndexKeys;

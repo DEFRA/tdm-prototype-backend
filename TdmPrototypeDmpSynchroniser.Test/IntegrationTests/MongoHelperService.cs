@@ -9,8 +9,8 @@ namespace TdmPrototypeDmpSynchroniser.Test.IntegrationTests;
 public class MongoHelperService<T> : MongoService<T> where T : class, IMongoIdentifiable
 {
 
-    public MongoHelperService(IMongoDbClientFactory connectionFactory, ILoggerFactory loggerFactory, SynchroniserConfig config, MongoDbOptions<T> options)
-        : base(connectionFactory, options.CollectionName, loggerFactory)
+    public MongoHelperService(IMongoDbClientFactory connectionFactory, ILogger<T> logger, SynchroniserConfig config, MongoDbOptions<T> options)
+        : base(connectionFactory, options.CollectionName, logger)
     {
         Logger.LogInformation("Connecting {OptionsCollectionName} to MongoDB", options.CollectionName);
     }

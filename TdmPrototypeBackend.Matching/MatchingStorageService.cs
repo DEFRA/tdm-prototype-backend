@@ -10,8 +10,8 @@ namespace TdmPrototypeBackend.Matching;
 
 public class MatchingStorageService<T> : MongoService<T>, IStorageService<T> where T : class, IMongoIdentifiable
 {
-    public MatchingStorageService(IMongoDbClientFactory connectionFactory, ILoggerFactory loggerFactory, MongoDbOptions<T> options)
-        : base(connectionFactory, options.CollectionName, loggerFactory)
+    public MatchingStorageService(IMongoDbClientFactory connectionFactory, ILogger<T> logger, MongoDbOptions<T> options)
+        : base(connectionFactory, options.CollectionName, logger)
     {
         Logger.LogInformation("Connecting {OptionsCollectionName} to MongoDB", options.CollectionName);
     }
