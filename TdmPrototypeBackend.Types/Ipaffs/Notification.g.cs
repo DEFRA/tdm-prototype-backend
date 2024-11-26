@@ -49,17 +49,7 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     [System.ComponentModel.Description("List of external references, which relate to downstream services")]
     public IpaffsExternalReference[]? ExternalReferences { get; set; }
 
-	
-    /// <summary>
-    /// Reference number of the notification
-    /// </summary
-    [Attr]
-    [JsonPropertyName("referenceNumber")]
-    [System.ComponentModel.Description("Reference number of the notification")]
-    [MongoDB.Bson.Serialization.Attributes.BsonIgnore]
-    public string? ReferenceNumber { get; set; }
 
-	
     /// <summary>
     /// Current version of the notification
     /// </summary
@@ -86,15 +76,6 @@ namespace TdmPrototypeBackend.Types.Ipaffs;
     [System.ComponentModel.Description("User entity whose update was last")]
     public IpaffsUserInformation? LastUpdatedBy { get; set; }
 
-	
-    /// <summary>
-    /// The Type of notification that has been submitted
-    /// </summary
-    [Attr]
-    [JsonPropertyName("type")]
-    [System.ComponentModel.Description("The Type of notification that has been submitted")]
-    [MongoDB.Bson.Serialization.Attributes.BsonRepresentation(MongoDB.Bson.BsonType.String)]
-    public IpaffsNotificationTypeEnum? IpaffsType { get; set; }
 
 	
     /// <summary>

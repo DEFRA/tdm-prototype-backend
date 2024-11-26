@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using JsonApiDotNetCore.MongoDb.Resources;
 using Microsoft.Extensions.Logging;
 using MongoDB.Bson;
@@ -18,16 +19,16 @@ public class MongoStorageService<T> : MongoService<T>, IStorageService<T> where 
     {
         try
         {
-            Logger.LogInformation("Upsert to MongoDB: {Id}", item.Id);
-            
+            var stopwatch = Stopwatch.StartNew();
             await Collection.ReplaceOneAsync( 
                 filter: new BsonDocument("_id", item.Id),
                 options: new ReplaceOptions() {IsUpsert = true},
                 replacement: item);
+            Logger.LogInformation("Upsert MongoDB in Mongo Storage took {Elapsed} ms", stopwatch.Elapsed.TotalMilliseconds.ToString("N3"));
         }
         catch (Exception ex)
         {
-            Logger.LogError(ex,"Error Upserting in Mongo Storage");
+            Logger.LogError(ex,"Upsert MongoDB Error in Mongo Storage");
             throw;
         }
     }
@@ -36,14 +37,16 @@ public class MongoStorageService<T> : MongoService<T>, IStorageService<T> where 
     {
         try
         {
-            Logger.LogInformation("Find in MongoDB: {Id}", id);
             var filter = Builders<T>.Filter.Eq(new StringFieldDefinition<T, string>("_id"), id);
 
-            return await Collection.Find(filter).FirstOrDefaultAsync();
+            var stopwatch = Stopwatch.StartNew();
+            var result = await Collection.Find(filter).FirstOrDefaultAsync();
+            Logger.LogInformation("Find MongoDB in Mongo Storage took {Elapsed} ms", stopwatch.Elapsed.TotalMilliseconds.ToString("N3"));
+            return result;
         }
         catch (Exception ex)
         {
-            Logger.LogError(ex,"Error Finding in Mongo Storage");
+            Logger.LogError(ex,"Find MongoDB Error in Mongo Storage");
             throw;
         }
     }
@@ -52,12 +55,14 @@ public class MongoStorageService<T> : MongoService<T>, IStorageService<T> where 
     {
         try
         {
-            Logger.LogInformation("Aggregate in MongoDB");
-            return Collection.Aggregate(pipeline).ToListAsync();
+            var stopwatch = Stopwatch.StartNew();
+            var result = Collection.Aggregate(pipeline).ToListAsync();
+            Logger.LogInformation("Aggregate MongoDB in Mongo Storage took {Elapsed} ms", stopwatch.Elapsed.TotalMilliseconds.ToString("N3"));
+            return result;
         }
         catch (Exception ex)
         {
-            Logger.LogError(ex,"Error Aggregating in Mongo Storage");
+            Logger.LogError(ex,"Aggregate MongoDB Error in Mongo Storage");
             throw;
         }
     }
@@ -66,12 +71,14 @@ public class MongoStorageService<T> : MongoService<T>, IStorageService<T> where 
     {
         try
         {
-            Logger.LogInformation("Filter MongoDB");
-            return Collection.FindSync(pipeline).ToListAsync();
+            var stopwatch = Stopwatch.StartNew();
+            var result = Collection.FindSync(pipeline).ToListAsync();
+            Logger.LogInformation("Filter MongoDB in Matching Storage took {Elapsed} ms", stopwatch.Elapsed.TotalMilliseconds.ToString("N3"));
+            return result;
         }
         catch (Exception ex)
         {
-            Logger.LogError(ex,"Error Filtering in Mongo Storage");
+            Logger.LogError(ex,"Filter MongoDB Error in Mongo Storage");
             throw;
         }
     }

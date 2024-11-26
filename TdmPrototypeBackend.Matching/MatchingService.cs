@@ -122,17 +122,12 @@ namespace TdmPrototypeBackend.Matching
 
         public async Task<MatchResult> Match(MatchingReferenceNumber matchingReferenceNumber)
         {
-            await notificationService.DefineIndexesIfNotPresentAsync(
-                notificationService.IndexBuilder.Ascending("_matchReferences"), 
-                notificationService.IndexBuilder.Ascending("referenceNumber"), 
-                notificationService.IndexBuilder.Ascending("type"));
-            await movementService.DefineIndexesIfNotPresentAsync(
-                movementService.IndexBuilder.Ascending("_matchReferences"), 
-                // movementService.IndexBuilder.Ascending(x => x._MatchReferences), 
+            await notificationService.DefineIndexesIfNotPresentAsync(notificationService.IndexBuilder.Ascending(x => x._MatchReference));
+            await movementService.DefineIndexesIfNotPresentAsync(movementService.IndexBuilder.Ascending(x => x._MatchReferences));
                 // movementService.IndexBuilder.Ascending(x => $"{nameof(x.Items)}.{nameof(Items.Documents)}.{nameof(Document.DocumentReference)}"), 
                 // movementService.IndexBuilder.Ascending(x => $"{nameof(x.Items)}.{nameof(Items.Documents)}.{nameof(Document.DocumentCode)}"), 
-                movementService.IndexBuilder.Ascending("items.documents.documentReference"), 
-                movementService.IndexBuilder.Ascending("items.documents.documentStatus"));
+                // movementService.IndexBuilder.Ascending("items.documents.documentReference"), 
+                // movementService.IndexBuilder.Ascending("items.documents.documentStatus"));
             
             var cdsResult = await MatchCds(matchingReferenceNumber.Identifier);
             var notificationResult = await MatchNotification(matchingReferenceNumber.Identifier);
